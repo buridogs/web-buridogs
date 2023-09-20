@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WEB - Buridogs
 
-## Getting Started
+## 🐶 Sobre o repositório
 
-First, run the development server:
+Trata-se do repositório para abranger a parte web do projeto do Buridogs.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun run dev
+Inicialmente teremos as seguintes funcionalidades no projeto:
+
+> Setembro/2023
+
+1. Listagem dos finais felizes dos cachorros já adotados.
+2. Listagem dos parceiros (PJ que mais apoiam).
+3. Listagem dos Buriamigos (PF que mais apoiam), podendo ser filtrado por período (mês e ano).
+4. Listagem dos cachorros disponíveis para adoção. Teremos uma seção com os animais especiais, para facilitar na divulgação.
+5. Formulário de interesse dos usuários para adoção de um cachorro.
+6. Listagem dos momentos marcantes da associação, assim como a sua história até então.
+7. Formulário de contato
+
+## ⛏ Tecnologias Utilizadas
+
+No projeto utilizou-se:
+
+- **Typescript** para escrita do código com tipagem estática
+- **NextJs** como framework serverside para criação das interfaces
+
+## 🖥 Como rodar o projeto
+
+Primeiramente, no terminal instale as dependências do projeto com
+
+```
+yarn
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Após a instalação das dependências, a pasta node_modules será criada. Agora escreva
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+para iniciar a aplicação no endereço _[http://localhost:3000/](http://localhost:3000/)_.
 
-## Learn More
+Já para buildar a aplicação, escreva no terminal
 
-To learn more about Next.js, take a look at the following resources:
+```
+yarn build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+e para rodar o build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+yarn start
+```
 
-## Deploy on Vercel
+## 🎨 Considerações finais
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+O projeto conta com voluntários de tecnologia e possui um roadmap traçado com algumas funcionalidades que serão implementadas no decorrer do tempo.
