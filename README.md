@@ -31,7 +31,7 @@ Primeiramente, no terminal instale as dependências do projeto com
 yarn
 ```
 
-Após a instalação das dependências, a pasta node_modules será criada. Agora escreva
+Após a instalação das dependências, a pasta _node_modules_ será criada. Agora escreva
 
 ```
 yarn dev
