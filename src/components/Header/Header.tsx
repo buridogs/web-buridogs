@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { HeaderMobile } from "./HeaderMobile";
 import { headerMenuLink } from "./utils";
-import logoBuridogs from "../../../public/static/images/logo-buridogs.png";
 
 export function Header() {
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -21,7 +20,7 @@ export function Header() {
             <section className="max-w-screen-xl flex justify-between items-center m-auto">
                 <Link href="/">
                     <Image
-                        src={logoBuridogs}
+                        src="/logo-buridogs.png"
                         alt="Buridogs logo"
                         width={150}
                         height={40}
