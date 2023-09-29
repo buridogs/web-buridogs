@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
 import { FaRegHandshake } from "react-icons/fa6";
-import diogoVolunteer from "../../../public/images/voluntario-diogo.png";
-import joaoVolunteer from "../../../public/images/voluntario-joao.png";
+import diogoVolunteer from "../../../public/static/images/voluntario-diogo.png";
+import joaoVolunteer from "../../../public/static/images/voluntario-joao.png";
 
 interface ModalProps {
     setIsOpen: Dispatch<SetStateAction<boolean>>;

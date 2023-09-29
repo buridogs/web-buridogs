@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { HeaderMobile } from "./HeaderMobile";
 import { headerMenuLink } from "./utils";
-import logoBuridogs from "../../../public/images/logo-buridogs.png";
+import logoBuridogs from "../../../public/static/images/logo-buridogs.png";
 
 export function Header() {
     const [isNavOpen, setIsNavOpen] = useState(false);
