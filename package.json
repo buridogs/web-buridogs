@@ -4,11 +4,10 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
+        "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
         "start": "next start",
         "lint": "next lint",
-        "prepare": "npx husky install",
-        "deploy": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/"
+        "prepare": "npx husky install"
     },
     "dependencies": {
         "@types/node": "20.6.2",
