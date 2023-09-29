@@ -7,7 +7,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "prepare": "npx husky install"
+        "prepare": "npx husky install",
+        "deploy": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/"
     },
     "dependencies": {
         "@types/node": "20.6.2",
