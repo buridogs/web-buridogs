@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
 import { FaRegHandshake } from "react-icons/fa6";
+import diogoVolunteer from "../../../public/images/voluntario-diogo.png";
+import joaoVolunteer from "../../../public/images/voluntario-joao.png";
 
 interface ModalProps {
     setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -20,14 +22,17 @@ export function Modal({ setIsOpen }: ModalProps) {
                 <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                     <div className="w-[320px] relative transform overflow-hidden rounded-lg bg-primary-100  text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                         <div className="bg-primary-100  px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                            <div className="sm:flex sm:items-start">
-                                <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary-700 sm:mx-0 sm:h-10 sm:w-10">
-                                    <FaRegHandshake color="white" />
+                            <div className="flex flex-col items-center">
+                                <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary-700 sm:mx-0 sm:h-16 sm:w-16">
+                                    <FaRegHandshake
+                                        color="white"
+                                        size={40}
+                                    />
                                 </div>
-                                <div className="mt-3 flex justify-evenly">
+                                <div className="w-[80%] mt-3 flex justify-evenly">
                                     <div className="bg-white flex flex-col justify-center items-center px-4 py-4 border-[1.5px] border-solid border-primary-100 rounded-lg">
                                         <Image
-                                            src="/images/voluntario-diogo.png"
+                                            src={diogoVolunteer}
                                             alt="Voluntário Diogo Almazan"
                                             width={50}
                                             height={50}
@@ -43,7 +48,7 @@ export function Modal({ setIsOpen }: ModalProps) {
 
                                     <div className="bg-white flex flex-col justify-center items-center px-4 py-4 border-[1.5px] border-solid border-primary-100 rounded-lg">
                                         <Image
-                                            src="/images/voluntario-joao.png"
+                                            src={joaoVolunteer}
                                             alt="Voluntário João Carlos"
                                             width={50}
                                             height={50}
@@ -59,11 +64,11 @@ export function Modal({ setIsOpen }: ModalProps) {
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-primary-100 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <div className="bg-primary-100 px-4 py-3 flex justify-center sm:px-6">
                             <button
                                 onClick={() => setIsOpen(false)}
                                 type="button"
-                                className="mt-3 inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                className="mt-3 inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset transition-all duration-150 hover:bg-white hover:text-red-600 sm:mt-0"
                             >
                                 Fechar
                             </button>
