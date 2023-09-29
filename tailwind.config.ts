@@ -44,6 +44,7 @@ const config: Config = {
                     400: "#CD2929",
                     700: "#AE0F0F",
                 },
+                white: "#FFFFFF",
             },
         },
     },
