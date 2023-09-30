@@ -42,20 +42,6 @@ export function Modal({ setIsOpen }: ModalProps) {
                                             Diogo de P. Almazan
                                         </strong>
                                     </div>
-
-                                    <div className="bg-white flex flex-col justify-center items-center px-4 py-4 border-[1.5px] border-solid border-primary-100 rounded-lg">
-                                        <Image
-                                            src={`${BLOGO_STORAGE_URL_LINK}/voluntario-joao.png`}
-                                            alt="Voluntário João Carlos"
-                                            width={50}
-                                            height={50}
-                                            className="rounded-[50%] mb-2"
-                                            priority
-                                        />
-                                        <strong className="max-w-[80px] text-sm font-semibold text-center leading-5 text-gray-900">
-                                            João Carlos Lot
-                                        </strong>
-                                    </div>
                                 </div>
                             </div>
                         </div>
