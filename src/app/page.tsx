@@ -1,3 +1,7 @@
+import { AboutUsSection } from "@/components/app/home/AboutUsSection";
+import { ContactSection } from "@/components/app/home/ContactSection/ContactSection";
+import { HappyEndingSection } from "@/components/app/home/HappyEndingSection/HappyEndingSection";
+import { MainSection } from "@/components/app/home/MainSection";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +10,12 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-    return <h1>Home Page</h1>;
+    return (
+        <div>
+            <MainSection />
+            <AboutUsSection />
+            <HappyEndingSection />
+            <ContactSection />
+        </div>
+    );
 }
