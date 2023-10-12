@@ -1,4 +1,7 @@
+import Link from "next/link";
 import { PartnerShortCard } from "./PartnerShortCard";
+import { Button } from "@/components/Button/Button";
+import { parceiros } from "@/utils/consts";
 
 export function ContactSection() {
     return (
@@ -12,23 +15,27 @@ export function ContactSection() {
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
                         sit amet, consectetur adipiscing elit.
                     </span>
+                    <Link
+                        href="/parceiros"
+                        className="w-full mb-10 lg:mb-0"
+                    >
+                        <Button
+                            label="Acessar Parceiros"
+                            customBorderColor="border-grey-400"
+                            customTextColor="text-grey-400"
+                            customCss="w-full"
+                        />
+                    </Link>
                 </div>
                 <ul className="w-full flex flex-col justify-evenly flex-wrap [&>li+li]:mt-6 lg:flex-row lg:[&>li+li]:mt-0">
-                    <PartnerShortCard
-                        name="Nome do Parceiro"
-                        address="Endereço"
-                        contactData="Contato"
-                    />
-                    <PartnerShortCard
-                        name="Nome do Parceiro"
-                        address="Endereço"
-                        contactData="Contato"
-                    />
-                    <PartnerShortCard
-                        name="Nome do Parceiro"
-                        address="Endereço"
-                        contactData="Contato"
-                    />
+                    {parceiros.map((p) => (
+                        <PartnerShortCard
+                            key={p.nome}
+                            name={p.nome}
+                            address={p.endereco}
+                            contactData={p.contato}
+                        />
+                    ))}
                 </ul>
             </div>
         </section>
