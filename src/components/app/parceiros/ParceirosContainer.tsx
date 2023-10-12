@@ -1,7 +1,7 @@
 import { parceiros } from "@/utils/consts";
-import { PartnerCard } from "./PartnerCard";
+import { ParceiroCard } from "./ParceiroCard";
 
-export function PartnerPage() {
+export function ParceirosContainer() {
     return (
         <div>
             <section className="bg-white">
@@ -17,7 +17,7 @@ export function PartnerPage() {
                     </div>
                     <ul className="w-full flex flex-col justify-evenly items-end flex-wrap [&>li+li]:mt-6">
                         {parceiros.map((p) => (
-                            <PartnerCard
+                            <ParceiroCard
                                 key={p.nome}
                                 name={p.nome}
                                 address={p.endereco}
@@ -32,7 +32,7 @@ export function PartnerPage() {
                 <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col-reverse item-center md:py-12 lg:flex-row lg:items-center lg:justify-between">
                     <ul className="flex flex-col justify-evenly flex-wrap [&>li+li]:mt-6 ">
                         {parceiros.map((p) => (
-                            <PartnerCard
+                            <ParceiroCard
                                 key={p.nome}
                                 name={p.nome}
                                 address={p.endereco}

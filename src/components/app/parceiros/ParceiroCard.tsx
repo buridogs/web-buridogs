@@ -1,12 +1,12 @@
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
 
-interface PartnerCardProps {
+interface ParceiroCardProps {
     name: string;
     address: string;
     contactData: string;
     category: string;
 }
-export function PartnerCard({ name, address, category, contactData }: PartnerCardProps) {
+export function ParceiroCard({ name, address, category, contactData }: ParceiroCardProps) {
     return (
         <li className="flex items-center lg:items-start">
             <div className="w-[150px] h-[150px] rounded-[50%] bg-grey-100 md:w-[150px] md:h-[150px]" />

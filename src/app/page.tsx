@@ -1,7 +1,7 @@
-import { AboutUsSection } from "@/components/app/home/AboutUsSection";
-import { ContactSection } from "@/components/app/home/ContactSection/ContactSection";
-import { HappyEndingSection } from "@/components/app/home/HappyEndingSection/HappyEndingSection";
-import { MainSection } from "@/components/app/home/MainSection";
+import { SobreNosSecao } from "@/components/app/home/SobreNosSecao";
+import { ContatoSecao } from "@/components/app/home/ContatoSecao/ContatoSecao";
+import { FinaisFelizesSecao } from "@/components/app/home/FinaisFelizesSecao/FinaisFelizesSecao";
+import { SecaoPrincipal } from "@/components/app/home/SecaoPrincipal";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 export default function Home() {
     return (
         <div>
-            <MainSection />
-            <AboutUsSection />
-            <HappyEndingSection />
-            <ContactSection />
+            <SecaoPrincipal />
+            <SobreNosSecao />
+            <FinaisFelizesSecao />
+            <ContatoSecao />
         </div>
     );
 }

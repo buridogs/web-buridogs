@@ -2,7 +2,7 @@ import { Button } from "@/components/Button/Button";
 import Image from "next/image";
 import Link from "next/link";
 
-export function MainSection() {
+export function SecaoPrincipal() {
     return (
         <section className="max-w-screen-xl  mx-auto">
             <div className="flex flex-col items-center lg:flex-row-reverse px-8 py-8">

@@ -2,7 +2,7 @@ import { Button } from "@/components/Button/Button";
 import Image from "next/image";
 import Link from "next/link";
 
-export function AboutUsSection() {
+export function SobreNosSecao() {
     return (
         <section className="w-full bg-primary-50">
             <div className="max-w-screen-xl mx-auto flex flex-col items-center justify-evenly lg:flex-row px-8 py-8">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
-export function HappyEndingSection() {
+export function FinaisFelizesSecao() {
     const happyEndingDogs = [
         {
             name: "Luke",

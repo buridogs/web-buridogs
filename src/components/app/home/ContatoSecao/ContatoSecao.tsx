@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { PartnerShortCard } from "./PartnerShortCard";
+import { ParceiroCardResumo } from "./ParceiroCardResumo";
 import { Button } from "@/components/Button/Button";
 import { parceiros } from "@/utils/consts";
 
-export function ContactSection() {
+export function ContatoSecao() {
     return (
         <section className="bg-grey-50">
             <div className="max-w-screen-xl mx-auto px-8 py-8 flex flex-col item-center md:py-12 lg:flex-row">
@@ -29,7 +29,7 @@ export function ContactSection() {
                 </div>
                 <ul className="w-full flex flex-col justify-evenly flex-wrap [&>li+li]:mt-6 lg:flex-row lg:[&>li+li]:mt-0">
                     {parceiros.map((p) => (
-                        <PartnerShortCard
+                        <ParceiroCardResumo
                             key={p.nome}
                             name={p.nome}
                             address={p.endereco}
