@@ -1,6 +1,6 @@
-import { IAdocaoCard } from "@/interfaces/adocaoInterfaces";
+import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
 
-export const cachorrosAdocao: IAdocaoCard[] = [
+export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 1,
         imageSrc: "/image-banner.png",
@@ -9,6 +9,10 @@ export const cachorrosAdocao: IAdocaoCard[] = [
         idade: "adulto",
         porte: "medio-porte",
         descricao: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+        descricaoLonga:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+        imagesSrc: ["/image-banner.png", "/image-banner.png", "/image-banner.png"],
+        youtubeSrcUrl: "MPHEFxeFFQE",
     },
     {
         id: 2,

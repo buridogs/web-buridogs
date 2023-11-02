@@ -32,3 +32,9 @@ export interface IAdocaoCard {
     porte: AdocaoPorteType;
     descricao: string;
 }
+
+export interface IAdocaoDetails extends IAdocaoCard {
+    descricaoLonga?: string;
+    imagesSrc?: string[];
+    youtubeSrcUrl?: string;
+}

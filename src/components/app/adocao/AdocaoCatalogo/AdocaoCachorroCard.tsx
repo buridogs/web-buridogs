@@ -1,5 +1,6 @@
 import { IAdocaoCard } from "@/interfaces/adocaoInterfaces";
 import Image from "next/image";
+import Link from "next/link";
 
 interface AdocaoCachorroCardProps {
     cachorroInformacao: IAdocaoCard;
@@ -22,7 +23,9 @@ export function AdocaoCachorroCard({ cachorroInformacao }: AdocaoCachorroCardPro
                 <span className="text-grey-400 text-sm">{`${genero}, ${idade}, ${porte}`}</span>
                 <p className="text-grey-100 text-sm mt-6 mb-4">{descricao}</p>
                 <button className="text-primary-400 uppercase text-sm font-medium py-2">
-                    Quero adotar esse
+                    <Link href={`/adocao/${id}-${nome.replaceAll(" ", "")}`}>
+                        Quero adotar esse
+                    </Link>
                 </button>
             </div>
         </div>
