@@ -38,3 +38,9 @@ export interface IAdocaoDetails extends IAdocaoCard {
     imagesSrc?: string[];
     youtubeSrcUrl?: string;
 }
+
+export enum AdocaoFiltrosEnum {
+    genero = "genero",
+    idade = "idade",
+    porte = "porte",
+}

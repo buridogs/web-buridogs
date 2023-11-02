@@ -1,9 +1,10 @@
-import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
+import { AdocaoFiltrosEnum, IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
 import Image from "next/image";
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight, FaDog } from "react-icons/fa6";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { MdBedroomBaby } from "react-icons/md";
+import { returnFormattedOptionLabel } from "../adocao/AdocaoUtils";
 
 interface AdocaoDetalhesInfoProps {
     cachorroSelecionado: IAdocaoDetails;
@@ -31,21 +32,30 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                             size={30}
                             className="text-primary-400 mr-2"
                         />
-                        {cachorroSelecionado.genero}
+                        {returnFormattedOptionLabel(
+                            AdocaoFiltrosEnum.genero,
+                            cachorroSelecionado.genero
+                        )}
                     </span>
                     <span className="text-grey-400 text-lg font-medium flex items-center mt-2">
                         <MdBedroomBaby
                             size={30}
                             className="text-primary-400 mr-2"
                         />
-                        {cachorroSelecionado.idade}
+                        {returnFormattedOptionLabel(
+                            AdocaoFiltrosEnum.idade,
+                            cachorroSelecionado.idade
+                        )}
                     </span>
                     <span className="text-grey-400 text-lg font-medium flex items-center mt-2">
                         <FaDog
                             size={30}
                             className="text-primary-400 mr-2"
                         />
-                        {cachorroSelecionado.porte}
+                        {returnFormattedOptionLabel(
+                            AdocaoFiltrosEnum.porte,
+                            cachorroSelecionado.porte
+                        )}
                     </span>
                 </div>
             </div>
