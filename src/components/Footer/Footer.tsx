@@ -92,6 +92,14 @@ export function Footer() {
                                         <p className="text-grey-100 text-sm">
                                             Engenheiro de Software
                                         </p>
+                                        <p className="text-grey-100 text-sm underline hover:text-blue-100">
+                                            <Link
+                                                href="https://www.instagram.com/diogo_dpa/"
+                                                target="_blank"
+                                            >
+                                                @diogo_dpa
+                                            </Link>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
