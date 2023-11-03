@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Modal } from "../Modal/Modal";
 import Link from "next/link";
 import Image from "next/image";
-import { BLOGO_STORAGE_URL_LINK } from "@/services/storage";
+import { generateImgURL } from "@/utils/methods";
 
 export function Footer() {
     const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +79,7 @@ export function Footer() {
                                             Idealizador do software
                                         </strong>
                                         <Image
-                                            src={`${BLOGO_STORAGE_URL_LINK}/voluntario-diogo.png`}
+                                            src={generateImgURL("voluntario-diogo.png")}
                                             alt="Voluntário Diogo Almazan"
                                             width={80}
                                             height={80}

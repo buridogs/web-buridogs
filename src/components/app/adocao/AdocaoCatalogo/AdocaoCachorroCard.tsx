@@ -1,5 +1,5 @@
 import { IAdocaoCard } from "@/interfaces/adocaoInterfaces";
-import { returnFormattedOptionLabel } from "@/utils/methods";
+import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,7 +17,7 @@ export function AdocaoCachorroCard({ cachorroInformacao }: AdocaoCachorroCardPro
             <div className="w-full h-[350px] rounded rounded-b-2xl bg-grey-50 relative">
                 <Image
                     className="object-cover"
-                    src={imageSrc}
+                    src={generateImgURL(imageSrc)}
                     alt={nome}
                     fill
                 />
@@ -26,7 +26,7 @@ export function AdocaoCachorroCard({ cachorroInformacao }: AdocaoCachorroCardPro
                 <strong className="text-grey-400 text-xl font-medium mt-4">{nome}</strong>
                 <span className="text-grey-400 text-sm">{`${labelGenero}, ${labelIdade}, ${labelPorte}`}</span>
                 <p className="text-grey-100 text-sm mt-6 mb-4">{descricao}</p>
-                <button className="text-primary-400 uppercase text-sm font-medium py-2">
+                <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
                     <Link href={`/adocao/${id}-${nome.replaceAll(" ", "")}`}>
                         Quero adotar esse
                     </Link>

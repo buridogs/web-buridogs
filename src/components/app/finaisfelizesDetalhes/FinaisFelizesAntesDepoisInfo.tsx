@@ -1,3 +1,4 @@
+import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
@@ -55,7 +56,7 @@ export default function FinaisFelizesAntesDepoisInfo({
                                 <div className="flex flex-col w-[300px] h-[300px]">
                                     <div className="h-full w-full relative flex items-start md:max-w-lg lg:max-w-xl">
                                         <Image
-                                            src={image}
+                                            src={generateImgURL(image)}
                                             alt={nome}
                                             fill
                                             priority

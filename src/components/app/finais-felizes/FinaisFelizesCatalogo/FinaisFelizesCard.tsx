@@ -1,5 +1,6 @@
 "use client";
 import { IFinalFeliz } from "@/interfaces/finaisFelizesInterfaces";
+import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 import AliceCarousel from "react-alice-carousel";
@@ -37,7 +38,7 @@ export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps
                                     <div className="flex flex-col w-[300px] h-[300px]">
                                         <div className="h-full w-full relative flex items-start md:max-w-lg lg:max-w-xl">
                                             <Image
-                                                src={image}
+                                                src={generateImgURL(image)}
                                                 alt={finalFeliz.nome}
                                                 fill
                                                 priority

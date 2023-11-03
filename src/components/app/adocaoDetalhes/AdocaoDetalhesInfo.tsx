@@ -4,7 +4,7 @@ import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight, FaDog } from "react-icons/fa6";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { MdBedroomBaby } from "react-icons/md";
-import { returnFormattedOptionLabel } from "@/utils/methods";
+import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
 
 interface AdocaoDetalhesInfoProps {
     cachorroSelecionado: IAdocaoDetails;
@@ -16,7 +16,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
             <div className="flex flex-col items-center pb-8 lg:flex-row lg:w-500px lg:mx-auto">
                 <div className="relative w-[100px] h-[100px] md:h-[300px] md:w-[300px] lg:mr-6">
                     <Image
-                        src={cachorroSelecionado.imageSrc ?? ""}
+                        src={generateImgURL(cachorroSelecionado.imageSrc ?? "")}
                         alt={`Imagem do cachorro ${cachorroSelecionado.nome}`}
                         fill
                         sizes="(max-width: 1024px) 300px, 300px"
@@ -94,7 +94,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                                 <div className="flex flex-col w-[300px] h-[300px]">
                                     <div className="h-full w-full relative flex items-start md:max-w-lg lg:max-w-xl">
                                         <Image
-                                            src={image}
+                                            src={generateImgURL(image)}
                                             alt={cachorroSelecionado.nome}
                                             fill
                                             priority

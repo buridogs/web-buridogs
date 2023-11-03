@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { HeaderMobile } from "./HeaderMobile";
 import { headerMenuLink } from "./utils";
-import { BLOGO_STORAGE_URL_LINK } from "@/services/storage";
+import { generateImgURL } from "@/utils/methods";
 
 export function Header() {
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -21,7 +21,7 @@ export function Header() {
             <section className="max-w-screen-xl flex justify-between items-center m-auto">
                 <Link href="/">
                     <Image
-                        src={`${BLOGO_STORAGE_URL_LINK}/logo-buridogs.png`}
+                        src={generateImgURL("logo-buridogs.png")}
                         alt="Buridogs logo"
                         width={150}
                         height={40}

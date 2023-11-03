@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button/Button";
+import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -43,7 +44,7 @@ export function SecaoPrincipal() {
                     </div>
                 </div>
                 <Image
-                    src="/image-banner.png"
+                    src={generateImgURL("image-banner.png")}
                     alt="Cachorro"
                     width={460}
                     height={460}

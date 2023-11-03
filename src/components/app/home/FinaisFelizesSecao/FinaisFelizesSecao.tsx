@@ -1,4 +1,5 @@
 "use client";
+import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 import AliceCarousel from "react-alice-carousel";
@@ -77,7 +78,7 @@ export function FinaisFelizesSecao() {
                                     </Link>
                                     <div className="flex items-start md:max-w-lg lg:max-w-xl">
                                         <Image
-                                            src="/quote-open.svg"
+                                            src={generateImgURL("quote-open.svg")}
                                             alt="Aspas"
                                             width={32}
                                             height={32}

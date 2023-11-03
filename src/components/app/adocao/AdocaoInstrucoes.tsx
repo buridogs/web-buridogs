@@ -1,3 +1,4 @@
+import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
 
 export function AdocaoInstrucoes() {
@@ -35,7 +36,7 @@ export function AdocaoInstrucoes() {
                 </ul>
             </div>
             <Image
-                src="/image-banner.png"
+                src={generateImgURL("image-banner.png")}
                 alt="Banner"
                 width={300}
                 height={300}
