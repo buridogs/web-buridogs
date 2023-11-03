@@ -69,7 +69,7 @@ export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps
                     />
                     {finalFeliz.dataAdocao}
                 </p>
-                <button className="text-primary-400 uppercase text-sm font-medium py-2">
+                <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
                     <Link
                         href={`/finais-felizes/${finalFeliz.id}-${finalFeliz.nome.replaceAll(
                             " ",
