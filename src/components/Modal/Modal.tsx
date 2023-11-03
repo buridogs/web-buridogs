@@ -18,9 +18,9 @@ export function Modal({ setIsOpen, content, closeButtonLabel = "Fechar" }: Modal
 
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                    <div className="w-[320px] relative transform overflow-hidden rounded-lg bg-primary-100  text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div className="w-[320px] relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                         {content}
-                        <div className="px-4 py-3 flex justify-center sm:px-6">
+                        <div className="px-4 py-3 flex bg-white justify-center sm:px-6">
                             <button
                                 onClick={() => setIsOpen(false)}
                                 type="button"
