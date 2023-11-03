@@ -1,3 +1,4 @@
+import "react-alice-carousel/lib/alice-carousel.css";
 import "./globals.css";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
@@ -17,7 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <html lang="en">
             <body className={`${inter.className} flex flex-col`}>
                 <Header />
-                <main className="flex-auto">{children}</main>
+                <main className="flex-auto pt-[110px]">{children}</main>
                 <Footer />
             </body>
         </html>

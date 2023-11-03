@@ -1,3 +1,4 @@
+import { ParceirosContainer } from "@/components/app/parceiros/ParceirosContainer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function ParceirosPage() {
-    return <h1>Parceiros Page</h1>;
+    return <ParceirosContainer />;
 }
