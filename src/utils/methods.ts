@@ -50,5 +50,5 @@ export const generateImgURL = (imgSrc: string) => {
         return `/${imgSrc}`;
     }
 
-    return `/${BLOGO_STORAGE_URL_LINK}/${imgSrc}`;
+    return `${BLOGO_STORAGE_URL_LINK}/${imgSrc}`;
 };
