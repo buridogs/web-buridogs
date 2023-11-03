@@ -43,7 +43,11 @@ export function AdocaoFiltros({
                                                 filtroSelecionado
                                                     ? "border-primary-400 bg-primary-400 text-white"
                                                     : "border-grey-400 bg-transparent text-grey-400"
-                                            } border rounded-2xl p-2 text-sm`}
+                                            } border rounded-2xl p-2 text-sm cursor-pointer transition duration-150 ${
+                                                !filtroSelecionado
+                                                    ? "hover:border-primary-400 hover:bg-primary-400 hover:text-white"
+                                                    : ""
+                                            }`}
                                             onClick={() =>
                                                 filtroSelecionado
                                                     ? setFiltrosSelecionados((old) => ({
