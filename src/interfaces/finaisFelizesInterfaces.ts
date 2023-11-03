@@ -6,7 +6,8 @@ export interface IFinalFeliz {
     genero: string;
     dataAcolhimento: string;
     localAcolhimento: string;
-    descricao: string;
+    descricaoAntes: string;
+    descricaoDepois: string;
     dataAdocao: string;
     adotadoPor: string;
     tratamentosRealizados?: string;

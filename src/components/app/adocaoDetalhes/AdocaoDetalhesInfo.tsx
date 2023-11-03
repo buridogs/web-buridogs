@@ -4,7 +4,7 @@ import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight, FaDog } from "react-icons/fa6";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { MdBedroomBaby } from "react-icons/md";
-import { returnFormattedOptionLabel } from "../adocao/AdocaoUtils";
+import { returnFormattedOptionLabel } from "@/utils/methods";
 
 interface AdocaoDetalhesInfoProps {
     cachorroSelecionado: IAdocaoDetails;

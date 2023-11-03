@@ -1,7 +1,7 @@
 import { IAdocaoCard } from "@/interfaces/adocaoInterfaces";
+import { returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
-import { returnFormattedOptionLabel } from "../AdocaoUtils";
 
 interface AdocaoCachorroCardProps {
     cachorroInformacao: IAdocaoCard;

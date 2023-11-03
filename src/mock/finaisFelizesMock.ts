@@ -9,7 +9,9 @@ export const finaisFelizes: IFinalFeliz[] = [
         genero: "macho",
         dataAcolhimento: "2022-10-01",
         localAcolhimento: "Buritis",
-        descricao:
+        descricaoAntes:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id dictum velit. Sed id scelerisque metus. Nam vitae tellus justo. Fusce a augue convallis, malesuada ante condimentum, faucibus risus.",
+        descricaoDepois:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id dictum velit. Sed id scelerisque metus. Nam vitae tellus justo. Fusce a augue convallis, malesuada ante condimentum, faucibus risus.",
         dataAdocao: "2023-01-23",
         adotadoPor: "Fulano Silva",
@@ -27,7 +29,9 @@ export const finaisFelizes: IFinalFeliz[] = [
         genero: "macho",
         dataAcolhimento: "2022-10-01",
         localAcolhimento: "Buritis",
-        descricao:
+        descricaoAntes:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id dictum velit. Sed id scelerisque metus. Nam vitae tellus justo. Fusce a augue convallis, malesuada ante condimentum, faucibus risus.",
+        descricaoDepois:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id dictum velit. Sed id scelerisque metus. Nam vitae tellus justo. Fusce a augue convallis, malesuada ante condimentum, faucibus risus.",
         dataAdocao: "2023-01-23",
         adotadoPor: "Fulano Silva",
@@ -45,7 +49,9 @@ export const finaisFelizes: IFinalFeliz[] = [
         genero: "macho",
         dataAcolhimento: "2022-10-01",
         localAcolhimento: "Buritis",
-        descricao:
+        descricaoAntes:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id dictum velit. Sed id scelerisque metus. Nam vitae tellus justo. Fusce a augue convallis, malesuada ante condimentum, faucibus risus.",
+        descricaoDepois:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id dictum velit. Sed id scelerisque metus. Nam vitae tellus justo. Fusce a augue convallis, malesuada ante condimentum, faucibus risus.",
         dataAdocao: "2023-01-23",
         adotadoPor: "Fulano Silva",
@@ -63,7 +69,9 @@ export const finaisFelizes: IFinalFeliz[] = [
         genero: "macho",
         dataAcolhimento: "2022-10-01",
         localAcolhimento: "Buritis",
-        descricao:
+        descricaoAntes:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id dictum velit. Sed id scelerisque metus. Nam vitae tellus justo. Fusce a augue convallis, malesuada ante condimentum, faucibus risus.",
+        descricaoDepois:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id dictum velit. Sed id scelerisque metus. Nam vitae tellus justo. Fusce a augue convallis, malesuada ante condimentum, faucibus risus.",
         dataAdocao: "2023-01-23",
         adotadoPor: "Fulano Silva",
