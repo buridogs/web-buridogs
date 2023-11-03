@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AdocaoFiltros } from "./AdocaoFiltros";
 import { AdocaoCachorroCard } from "./AdocaoCachorroCard";
 import { cachorrosAdocao } from "@/mock/adocaoMock";
+import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
 
 export function AdocaoCatalogo() {
     const [filtrosSelecionados, setFiltrosSelecionados] = useState<Record<string, string[]>>({
@@ -16,7 +17,9 @@ export function AdocaoCatalogo() {
             Object.entries(filtrosSelecionados).reduce(
                 (acm, cur) => {
                     if (!cur[1].length) return acm;
-                    const filtrado = acm.filter((ca) => cur[1].includes(ca[cur[0]] as string));
+                    const filtrado = acm.filter((ca) =>
+                        cur[1].includes(ca[cur[0] as AdocaoFiltrosEnum])
+                    );
 
                     return [...filtrado];
                 },
