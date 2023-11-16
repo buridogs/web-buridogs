@@ -6,6 +6,8 @@ import { Button } from "../Button/Button";
 import { useState } from "react";
 import { Modal } from "../Modal/Modal";
 import Link from "next/link";
+import Image from "next/image";
+import { generateImgURL } from "@/utils/methods";
 
 export function Footer() {
     const [isOpen, setIsOpen] = useState(false);
@@ -62,7 +64,49 @@ export function Footer() {
                     </strong>
                 </button>
             </div>
-            {isOpen && <Modal setIsOpen={setIsOpen} />}
+            {isOpen && (
+                <Modal
+                    setIsOpen={setIsOpen}
+                    content={
+                        <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                            <div className="flex flex-col items-center">
+                                <h2 className="text-grey-400 text-2xl font-semibold">
+                                    Voluntários e contribuidores
+                                </h2>
+                                <div className="w-[80%] mt-3 flex justify-evenly">
+                                    <div className="bg-white flex flex-col justify-center items-center px-4 py-4 shadow-md border-[1.5px] border-solid border-primary-100 rounded-lg">
+                                        <strong className="text-grey-100 text-sm mb-4 font-bold">
+                                            Idealizador do software
+                                        </strong>
+                                        <Image
+                                            src={generateImgURL("voluntario-diogo.png")}
+                                            alt="Voluntário Diogo Almazan"
+                                            width={80}
+                                            height={80}
+                                            className="rounded-[50%] mb-2"
+                                            priority
+                                        />
+                                        <strong className="max-w-[80px] text-sm font-semibold text-center leading-5 text-gray-900">
+                                            Diogo de P. Almazan
+                                        </strong>
+                                        <p className="text-grey-100 text-sm">
+                                            Engenheiro de Software
+                                        </p>
+                                        <p className="text-grey-100 text-sm underline hover:text-blue-100">
+                                            <Link
+                                                href="https://www.instagram.com/diogo_dpa/"
+                                                target="_blank"
+                                            >
+                                                @diogo_dpa
+                                            </Link>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                />
+            )}
         </footer>
     );
 }

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { HeaderMobile } from "./HeaderMobile";
 import { headerMenuLink } from "./utils";
-import logoBuridogs from "../../../public/images/logo-buridogs.png";
+import { generateImgURL } from "@/utils/methods";
 
 export function Header() {
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -17,11 +17,11 @@ export function Header() {
     }, [pathname]);
 
     return (
-        <div className="w-[100%] bg-white py-8 px-8 xl:px-0">
+        <div className="w-[100%] bg-white py-8 px-8 shadow fixed z-10 xl:px-0">
             <section className="max-w-screen-xl flex justify-between items-center m-auto">
                 <Link href="/">
                     <Image
-                        src={logoBuridogs}
+                        src={generateImgURL("logo-buridogs.png")}
                         alt="Buridogs logo"
                         width={150}
                         height={40}

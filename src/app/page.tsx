@@ -1,3 +1,7 @@
+import { SobreNosSecao } from "@/components/app/home/SobreNosSecao";
+import { ContatoSecao } from "@/components/app/home/ContatoSecao/ContatoSecao";
+import { FinaisFelizesSecao } from "@/components/app/home/FinaisFelizesSecao/FinaisFelizesSecao";
+import { SecaoPrincipal } from "@/components/app/home/SecaoPrincipal";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +10,12 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-    return <h1>Home Page</h1>;
+    return (
+        <div>
+            <SecaoPrincipal />
+            <SobreNosSecao />
+            <FinaisFelizesSecao />
+            <ContatoSecao />
+        </div>
+    );
 }
