@@ -4,16 +4,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { ADOCAO_FORMS_CONFIG, schemaAdocaoForm } from "./AdocaoDetalhesUtils";
 import { IAdocaoForm } from "./AdocaoDetalhesTypes";
+import Form from "@/components/Form/Form";
 
 export default function AdocaoDetalhesForm() {
     const {
         register,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm<IAdocaoForm>({
         resolver: yupResolver(schemaAdocaoForm),
     });
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data: IAdocaoForm) => {
+        console.log(data);
+        reset();
+    };
 
     return (
         <section className="flex flex-col items-center">
@@ -47,100 +52,13 @@ export default function AdocaoDetalhesForm() {
                     uma visita para que o interessado conheça o animal e interaja com ele antes que
                     seja levado ao adotante.
                 </p>
-                <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="flex flex-col items-end"
-                >
-                    {ADOCAO_FORMS_CONFIG.map((adocaoKey) => (
-                        <div
-                            key={adocaoKey.section[0].key}
-                            className="w-full flex flex-col items-center justify-around md:flex-row"
-                        >
-                            {adocaoKey.section.map((field) => (
-                                <div
-                                    key={field.key}
-                                    className="w-full flex flex-col items-start mt-4"
-                                >
-                                    <label
-                                        htmlFor={field.key}
-                                        className="text-sm text-grey-100 font-medium"
-                                    >
-                                        {field.label}
-                                    </label>
-                                    {field.type === "text" ? (
-                                        <input
-                                            id={field.key}
-                                            placeholder={field.placeholder ?? ""}
-                                            className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1"
-                                            {...register(field.key as keyof IAdocaoForm)}
-                                        />
-                                    ) : field.type === "textarea" ? (
-                                        <textarea
-                                            id={field.key}
-                                            placeholder={field.placeholder ?? ""}
-                                            className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1"
-                                            {...register(field.key as keyof IAdocaoForm)}
-                                            rows={4}
-                                        />
-                                    ) : field.type === "radio" ? (
-                                        field.options?.map((opt) => (
-                                            <div
-                                                key={opt.key}
-                                                className="w-full flex items-center justify-start"
-                                            >
-                                                <input
-                                                    id={opt.key}
-                                                    type="radio"
-                                                    value={opt.value}
-                                                    className="mr-2"
-                                                    {...register(field.key as keyof IAdocaoForm)}
-                                                />
-                                                <label
-                                                    htmlFor={opt.key}
-                                                    className="w-full text-sm text-grey-100 font-normal"
-                                                >
-                                                    {opt.label}
-                                                </label>
-                                            </div>
-                                        ))
-                                    ) : field.type === "checkbox" ? (
-                                        field.options?.map((opt) => (
-                                            <div
-                                                key={opt.key}
-                                                className="w-full flex items-center justify-start"
-                                            >
-                                                <input
-                                                    id={opt.key}
-                                                    type="checkbox"
-                                                    value={opt.value}
-                                                    className="mr-2"
-                                                    {...register(field.key as keyof IAdocaoForm)}
-                                                />
-                                                <label
-                                                    htmlFor={opt.key}
-                                                    className="w-full text-sm text-grey-100 font-normal"
-                                                >
-                                                    {opt.label}
-                                                </label>
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <></>
-                                    )}
-                                    <p className="text-sm font-semibold text-red-400">
-                                        {errors[field.key as keyof IAdocaoForm]?.message}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    ))}
-
-                    <input
-                        type="submit"
-                        value="Enviar forms"
-                        className="uppercase font-medium py-2 px-4 rounded border-grey-400 border-solid border-2 mt-8 cursor-pointer transition duration-150 hover:bg-primary-100 hover:text-white hover:border-primary-100"
-                    />
-                </form>
+                <Form
+                    handleSubmit={handleSubmit(onSubmit)}
+                    formFields={ADOCAO_FORMS_CONFIG}
+                    register={register}
+                    errors={errors}
+                    submitLabel="Enviar formulário"
+                />
             </div>
         </section>
     );

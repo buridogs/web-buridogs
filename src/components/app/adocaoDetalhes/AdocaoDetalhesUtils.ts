@@ -1,7 +1,8 @@
-import { AdocaoFormsType, InputFormEnum } from "./AdocaoDetalhesTypes";
+import { MENSAGENS_ERRO } from "@/components/Form/FormConsts";
+import { GeneralFormsType, InputFormEnum } from "@/components/Form/FormTypes";
 import * as yup from "yup";
 
-export const ADOCAO_FORMS_CONFIG: AdocaoFormsType[] = [
+export const ADOCAO_FORMS_CONFIG: GeneralFormsType[] = [
     {
         section: [
             {
@@ -279,29 +280,29 @@ export const ADOCAO_FORMS_CONFIG: AdocaoFormsType[] = [
 
 export const schemaAdocaoForm = yup
     .object({
-        nome: yup.string().required("Campo Obrigatório"),
-        endereco_cep: yup.string().required("Campo Obrigatório"),
-        endereco_rua: yup.string().required("Campo Obrigatório"),
-        endereco_numero: yup.string().required("Campo Obrigatório"),
+        nome: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        endereco_cep: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        endereco_rua: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        endereco_numero: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
         endereco_complemento: yup.string(),
-        endereco_bairro: yup.string().required("Campo Obrigatório"),
-        endereco_cidade: yup.string().required("Campo Obrigatório"),
-        endereco_estado: yup.string().required("Campo Obrigatório"),
-        facebook_url: yup.string().required("Campo Obrigatório"),
-        instagram_url: yup.string().required("Campo Obrigatório"),
-        primeira_adocao: yup.boolean().required("Campo Obrigatório"),
-        motivo_adocao: yup.string().required("Campo Obrigatório"),
-        quantidade_pessoas_moradia: yup.string().required("Campo Obrigatório"),
-        pessoas_de_acordo_adocao: yup.boolean().required("Campo Obrigatório"),
-        ha_criancas_idosos: yup.string().optional(),
-        mora_casa_apt: yup.string().required("Campo Obrigatório"),
-        quantidade_pessoas_trabalham: yup.string().required("Campo Obrigatório"),
-        moradia_tem_estrutura_adocao: yup.string().required("Campo Obrigatório"),
-        ha_outros_animais: yup.string().required("Campo Obrigatório"),
-        ja_teve_outros_animais: yup.string().required("Campo Obrigatório"),
-        esta_ciente_gastos: yup.boolean().required("Campo Obrigatório"),
-        descricao_lugar_animal: yup.string().required("Campo Obrigatório"),
-        situacao_devolucao_adocao: yup.string().required("Campo Obrigatório"),
-        consciente_termo_responsabilidade: yup.boolean().required("Campo Obrigatório"),
+        endereco_bairro: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        endereco_cidade: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        endereco_estado: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        facebook_url: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        instagram_url: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        primeira_adocao: yup.boolean().required(MENSAGENS_ERRO.campoObrigatorio),
+        motivo_adocao: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        quantidade_pessoas_moradia: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        pessoas_de_acordo_adocao: yup.boolean().required(MENSAGENS_ERRO.campoObrigatorio),
+        ha_criancas_idosos: yup.array().of(yup.string()).typeError("").optional(),
+        mora_casa_apt: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        quantidade_pessoas_trabalham: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        moradia_tem_estrutura_adocao: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        ha_outros_animais: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        ja_teve_outros_animais: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        esta_ciente_gastos: yup.boolean().required(MENSAGENS_ERRO.campoObrigatorio),
+        descricao_lugar_animal: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        situacao_devolucao_adocao: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
+        consciente_termo_responsabilidade: yup.boolean().required(MENSAGENS_ERRO.campoObrigatorio),
     })
     .required();

@@ -1,24 +1,3 @@
-export enum InputFormEnum {
-    text = "text",
-    textarea = "textarea",
-    radio = "radio",
-    checkbox = "checkbox",
-}
-
-export type AdocaoFormsType = {
-    section: {
-        key: string;
-        label: string;
-        placeholder?: string;
-        type: InputFormEnum;
-        options?: {
-            key: string;
-            label: string;
-            value: number | string;
-        }[];
-    }[];
-};
-
 export interface IAdocaoForm {
     nome: string;
     endereco_cep: string;
@@ -34,7 +13,7 @@ export interface IAdocaoForm {
     motivo_adocao: string;
     quantidade_pessoas_moradia: string;
     pessoas_de_acordo_adocao: boolean;
-    ha_criancas_idosos: string[];
+    ha_criancas_idosos?: (string | undefined)[] | undefined;
     mora_casa_apt: string;
     quantidade_pessoas_trabalham: string;
     moradia_tem_estrutura_adocao: string;
