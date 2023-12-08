@@ -3,6 +3,8 @@ import { ContatoSecao } from "@/components/app/home/ContatoSecao/ContatoSecao";
 import { FinaisFelizesSecao } from "@/components/app/home/FinaisFelizesSecao/FinaisFelizesSecao";
 import { SecaoPrincipal } from "@/components/app/home/SecaoPrincipal";
 import { Metadata } from "next";
+import { QRCodeSecao } from "@/components/app/home/QRCodeSecao";
+import { Banner } from "@/components/Banner/Banner";
 
 export const metadata: Metadata = {
     title: "Home | Buridogs",
@@ -12,7 +14,9 @@ export const metadata: Metadata = {
 export default function Home() {
     return (
         <div>
+            <Banner />
             <SecaoPrincipal />
+            <QRCodeSecao />
             <SobreNosSecao />
             <FinaisFelizesSecao />
             <ContatoSecao />

@@ -1,4 +1,4 @@
-import { parceiros } from "@/utils/consts";
+import { parceiros } from "@/mock/parceirosMock";
 import { ParceiroCard } from "./ParceiroCard";
 
 export function ParceirosContainer() {

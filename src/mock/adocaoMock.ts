@@ -33,3 +33,36 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         descricao: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
     },
 ];
+
+export const cachorrosAdocaoEspecial = [
+    {
+        id: 1,
+        imageSrc: "image-banner.png",
+        nome: "Nome do animal",
+        genero: "macho",
+        idade: "idoso",
+        porte: "medio-porte",
+        motivoEspecial: "Deficiente Físico",
+        descricao: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    },
+    {
+        id: 2,
+        imageSrc: "image-banner.png",
+        nome: "Nome do animal",
+        genero: "macho",
+        idade: "idoso",
+        porte: "medio-porte",
+        motivoEspecial: "Idoso",
+        descricao: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    },
+    {
+        id: 3,
+        imageSrc: "image-banner.png",
+        nome: "Nome do animal",
+        genero: "femea",
+        idade: "adulto",
+        porte: "pequeno-porte",
+        motivoEspecial: "Muito tempo em LT",
+        descricao: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    },
+];
