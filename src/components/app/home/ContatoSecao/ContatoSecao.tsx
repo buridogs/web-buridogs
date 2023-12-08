@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ParceiroCardResumo } from "./ParceiroCardResumo";
 import { Button } from "@/components/Button/Button";
-import { parceiros } from "@/utils/consts";
+import { parceiros } from "@/mock/parceirosMock";
 
 export function ContatoSecao() {
     return (
