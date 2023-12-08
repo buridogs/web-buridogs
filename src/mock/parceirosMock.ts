@@ -5,7 +5,7 @@ export const parceiros = [
         contato: "EMAIL OU TELEFONE",
         imgSrc: "",
         descricao:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante.",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante. ",
         linkURL: "https://www.google.com",
     },
     {
@@ -14,7 +14,7 @@ export const parceiros = [
         endereco: "Rua Teste 1",
         contato: "EMAIL OU TELEFONE",
         descricao:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante.",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante.",
         linkURL: "https://google.com",
     },
     {
@@ -23,7 +23,7 @@ export const parceiros = [
         endereco: "Rua Teste 1",
         contato: "EMAIL OU TELEFONE",
         descricao:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante.",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante. ",
         linkURL: "https://google.com",
     },
 ];
