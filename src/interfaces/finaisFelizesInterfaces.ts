@@ -11,6 +11,7 @@ export interface IFinalFeliz {
     dataAdocao: string;
     adotadoPor: string;
     tratamentosRealizados?: string;
+    imagemPrincipal?: string;
     imagensUrlAntes?: string[];
     imagensUrlDepois?: string[];
     youtubeUrlIdAntes?: string;

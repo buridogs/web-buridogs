@@ -3,8 +3,8 @@ import { IFinalFeliz } from "@/interfaces/finaisFelizesInterfaces";
 export const finaisFelizes: IFinalFeliz[] = [
     {
         id: 1,
-        nome: "Nome cachorro FL",
-        idade: "filhote",
+        nome: "Toddynho",
+        idade: "idoso",
         porte: "medio-porte",
         genero: "macho",
         dataAcolhimento: "2022-10-01",
@@ -12,12 +12,13 @@ export const finaisFelizes: IFinalFeliz[] = [
         descricaoAntes:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id dictum velit. Sed id scelerisque metus. Nam vitae tellus justo. Fusce a augue convallis, malesuada ante condimentum, faucibus risus.",
         descricaoDepois:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id dictum velit. Sed id scelerisque metus. Nam vitae tellus justo. Fusce a augue convallis, malesuada ante condimentum, faucibus risus.",
+            "Entre as histórias mais marcantes do Buri Dogs, destaca-se a do cão Toddynho. Ele chegou muito debilitado, tomado por bicheira e teve uma patinha amputada. Foi feita uma campanha que teve grande participação da comunidade. Toddynho chegou desenganado, mas foi adotado pela Fernanda Jorge, advogada e moradora do Buritis, e hoje vive em uma casa cheia de alegria. Casos como o do Toddynho fazem todo o esforço do Buri Dogs valer a pena!",
         dataAdocao: "2023-01-23",
         adotadoPor: "Fulano Silva",
         tratamentosRealizados: "Vacinas, remédios, banho e tosa",
-        imagensUrlAntes: ["image-banner.png"],
-        imagensUrlDepois: ["image-banner.png"],
+        imagemPrincipal: "finais-felizes/toddynho-antes.jpg",
+        imagensUrlAntes: ["finais-felizes/toddynho-antes.jpg"],
+        imagensUrlDepois: ["finais-felizes/toddynho-depois.jpg"],
         youtubeUrlIdAntes: "",
         youtubeUrlIdDepois: "",
     },
