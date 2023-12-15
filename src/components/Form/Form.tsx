@@ -5,8 +5,8 @@ import { GeneralFormsType, FieldFormsType, InputFormEnum, OptionFormsType } from
 interface FormProps {
     handleSubmit: () => void;
     formFields: GeneralFormsType[];
-    register: UseFormRegister<IAdocaoForm>;
-    errors: FieldErrors<IAdocaoForm>;
+    register: UseFormRegister<any>;
+    errors: FieldErrors<any>;
     submitLabel: string;
 }
 
@@ -29,7 +29,7 @@ export default function Form({
                     <input
                         id={field.key}
                         placeholder={field.placeholder ?? ""}
-                        className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1"
+                        className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1 text-gray-500"
                         {...register(field.key as keyof IAdocaoForm)}
                     />
                 );
@@ -38,7 +38,7 @@ export default function Form({
                     <textarea
                         id={field.key}
                         placeholder={field.placeholder ?? ""}
-                        className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1"
+                        className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1 text-gray-500"
                         {...register(field.key as keyof IAdocaoForm)}
                         rows={4}
                     />
@@ -99,7 +99,7 @@ export default function Form({
     return (
         <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-end"
+            className="w-full flex flex-col items-end"
         >
             {formFields.map((adocaoKey) => (
                 <div
@@ -119,7 +119,7 @@ export default function Form({
                             </label>
                             {renderInputs(field.type, field, field.options)}
                             <p className="text-sm font-semibold text-red-400">
-                                {errors[field.key as keyof IAdocaoForm]?.message}
+                                {errors[field.key]?.message as any}
                             </p>
                         </div>
                     ))}
@@ -129,7 +129,7 @@ export default function Form({
             <input
                 type="submit"
                 value={submitLabel}
-                className="uppercase font-medium py-2 px-4 rounded border-grey-400 border-solid border-2 mt-8 cursor-pointer transition duration-150 hover:bg-primary-100 hover:text-white hover:border-primary-100"
+                className="text-primary-400 uppercase font-medium py-2 px-4 rounded-3xl border-primary-400 border-solid border-2 mt-8 cursor-pointer transition duration-150 hover:bg-primary-100 hover:text-white hover:border-primary-100"
             />
         </form>
     );
