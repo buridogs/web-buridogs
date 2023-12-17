@@ -11,6 +11,57 @@ interface AdocaoDetalhesInfoProps {
 }
 
 export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalhesInfoProps) {
+    const renderImagens = (nomeCachorro: string, imagens?: string[]) => {
+        if (!imagens?.length || imagens?.length === 1) return null;
+
+        return (
+            <div className="py-10 w-full">
+                <AliceCarousel
+                    mouseTracking
+                    disableDotsControls
+                    infinite
+                    autoPlay
+                    autoPlayInterval={4000}
+                    responsive={{
+                        0: {
+                            items: 1,
+                        },
+                        1024: {
+                            items: 2,
+                        },
+                    }}
+                    renderPrevButton={() => (
+                        <div className="w-10 h-10 flex items-center justify-center float-left mt-4 rounded-[50%] bg-primary-400 cursor-pointer">
+                            <FaArrowLeft color="white" />
+                        </div>
+                    )}
+                    renderNextButton={() => (
+                        <div className="w-10 h-10 flex items-center justify-center float-right mt-4 rounded-[50%] bg-primary-400 cursor-pointer">
+                            <FaArrowRight color="white" />
+                        </div>
+                    )}
+                    items={imagens?.map((image) => (
+                        <div
+                            key={image}
+                            className="flex flex-col items-center md:flex-row md:justify-evenly md:pl-2"
+                        >
+                            <div className="flex flex-col w-[300px] h-[300px]">
+                                <div className="h-full w-full relative flex items-start md:max-w-lg lg:max-w-xl">
+                                    <Image
+                                        src={generateImgURL(image)}
+                                        alt={nomeCachorro}
+                                        fill
+                                        priority
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                />
+            </div>
+        );
+    };
+
     return (
         <section className="flex flex-col items-center pb-11">
             <div className="flex flex-col items-center pb-8 lg:flex-row lg:w-500px lg:mx-auto">
@@ -60,52 +111,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                 </div>
             </div>
             <p className="text-grey-400 text-base my-6">{cachorroSelecionado.descricaoLonga}</p>
-            {cachorroSelecionado.imagesSrc?.length ? (
-                <div className="py-10 w-full">
-                    <AliceCarousel
-                        mouseTracking
-                        disableDotsControls
-                        infinite
-                        autoPlay
-                        autoPlayInterval={4000}
-                        responsive={{
-                            0: {
-                                items: 1,
-                            },
-                            1024: {
-                                items: 2,
-                            },
-                        }}
-                        renderPrevButton={() => (
-                            <div className="w-10 h-10 flex items-center justify-center float-left mt-4 rounded-[50%] bg-primary-400 cursor-pointer">
-                                <FaArrowLeft color="white" />
-                            </div>
-                        )}
-                        renderNextButton={() => (
-                            <div className="w-10 h-10 flex items-center justify-center float-right mt-4 rounded-[50%] bg-primary-400 cursor-pointer">
-                                <FaArrowRight color="white" />
-                            </div>
-                        )}
-                        items={cachorroSelecionado.imagesSrc.map((image) => (
-                            <div
-                                key={image}
-                                className="flex flex-col items-center md:flex-row md:justify-evenly md:pl-2"
-                            >
-                                <div className="flex flex-col w-[300px] h-[300px]">
-                                    <div className="h-full w-full relative flex items-start md:max-w-lg lg:max-w-xl">
-                                        <Image
-                                            src={generateImgURL(image)}
-                                            alt={cachorroSelecionado.nome}
-                                            fill
-                                            priority
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    />
-                </div>
-            ) : null}
+            {renderImagens(cachorroSelecionado.nome, cachorroSelecionado.imagesSrc)}
             {cachorroSelecionado.youtubeSrcUrl ? (
                 <section className="mt-8 w-full h-[300px] flex flex-col items-start lg:w-[800px] lg:h-[480px] mx-auto">
                     <h2 className="text-primary-400 text-2xl font-medium mb-4">
