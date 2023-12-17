@@ -3,7 +3,7 @@ import { ParceiroCardResumo } from "./ParceiroCardResumo";
 import { Button } from "@/components/Button/Button";
 import { parceiros } from "@/mock/parceirosMock";
 
-export function ContatoSecao() {
+export function ParceirosSecao() {
     return (
         <section className="bg-grey-50">
             <div className="max-w-screen-xl mx-auto px-8 py-8 flex flex-col item-center md:py-12 lg:flex-row">

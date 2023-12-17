@@ -1,5 +1,5 @@
 import { SobreNosSecao } from "@/components/app/home/SobreNosSecao";
-import { ContatoSecao } from "@/components/app/home/ContatoSecao/ContatoSecao";
+import { ParceirosSecao } from "@/components/app/home/ParceirosSecao/ParceirosSecao";
 import { FinaisFelizesSecao } from "@/components/app/home/FinaisFelizesSecao/FinaisFelizesSecao";
 import { SecaoPrincipal } from "@/components/app/home/SecaoPrincipal";
 import { Metadata } from "next";
@@ -19,7 +19,7 @@ export default function Home() {
             <QRCodeSecao />
             <SobreNosSecao />
             <FinaisFelizesSecao />
-            <ContatoSecao />
+            <ParceirosSecao />
         </div>
     );
 }
