@@ -69,7 +69,7 @@ export function FinaisFelizesSecao() {
                                             width={32}
                                             height={32}
                                         />
-                                        <p className="max-w-[80%] text-grey-400 text-lg font-medium ml-1">
+                                        <p className="max-w-[80%] text-grey-400 text-lg font-medium ml-1 text-ellipsis overflow-hidden line-clamp-6">
                                             {dog.descricaoDepois}
                                         </p>
                                     </div>

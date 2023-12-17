@@ -1,4 +1,4 @@
-import { IAdocaoCard } from "@/interfaces/adocaoInterfaces";
+import { AdocaoFiltrosEnum, IAdocaoCard } from "@/interfaces/adocaoInterfaces";
 import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,9 +9,9 @@ interface AdocaoCachorroCardProps {
 
 export function AdocaoCachorroCard({ cachorroInformacao }: AdocaoCachorroCardProps) {
     const { id, descricao, genero, idade, imageSrc, nome, porte } = cachorroInformacao;
-    const labelGenero = returnFormattedOptionLabel("genero", genero);
-    const labelIdade = returnFormattedOptionLabel("idade", idade);
-    const labelPorte = returnFormattedOptionLabel("porte", porte);
+    const labelGenero = returnFormattedOptionLabel(AdocaoFiltrosEnum.genero, genero);
+    const labelIdade = returnFormattedOptionLabel(AdocaoFiltrosEnum.idade, idade);
+    const labelPorte = returnFormattedOptionLabel(AdocaoFiltrosEnum.porte, porte);
     return (
         <div className=" max-w-full w-[344px] flex flex-col items-start rounded shadow-[0px_1px_3px_0px_rgba(0,0,0,0.20),0px_2px_1px_0px_rgba(0,0,0,0.12),0px_1px_1px_0px_rgba(0,0,0,0.14)]">
             <div className="w-full h-[350px] rounded rounded-b-2xl bg-grey-50 relative">

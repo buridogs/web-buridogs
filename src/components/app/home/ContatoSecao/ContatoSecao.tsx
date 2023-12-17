@@ -11,7 +11,7 @@ export function ContatoSecao() {
                     <h3 className="text-grey-700 text-3xl leading-10 font-bold md:text-4xl">
                         Conte também com nossos parceiros
                     </h3>
-                    <span className="text-justify text-grey-700 text-xl leading-10 font-medium mt-6 mb-10 md:mr-14">
+                    <span className="text-justify text-grey-700 text-xl leading-8 mt-6 mb-10 md:mr-14">
                         Para que o Buri Dogs se mantenha na ativa, contamos com uma rede de
                         profissionais e empresas parceiras. Eles fazem descontos, permutas, doam
                         produtos, facilitam pagamentos e tornam possível o atendimento aos nossos

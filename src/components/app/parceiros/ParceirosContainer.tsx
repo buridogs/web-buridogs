@@ -5,12 +5,12 @@ export function ParceirosContainer() {
     return (
         <div>
             <section className="bg-white">
-                <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col item-center md:py-12 2xl:flex-row 2xl:items-center 2xl:justify-between">
-                    <div className="flex flex-col items-start md:items-center lg:max-w-[600px]">
+                <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col items-center md:py-12">
+                    <div className="w-full flex flex-col items-start md:items-center">
                         <h3 className="text-grey-700 text-3xl leading-10 font-bold md:text-4xl">
                             Conheça nossos parceiros
                         </h3>
-                        <span className="text-grey-700 text-base md:text-xl leading-6 md:leading-10 font-medium mt-6 mb-4 md:text-center lg:text-start">
+                        <span className="text-grey-700 text-base md:text-xl leading-6 md:leading-10 font-medium mt-6 mb-4 md:text-center lg:text-start md:max-w-[80%]">
                             Sempre nos ajudando em nosso dia a dia, seja com descontos, doações e
                             facilidades nos pagamentos. Com certeza, nos fizeram mais fortes na
                             nossa caminhada e serão muito importantes para a existência do projeto!
@@ -20,7 +20,7 @@ export function ParceirosContainer() {
                             continuar sonhando e ajudando cada vez mais!
                         </span>
                     </div>
-                    <ul className="w-full grid grid-cols-1 sm:grid-cols-2 gap-8 justify-items-center">
+                    <ul className="w-full grid grid-cols-1 sm:grid-cols-2 gap-8 justify-items-center mt-8">
                         {parceiros.map((p) => (
                             <ParceiroCard
                                 key={p.nome}
