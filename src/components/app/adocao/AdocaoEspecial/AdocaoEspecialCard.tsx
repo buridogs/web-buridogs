@@ -11,7 +11,7 @@ interface AdocaoEspecialCardProps {
         genero: string;
         idade: string;
         porte: string;
-        motivoEspecial: string;
+        motivoEspecial?: string;
         descricao: string;
     };
 }
