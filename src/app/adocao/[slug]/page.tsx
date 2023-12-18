@@ -1,5 +1,6 @@
 import AdocaoDetalhesContainer from "@/components/app/adocaoDetalhes/AdocaoDetalhesContainer";
-import { cachorrosAdocao } from "@/mock/adocaoMock";
+import { cachorrosAdocao, cachorrosAdocaoEspecial } from "@/mock/adocaoMock";
+import { generateImgURL } from "@/utils/methods";
 import { Metadata } from "next";
 import { ResolvingMetadata } from "next/dist/lib/metadata/types/metadata-interface";
 
@@ -21,15 +22,21 @@ export async function generateMetadata(
     const idAnimalSelecionado = slug.split("-")[0];
 
     // fetch data
-    const cachorro = cachorrosAdocao.find((c) => c.id.toString() === idAnimalSelecionado);
+    const cachorro = cachorrosAdocao
+        .concat(cachorrosAdocaoEspecial)
+        .find((c) => c.id.toString() === idAnimalSelecionado);
 
     // optionally access and extend (rather than replace) parent metadata
     const previousImages = (await parent).openGraph?.images || [];
 
     return {
         title: `${cachorro?.nome} | Adoção Detalhes`,
+        description: `${cachorro?.descricaoLonga}`,
         openGraph: {
-            images: [`${cachorro?.imageSrc ?? ""}`, ...previousImages],
+            images: [
+                `${generateImgURL(cachorro?.imageSrc ?? "")}`,
+                ...previousImages.map((pi) => generateImgURL(pi as string)),
+            ],
         },
     };
 }

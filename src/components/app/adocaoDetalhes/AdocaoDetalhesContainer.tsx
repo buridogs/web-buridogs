@@ -1,7 +1,7 @@
 "use client";
 
 import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
-import { cachorrosAdocao } from "@/mock/adocaoMock";
+import { cachorrosAdocao, cachorrosAdocaoEspecial } from "@/mock/adocaoMock";
 import { useEffect, useState } from "react";
 import AdocaoDetalhesInfo from "./AdocaoDetalhesInfo";
 import AdocaoDetalhesForm from "./AdocaoDetalhesForm";
@@ -19,8 +19,9 @@ export default function AdocaoDetalhesContainer({ slug }: AdocaoDetalhesContaine
         if (slug) {
             const idAnimalSelecionado = slug.split("-")[0];
             setCachorroSelecionado(
-                cachorrosAdocao.find((c) => c.id.toString() === idAnimalSelecionado) ??
-                    ({} as IAdocaoDetails)
+                cachorrosAdocao
+                    .concat(cachorrosAdocaoEspecial)
+                    .find((c) => c.id.toString() === idAnimalSelecionado) ?? ({} as IAdocaoDetails)
             );
         }
     }, [slug]);
