@@ -1,3 +1,4 @@
+import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
 import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,16 +11,16 @@ interface AdocaoEspecialCardProps {
         genero: string;
         idade: string;
         porte: string;
-        motivoEspecial: string;
+        motivoEspecial?: string;
         descricao: string;
     };
 }
 
 export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {
     const { id, descricao, genero, idade, imageSrc, nome, porte, motivoEspecial } = dog;
-    const labelGenero = returnFormattedOptionLabel("genero", genero);
-    const labelIdade = returnFormattedOptionLabel("idade", idade);
-    const labelPorte = returnFormattedOptionLabel("porte", porte);
+    const labelGenero = returnFormattedOptionLabel(AdocaoFiltrosEnum.genero, genero);
+    const labelIdade = returnFormattedOptionLabel(AdocaoFiltrosEnum.idade, idade);
+    const labelPorte = returnFormattedOptionLabel(AdocaoFiltrosEnum.porte, porte);
 
     return (
         <div className="py-6 flex flex-row items-center justify-center">

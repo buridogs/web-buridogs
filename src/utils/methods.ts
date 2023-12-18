@@ -45,10 +45,14 @@ export function returnFormattedOptionLabel(category: string, option: string) {
     }
 }
 
-export const generateImgURL = (imgSrc: string) => {
+export function generateImgURL(imgSrc: string) {
     if (process.env.NODE_ENV === "development") {
         return `/${imgSrc}`;
     }
 
     return `${BLOGO_STORAGE_URL_LINK}/${imgSrc}`;
-};
+}
+
+export function formatDatetimePTBR(dateValue: string) {
+    return Intl.DateTimeFormat("pt-BR").format(new Date(dateValue));
+}
