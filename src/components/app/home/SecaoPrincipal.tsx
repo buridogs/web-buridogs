@@ -49,7 +49,7 @@ export function SecaoPrincipal() {
                     </div>
                 </div>
                 <Image
-                    src={generateImgURL("home-first-section.png")}
+                    src={generateImgURL("sobre-nos-foto-equipe-1.jpg")}
                     alt="Cachorro"
                     width={460}
                     height={460}
