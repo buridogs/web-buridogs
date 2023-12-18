@@ -6,4 +6,9 @@ export interface IParceiros {
     descricao?: string;
     linkURL?: string;
     categoria?: string;
+    redesSociais?: {
+        instagram?: string;
+        facebook?: string;
+        site?: string;
+    };
 }

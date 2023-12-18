@@ -1,13 +1,14 @@
 import { IParceiros } from "@/interfaces/parceirosInterfaces";
 import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
+import { RedesSociaisParceiros } from "@/components/RedesSociaisParceiros/RedesSociaisParceiros";
 
 interface ParceiroCardResumoProps {
     parceiro: IParceiros;
 }
 
 export function ParceiroCardResumo({ parceiro }: ParceiroCardResumoProps) {
-    const { nome, endereco, contato, imagemSrc } = parceiro;
+    const { nome, endereco, contato, imagemSrc, redesSociais } = parceiro;
     return (
         <li className="flex flex-col items-center">
             {imagemSrc ? (
@@ -24,6 +25,7 @@ export function ParceiroCardResumo({ parceiro }: ParceiroCardResumoProps) {
             <strong className="w-full mt-6">{nome}</strong>
             <span className="w-full text-grey-100 text-sm text-left">{endereco}</span>
             <span className="w-full text-grey-100 text-sm font-medium text-left">{contato}</span>
+            <RedesSociaisParceiros redes={redesSociais} />
         </li>
     );
 }

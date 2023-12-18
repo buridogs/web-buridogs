@@ -9,6 +9,9 @@ export const parceiros: IParceiros[] = [
         descricao: "",
         linkURL: "",
         categoria: "Veterinária",
+        redesSociais: {
+            instagram: "https://www.instagram.com/petvitaclinicaveterinaria/",
+        },
     },
     {
         nome: "Clínica Veterinária Life Pet (Dras Stephanie Raíssa e Nikoly Larissa)",
@@ -18,6 +21,9 @@ export const parceiros: IParceiros[] = [
         descricao: "",
         linkURL: "",
         categoria: "Veterinária",
+        redesSociais: {
+            instagram: "https://www.instagram.com/lifepetclinica/",
+        },
     },
     {
         nome: "Hospital Veterinário Arnaldo",
@@ -27,6 +33,9 @@ export const parceiros: IParceiros[] = [
         descricao: "",
         linkURL: "",
         categoria: "Veterinária",
+        redesSociais: {
+            instagram: "https://www.instagram.com/hospitalveterinarioarnaldo/",
+        },
     },
     {
         nome: "Pet Shop Palmeiras",
@@ -36,6 +45,9 @@ export const parceiros: IParceiros[] = [
         descricao: "",
         linkURL: "",
         categoria: "Pet Shop",
+        redesSociais: {
+            instagram: "https://www.instagram.com/petshop_palmeiras/",
+        },
     },
     {
         nome: "Pet 92",
@@ -45,6 +57,9 @@ export const parceiros: IParceiros[] = [
         descricao: "",
         linkURL: "",
         categoria: "Pet Shop",
+        redesSociais: {
+            instagram: "https://www.instagram.com/pet92brasil/",
+        },
     },
     {
         nome: "Beagá Pet",
@@ -54,6 +69,9 @@ export const parceiros: IParceiros[] = [
         descricao: "",
         linkURL: "",
         categoria: "Pet Shop",
+        redesSociais: {
+            instagram: "https://www.instagram.com/beagapet/",
+        },
     },
     {
         nome: "Toys e Pets Pet Shop",
@@ -63,6 +81,9 @@ export const parceiros: IParceiros[] = [
         descricao: "",
         linkURL: "",
         categoria: "Pet Shop",
+        redesSociais: {
+            instagram: "https://www.instagram.com/toysepets/",
+        },
     },
     {
         nome: "Jair Rações",
@@ -72,6 +93,9 @@ export const parceiros: IParceiros[] = [
         descricao: "",
         linkURL: "",
         categoria: "Pet Shop",
+        redesSociais: {
+            instagram: "https://www.instagram.com/jairracoes/",
+        },
     },
     {
         nome: "Criativa Moda",
@@ -81,5 +105,20 @@ export const parceiros: IParceiros[] = [
         descricao: "",
         linkURL: "",
         categoria: "Vestuário",
+        redesSociais: {
+            instagram: "https://www.instagram.com/criativamodabh/",
+        },
+    },
+    {
+        nome: "Athenas Modas",
+        endereco: "Av. Aggeo Pio Sobrinho, 275, loja 07, Buritis - BH",
+        contato: "(31) 99290-6666",
+        imagemSrc: "parceiros/parceiro-athenas-modas.png",
+        descricao: "",
+        linkURL: "",
+        categoria: "Vestuário",
+        redesSociais: {
+            instagram: "https://www.instagram.com/athenasmodasbh/",
+        },
     },
 ];
