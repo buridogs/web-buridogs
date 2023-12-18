@@ -3,6 +3,7 @@ import { BURIDOGS_PIX_KEY, BURIDOGS_QRCODE_CODE } from "@/utils/consts";
 import QRCode from "react-qr-code";
 import { useState } from "react";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa6";
+import { Tooltip } from "@/components/Tooltip/Tooltip";
 
 export function QRCodeSecao() {
     const [showCopyText, setShowCopyText] = useState(false);
@@ -46,21 +47,25 @@ export function QRCodeSecao() {
                                 id="pixkey"
                                 className={`text-xl ${
                                     showCopyText ? "text-grey-400" : "text-primary-400"
-                                } font-semibold mb-2 lg:mb-0 lg:mr-2`}
+                                } font-semibold mb-2 mr-3 lg:mb-0 lg:mr-2`}
                             >
                                 {BURIDOGS_PIX_KEY}
                             </span>
                             {showCopyText ? (
-                                <FaClipboardCheck
-                                    className="ml-3 text-grey-400"
-                                    color="primary-400"
-                                    size={24}
-                                />
+                                <Tooltip tooltipLabel="Copiado">
+                                    <FaClipboardCheck
+                                        className="text-grey-400"
+                                        color="primary-400"
+                                        size={24}
+                                    />
+                                </Tooltip>
                             ) : (
-                                <FaClipboard
-                                    className="ml-3 text-primary-400"
-                                    size={24}
-                                />
+                                <Tooltip tooltipLabel="Copiar">
+                                    <FaClipboard
+                                        className="text-primary-400"
+                                        size={24}
+                                    />
+                                </Tooltip>
                             )}
                         </button>
                     </div>

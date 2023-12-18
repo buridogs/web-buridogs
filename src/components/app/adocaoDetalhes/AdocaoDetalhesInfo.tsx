@@ -72,13 +72,14 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                         fill
                         sizes="(max-width: 1024px) 300px, 300px"
                         priority
+                        className="rounded-[50%]"
                     />
                 </div>
                 <div className="flex flex-col items-center mt-6">
                     <h1 className="text-primary-400 text-3xl font-medium">
                         {cachorroSelecionado.nome}
                     </h1>
-                    <span className="text-grey-400 text-lg font-medium flex items-center mt-3">
+                    <span className="w-full text-grey-400 text-lg font-medium flex justify-start items-center mt-3">
                         <BsGenderAmbiguous
                             size={30}
                             className="text-primary-400 mr-2"
@@ -88,7 +89,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                             cachorroSelecionado.genero
                         )}
                     </span>
-                    <span className="text-grey-400 text-lg font-medium flex items-center mt-2">
+                    <span className="w-full text-grey-400 text-lg font-medium flex justify-start items-center mt-2">
                         <MdBedroomBaby
                             size={30}
                             className="text-primary-400 mr-2"
@@ -98,7 +99,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                             cachorroSelecionado.idade
                         )}
                     </span>
-                    <span className="text-grey-400 text-lg font-medium flex items-center mt-2">
+                    <span className="w-full text-grey-400 text-lg font-medium flex justify-start items-center mt-2">
                         <FaDog
                             size={30}
                             className="text-primary-400 mr-2"

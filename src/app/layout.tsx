@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
+import ToastProvider from "@/providers/ToastProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +21,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
             <body className={`${inter.className} flex flex-col`}>
-                <Header />
-                <main className="flex-auto pt-[110px]">{children}</main>
-                <Footer />
+                <ToastProvider>
+                    <Header />
+                    <main className="flex-auto pt-[110px]">{children}</main>
+                    <Footer />
+                </ToastProvider>
             </body>
         </html>
     );

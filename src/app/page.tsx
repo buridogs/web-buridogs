@@ -5,13 +5,14 @@ import { SecaoPrincipal } from "@/components/app/home/SecaoPrincipal";
 import { Metadata } from "next";
 import { QRCodeSecao } from "@/components/app/home/QRCodeSecao";
 import { Banner } from "@/components/Banner/Banner";
+import { generateImgURL } from "@/utils/methods";
 
 export const metadata: Metadata = {
     title: "Home | Buri Dogs",
     description:
         "Bem vindo ao Buri Dogs, um grupo de proteção animal fundado no bairro Buritis, Belo Horizonte. ",
     openGraph: {
-        images: ["logo-buridogs.png"],
+        images: [generateImgURL("logo-buridogs.png")],
     },
 };
 

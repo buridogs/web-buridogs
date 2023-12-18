@@ -1,12 +1,19 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 
 import { ADOCAO_FORMS_CONFIG, schemaAdocaoForm } from "./AdocaoDetalhesUtils";
 import { IAdocaoForm } from "./AdocaoDetalhesTypes";
 import Form from "@/components/Form/Form";
+import { sendEmailFunction } from "@/services/azure-function/send-email-function/send-email-function";
+import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
 
-export default function AdocaoDetalhesForm() {
+interface AdocaoDetalhesFormProps {
+    cachorroSelecionado: IAdocaoDetails;
+}
+
+export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalhesFormProps) {
     const {
         register,
         handleSubmit,
@@ -15,9 +22,19 @@ export default function AdocaoDetalhesForm() {
     } = useForm<IAdocaoForm>({
         resolver: yupResolver(schemaAdocaoForm),
     });
-    const onSubmit = (data: IAdocaoForm) => {
-        console.log(data);
-        reset();
+    const onSubmit = async (data: IAdocaoForm) => {
+        try {
+            await sendEmailFunction({
+                ...data,
+                nomeCachorroAdocao: cachorroSelecionado.nome,
+            });
+            toast.success("Formulário enviado com sucesso!");
+        } catch (err: any) {
+            console.warn(err.message);
+            toast.error("Houve um erro no envio do formulário");
+        } finally {
+            reset();
+        }
     };
 
     return (
