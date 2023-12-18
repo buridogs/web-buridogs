@@ -16,17 +16,14 @@ export async function generateMetadata(
     { params }: Props,
     parent: ResolvingMetadata
 ): Promise<Metadata> {
-    // read route params
     const slug = params.slug;
 
     const idAnimalSelecionado = slug.split("-")[0];
 
-    // fetch data
     const cachorro = cachorrosAdocao
         .concat(cachorrosAdocaoEspecial)
         .find((c) => c.id.toString() === idAnimalSelecionado);
 
-    // optionally access and extend (rather than replace) parent metadata
     const previousImages = (await parent).openGraph?.images || [];
 
     return {

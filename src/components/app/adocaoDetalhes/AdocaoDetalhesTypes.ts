@@ -24,3 +24,7 @@ export interface IAdocaoForm {
     situacao_devolucao_adocao: string;
     consciente_termo_responsabilidade: boolean;
 }
+
+export interface IAdocaoPOSTRequestForm extends IAdocaoForm {
+    nomeCachorroAdocao: string;
+}
