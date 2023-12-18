@@ -45,3 +45,7 @@ export enum AdocaoFiltrosEnum {
     idade = "idade",
     porte = "porte",
 }
+
+export interface IAdocaoEspecialDetails extends IAdocaoDetails {
+    motivoEspecial?: string;
+}

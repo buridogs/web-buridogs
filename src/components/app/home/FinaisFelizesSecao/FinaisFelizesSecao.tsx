@@ -1,4 +1,5 @@
 "use client";
+import { finaisFelizes } from "@/mock/finaisFelizesMock";
 import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,32 +7,7 @@ import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 export function FinaisFelizesSecao() {
-    const happyEndingDogs = [
-        {
-            name: "Luke",
-            imgSrc: "",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante.",
-        },
-        {
-            name: "Vic",
-            imgSrc: "",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante.",
-        },
-        {
-            name: "Olaf",
-            imgSrc: "",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante.",
-        },
-        {
-            name: "Ranira",
-            imgSrc: "",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante.",
-        },
-    ];
+    const finaisFelizesHighlight = finaisFelizes.slice(0, 3);
 
     return (
         <section>
@@ -61,30 +37,40 @@ export function FinaisFelizesSecao() {
                                 <FaArrowRight color="white" />
                             </div>
                         )}
-                        items={happyEndingDogs.map((dog) => (
+                        items={finaisFelizesHighlight.map((dog) => (
                             <div
-                                key={dog.name}
-                                className="flex flex-col items-center md:flex-row md:justify-evenly md:pl-2"
+                                key={dog.nome}
+                                className="w-full flex flex-col items-center md:flex-row md:justify-evenly md:pl-2"
                             >
-                                <div className="w-[280px] h-[280px] rounded-[50%] bg-primary-100" />
+                                {dog.imagemPrincipal ? (
+                                    <Image
+                                        src={generateImgURL(dog.imagemPrincipal)}
+                                        alt={dog.nome}
+                                        width={280}
+                                        height={280}
+                                        className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-[50%] object-cover"
+                                    />
+                                ) : (
+                                    <div className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-[50%] bg-primary-100" />
+                                )}
                                 <div className="flex flex-col items-start">
                                     <Link
                                         href="/finais-felizes"
                                         className="group py-3 px-4 rounded-[40px] bg-grey-50 mb-5 mt-4 transition duration-150 hover:bg-grey-100"
                                     >
                                         <span className="uppercase font-medium text-grey-400 transition duration-150 group-hover:text-white">
-                                            {dog.name}
+                                            {dog.nome}
                                         </span>
                                     </Link>
-                                    <div className="flex items-start md:max-w-lg lg:max-w-xl">
+                                    <div className="w-full h-fit flex items-start md:max-w-lg lg:max-w-xl">
                                         <Image
                                             src={generateImgURL("quote-open.svg")}
                                             alt="Aspas"
                                             width={32}
                                             height={32}
                                         />
-                                        <p className="text-grey-400 text-xl font-medium ml-1">
-                                            {dog.description}
+                                        <p className="max-w-[80%] text-grey-400 text-lg font-medium ml-1 text-ellipsis overflow-hidden line-clamp-6">
+                                            {dog.descricaoDepois}
                                         </p>
                                     </div>
                                 </div>
