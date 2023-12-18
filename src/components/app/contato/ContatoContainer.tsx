@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import ContatoDetalhesForm from "./ContatoDetalhesForm";
+import { generateImgURL } from "@/utils/methods";
 
 export default function ContatoContainer() {
     return (
@@ -20,7 +22,13 @@ export default function ContatoContainer() {
 
                     <ContatoDetalhesForm />
                 </div>
-                <div className="w-[200px] h-[200px] rounded-[50%] bg-primary-100 mb-10 lg:mb-0 lg:ml-10 lg:w-[300px] lg:h-[300px] xl:w-[400px] xl:h-[400px]" />
+                <Image
+                    src={generateImgURL("cachorrinho-fofo-Contato.jpg")}
+                    alt="Banner"
+                    width={300}
+                    height={300}
+                    className="w-auto saturate-200 rounded-full lg:w-[470px] lg:h-[470px] lg:ml-4"
+                />
             </div>
         </section>
     );
