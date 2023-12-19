@@ -121,4 +121,18 @@ export const parceiros: IParceiros[] = [
             instagram: "https://www.instagram.com/athenasmodasbh/",
         },
     },
+    {
+        nome: "Gerais Proteção Veicular",
+        endereco: "Rua Nilo Aparecida Pinto, 165, Planalto - BH",
+        contato: "(31) 3566-1424",
+        imagemSrc: "parceiro-gerais-protecao.svg",
+        descricao: "",
+        linkURL: "",
+        categoria: "Proteção Veicular",
+        redesSociais: {
+            instagram: "https://www.instagram.com/geraisprotecao/",
+            facebook: "https://www.facebook.com/gerais.protecao",
+            site: "https://geraisprotecao.com/",
+        },
+    },
 ];

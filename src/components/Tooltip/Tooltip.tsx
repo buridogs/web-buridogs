@@ -11,7 +11,7 @@ export function Tooltip({ children, tooltipLabel }: TooltipProps) {
             <div className="relative sm:max-w-xl sm:mx-auto">
                 <div className="group cursor-pointer relative inline-block w-fit text-center">
                     {children}
-                    <div className="opacity-0 w-fit bg-black text-white text-center text-sm rounded-lg py-2 absolute z-10 group-hover:opacity-100 bottom-full -left-[50%] px-3 mb-2 pointer-events-none">
+                    <div className="opacity-0 w-fit bg-black text-white text-center text-sm rounded-lg py-2 absolute z-10 group-hover:opacity-100 bottom-full px-3 mb-2 pointer-events-none">
                         {tooltipLabel}
                         <svg
                             className="absolute w-fit text-black h-2 left-[50%] top-full"

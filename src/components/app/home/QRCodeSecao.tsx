@@ -38,36 +38,33 @@ export function QRCodeSecao() {
                         viewBox={"0 0 256 256"}
                     />
                     <div className="flex flex-col items-center mt-4 lg:flex-row">
-                        <span className="font-medium mr-4">Chave PIX</span>
-                        <button
-                            onClick={handleCopyText}
-                            className="flex items-center"
-                        >
-                            <span
-                                id="pixkey"
-                                className={`text-xl ${
-                                    showCopyText ? "text-grey-400" : "text-primary-400"
-                                } font-semibold mb-2 mr-3 lg:mb-0 lg:mr-2`}
+                        <span className="font-medium mr-4 text-gray-600">Chave PIX</span>
+                        <Tooltip tooltipLabel={showCopyText ? "Copiado" : "Copiar"}>
+                            <button
+                                onClick={handleCopyText}
+                                className="flex items-center"
                             >
-                                {BURIDOGS_PIX_KEY}
-                            </span>
-                            {showCopyText ? (
-                                <Tooltip tooltipLabel="Copiado">
+                                <span
+                                    id="pixkey"
+                                    className={`text-xl ${
+                                        showCopyText ? "text-grey-400" : "text-primary-400"
+                                    } font-semibold mb-2 mr-3 lg:mb-0 lg:mr-2`}
+                                >
+                                    {BURIDOGS_PIX_KEY}
+                                </span>
+                                {showCopyText ? (
                                     <FaClipboardCheck
                                         className="text-grey-400"
-                                        color="primary-400"
                                         size={24}
                                     />
-                                </Tooltip>
-                            ) : (
-                                <Tooltip tooltipLabel="Copiar">
+                                ) : (
                                     <FaClipboard
                                         className="text-primary-400"
                                         size={24}
                                     />
-                                </Tooltip>
-                            )}
-                        </button>
+                                )}
+                            </button>
+                        </Tooltip>
                     </div>
                 </div>
             </div>

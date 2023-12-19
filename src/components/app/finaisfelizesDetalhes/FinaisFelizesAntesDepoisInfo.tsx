@@ -5,14 +5,12 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 interface FinaisFelizesAntesDepoisInfoProps {
     label: string;
-    descricao: string;
     imagensUrl?: string[];
     youtubeUrlId?: string;
     nome: string;
 }
 
 export default function FinaisFelizesAntesDepoisInfo({
-    descricao,
     label,
     imagensUrl,
     youtubeUrlId,
@@ -87,7 +85,7 @@ export default function FinaisFelizesAntesDepoisInfo({
     return (
         <div className="w-full flex flex-col items-center py-8">
             <h2 className="text-primary-400 text-2xl font-medium">{label}</h2>
-            <p className="text-grey-400 text-base my-6 w-full">{descricao}</p>
+
             {renderImagens(imagensUrl)}
             {youtubeUrlId ? (
                 <section className="mt-8 w-full h-[300px] flex flex-col items-start lg:w-[800px] lg:h-[480px] mx-auto">

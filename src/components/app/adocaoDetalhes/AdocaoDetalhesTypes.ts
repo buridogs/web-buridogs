@@ -1,5 +1,6 @@
 export interface IAdocaoForm {
     nome: string;
+    celular: string;
     endereco_cep: string;
     endereco_rua: string;
     endereco_numero: string;

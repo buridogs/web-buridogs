@@ -4,12 +4,8 @@ export interface IFinalFeliz {
     idade: string;
     porte: string;
     genero: string;
-    dataAcolhimento: string;
     localAcolhimento: string;
-    descricaoAntes: string;
-    descricaoDepois: string;
-    dataAdocao: string;
-    adotadoPor: string;
+    descricao: string;
     tratamentosRealizados?: string;
     imagemPrincipal?: string;
     imagensUrlAntes?: string[];
