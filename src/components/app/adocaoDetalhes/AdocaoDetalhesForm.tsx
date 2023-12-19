@@ -65,9 +65,7 @@ export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalh
                         vida do animal, até que todos estejam completamente adaptados e felizes.
                     </strong>{" "}
                     Por gentileza, responda as perguntas abaixo. Assim que nos enviar, iremos
-                    analisar e responder o mais breve possível. Sendo aprovada a adoção, marcamos
-                    uma visita para que o interessado conheça o animal e interaja com ele antes que
-                    seja levado ao adotante.
+                    analisar, responder e retornar o mais breve possível.
                 </p>
                 <Form
                     handleSubmit={handleSubmit(onSubmit)}
