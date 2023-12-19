@@ -65,7 +65,12 @@ export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalh
                         vida do animal, até que todos estejam completamente adaptados e felizes.
                     </strong>{" "}
                     Por gentileza, responda as perguntas abaixo. Assim que nos enviar, iremos
-                    analisar, responder e retornar o mais breve possível.
+                    analisar, responder e retornar o mais breve possível.{" "}
+                    <strong className="text-grey-700">
+                        Por meio do número de celular disponibilizado abaixo, pediremos imagens da
+                        futura casa do cão, de forma que possamos averiguar se ele(a) estará em
+                        condições adequadas.
+                    </strong>
                 </p>
                 <Form
                     handleSubmit={handleSubmit(onSubmit)}
