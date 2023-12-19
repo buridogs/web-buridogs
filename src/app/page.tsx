@@ -4,7 +4,6 @@ import { FinaisFelizesSecao } from "@/components/app/home/FinaisFelizesSecao/Fin
 import { SecaoPrincipal } from "@/components/app/home/SecaoPrincipal";
 import { Metadata } from "next";
 import { QRCodeSecao } from "@/components/app/home/QRCodeSecao";
-import { Banner } from "@/components/Banner/Banner";
 import { generateImgURL } from "@/utils/methods";
 
 export const metadata: Metadata = {
@@ -19,7 +18,6 @@ export const metadata: Metadata = {
 export default function Home() {
     return (
         <div>
-            <Banner />
             <SecaoPrincipal />
             <QRCodeSecao />
             <SobreNosSecao />
