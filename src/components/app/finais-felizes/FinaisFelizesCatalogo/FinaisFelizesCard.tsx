@@ -1,30 +1,17 @@
 "use client";
-import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
 import { IFinalFeliz } from "@/interfaces/finaisFelizesInterfaces";
-import { formatDatetimePTBR, generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
+import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 import AliceCarousel from "react-alice-carousel";
-import { FaHandsHelping } from "react-icons/fa";
-import { GiLoveHowl } from "react-icons/gi";
 
 interface FinaisFelizesCardProps {
     finalFeliz: IFinalFeliz;
 }
 
 export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps) {
-    const {
-        id,
-        nome,
-        genero,
-        idade,
-        imagensUrlAntes,
-        imagensUrlDepois,
-        porte,
-        dataAcolhimento,
-        dataAdocao,
-    } = finalFeliz;
+    const { id, nome, genero, idade, imagensUrlAntes, imagensUrlDepois, porte } = finalFeliz;
 
     const labelGenero = returnFormattedOptionLabel(AdocaoFiltrosEnum.genero, genero);
     const labelIdade = returnFormattedOptionLabel(AdocaoFiltrosEnum.idade, idade);
@@ -68,24 +55,6 @@ export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps
             <div className="flex flex-col items-start px-4 pb-3">
                 <strong className="text-grey-400 text-xl font-medium mt-4">{nome}</strong>
                 <span className="text-grey-400 text-sm mb-4">{`${labelGenero}, ${labelIdade}, ${labelPorte}`}</span>
-                <Tooltip tooltipLabel="Data de acolhimento">
-                    <p className="text-grey-100 text-sm mb-4 flex items-center">
-                        <FaHandsHelping
-                            size={18}
-                            className="text-primary-400 mr-2"
-                        />
-                        {formatDatetimePTBR(dataAcolhimento)}
-                    </p>
-                </Tooltip>
-                <Tooltip tooltipLabel="Data de adoção">
-                    <p className="text-grey-100 text-sm mb-4 flex items-center">
-                        <GiLoveHowl
-                            size={18}
-                            className="text-primary-400 mr-2"
-                        />
-                        {formatDatetimePTBR(dataAdocao)}
-                    </p>
-                </Tooltip>
                 <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
                     <Link href={`/finais-felizes/${id}-${nome.replaceAll(" ", "")}`}>
                         Ver História

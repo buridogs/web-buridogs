@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/Button/Button";
 import { finaisFelizes } from "@/mock/finaisFelizesMock";
 import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
@@ -15,7 +16,7 @@ export function FinaisFelizesSecao() {
                 <h2 className="text-primary-400 text-4xl font-bold text-center">
                     Acompanhe alguns dos nossos finais felizes
                 </h2>
-                <div className="py-10 w-full">
+                <div className="pt-10 pb-6 w-full">
                     <AliceCarousel
                         mouseTracking
                         disableDotsControls
@@ -70,7 +71,7 @@ export function FinaisFelizesSecao() {
                                             height={32}
                                         />
                                         <p className="max-w-[80%] text-grey-400 text-lg font-medium ml-1 text-ellipsis overflow-hidden line-clamp-6">
-                                            {dog.descricaoDepois}
+                                            {dog.descricao}
                                         </p>
                                     </div>
                                 </div>
@@ -78,6 +79,17 @@ export function FinaisFelizesSecao() {
                         ))}
                     />
                 </div>
+                <Link
+                    href="/finais-felizes"
+                    className="w-full flex justify-start"
+                >
+                    <Button
+                        label="Acessar Finais Felizes"
+                        customBorderColor="border-primary-400"
+                        customTextColor="text-primary-400"
+                        customCss="w-full"
+                    />
+                </Link>
             </div>
         </section>
     );
