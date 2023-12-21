@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ContatoDetalhesForm } from "./ContatoDetalhesForm";
 import { generateImgURL } from "@/utils/methods";
+import { QRCodeSecao } from "../home/QRCodeSecao";
 
 export function ContatoContainer() {
     return (
@@ -22,12 +23,15 @@ export function ContatoContainer() {
                     <ContatoDetalhesForm />
                 </div>
                 <Image
-                    src={generateImgURL("cachorrinho-contato.jpg")}
+                    src={generateImgURL("cachorro-contato.jpg")}
                     alt="Banner"
                     width={300}
                     height={300}
                     className="w-auto saturate-200 rounded-full lg:w-[470px] lg:h-[470px] lg:ml-4"
                 />
+            </div>
+            <div className="pb-8">
+                <QRCodeSecao />
             </div>
         </section>
     );
