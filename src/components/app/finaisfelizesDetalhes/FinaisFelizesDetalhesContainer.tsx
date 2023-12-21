@@ -32,15 +32,16 @@ export default function FinaisFelizesDetalhesContainer({
             <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col item-center md:py-12">
                 <section className="w-full flex flex-col items-center pb-11">
                     <FinaisFelizesDetalhesInfo finalFelizSelecionado={finalFelizSelecionado} />
+                    <p className="text-grey-400 text-base my-6 w-full">
+                        {finalFelizSelecionado.descricao}
+                    </p>
                     <FinaisFelizesAntesDepoisInfo
-                        descricao={finalFelizSelecionado.descricaoAntes}
                         label="Antes"
                         nome={finalFelizSelecionado.nome}
                         imagensUrl={finalFelizSelecionado.imagensUrlAntes}
                         youtubeUrlId={finalFelizSelecionado.youtubeUrlIdAntes}
                     />
                     <FinaisFelizesAntesDepoisInfo
-                        descricao={finalFelizSelecionado.descricaoDepois}
                         label="Depois"
                         nome={finalFelizSelecionado.nome}
                         imagensUrl={finalFelizSelecionado.imagensUrlDepois}

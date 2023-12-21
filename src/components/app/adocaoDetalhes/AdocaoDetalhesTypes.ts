@@ -1,5 +1,6 @@
 export interface IAdocaoForm {
     nome: string;
+    celular: string;
     endereco_cep: string;
     endereco_rua: string;
     endereco_numero: string;
@@ -23,4 +24,8 @@ export interface IAdocaoForm {
     descricao_lugar_animal: string;
     situacao_devolucao_adocao: string;
     consciente_termo_responsabilidade: boolean;
+}
+
+export interface IAdocaoPOSTRequestForm extends IAdocaoForm {
+    nomeCachorroAdocao: string;
 }

@@ -26,17 +26,41 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         descricao:
             "Doguinha vacinada e com castração agendada. Porte excelente para quem mora em apartamento.",
     },
+    {
+        id: 3,
+        imageSrc: "adocao-zaza-1.jpg",
+        nome: "Zaza",
+        genero: "femea",
+        idade: "adulto",
+        porte: "medio-porte",
+        imagesSrc: ["adocao-zaza-1.jpg"],
+        descricao:
+            "Chow-chow vacinada e castrada. É dócil, carinhosa e adora um chamego. Possui cerca de 2 anos.",
+    },
+    {
+        id: 4,
+        imageSrc: "",
+        nome: "Simba",
+        genero: "macho",
+        idade: "adulto",
+        porte: "medio-porte",
+        imagesSrc: [""],
+        descricao:
+            "Uma simpatia de doguinho, vacinado e castrado. agendada. Simba é carinhoso, companheiro e adora uma aventura. Possui cerca de 2 anos.",
+    },
 ];
 
 export const cachorrosAdocaoEspecial: IAdocaoEspecialDetails[] = [
     {
-        id: 1,
-        imageSrc: "image-banner.png",
-        nome: "Nome do animal",
+        id: 5,
+        imageSrc: "adocao-tigrao-1.jpg",
+        nome: "Tigrão",
         genero: "macho",
-        idade: "idoso",
+        idade: "adulto",
         porte: "medio-porte",
+        imagesSrc: ["adocao-tigrao-1.jpg", "adocao-tigrao-2.jpg"],
         motivoEspecial: "Deficiente Físico",
-        descricao: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+        descricao:
+            "Doguinho especial de três patinhas, mas valente como qualquer outro. Vacinado e castrado. Está há muito tempo em busca de um lar sem sucesso, possivelmente por sua condição especial, mas que não o limita em nada.",
     },
 ];

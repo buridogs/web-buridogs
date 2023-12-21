@@ -18,7 +18,7 @@ export default function FinaisFelizesDetalhesInfo({
                 <h1 className="text-primary-400 text-3xl font-medium">
                     {finalFelizSelecionado.nome}
                 </h1>
-                <span className="text-grey-400 text-lg font-medium flex items-center mt-3">
+                <span className="w-full text-grey-400 text-lg font-medium flex justify-start items-center mt-3">
                     <BsGenderAmbiguous
                         size={30}
                         className="text-primary-400 mr-2"
@@ -28,7 +28,7 @@ export default function FinaisFelizesDetalhesInfo({
                         finalFelizSelecionado.genero
                     )}
                 </span>
-                <span className="text-grey-400 text-lg font-medium flex items-center mt-2">
+                <span className="w-full text-grey-400 text-lg font-medium flex justify-start items-center mt-2">
                     <MdBedroomBaby
                         size={30}
                         className="text-primary-400 mr-2"
@@ -38,7 +38,7 @@ export default function FinaisFelizesDetalhesInfo({
                         finalFelizSelecionado.idade
                     )}
                 </span>
-                <span className="text-grey-400 text-lg font-medium flex items-center mt-2">
+                <span className="w-full text-grey-400 text-lg font-medium flex justify-start items-center mt-2">
                     <FaDog
                         size={30}
                         className="text-primary-400 mr-2"
@@ -51,10 +51,6 @@ export default function FinaisFelizesDetalhesInfo({
             </div>
             <div className="flex flex-col items-start">
                 <p>
-                    <strong className="text-primary-400 font-medium">Data de Acolhimento:</strong>{" "}
-                    {finalFelizSelecionado.dataAcolhimento}
-                </p>
-                <p>
                     <strong className="text-primary-400 font-medium"> Local Acolhimento:</strong>{" "}
                     {finalFelizSelecionado.localAcolhimento}
                 </p>
@@ -63,14 +59,6 @@ export default function FinaisFelizesDetalhesInfo({
                         Tratamentos realizados:
                     </strong>{" "}
                     {finalFelizSelecionado.tratamentosRealizados}
-                </p>
-                <p>
-                    <strong className="text-primary-400 font-medium">Data de adoção:</strong>{" "}
-                    {finalFelizSelecionado.dataAdocao}
-                </p>
-                <p>
-                    <strong className="text-primary-400 font-medium">Adotado por:</strong>{" "}
-                    {finalFelizSelecionado.adotadoPor}
                 </p>
             </div>
         </div>

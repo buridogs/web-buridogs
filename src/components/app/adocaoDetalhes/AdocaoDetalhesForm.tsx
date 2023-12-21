@@ -1,12 +1,19 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 
 import { ADOCAO_FORMS_CONFIG, schemaAdocaoForm } from "./AdocaoDetalhesUtils";
 import { IAdocaoForm } from "./AdocaoDetalhesTypes";
 import Form from "@/components/Form/Form";
+import { sendEmailFunction } from "@/services/azure-function/send-email-function/send-email-function";
+import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
 
-export default function AdocaoDetalhesForm() {
+interface AdocaoDetalhesFormProps {
+    cachorroSelecionado: IAdocaoDetails;
+}
+
+export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalhesFormProps) {
     const {
         register,
         handleSubmit,
@@ -15,9 +22,19 @@ export default function AdocaoDetalhesForm() {
     } = useForm<IAdocaoForm>({
         resolver: yupResolver(schemaAdocaoForm),
     });
-    const onSubmit = (data: IAdocaoForm) => {
-        console.log(data);
-        reset();
+    const onSubmit = async (data: IAdocaoForm) => {
+        try {
+            await sendEmailFunction({
+                ...data,
+                nomeCachorroAdocao: cachorroSelecionado.nome,
+            });
+            toast.success("Formulário enviado com sucesso!");
+        } catch (err: any) {
+            console.warn(err.message);
+            toast.error("Houve um erro no envio do formulário");
+        } finally {
+            reset();
+        }
     };
 
     return (
@@ -48,9 +65,12 @@ export default function AdocaoDetalhesForm() {
                         vida do animal, até que todos estejam completamente adaptados e felizes.
                     </strong>{" "}
                     Por gentileza, responda as perguntas abaixo. Assim que nos enviar, iremos
-                    analisar e responder o mais breve possível. Sendo aprovada a adoção, marcamos
-                    uma visita para que o interessado conheça o animal e interaja com ele antes que
-                    seja levado ao adotante.
+                    analisar, responder e retornar o mais breve possível.{" "}
+                    <strong className="text-grey-700">
+                        Por meio do número de celular disponibilizado abaixo, pediremos imagens da
+                        futura casa do cão, de forma que possamos averiguar se ele(a) estará em
+                        condições adequadas.
+                    </strong>
                 </p>
                 <Form
                     handleSubmit={handleSubmit(onSubmit)}

@@ -1,5 +1,7 @@
 "use client";
 import { BURIDOGS_PIX_KEY } from "@/utils/consts";
+import { generateImgURL } from "@/utils/methods";
+import Image from "next/image";
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
@@ -66,7 +68,13 @@ export function SobreNosContainer() {
                         ração, medicamentos ou qualquer produto que possa ser útil pros cães.
                     </span>
                 </div>
-                <div className="w-[200px] h-[200px] rounded-[50%] bg-primary-100 mb-10 lg:mb-0 lg:ml-10 lg:w-[300px] lg:h-[300px] xl:w-[400px] xl:h-[400px]" />
+                <Image
+                    src={generateImgURL("sobre-nos-feira-adocao.jpg")}
+                    alt={"Equipe Buri Dogs"}
+                    width={280}
+                    height={280}
+                    className="w-[300px] h-[300px] rounded-3xl bg-primary-100 mb-10 lg:mb-0 lg:ml-10 lg:w-[300px] lg:h-[300px] xl:w-[450px] xl:h-[450px] object-cover object-top"
+                />
             </div>
             <div className="grow flex flex-col items-center justify-center lg:py-[56px]">
                 <h2 className="text-primary-400 text-3xl font-bold text-center lg:text-4xl">

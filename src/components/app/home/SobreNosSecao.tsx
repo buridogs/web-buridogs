@@ -29,11 +29,11 @@ export function SobreNosSecao() {
                     </Link>
                 </div>
                 <Image
-                    src={generateImgURL("image-banner.png")}
+                    src={generateImgURL("sobre-nos-foto-equipe-3.jpg")}
                     alt="Cachorro"
-                    width={460}
-                    height={460}
-                    className="hidden lg:block"
+                    width={430}
+                    height={430}
+                    className="hidden rounded-3xl lg:block"
                 />
             </div>
         </section>
