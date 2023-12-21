@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { CONTATO_FORMS_CONFIG, schemaContatoForm } from "./ContatoUtils";
 import { IContatoFormData } from "./ContatoTypes";
 
-const ContatoDetalhesForm = () => {
+export function ContatoDetalhesForm() {
     const {
         register,
         handleSubmit,
@@ -27,6 +27,4 @@ const ContatoDetalhesForm = () => {
             submitLabel="Enviar Mensagem"
         />
     );
-};
-
-export default ContatoDetalhesForm;
+}
