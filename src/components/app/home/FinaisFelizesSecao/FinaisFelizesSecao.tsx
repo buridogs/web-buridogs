@@ -81,7 +81,7 @@ export function FinaisFelizesSecao() {
                 </div>
                 <Link
                     href="/finais-felizes"
-                    className="w-full flex justify-start"
+                    className="w-full flex justify-center md:justify-end"
                 >
                     <Button
                         label="Acessar Finais Felizes"

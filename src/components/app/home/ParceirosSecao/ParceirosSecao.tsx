@@ -19,7 +19,7 @@ export function ParceirosSecao() {
                     </span>
                     <Link
                         href="/parceiros"
-                        className="w-full mb-10 lg:mb-0"
+                        className="w-full mb-10 lg:mb-0 flex justify-end"
                     >
                         <Button
                             label="Acessar Parceiros"
