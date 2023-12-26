@@ -1,5 +1,6 @@
 import { IAdocaoPOSTRequestForm } from "@/components/app/adocaoDetalhes/AdocaoDetalhesTypes";
 import { ADOCAO_FORMS_CONFIG } from "@/components/app/adocaoDetalhes/AdocaoDetalhesUtils";
+import { formatDatetimePTBR } from "@/utils/methods";
 
 export const convertDataToTemplate = (adocaoData: IAdocaoPOSTRequestForm) => {
     const keyLabels = ADOCAO_FORMS_CONFIG.reduce((acm, cur) => {
@@ -46,7 +47,7 @@ export const convertDataToTemplate = (adocaoData: IAdocaoPOSTRequestForm) => {
     <body>
         <h1>🐶 Formulário de adoção preenchido 🐶</h1>
         <h2>🔎 Cachorro interessado: ${adocaoData.nomeCachorroAdocao}</h2>
-        <h2>📆 Data de envio: ${new Date()}</h2>
+        <h2>📆 Data de envio: ${formatDatetimePTBR(new Date().toISOString())}</h2>
         <ul>
         ${Object.entries(keyLabels).reduce(
             (acm: any, kl: any) =>

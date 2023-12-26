@@ -1,5 +1,6 @@
 import { IContatoFormData } from "@/components/app/contato/ContatoTypes";
 import { CONTATO_FORMS_CONFIG } from "@/components/app/contato/ContatoUtils";
+import { formatDatetimePTBR } from "@/utils/methods";
 
 export const convertDataToTemplateContato = (contatoData: IContatoFormData) => {
     const keyLabels = CONTATO_FORMS_CONFIG.reduce((acm, cur) => {
@@ -37,7 +38,7 @@ export const convertDataToTemplateContato = (contatoData: IContatoFormData) => {
     </head>
     <body>
         <h1>👋 Formulário de Contato 👋</h1>
-        <h2>📆 Data de envio: ${new Date()}</h2>
+        <h2>📆 Data de envio: ${formatDatetimePTBR(new Date().toISOString())}</h2>
         <ul>
         ${Object.entries(keyLabels).reduce(
             (acm: any, kl: any) =>

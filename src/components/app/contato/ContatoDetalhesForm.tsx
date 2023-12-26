@@ -22,11 +22,10 @@ export function ContatoDetalhesForm() {
                 ...data,
             });
             toast.success("Formulário enviado com sucesso!");
+            reset();
         } catch (err: any) {
             console.warn(err.message);
             toast.error("Houve um erro no envio do formulário");
-        } finally {
-            reset();
         }
     };
 
