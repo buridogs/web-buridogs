@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { ADOCAO_FORMS_CONFIG, schemaAdocaoForm } from "./AdocaoDetalhesUtils";
 import { IAdocaoForm } from "./AdocaoDetalhesTypes";
 import Form from "@/components/Form/Form";
-import { sendEmailFunction } from "@/services/azure-function/send-email-function/send-email-function";
+import { sendEmailFunctionAdocaoForm } from "@/services/azure-function/send-email-adocao/send-email-function-adocao-form";
 import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
 
 interface AdocaoDetalhesFormProps {
@@ -24,7 +24,7 @@ export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalh
     });
     const onSubmit = async (data: IAdocaoForm) => {
         try {
-            await sendEmailFunction({
+            await sendEmailFunctionAdocaoForm({
                 ...data,
                 nomeCachorroAdocao: cachorroSelecionado.nome,
             });
@@ -72,7 +72,7 @@ export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalh
                         condições adequadas.
                     </strong>
                 </p>
-                <Form
+                <Form<IAdocaoForm>
                     handleSubmit={handleSubmit(onSubmit)}
                     formFields={ADOCAO_FORMS_CONFIG}
                     register={register}

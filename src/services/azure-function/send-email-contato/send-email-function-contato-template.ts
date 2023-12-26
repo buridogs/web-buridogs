@@ -2,7 +2,6 @@ import { IContatoFormData } from "@/components/app/contato/ContatoTypes";
 import { CONTATO_FORMS_CONFIG } from "@/components/app/contato/ContatoUtils";
 
 export const convertDataToTemplateContato = (contatoData: IContatoFormData) => {
-    console.log({ contatoData });
     const keyLabels = CONTATO_FORMS_CONFIG.reduce((acm, cur) => {
         if (!cur.section.length) return { ...acm };
 
@@ -26,8 +25,6 @@ export const convertDataToTemplateContato = (contatoData: IContatoFormData) => {
         };
     }, {});
 
-    console.log({ keyLabels });
-
     const renderFormattedAwnser = (awnser: string | string[]) => {
         return awnser;
     };
@@ -39,7 +36,7 @@ export const convertDataToTemplateContato = (contatoData: IContatoFormData) => {
         <title>Send Email Function Contato</title>
     </head>
     <body>
-        <h1>🐶 Formulário de Contato 🐶</h1>
+        <h1>👋 Formulário de Contato 👋</h1>
         <h2>📆 Data de envio: ${new Date()}</h2>
         <ul>
         ${Object.entries(keyLabels).reduce(

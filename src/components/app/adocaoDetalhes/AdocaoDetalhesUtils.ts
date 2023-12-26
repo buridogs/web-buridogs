@@ -1,8 +1,9 @@
-import { MENSAGENS_ERRO } from "@/components/Form/FormConsts";
+import { LIMITE_TAMANHO_MENSAGEM, MENSAGENS_ERRO } from "@/components/Form/FormConsts";
 import { GeneralFormsType, InputFormEnum } from "@/components/Form/FormTypes";
 import * as yup from "yup";
+import { IAdocaoForm } from "./AdocaoDetalhesTypes";
 
-export const ADOCAO_FORMS_CONFIG: GeneralFormsType[] = [
+export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
     {
         section: [
             {
@@ -286,36 +287,145 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType[] = [
 
 export const schemaAdocaoForm = yup
     .object({
-        nome: yup.string().max(50).required(MENSAGENS_ERRO.campoObrigatorio),
-        celular: yup.string().max(15).required(MENSAGENS_ERRO.campoObrigatorio),
-        endereco_cep: yup.string().max(15).required(MENSAGENS_ERRO.campoObrigatorio),
-        endereco_rua: yup.string().max(50).required(MENSAGENS_ERRO.campoObrigatorio),
-        endereco_numero: yup.string().required(MENSAGENS_ERRO.campoObrigatorio),
-        endereco_complemento: yup.string().max(50),
-        endereco_bairro: yup.string().max(25).required(MENSAGENS_ERRO.campoObrigatorio),
-        endereco_cidade: yup.string().max(50).required(MENSAGENS_ERRO.campoObrigatorio),
-        endereco_estado: yup.string().max(50).required(MENSAGENS_ERRO.campoObrigatorio),
-        facebook_url: yup.string().max(50).required(MENSAGENS_ERRO.campoObrigatorio),
-        instagram_url: yup.string().max(50).required(MENSAGENS_ERRO.campoObrigatorio),
-        primeira_adocao: yup.boolean().required(MENSAGENS_ERRO.campoObrigatorio),
-        motivo_adocao: yup.string().max(150).required(MENSAGENS_ERRO.campoObrigatorio),
-        quantidade_pessoas_moradia: yup.string().max(50).required(MENSAGENS_ERRO.campoObrigatorio),
-        pessoas_de_acordo_adocao: yup.boolean().required(MENSAGENS_ERRO.campoObrigatorio),
+        nome: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        celular: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.pequeno,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequeno).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        endereco_cep: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.pequeno,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequeno).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        endereco_rua: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        endereco_numero: yup.string().required(MENSAGENS_ERRO().campoObrigatorio),
+        endereco_complemento: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            ),
+        endereco_bairro: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.pequenoMedio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequenoMedio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        endereco_cidade: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        endereco_estado: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        facebook_url: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        instagram_url: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        primeira_adocao: yup.boolean().required(MENSAGENS_ERRO().campoObrigatorio),
+        motivo_adocao: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.grande,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.grande).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        quantidade_pessoas_moradia: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        pessoas_de_acordo_adocao: yup.boolean().required(MENSAGENS_ERRO().campoObrigatorio),
         ha_criancas_idosos: yup.array().of(yup.string()).typeError("").optional(),
-        mora_casa_apt: yup.string().max(50).required(MENSAGENS_ERRO.campoObrigatorio),
+        mora_casa_apt: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
         quantidade_pessoas_trabalham: yup
             .string()
-            .max(50)
-            .required(MENSAGENS_ERRO.campoObrigatorio),
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
         moradia_tem_estrutura_adocao: yup
             .string()
-            .max(50)
-            .required(MENSAGENS_ERRO.campoObrigatorio),
-        ha_outros_animais: yup.string().max(50).required(MENSAGENS_ERRO.campoObrigatorio),
-        ja_teve_outros_animais: yup.string().max(50).required(MENSAGENS_ERRO.campoObrigatorio),
-        esta_ciente_gastos: yup.boolean().required(MENSAGENS_ERRO.campoObrigatorio),
-        descricao_lugar_animal: yup.string().max(150).required(MENSAGENS_ERRO.campoObrigatorio),
-        situacao_devolucao_adocao: yup.string().max(150).required(MENSAGENS_ERRO.campoObrigatorio),
-        consciente_termo_responsabilidade: yup.boolean().required(MENSAGENS_ERRO.campoObrigatorio),
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        ha_outros_animais: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        ja_teve_outros_animais: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        esta_ciente_gastos: yup.boolean().required(MENSAGENS_ERRO().campoObrigatorio),
+        descricao_lugar_animal: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.grande,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.grande).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        situacao_devolucao_adocao: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.grande,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.grande).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        consciente_termo_responsabilidade: yup
+            .boolean()
+            .required(MENSAGENS_ERRO().campoObrigatorio),
     })
     .required();

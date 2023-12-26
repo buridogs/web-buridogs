@@ -1,25 +1,28 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { IAdocaoForm } from "../app/adocaoDetalhes/AdocaoDetalhesTypes";
+import { FieldErrors, UseFormRegister, FieldValues } from "react-hook-form";
 import { GeneralFormsType, FieldFormsType, InputFormEnum, OptionFormsType } from "./FormTypes";
+import { Spinner } from "../Spinner/Spinner";
+import React, { SyntheticEvent, useState } from "react";
 
-interface FormProps {
-    handleSubmit: () => void;
-    formFields: GeneralFormsType[];
-    register: UseFormRegister<any>;
-    errors: FieldErrors<any>;
+interface FormProps<T extends FieldValues> {
+    handleSubmit: () => Promise<void>;
+    formFields: GeneralFormsType<T>[];
+    register: UseFormRegister<T>;
+    errors: FieldErrors<T>;
     submitLabel: string;
 }
 
-export default function Form({
+export default function Form<T extends FieldValues>({
     handleSubmit,
     formFields,
     register,
     errors,
     submitLabel,
-}: FormProps) {
+}: FormProps<T>) {
+    const [isLoading, setIsLoading] = useState(false);
+
     const renderInputs = (
         inputType: InputFormEnum,
-        field: FieldFormsType,
+        field: FieldFormsType<T>,
         options?: OptionFormsType[]
     ) => {
         switch (inputType) {
@@ -27,19 +30,19 @@ export default function Form({
             default:
                 return (
                     <input
-                        id={field.key}
+                        id={field.key as string}
                         placeholder={field.placeholder ?? ""}
                         className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1 text-gray-500"
-                        {...register(field.key as keyof IAdocaoForm)}
+                        {...register(field.key as any)}
                     />
                 );
             case InputFormEnum.textarea:
                 return (
                     <textarea
-                        id={field.key}
+                        id={field.key as string}
                         placeholder={field.placeholder ?? ""}
                         className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1 text-gray-500"
-                        {...register(field.key as keyof IAdocaoForm)}
+                        {...register(field.key as any)}
                         rows={4}
                     />
                 );
@@ -56,7 +59,7 @@ export default function Form({
                                     type="checkbox"
                                     value={opt?.value}
                                     className="mr-2 cursor-pointer"
-                                    {...register(field.key as keyof IAdocaoForm)}
+                                    {...register(field.key as any)}
                                 />
                                 <label
                                     htmlFor={opt?.key}
@@ -81,7 +84,7 @@ export default function Form({
                                     type="radio"
                                     value={opt?.value}
                                     className="mr-2 cursor-pointer"
-                                    {...register(field.key as keyof IAdocaoForm)}
+                                    {...register(field.key as any)}
                                 />
                                 <label
                                     htmlFor={opt?.key}
@@ -96,23 +99,33 @@ export default function Form({
         }
     };
 
+    async function onSubmit(event?: SyntheticEvent) {
+        if (!event?.target) return null;
+
+        event.preventDefault();
+
+        setIsLoading(true);
+        await handleSubmit();
+        setIsLoading(false);
+    }
+
     return (
         <form
-            onSubmit={handleSubmit}
+            onSubmit={onSubmit}
             className="w-full flex flex-col items-end"
         >
             {formFields.map((adocaoKey) => (
                 <div
-                    key={adocaoKey.section[0].key}
+                    key={adocaoKey.section[0].key as string}
                     className="w-full flex flex-col items-center justify-around md:flex-row"
                 >
                     {adocaoKey.section.map((field) => (
                         <div
-                            key={field.key}
+                            key={field.key as string}
                             className="w-full flex flex-col items-start mt-4"
                         >
                             <label
-                                htmlFor={field.key}
+                                htmlFor={field.key as string}
                                 className="text-sm text-grey-100 font-medium"
                             >
                                 {field.label}
@@ -126,10 +139,16 @@ export default function Form({
                 </div>
             ))}
 
-            <input
-                type="submit"
-                value={submitLabel}
+            <label
+                htmlFor="submit"
                 className="text-primary-400 uppercase font-medium py-2 px-4 rounded-3xl border-primary-400 border-solid border-2 mt-8 cursor-pointer transition duration-150 hover:bg-primary-100 hover:text-white hover:border-primary-100"
+            >
+                {isLoading ? <Spinner /> : submitLabel}
+            </label>
+            <input
+                id="submit"
+                type="submit"
+                hidden
             />
         </form>
     );

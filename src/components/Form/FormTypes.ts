@@ -12,14 +12,14 @@ export type OptionFormsType = {
     value: number | string;
 };
 
-export type FieldFormsType = {
-    key: string;
+export type FieldFormsType<T> = {
+    key: keyof T;
     label: string;
     placeholder?: string;
     type: InputFormEnum;
     options?: OptionFormsType[];
 };
 
-export type GeneralFormsType = {
-    section: FieldFormsType[];
+export type GeneralFormsType<T> = {
+    section: FieldFormsType<T>[];
 };
