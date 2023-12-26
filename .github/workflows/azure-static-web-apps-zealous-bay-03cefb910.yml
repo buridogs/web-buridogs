@@ -34,7 +34,7 @@ jobs:
                   ###### End of Repository/Build Configurations ######
               env:
                   NODE_ENV: "production"
-                  NEXT_PUBLIC_AZURE_FUNCTION_KEY_SEND_EMAIL_FUNCTION_ADOCAO_FORM: "VSLOZT9PsxqZDi3WBG8OAlH3cilU1u6MKhY5_a9cpEGSAzFuHv7RUQ=="
+                  NEXT_PUBLIC_AZURE_FUNCTION_KEY_SEND_EMAIL_FUNCTION_ADOCAO_FORM: "KhHcGupwNvZ-Gu_LiRmh2JxX-8DG3fcTY3a3r-gkkyvcAzFuevMmdw=="
                   NEXT_PUBLIC_AZURE_FUNCTION_KEY_SEND_EMAIL_FUNCTION_CONTATO_FORM: "TWOUQpyW3582V1_K-NHqg1AVkfMOoSwFgct208lkP3mjAzFu_BTXXA=="
 
     close_pull_request_job:
@@ -50,5 +50,5 @@ jobs:
                   action: "close"
               env:
                   NODE_ENV: "production"
-                  NEXT_PUBLIC_AZURE_FUNCTION_KEY_SEND_EMAIL_FUNCTION_ADOCAO_FORM: "VSLOZT9PsxqZDi3WBG8OAlH3cilU1u6MKhY5_a9cpEGSAzFuHv7RUQ=="
+                  NEXT_PUBLIC_AZURE_FUNCTION_KEY_SEND_EMAIL_FUNCTION_ADOCAO_FORM: "KhHcGupwNvZ-Gu_LiRmh2JxX-8DG3fcTY3a3r-gkkyvcAzFuevMmdw=="
                   NEXT_PUBLIC_AZURE_FUNCTION_KEY_SEND_EMAIL_FUNCTION_CONTATO_FORM: "TWOUQpyW3582V1_K-NHqg1AVkfMOoSwFgct208lkP3mjAzFu_BTXXA=="
