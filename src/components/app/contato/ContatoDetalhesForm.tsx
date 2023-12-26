@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { CONTATO_FORMS_CONFIG, schemaContatoForm } from "./ContatoUtils";
 import { IContatoFormData } from "./ContatoTypes";
-import { sendEmailFunctionContato } from "@/services/azure-function/send-email-contato/send-email-contato-api";
+import { sendEmailFunctionContato } from "@/services/azure-function/send-email-contato/send-email-contato-form";
 import { toast } from "react-toastify";
 
 export function ContatoDetalhesForm() {
@@ -22,16 +22,15 @@ export function ContatoDetalhesForm() {
                 ...data,
             });
             toast.success("Formulário enviado com sucesso!");
+            reset();
         } catch (err: any) {
             console.warn(err.message);
             toast.error("Houve um erro no envio do formulário");
-        } finally {
-            reset();
         }
     };
 
     return (
-        <Form
+        <Form<IContatoFormData>
             handleSubmit={handleSubmit(onSubmit)}
             formFields={CONTATO_FORMS_CONFIG}
             register={register}

@@ -54,5 +54,8 @@ export function generateImgURL(imgSrc: string) {
 }
 
 export function formatDatetimePTBR(dateValue: string) {
-    return Intl.DateTimeFormat("pt-BR").format(new Date(dateValue));
+    return Intl.DateTimeFormat("pt-BR", {
+        dateStyle: "full",
+        timeStyle: "long",
+    }).format(new Date(dateValue));
 }

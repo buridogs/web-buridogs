@@ -1,4 +1,5 @@
 "use client";
+import { sobreNosMomentosBuridogsMock } from "@/mock/sobreNosMomentosBuridogsMock";
 import { BURIDOGS_PIX_KEY } from "@/utils/consts";
 import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
@@ -6,30 +7,6 @@ import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 export function SobreNosContainer() {
-    const momentosBuridogs = [
-        {
-            ano: "2020",
-            imgSrc: "",
-            altText: "",
-            descricao:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante.",
-        },
-        {
-            ano: "2021",
-            imgSrc: "",
-            altText: "",
-            descricao:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante.",
-        },
-        {
-            ano: "2022",
-            imgSrc: "",
-            altText: "",
-            descricao:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida, eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor orci dui in ante.",
-        },
-    ];
-
     return (
         <section className="max-w-screen-xl px-8 mx-auto h-full flex flex-col">
             <div className="py-11 grow flex flex-col-reverse items-center lg:flex-row lg:items-center lg:justify-between lg:py-[56px]">
@@ -102,12 +79,26 @@ export function SobreNosContainer() {
                                 <FaArrowRight color="white" />
                             </div>
                         )}
-                        items={momentosBuridogs.map((momento) => (
+                        items={sobreNosMomentosBuridogsMock.map((momento) => (
                             <div
                                 key={momento.ano}
-                                className="w-full flex flex-col items-center lg:flex-row md:justify-evenly md:pl-2"
+                                className="w-full flex flex-col items-center lg:flex-row md:justify-evenly md:items-start md:pl-2"
                             >
-                                <div className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-[50%] bg-primary-100" />
+                                {momento.imgSrc ? (
+                                    <Image
+                                        key={momento.imgSrc}
+                                        src={generateImgURL(momento.imgSrc)}
+                                        alt={momento.altText}
+                                        width={280}
+                                        height={280}
+                                        className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-[50%] object-cover"
+                                    />
+                                ) : (
+                                    <div
+                                        key={momento.descricao}
+                                        className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-[50%] bg-primary-100"
+                                    />
+                                )}
                                 <div className="flex flex-col items-start">
                                     <span className="py-3 px-4 rounded-[40px] bg-grey-50 mb-5 mt-4 uppercase font-medium text-grey-400 transition duration-150 hover:bg-grey-100 hover:text-white">
                                         {momento.ano}

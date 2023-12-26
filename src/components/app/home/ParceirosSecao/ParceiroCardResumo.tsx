@@ -22,7 +22,7 @@ export function ParceiroCardResumo({ parceiro }: ParceiroCardResumoProps) {
             ) : (
                 <div className="w-[165px] h-[165px] rounded-[50%] bg-grey-100" />
             )}
-            <strong className="w-full mt-6">{nome}</strong>
+            <strong className="w-full text-grey-700 mt-6">{nome}</strong>
             <span className="w-full text-grey-100 text-sm text-left">{endereco}</span>
             <span className="w-full text-grey-100 text-sm font-medium text-left">{contato}</span>
             <RedesSociaisParceiros redes={redesSociais} />
