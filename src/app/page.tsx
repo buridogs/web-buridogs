@@ -11,7 +11,21 @@ export const metadata: Metadata = {
     description:
         "Bem vindo ao Buri Dogs, um grupo de proteção animal fundado no bairro Buritis, Belo Horizonte. ",
     openGraph: {
-        images: [generateImgURL("logo-buridogs.png")],
+        title: "Home | Buri Dogs",
+        type: "website",
+        description:
+            "Bem vindo ao Buri Dogs, um grupo de proteção animal fundado no bairro Buritis, Belo Horizonte.",
+        locale: "pt-BR",
+        url: "https://buridogs.com.br",
+        siteName: "Buri Dogs",
+        images: [
+            {
+                url: generateImgURL("logo-buridogs.png"),
+                alt: "Página principal do Buri Dogs",
+                width: "200",
+                height: "100",
+            },
+        ],
     },
 };
 
