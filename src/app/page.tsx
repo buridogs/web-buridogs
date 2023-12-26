@@ -22,8 +22,8 @@ export const metadata: Metadata = {
             {
                 url: generateImgURL("logo-buridogs.png"),
                 alt: "Página principal do Buri Dogs",
-                width: "200",
-                height: "100",
+                width: 1200,
+                height: 630,
             },
         ],
     },
