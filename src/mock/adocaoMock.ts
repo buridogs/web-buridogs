@@ -1,4 +1,4 @@
-import { IAdocaoDetails, IAdocaoEspecialDetails } from "@/interfaces/adocaoInterfaces";
+import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
 
 export const cachorrosAdocao: IAdocaoDetails[] = [
     {
@@ -156,7 +156,7 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         genero: "macho",
         idade: "filhote",
         porte: "medio-porte",
-        imagesSrc: [""],
+        imagesSrc: ["adocao-billy-1.PNG"],
         descricao:
             "Cerca de 1 ano. Um doguinho com muita energia, castrado e vacinado. Billy será um ótimo companheiro para quem o acolher.",
     },
@@ -216,9 +216,6 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         descricao:
             "Cerca de 2 anos. Uma simpatia de doguinha, castrada e vacinada. Melissa é muito fofinha e quer um lar pra chamar de seu.",
     },
-];
-
-export const cachorrosAdocaoEspecial: IAdocaoEspecialDetails[] = [
     {
         id: 4,
         imageSrc: "",
@@ -232,6 +229,7 @@ export const cachorrosAdocaoEspecial: IAdocaoEspecialDetails[] = [
             "adocao-simba-3.PNG",
             "adocao-simba-4.PNG",
         ],
+        motivoEspecial: "Deficiente Físico",
         descricao:
             "Cerca de 2 anos. Ele tem una má-formação no focinho que não o limita em nada. Uma simpatia de doguinho, vacinado e castrado. agendada. Simba é carinhoso, companheiro e adora uma aventura.",
     },

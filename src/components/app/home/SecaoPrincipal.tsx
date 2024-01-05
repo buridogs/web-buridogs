@@ -54,6 +54,7 @@ export function SecaoPrincipal() {
                     width={460}
                     height={460}
                     className="rounded-[50%]"
+                    priority
                 />
             </div>
         </section>
