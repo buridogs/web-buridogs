@@ -1,10 +1,12 @@
 "use client";
-import { cachorrosAdocaoEspecial } from "@/mock/adocaoMock";
+import { cachorrosAdocao } from "@/mock/adocaoMock";
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { AdocaoEspecialCard } from "./AdocaoEspecialCard";
 
 export function AdocaoEspecial() {
+    const cachorrosIncapacitados = cachorrosAdocao.filter((cachorro) => !!cachorro.motivoEspecial);
+
     return (
         <section className="relative flex flex-col items-center py-6 mt-6">
             <span className="text-primary-400 text-3xl font-semibold">
@@ -36,7 +38,7 @@ export function AdocaoEspecial() {
                         items: 1,
                     },
                 }}
-                items={cachorrosAdocaoEspecial.map((dog) => (
+                items={cachorrosIncapacitados.map((dog) => (
                     <AdocaoEspecialCard
                         key={dog.nome}
                         dog={dog}

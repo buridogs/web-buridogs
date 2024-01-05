@@ -65,13 +65,14 @@ export default function FinaisFelizesAntesDepoisInfo({
                             key={image}
                             className="flex flex-col items-center md:flex-row md:justify-evenly md:pl-2"
                         >
-                            <div className="flex flex-col w-[300px] h-[300px]">
+                            <div className="flex flex-col w-[300px] h-[300px] md:w-[400px] md:h-[400px]">
                                 <div className="h-full w-full relative flex items-start md:max-w-lg lg:max-w-xl">
                                     <Image
                                         src={generateImgURL(image)}
                                         alt={nome}
                                         fill
                                         priority
+                                        className="object-cover"
                                     />
                                 </div>
                             </div>
@@ -84,7 +85,7 @@ export default function FinaisFelizesAntesDepoisInfo({
 
     return (
         <div className="w-full flex flex-col items-center py-8">
-            <h2 className="text-primary-400 text-2xl font-medium">{label}</h2>
+            <h2 className="text-primary-400 text-2xl font-medium md:text-3xl">{label}</h2>
 
             {renderImagens(imagensUrl)}
             {youtubeUrlId ? (

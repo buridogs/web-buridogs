@@ -11,6 +11,10 @@ interface AdocaoDetalhesInfoProps {
 }
 
 export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalhesInfoProps) {
+    const image = cachorroSelecionado.imagesSrc
+        ? cachorroSelecionado.imagesSrc[0]
+        : cachorroSelecionado.imageSrc;
+
     const renderImagens = (nomeCachorro: string, imagens?: string[]) => {
         if (!imagens?.length || imagens?.length === 1) return null;
 
@@ -45,13 +49,14 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                             key={image}
                             className="flex flex-col items-center md:flex-row md:justify-evenly md:pl-2"
                         >
-                            <div className="flex flex-col w-[300px] h-[300px]">
+                            <div className="flex flex-col w-[300px] h-[300px] md:w-[400px] md:h-[400px]">
                                 <div className="h-full w-full relative flex items-start md:max-w-lg lg:max-w-xl">
                                     <Image
                                         src={generateImgURL(image)}
                                         alt={nomeCachorro}
                                         fill
                                         priority
+                                        className="object-cover"
                                     />
                                 </div>
                             </div>
@@ -67,7 +72,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
             <div className="flex flex-col items-center pb-8 lg:flex-row lg:w-500px lg:mx-auto">
                 <div className="relative w-[100px] h-[100px] md:h-[300px] md:w-[300px] lg:mr-6">
                     <Image
-                        src={generateImgURL(cachorroSelecionado.imageSrc ?? "")}
+                        src={generateImgURL(image ?? "")}
                         alt={`Imagem do cachorro ${cachorroSelecionado.nome}`}
                         fill
                         sizes="(max-width: 1024px) 300px, 300px"

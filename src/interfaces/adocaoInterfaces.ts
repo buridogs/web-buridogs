@@ -24,7 +24,7 @@ export enum AdocaoPorteEnum {
 
 export type AdocaoPorteType = "mini" | "pequeno-porte" | "medio-porte" | "grande-porte";
 
-export interface IAdocaoCard {
+export interface IAdocaoDetails {
     id: number;
     imageSrc: string;
     nome: string;
@@ -32,11 +32,9 @@ export interface IAdocaoCard {
     idade: AdocaoIdadeType;
     porte: AdocaoPorteType;
     descricao: string;
-}
-
-export interface IAdocaoDetails extends IAdocaoCard {
-    descricaoLonga?: string;
+    motivoEspecial?: string;
     imagesSrc?: string[];
+    descricaoLonga?: string;
     youtubeSrcUrl?: string;
 }
 
@@ -44,8 +42,4 @@ export enum AdocaoFiltrosEnum {
     genero = "genero",
     idade = "idade",
     porte = "porte",
-}
-
-export interface IAdocaoEspecialDetails extends IAdocaoDetails {
-    motivoEspecial?: string;
 }
