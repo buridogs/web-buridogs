@@ -19,7 +19,7 @@ export function VolunteersCardWrapper() {
                         <p className="text-gray-500 text-sm">
                             {volunteerSection.situationDescription}
                         </p>
-                        <div className="w-full flex justify-start gap-2 flex-wrap mt-2 pb-3">
+                        <div className="w-full flex justify-center md:justify-start gap-2 flex-wrap mt-2 pb-3">
                             {volunteerSection.volunteers.map((volunteer) => (
                                 <VolunteersCard
                                     key={volunteer.name}
