@@ -48,11 +48,11 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 9,
         imageSrc: "",
-        nome: "Cansado BB",
+        nome: "Zangado",
         genero: "macho",
         idade: "ate-1-ano",
         porte: "pequeno-porte",
-        imagesSrc: ["adocao-cansado-bb- 1.PNG"],
+        imagesSrc: ["adocao-zangado-1.PNG"],
         descricao:
             "Cerca de 4 meses. Está vacinado e é um adorável cãozinho de porte pequeno pra quem mora em apartamento.",
     },
@@ -174,7 +174,7 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         genero: "macho",
         idade: "adulto",
         porte: "medio-porte",
-        imagesSrc: ["adocao-valentin-1.PNG", "adocao-valentin-2.PNG"],
+        imagesSrc: ["adocao-valentin-1.jpeg", "adocao-valentin-2.PNG"],
         descricao:
             "Cerca de 2 anos. Esperto e atento, Valentin está castrado e vacinado. Procura há muito tempo por um lar e promete muito carinho a seus tutores.",
     },
@@ -193,7 +193,7 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         ],
         possuiAlgumaInaptidao: true,
         descricao:
-            "Cerca de 2 anos. Ele tem una má-formação no focinho que não o limita em nada. Uma simpatia de doguinho, vacinado e castrado. agendada. Simba é carinhoso, companheiro e adora uma aventura.",
+            "Cerca de 2 anos. Ele tem uma má-formação no focinho que não o limita em nada. Uma simpatia de doguinho, vacinado e castrado. Simba é carinhoso, companheiro e adora uma aventura.",
     },
     {
         id: 5,
@@ -254,5 +254,17 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         possuiAlgumaInaptidao: true,
         descricao:
             "Esse idosinho nunca viveu numa família. Foi resgatado bem doente, hoje está saudável, alegre, castrado e ansioso por um lar cheio de amor!",
+    },
+    {
+        id: 23,
+        imageSrc: "",
+        nome: "Tetê",
+        genero: "femea",
+        idade: "adulto",
+        porte: "medio-porte",
+        imagesSrc: ["adocao-tete-1.jpeg"],
+        possuiAlgumaInaptidao: true,
+        descricao:
+            "Caramelinha linda, castrada e vacinada. Fica com esses olhinhos carentes, louca pra encontrar uma família!",
     },
 ];
