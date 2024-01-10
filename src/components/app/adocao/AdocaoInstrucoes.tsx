@@ -25,7 +25,8 @@ export function AdocaoInstrucoes() {
                     <strong>castrados e vacinados</strong>. Já os <strong>filhotes</strong>, também
                     são entregues
                     <strong> vacinados</strong>, porém{" "}
-                    <strong>só podem ser castrados após 6 meses</strong>.
+                    <strong>castrados, somente se já tiverem 6 meses</strong>, idade mínima para a
+                    esterelização.
                 </p>
                 <strong className="text-grey-100 text-lg uppercase my-6">
                     Dicas para quem adota um cãozinho
