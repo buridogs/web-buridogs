@@ -15,7 +15,9 @@ export default function AdocaoDetalhesContainer({ slug }: AdocaoDetalhesContaine
         {} as IAdocaoDetails
     );
 
-    const cachorrosIncapacitados = cachorrosAdocao.filter((cachorro) => !!cachorro.motivoEspecial);
+    const cachorrosIncapacitados = cachorrosAdocao.filter(
+        (cachorro) => !!cachorro.possuiAlgumaInaptidao
+    );
 
     useEffect(() => {
         if (slug) {

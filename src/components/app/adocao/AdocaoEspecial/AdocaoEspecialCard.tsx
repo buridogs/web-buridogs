@@ -8,7 +8,7 @@ interface AdocaoEspecialCardProps {
 }
 
 export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {
-    const { id, descricao, genero, idade, imageSrc, nome, porte, motivoEspecial, imagesSrc } = dog;
+    const { id, descricao, genero, idade, imageSrc, nome, porte, imagesSrc } = dog;
     const labelGenero = returnFormattedOptionLabel(AdocaoFiltrosEnum.genero, genero);
     const labelIdade = returnFormattedOptionLabel(AdocaoFiltrosEnum.idade, idade);
     const labelPorte = returnFormattedOptionLabel(AdocaoFiltrosEnum.porte, porte);
@@ -30,7 +30,6 @@ export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {
                     <strong className="text-primary-400 text-2xl">{nome}</strong>
                     <div className="flex flex-col items-center mt-2 md:items-start md:max-w-lg lg:max-w-xl">
                         <span className="text-grey-400 text-sm">{`${labelGenero}, ${labelIdade}, ${labelPorte}`}</span>
-                        <p className="text-primary-700 font-medium mt-1">{motivoEspecial}</p>
                         <p className="text-grey-100 text-sm mt-4 mb-4">{descricao}</p>
                     </div>
                     <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
