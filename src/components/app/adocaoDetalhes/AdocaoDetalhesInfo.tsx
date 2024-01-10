@@ -77,7 +77,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                         fill
                         sizes="(max-width: 1024px) 300px, 300px"
                         priority
-                        className="rounded-[50%]"
+                        className="rounded-[50%] object-cover"
                     />
                 </div>
                 <div className="flex flex-col items-center mt-6">

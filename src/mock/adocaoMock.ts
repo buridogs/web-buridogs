@@ -101,7 +101,7 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
             "Cerca de 2 anos. Lindinho demais e pronto pra uma família. É esperto e carinhoso.",
     },
     {
-        id: 14,
+        id: 1,
         imageSrc: "",
         nome: "Banzé",
         genero: "macho",
@@ -253,5 +253,17 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         possuiAlgumaInaptidao: true,
         descricao:
             "Cerca de 8 anos. Um idosinho que procura um lar há muito tempo. Apolo é muito carinhoso e será companheiro fiel.",
+    },
+    {
+        id: 22,
+        imageSrc: "",
+        nome: "Gilbertinho",
+        genero: "macho",
+        idade: "adulto",
+        porte: "pequeno-porte",
+        imagesSrc: ["adocao-gilbertinho-1.jpg"],
+        possuiAlgumaInaptidao: true,
+        descricao:
+            "Esse idosinho nunca viveu numa família. Foi resgatado bem doente, hoje está saudável, alegre, castrado e ansioso por um lar cheio de amor!",
     },
 ];
