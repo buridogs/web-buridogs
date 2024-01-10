@@ -17,7 +17,7 @@ export const parceiros: IParceiros[] = [
         nome: "Clínica Veterinária Life Pet (Dras Stephanie Raíssa e Nikoly Larissa)",
         endereco: "Rua San Salvador, 260, loja 15, Estrela Dalva - BH",
         contato: "(31) 3271-1250 / (31) 97574-0376",
-        imagemSrc: "parceiro-life-pet.png",
+        imagemSrc: "parceiro-life-pet.jpeg",
         descricao: "",
         linkURL: "",
         categoria: "Veterinária",

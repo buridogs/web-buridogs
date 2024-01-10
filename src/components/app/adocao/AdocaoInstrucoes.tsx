@@ -21,8 +21,11 @@ export function AdocaoInstrucoes() {
                     <br />
                     Estando tudo alinhado, nós vamos te chamar e acertar a entrega do animal e
                     assinatura de um termo por meio do qual você se compromete a ser um tutor
-                    responsável. Lembrando que todos nossos cães são entregues castrados e
-                    vacinados.
+                    responsável. Lembrando que os nossos <strong>cães adultos</strong> são entregues{" "}
+                    <strong>castrados e vacinados</strong>. Já os <strong>filhotes</strong>, também
+                    são entregues
+                    <strong> vacinados</strong>, porém{" "}
+                    <strong>só podem ser castrados após 6 meses</strong>.
                 </p>
                 <strong className="text-grey-100 text-lg uppercase my-6">
                     Dicas para quem adota um cãozinho
@@ -72,11 +75,11 @@ export function AdocaoInstrucoes() {
                 </ul>
             </div>
             <Image
-                src={generateImgURL("image-banner.png")}
-                alt="Banner"
+                src={generateImgURL("sobre-nos-foto-equipe-2.jpg")}
+                alt="Equipe do Buridogs"
                 width={300}
                 height={300}
-                className="rounded-full lg:w-[470px] lg:h-[470px] lg:ml-4"
+                className="object-cover rounded-full lg:w-[470px] lg:h-[470px] lg:ml-4"
             />
         </section>
     );

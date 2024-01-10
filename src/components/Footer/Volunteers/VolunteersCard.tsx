@@ -13,7 +13,7 @@ export function VolunteersCard({ volunteer, isContributor = false }: VolunteersC
 
     if (isContributor) {
         return (
-            <div className="bg-white flex flex-col justify-center items-center px-3 py-4 shadow-md border-[1.5px] border-solid border-grey-100 rounded-lg">
+            <div className="min-w-[130px] bg-white flex flex-col justify-center items-center px-3 py-4 shadow-md border-[1.5px] border-solid border-grey-100 rounded-lg">
                 <Image
                     src={generateImgURL(imageURL)}
                     alt={altImageURL}
@@ -41,7 +41,7 @@ export function VolunteersCard({ volunteer, isContributor = false }: VolunteersC
     }
 
     return (
-        <div className="bg-white flex flex-col justify-center items-center px-4 py-4 shadow-md border-[1.5px] border-solid border-primary-100 rounded-lg">
+        <div className="min-w-[130px] bg-white flex flex-col justify-center items-center px-4 py-4 shadow-md border-[1.5px] border-solid border-primary-100 rounded-lg">
             <strong className="text-grey-100 text-sm mb-4 font-bold">{contribution}</strong>
             <Image
                 src={generateImgURL(imageURL)}

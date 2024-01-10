@@ -190,33 +190,6 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
             "Cerca de 2 anos. Esperto e atento, Valentin está castrado e vacinado. Procura há muito tempo por um lar e promete muito carinho a seus tutores.",
     },
     {
-        id: 22,
-        imageSrc: "",
-        nome: "Fred",
-        genero: "macho",
-        idade: "adulto",
-        porte: "medio-porte",
-        imagesSrc: [
-            "adocao-fred-1.PNG",
-            "adocao-fred-2.PNG",
-            "adocao-fred-3.PNG",
-            "adocao-fred-4.PNG",
-        ],
-        descricao:
-            "Cerca de 2 anos. Uma simpatia de doguinho, castrado e vacinado. Fred é muito dócil e procura una família que o queira bem.",
-    },
-    {
-        id: 23,
-        imageSrc: "",
-        nome: "Melissa",
-        genero: "femea",
-        idade: "adulto",
-        porte: "pequeno-porte",
-        imagesSrc: ["adocao-melissa-1.PNG"],
-        descricao:
-            "Cerca de 2 anos. Uma simpatia de doguinha, castrada e vacinada. Melissa é muito fofinha e quer um lar pra chamar de seu.",
-    },
-    {
         id: 4,
         imageSrc: "",
         nome: "Simba",
@@ -229,7 +202,7 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
             "adocao-simba-3.PNG",
             "adocao-simba-4.PNG",
         ],
-        motivoEspecial: "Deficiente Físico",
+        possuiAlgumaInaptidao: true,
         descricao:
             "Cerca de 2 anos. Ele tem una má-formação no focinho que não o limita em nada. Uma simpatia de doguinho, vacinado e castrado. agendada. Simba é carinhoso, companheiro e adora uma aventura.",
     },
@@ -241,7 +214,7 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         idade: "adulto",
         porte: "medio-porte",
         imagesSrc: ["adocao-tigrao-1.jpg", "adocao-tigrao-2.jpg"],
-        motivoEspecial: "Deficiente Físico",
+        possuiAlgumaInaptidao: true,
         descricao:
             "Doguinho especial de três patinhas, mas valente como qualquer outro. Vacinado e castrado. Está há muito tempo em busca de um lar sem sucesso, possivelmente por sua condição especial, mas que não o limita em nada.",
     },
@@ -253,7 +226,7 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         idade: "adulto",
         porte: "medio-porte",
         imagesSrc: ["adocao-will-1.PNG"],
-        motivoEspecial: "Muito tempo de Lar Temporário",
+        possuiAlgumaInaptidao: true,
         descricao:
             "Cerca de 2 anos. Um amor de doguinho, muito esperto e companheiro. Castrado e vacinado, Will  espera há muito tempo por um lar amoroso.",
     },
@@ -265,7 +238,7 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         idade: "ate-1-ano",
         porte: "medio-porte",
         imagesSrc: ["adocao-chocolate-1.PNG"],
-        motivoEspecial: "Deficiente Físico",
+        possuiAlgumaInaptidao: true,
         descricao:
             "Cerca de 10 meses. Quase perdeu uma patinha na linha do trem, mas nao perdeu a alegria de viver. Consegue pular e correr e está pronto pra uma nova fase de vida.",
     },
@@ -277,7 +250,7 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         idade: "adulto",
         porte: "medio-porte",
         imagesSrc: ["adocao-apolo-1.PNG", "adocao-apolo-2.PNG", "adocao-apolo-3.PNG"],
-        motivoEspecial: "Idoso",
+        possuiAlgumaInaptidao: true,
         descricao:
             "Cerca de 8 anos. Um idosinho que procura um lar há muito tempo. Apolo é muito carinhoso e será companheiro fiel.",
     },

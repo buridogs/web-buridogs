@@ -5,7 +5,9 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { AdocaoEspecialCard } from "./AdocaoEspecialCard";
 
 export function AdocaoEspecial() {
-    const cachorrosIncapacitados = cachorrosAdocao.filter((cachorro) => !!cachorro.motivoEspecial);
+    const cachorrosIncapacitados = cachorrosAdocao.filter(
+        (cachorro) => !!cachorro.possuiAlgumaInaptidao
+    );
 
     return (
         <section className="relative flex flex-col items-center py-6 mt-6">

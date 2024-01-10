@@ -17,7 +17,7 @@ export const volunteersWithHisSection: IVolunteersSections[] = [
     },
     {
         situation: VolunteerSituationEnum.deliveries,
-        situationDescription: "1ª entrega",
+        situationDescription: "Responsáveis pela 1ª entrega",
         volunteers: [
             {
                 imageURL: "voluntario-joao.png",
@@ -26,6 +26,22 @@ export const volunteersWithHisSection: IVolunteersSections[] = [
                 role: "Desenvolvedor",
                 contact: "@joaolotjr",
                 contactURL: "https://www.instagram.com/joaolotjr/",
+            },
+            {
+                imageURL: "voluntario-karina.jpeg",
+                altImageURL: "Voluntária Karina Pochini",
+                name: "Karina Pochini",
+                role: "Analista financeira",
+                contact: "@karinapochini",
+                contactURL: "https://www.instagram.com/karinapochini/",
+            },
+            {
+                imageURL: "voluntario-maria.jpeg",
+                altImageURL: "Voluntária Maria Emília Bergo",
+                name: "Maria Emília Bergo",
+                role: "Designer",
+                contact: "@mareh_bergo",
+                contactURL: "https://www.instagram.com/mareh_bergo/",
             },
         ],
     },
