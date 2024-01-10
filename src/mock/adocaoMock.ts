@@ -2,17 +2,6 @@ import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
 
 export const cachorrosAdocao: IAdocaoDetails[] = [
     {
-        id: 2,
-        imageSrc: "adocao-yasmin.jpg",
-        nome: "Yasmin(Branquinha)",
-        genero: "femea",
-        idade: "idoso",
-        porte: "pequeno-porte",
-        imagesSrc: ["adocao-yasmin.jpg"],
-        descricao:
-            "Doguinha vacinada e com castração agendada. Porte excelente para quem mora em apartamento.",
-    },
-    {
         id: 3,
         imageSrc: "adocao-zaza-1.jpg",
         nome: "Zaza",
