@@ -32,7 +32,7 @@ export interface IAdocaoDetails {
     idade: AdocaoIdadeType;
     porte: AdocaoPorteType;
     descricao: string;
-    motivoEspecial?: string;
+    possuiAlgumaInaptidao?: boolean;
     imagesSrc?: string[];
     descricaoLonga?: string;
     youtubeSrcUrl?: string;

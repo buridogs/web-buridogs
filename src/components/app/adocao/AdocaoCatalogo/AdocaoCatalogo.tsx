@@ -1,10 +1,10 @@
 "use client";
 import { estadoInicialFiltrosAdocao } from "../AdocaoUtils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AdocaoFiltros } from "./AdocaoFiltros";
 import { AdocaoCachorroCard } from "./AdocaoCachorroCard";
 import { cachorrosAdocao } from "@/mock/adocaoMock";
-import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
+import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
 
 export function AdocaoCatalogo() {
     const [filtrosSelecionados, setFiltrosSelecionados] = useState<Record<string, string[]>>({
@@ -13,20 +13,25 @@ export function AdocaoCatalogo() {
     const [cachorrosFiltrados, setCachorrosFiltrados] = useState([...cachorrosAdocao]);
 
     function onSearch() {
-        setCachorrosFiltrados(
-            Object.entries(filtrosSelecionados).reduce(
-                (acm, cur) => {
-                    if (!cur[1].length) return acm;
-                    const filtrado = acm.filter((ca) =>
-                        cur[1].includes(ca[cur[0] as AdocaoFiltrosEnum])
-                    );
+        const filteredDogs = cachorrosAdocao.filter(cachorro => {
+            return Object.entries(filtrosSelecionados).every((filtro) => !filtro[1].length || filtro[1].includes(cachorro[filtro[0] as keyof IAdocaoDetails] as string))
+        })
+        
 
-                    return [...filtrado];
-                },
-                [...cachorrosAdocao]
-            )
+        setCachorrosFiltrados(
+            filteredDogs
         );
     }
+
+    useEffect(() => {
+        const doesNotHaveAnyFilterSeelected = Object.entries(filtrosSelecionados).every(
+            (filtro) => !filtro[1].length
+        );
+
+        if (doesNotHaveAnyFilterSeelected) {
+            setCachorrosFiltrados(cachorrosAdocao);
+        }
+    }, [filtrosSelecionados]);
 
     function onResetFiltros() {
         setFiltrosSelecionados({ ...estadoInicialFiltrosAdocao });
