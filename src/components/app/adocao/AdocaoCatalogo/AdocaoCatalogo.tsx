@@ -14,8 +14,8 @@ export function AdocaoCatalogo() {
 
     function onSearch() {
         const filteredDogs = cachorrosAdocao.filter(cachorro => {
-            return Object.entries(filtrosSelecionados).every((filtro) => !filtro[1].length || filtro[1].includes(cachorro[filtro[0] as keyof IAdocaoDetails] as string))
-        })
+            return Object.entries(filtrosSelecionados).every((filtro) => !filtro[1].length || filtro[1].includes(cachorro[filtro[0] as keyof IAdocaoDetails] as string));
+        });
         
 
         setCachorrosFiltrados(
