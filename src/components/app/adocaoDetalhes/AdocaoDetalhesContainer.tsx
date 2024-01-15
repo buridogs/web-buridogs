@@ -28,7 +28,7 @@ export default function AdocaoDetalhesContainer({ slug }: AdocaoDetalhesContaine
                     .find((c) => c.id.toString() === idAnimalSelecionado) ?? ({} as IAdocaoDetails)
             );
         }
-    }, [slug]);
+    }, [cachorrosIncapacitados, slug]);
 
     return (
         <main className="bg-white">
