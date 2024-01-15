@@ -4,7 +4,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 3,
         imageSrc: "adocao-zaza-1.jpg",
-        nome: "Zaza",
+        nomeExibicao: "Zazá",
+        nomeURL: "Zaza",
         genero: "femea",
         idade: "adulto",
         porte: "medio-porte",
@@ -15,7 +16,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 6,
         imageSrc: "",
-        nome: "Guga",
+        nomeExibicao: "Guga",
+        nomeURL: "Guga",
         genero: "macho",
         idade: "filhote",
         porte: "pequeno-porte",
@@ -26,7 +28,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 7,
         imageSrc: "",
-        nome: "Florzinha",
+        nomeExibicao: "Florzinha",
+        nomeURL: "Florzinha",
         genero: "femea",
         idade: "filhote",
         porte: "medio-porte",
@@ -37,7 +40,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 8,
         imageSrc: "",
-        nome: "Hércules",
+        nomeExibicao: "Hércules",
+        nomeURL: "Hercules",
         genero: "macho",
         idade: "filhote",
         porte: "medio-porte",
@@ -48,7 +52,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 9,
         imageSrc: "",
-        nome: "Zangado",
+        nomeExibicao: "Zangado",
+        nomeURL: "Zangado",
         genero: "macho",
         idade: "ate-1-ano",
         porte: "pequeno-porte",
@@ -59,7 +64,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 10,
         imageSrc: "",
-        nome: "Olavinho",
+        nomeExibicao: "Olavinho",
+        nomeURL: "Olavinho",
         genero: "macho",
         idade: "adulto",
         porte: "medio-porte",
@@ -70,7 +76,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 11,
         imageSrc: "",
-        nome: "Samuca",
+        nomeExibicao: "Samuca",
+        nomeURL: "Samuca",
         genero: "macho",
         idade: "adulto",
         porte: "grande-porte",
@@ -81,7 +88,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 13,
         imageSrc: "",
-        nome: "Thor",
+        nomeExibicao: "Thor",
+        nomeURL: "Thor",
         genero: "macho",
         idade: "adulto",
         porte: "medio-porte",
@@ -92,7 +100,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 1,
         imageSrc: "",
-        nome: "Banzé",
+        nomeExibicao: "Banzé",
+        nomeURL: "Banze",
         genero: "macho",
         idade: "filhote",
         porte: "medio-porte",
@@ -103,7 +112,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 14,
         imageSrc: "",
-        nome: "Bambam",
+        nomeExibicao: "Bambam",
+        nomeURL: "Bambam",
         genero: "macho",
         idade: "filhote",
         porte: "medio-porte",
@@ -114,7 +124,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 15,
         imageSrc: "",
-        nome: "Toddy",
+        nomeExibicao: "Toddy",
+        nomeURL: "Toddy",
         genero: "macho",
         idade: "adulto",
         porte: "medio-porte",
@@ -125,7 +136,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 18,
         imageSrc: "",
-        nome: "Juca",
+        nomeExibicao: "Juca",
+        nomeURL: "Juca",
         genero: "macho",
         idade: "adulto",
         porte: "grande-porte",
@@ -141,7 +153,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 19,
         imageSrc: "",
-        nome: "Billy",
+        nomeExibicao: "Billy",
+        nomeURL: "Billy",
         genero: "macho",
         idade: "filhote",
         porte: "medio-porte",
@@ -152,7 +165,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 20,
         imageSrc: "",
-        nome: "Bruce",
+        nomeExibicao: "Bruce",
+        nomeURL: "Bruce",
         genero: "macho",
         idade: "filhote",
         porte: "medio-porte",
@@ -170,7 +184,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 21,
         imageSrc: "",
-        nome: "Valentin",
+        nomeExibicao: "Valentin",
+        nomeURL: "Valentin",
         genero: "macho",
         idade: "adulto",
         porte: "medio-porte",
@@ -181,7 +196,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 4,
         imageSrc: "",
-        nome: "Simba",
+        nomeExibicao: "Simba",
+        nomeURL: "Simba",
         genero: "macho",
         idade: "adulto",
         porte: "medio-porte",
@@ -198,7 +214,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 5,
         imageSrc: "adocao-tigrao-1.jpg",
-        nome: "Tigrão",
+        nomeExibicao: "Tigrão",
+        nomeURL: "Tigrao",
         genero: "macho",
         idade: "adulto",
         porte: "medio-porte",
@@ -210,11 +227,12 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 12,
         imageSrc: "",
-        nome: "Will",
+        nomeExibicao: "Will",
+        nomeURL: "Will",
         genero: "macho",
         idade: "adulto",
         porte: "medio-porte",
-        imagesSrc: ["adocao-will-1.PNG"],
+        imagesSrc: ["adocao-will-1.png"],
         possuiAlgumaInaptidao: true,
         descricao:
             "Cerca de 2 anos. Um amor de doguinho, muito esperto e companheiro. Castrado e vacinado, Will  espera há muito tempo por um lar amoroso.",
@@ -222,7 +240,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 16,
         imageSrc: "",
-        nome: "Chocolate",
+        nomeExibicao: "Chocolate",
+        nomeURL: "Chocolate",
         genero: "macho",
         idade: "ate-1-ano",
         porte: "medio-porte",
@@ -234,7 +253,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 17,
         imageSrc: "",
-        nome: "Apolo",
+        nomeExibicao: "Apolo",
+        nomeURL: "Apolo",
         genero: "macho",
         idade: "adulto",
         porte: "medio-porte",
@@ -246,7 +266,8 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 22,
         imageSrc: "",
-        nome: "Gilbertinho",
+        nomeExibicao: "Gilbertinho",
+        nomeURL: "Gilbertinho",
         genero: "macho",
         idade: "adulto",
         porte: "pequeno-porte",
@@ -258,13 +279,27 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
     {
         id: 23,
         imageSrc: "",
-        nome: "Tetê",
+        nomeExibicao: "Tetê",
+        nomeURL: "Tete",
         genero: "femea",
         idade: "adulto",
         porte: "medio-porte",
         imagesSrc: ["adocao-tete-1.jpeg"],
-        possuiAlgumaInaptidao: true,
+        possuiAlgumaInaptidao: false,
         descricao:
             "Caramelinha linda, castrada e vacinada. Fica com esses olhinhos carentes, louca pra encontrar uma família!",
+    },
+    {
+        id: 24,
+        imageSrc: "",
+        nomeExibicao: "Pantera",
+        nomeURL: "Pantera",
+        genero: "femea",
+        idade: "filhote",
+        porte: "medio-porte",
+        imagesSrc: ["adocao-pantera-1.jpeg"],
+        possuiAlgumaInaptidao: false,
+        descricao:
+            "Mestiça de labrador, essa linda doguinha olha pra gente pedindo carinho. Está vacinada e castrada e quer logo encontrar uma família.",
     },
 ];

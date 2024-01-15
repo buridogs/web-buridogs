@@ -27,7 +27,8 @@ export type AdocaoPorteType = "mini" | "pequeno-porte" | "medio-porte" | "grande
 export interface IAdocaoDetails {
     id: number;
     imageSrc: string;
-    nome: string;
+    nomeExibicao: string;
+    nomeURL: string;
     genero: AdocaoGeneroType;
     idade: AdocaoIdadeType;
     porte: AdocaoPorteType;

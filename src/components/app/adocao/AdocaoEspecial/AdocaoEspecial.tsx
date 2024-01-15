@@ -42,7 +42,7 @@ export function AdocaoEspecial() {
                 }}
                 items={cachorrosIncapacitados.map((dog) => (
                     <AdocaoEspecialCard
-                        key={dog.nome}
+                        key={dog.nomeExibicao}
                         dog={dog}
                     />
                 ))}
