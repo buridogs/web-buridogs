@@ -81,7 +81,7 @@ export const cachorrosAdocao: IAdocaoDetails[] = [
         genero: "macho",
         idade: "adulto",
         porte: "grande-porte",
-        imagesSrc: ["adocao-samuca-1.PNG", "adocao-samuca-2.PNG"],
+        imagesSrc: ["adocao-samuca-1.jpeg", "adocao-samuca-2.PNG"],
         descricao:
             "Cerca de 2 anos. Um caramelo estilo estopinha, não tem tempo ruim com ele. Está castrado, vacinado e animado a ter uma família!",
     },
