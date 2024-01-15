@@ -26,7 +26,7 @@ export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalh
         try {
             await sendEmailFunctionAdocaoForm({
                 ...data,
-                nomeCachorroAdocao: cachorroSelecionado.nome,
+                nomeCachorroAdocao: cachorroSelecionado.nomeExibicao,
             });
             toast.success("Formulário enviado com sucesso!");
             reset();

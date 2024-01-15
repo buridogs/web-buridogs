@@ -8,7 +8,7 @@ interface AdocaoEspecialCardProps {
 }
 
 export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {
-    const { id, descricao, genero, idade, imageSrc, nome, porte, imagesSrc } = dog;
+    const { id, descricao, genero, idade, imageSrc, nomeExibicao, nomeURL, porte, imagesSrc } = dog;
     const labelGenero = returnFormattedOptionLabel(AdocaoFiltrosEnum.genero, genero);
     const labelIdade = returnFormattedOptionLabel(AdocaoFiltrosEnum.idade, idade);
     const labelPorte = returnFormattedOptionLabel(AdocaoFiltrosEnum.porte, porte);
@@ -22,18 +22,18 @@ export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {
                     <Image
                         className="object-cover"
                         src={generateImgURL(image ?? "")}
-                        alt={nome}
+                        alt={nomeExibicao}
                         fill
                     />
                 </div>
                 <div className="flex flex-col items-center justify-center px-4 mt-4 md:items-start md:mt-0 md:ml-[64px] ">
-                    <strong className="text-primary-400 text-2xl">{nome}</strong>
+                    <strong className="text-primary-400 text-2xl">{nomeExibicao}</strong>
                     <div className="flex flex-col items-center mt-2 md:items-start md:max-w-lg lg:max-w-xl">
                         <span className="text-grey-400 text-sm">{`${labelGenero}, ${labelIdade}, ${labelPorte}`}</span>
                         <p className="text-grey-100 text-sm mt-4 mb-4">{descricao}</p>
                     </div>
                     <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
-                        <Link href={`/adocao/${id}-${nome.replaceAll(" ", "")}`}>
+                        <Link href={`/adocao/${id}-${nomeURL.replaceAll(" ", "")}`}>
                             Quero adotar esse
                         </Link>
                     </button>

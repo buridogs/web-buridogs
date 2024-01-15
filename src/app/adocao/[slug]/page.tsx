@@ -25,7 +25,7 @@ export async function generateMetadata(
     const previousImages = (await parent).openGraph?.images || [];
 
     return {
-        title: `${cachorro?.nome} | Adoção Detalhes`,
+        title: `${cachorro?.nomeExibicao} | Adoção Detalhes`,
         description: `${cachorro?.descricaoLonga}`,
         openGraph: {
             images: [
