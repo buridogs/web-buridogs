@@ -13,14 +13,15 @@ export function AdocaoCatalogo() {
     const [cachorrosFiltrados, setCachorrosFiltrados] = useState([...cachorrosAdocao]);
 
     function onSearch() {
-        const filteredDogs = cachorrosAdocao.filter(cachorro => {
-            return Object.entries(filtrosSelecionados).every((filtro) => !filtro[1].length || filtro[1].includes(cachorro[filtro[0] as keyof IAdocaoDetails] as string));
+        const filteredDogs = cachorrosAdocao.filter((cachorro) => {
+            return Object.entries(filtrosSelecionados).every(
+                (filtro) =>
+                    !filtro[1].length ||
+                    filtro[1].includes(cachorro[filtro[0] as keyof IAdocaoDetails] as string)
+            );
         });
-        
 
-        setCachorrosFiltrados(
-            filteredDogs
-        );
+        setCachorrosFiltrados(filteredDogs);
     }
 
     useEffect(() => {
@@ -56,10 +57,10 @@ export function AdocaoCatalogo() {
                 />
             </div>
             <div className="grid gap-6 grid-cols-1 justify-items-center md:grid-cols-2 xl:grid-cols-3 xl:gap-10">
-                {cachorrosFiltrados.map((c) => (
+                {cachorrosFiltrados.map((cachorro) => (
                     <AdocaoCachorroCard
-                        key={c.id}
-                        cachorroInformacao={c}
+                        key={cachorro.id}
+                        cachorroInformacao={cachorro}
                     />
                 ))}
             </div>

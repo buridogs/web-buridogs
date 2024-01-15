@@ -8,7 +8,8 @@ interface AdocaoCachorroCardProps {
 }
 
 export function AdocaoCachorroCard({ cachorroInformacao }: AdocaoCachorroCardProps) {
-    const { id, descricao, genero, idade, imageSrc, nome, porte, imagesSrc } = cachorroInformacao;
+    const { id, descricao, genero, idade, imageSrc, nomeExibicao, nomeURL, porte, imagesSrc } =
+        cachorroInformacao;
     const labelGenero = returnFormattedOptionLabel(AdocaoFiltrosEnum.genero, genero);
     const labelIdade = returnFormattedOptionLabel(AdocaoFiltrosEnum.idade, idade);
     const labelPorte = returnFormattedOptionLabel(AdocaoFiltrosEnum.porte, porte);
@@ -21,16 +22,16 @@ export function AdocaoCachorroCard({ cachorroInformacao }: AdocaoCachorroCardPro
                 <Image
                     className="object-cover"
                     src={generateImgURL(image ?? "")}
-                    alt={nome}
+                    alt={nomeExibicao}
                     fill
                 />
             </div>
             <div className="flex flex-col items-start px-4 pb-3">
-                <strong className="text-grey-400 text-xl font-medium mt-4">{nome}</strong>
+                <strong className="text-grey-400 text-xl font-medium mt-4">{nomeExibicao}</strong>
                 <span className="text-grey-400 text-sm">{`${labelGenero}, ${labelIdade}, ${labelPorte}`}</span>
                 <p className="text-grey-100 text-sm mt-6 mb-4">{descricao}</p>
                 <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
-                    <Link href={`/adocao/${id}-${nome.replaceAll(" ", "")}`}>
+                    <Link href={`/adocao/${id}-${nomeURL.replaceAll(" ", "")}`}>
                         Quero adotar esse
                     </Link>
                 </button>

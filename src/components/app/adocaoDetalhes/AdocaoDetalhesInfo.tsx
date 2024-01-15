@@ -73,7 +73,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                 <div className="relative w-[100px] h-[100px] md:h-[300px] md:w-[300px] lg:mr-6">
                     <Image
                         src={generateImgURL(image ?? "")}
-                        alt={`Imagem do cachorro ${cachorroSelecionado.nome}`}
+                        alt={`Imagem do cachorro ${cachorroSelecionado.nomeExibicao}`}
                         fill
                         sizes="(max-width: 1024px) 300px, 300px"
                         priority
@@ -82,7 +82,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                 </div>
                 <div className="flex flex-col items-center mt-6">
                     <h1 className="text-primary-400 text-3xl font-medium">
-                        {cachorroSelecionado.nome}
+                        {cachorroSelecionado.nomeExibicao}
                     </h1>
                     <span className="w-full text-grey-400 text-lg font-medium flex justify-start items-center mt-3">
                         <BsGenderAmbiguous
@@ -117,14 +117,14 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                 </div>
             </div>
             <p className="text-grey-400 text-base my-6">{cachorroSelecionado.descricaoLonga}</p>
-            {renderImagens(cachorroSelecionado.nome, cachorroSelecionado.imagesSrc)}
+            {renderImagens(cachorroSelecionado.nomeExibicao, cachorroSelecionado.imagesSrc)}
             {cachorroSelecionado.youtubeSrcUrl ? (
                 <section className="mt-8 w-full h-[300px] flex flex-col items-start lg:w-[800px] lg:h-[480px] mx-auto">
                     <h2 className="text-primary-400 text-2xl font-medium mb-4">
                         Veja também um vídeo dele(a)
                     </h2>
                     <iframe
-                        title={`Vídeo do ${cachorroSelecionado.nome}`}
+                        title={`Vídeo do ${cachorroSelecionado.nomeExibicao}`}
                         width="100%"
                         height="100%"
                         src={`https://www.youtube.com/embed/${cachorroSelecionado.youtubeSrcUrl}`}
