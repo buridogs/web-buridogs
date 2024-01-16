@@ -10,12 +10,17 @@ export function SecaoPrincipal() {
                 <div className="max-w-[600px] lg:ml-10">
                     <div className="flex flex-col py-8">
                         <h1 className="text-grey-400 text-3xl font-bold leading-[40px] mb-4 lg:text-4xl lg:leading-[52px]">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Prazer, somos o <strong className="text-primary-400">Buri Dogs</strong>!
                         </h1>
                         <span className="text-grey-400 text-xl leading-8 lg:3xl">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida,
-                            eros vitae venenatis volutpat, tellus odio tincidunt odio, et porttitor
-                            orci dui in ante.
+                            O Buri Dogs é um grupo de proteção animal fundado no bairro Buritis, em
+                            Belo Horizonte, que acolhe, cuida e busca adoção para cães abandonados.
+                            Em quatro anos de atuação já tirou das ruas e encaminhou cerca de 700
+                            cães.
+                            <br />
+                            Em 2022, o trabalho do Buri Dogs foi reconhecido pela Câmara de
+                            Vereadores de BH e o grupo recebeu o Diploma de Honra ao Mérito, por
+                            sugestão do vereador Miltinho.
                         </span>
                     </div>
                     <div className="flex flex-col justify-center items-center [&>*]:mb-6 mb-8 md:flex-row md:[&>*]:mb-0 md:[&>*]:mr-8">
@@ -44,11 +49,12 @@ export function SecaoPrincipal() {
                     </div>
                 </div>
                 <Image
-                    src={generateImgURL("image-banner.png")}
+                    src={generateImgURL("sobre-nos-foto-equipe-1.jpg")}
                     alt="Cachorro"
                     width={460}
                     height={460}
                     className="rounded-[50%]"
+                    priority
                 />
             </div>
         </section>

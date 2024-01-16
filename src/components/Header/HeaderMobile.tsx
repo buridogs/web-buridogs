@@ -11,7 +11,7 @@ export function HeaderMobile({ isOpen, setIsOpen }: HeaderMobileProps) {
     return (
         <section className="flex lg:hidden">
             <div
-                className="space-y-2"
+                className="space-y-2 cursor-pointer"
                 onClick={() => setIsOpen((prev) => !prev)}
             >
                 <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
@@ -21,7 +21,7 @@ export function HeaderMobile({ isOpen, setIsOpen }: HeaderMobileProps) {
 
             <div className={isOpen ? "showMenuNav" : "hideMenuNav"}>
                 <div
-                    className="absolute top-0 right-0 px-8 py-8"
+                    className="absolute top-0 right-0 px-8 py-8 cursor-pointer"
                     onClick={() => setIsOpen(false)}
                 >
                     <svg

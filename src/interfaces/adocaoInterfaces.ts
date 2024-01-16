@@ -24,19 +24,18 @@ export enum AdocaoPorteEnum {
 
 export type AdocaoPorteType = "mini" | "pequeno-porte" | "medio-porte" | "grande-porte";
 
-export interface IAdocaoCard {
+export interface IAdocaoDetails {
     id: number;
     imageSrc: string;
-    nome: string;
+    nomeExibicao: string;
+    nomeURL: string;
     genero: AdocaoGeneroType;
     idade: AdocaoIdadeType;
     porte: AdocaoPorteType;
     descricao: string;
-}
-
-export interface IAdocaoDetails extends IAdocaoCard {
-    descricaoLonga?: string;
+    possuiAlgumaInaptidao?: boolean;
     imagesSrc?: string[];
+    descricaoLonga?: string;
     youtubeSrcUrl?: string;
 }
 
