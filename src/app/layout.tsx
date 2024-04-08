@@ -6,8 +6,8 @@ import { Inter } from "next/font/google";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import ToastProvider from "@/providers/ToastProvider";
-import Head from "next/head";
 import { initializeClarity } from "@/services/clarity/clarity-tag";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,9 +22,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
-            <Head>
-                <script>{initializeClarity()}</script>
-            </Head>
+            <head>
+                <Script id="clarity">{initializeClarity()}</Script>
+            </head>
             <body className={`${inter.className} flex flex-col`}>
                 <ToastProvider>
                     <Header />
