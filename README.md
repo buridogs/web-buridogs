@@ -20,8 +20,8 @@ Inicialmente teremos as seguintes funcionalidades no projeto:
 
 No projeto utilizou-se:
 
-- **Typescript** para escrita do código com tipagem estática
-- **NextJs** como framework serverside para criação das interfaces
+-   **Typescript** para escrita do código com tipagem estática
+-   **NextJs** como framework serverside para criação das interfaces
 
 ## 🖥 Como rodar o projeto
 
