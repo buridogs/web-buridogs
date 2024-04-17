@@ -2,6 +2,7 @@ import { FieldErrors, UseFormRegister, FieldValues } from "react-hook-form";
 import { GeneralFormsType, FieldFormsType, InputFormEnum, OptionFormsType } from "./FormTypes";
 import { Spinner } from "../Spinner/Spinner";
 import React, { SyntheticEvent, useState } from "react";
+import FileInput from "../FileInput/FileInput";
 
 interface FormProps<T extends FieldValues> {
     handleSubmit: () => Promise<void>;
@@ -9,6 +10,7 @@ interface FormProps<T extends FieldValues> {
     register: UseFormRegister<T>;
     errors: FieldErrors<T>;
     submitLabel: string;
+    disabledSubmit?: boolean;
 }
 
 export default function Form<T extends FieldValues>({
@@ -17,6 +19,7 @@ export default function Form<T extends FieldValues>({
     register,
     errors,
     submitLabel,
+    disabledSubmit,
 }: FormProps<T>) {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -44,6 +47,14 @@ export default function Form<T extends FieldValues>({
                         className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1 text-gray-500"
                         {...register(field.key as any)}
                         rows={4}
+                    />
+                );
+            case InputFormEnum.multipleFiles:
+            case InputFormEnum.singleFile:
+                return (
+                    <FileInput
+                        field={field}
+                        inputProps={register(field.key as any)}
                     />
                 );
             case InputFormEnum.checkbox:
@@ -141,13 +152,18 @@ export default function Form<T extends FieldValues>({
 
             <label
                 htmlFor="submit"
-                className="text-primary-400 uppercase font-medium py-2 px-4 rounded-3xl border-primary-400 border-solid border-2 mt-8 cursor-pointer transition duration-150 hover:bg-primary-100 hover:text-white hover:border-primary-100"
+                className={` uppercase font-medium py-2 px-4 rounded-3xl border-solid border-2 mt-8 ${
+                    disabledSubmit
+                        ? "cursor-not-allowed bg-grey-50 border-grey-50 text-grey-100"
+                        : "text-primary-400 border-primary-400 cursor-pointer hover:bg-primary-100 hover:text-white hover:border-primary-100"
+                } transition duration-150 `}
             >
                 {isLoading ? <Spinner /> : submitLabel}
             </label>
             <input
                 id="submit"
                 type="submit"
+                disabled={disabledSubmit}
                 hidden
             />
         </form>

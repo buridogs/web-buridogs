@@ -24,8 +24,10 @@ export interface IAdocaoForm {
     descricao_lugar_animal: string;
     situacao_devolucao_adocao: string;
     consciente_termo_responsabilidade: boolean;
+    arquivos: FileList;
 }
 
 export interface IAdocaoPOSTRequestForm extends IAdocaoForm {
     nomeCachorroAdocao: string;
+    linksArquivosAzureBlob: string[];
 }
