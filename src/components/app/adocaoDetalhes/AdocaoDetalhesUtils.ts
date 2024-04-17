@@ -283,6 +283,21 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
             },
         ],
     },
+    {
+        section: [
+            {
+                key: "arquivos",
+                label: "",
+                type: InputFormEnum.multipleFiles,
+                fileSettings: {
+                    isMultiple: true,
+                    filesQuantityLimit: 2,
+                    filesSizeLimit: 1024 * 1000,
+                    supportedExtensions: ["image/png", "image/jpeg", "image/jpg"],
+                },
+            },
+        ],
+    },
 ];
 
 export const schemaAdocaoForm = yup
@@ -426,6 +441,14 @@ export const schemaAdocaoForm = yup
             .required(MENSAGENS_ERRO().campoObrigatorio),
         consciente_termo_responsabilidade: yup
             .boolean()
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        arquivos: yup
+            .mixed<FileList>()
+            .test(
+                "arquivos",
+                MENSAGENS_ERRO().campoObrigatorio,
+                (files: FileList | undefined) => (files?.length ?? 0) > 0
+            )
             .required(MENSAGENS_ERRO().campoObrigatorio),
     })
     .required();

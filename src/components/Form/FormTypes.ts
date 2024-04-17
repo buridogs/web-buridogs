@@ -4,6 +4,8 @@ export enum InputFormEnum {
     textarea = "textarea",
     radio = "radio",
     checkbox = "checkbox",
+    singleFile = "singleFile",
+    multipleFiles = "multipleFiles",
 }
 
 export type OptionFormsType = {
@@ -18,6 +20,12 @@ export type FieldFormsType<T> = {
     placeholder?: string;
     type: InputFormEnum;
     options?: OptionFormsType[];
+    fileSettings?: {
+        isMultiple?: boolean;
+        filesQuantityLimit?: number;
+        filesSizeLimit?: number;
+        supportedExtensions: string[];
+    };
 };
 
 export type GeneralFormsType<T> = {
