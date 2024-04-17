@@ -287,11 +287,11 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
         section: [
             {
                 key: "arquivos",
-                label: "",
+                label: "Adicione fotos do futuro lar do cãozinho. As imagens nos ajudarão a entender quão bem ele/ela estará 😄",
                 type: InputFormEnum.multipleFiles,
                 fileSettings: {
                     isMultiple: true,
-                    filesQuantityLimit: 2,
+                    filesQuantityLimit: 3,
                     filesSizeLimit: 1024 * 1000,
                     supportedExtensions: ["image/png", "image/jpeg", "image/jpg"],
                 },
