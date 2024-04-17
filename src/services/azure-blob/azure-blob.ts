@@ -2,8 +2,8 @@ import { BlobServiceClient, BlockBlobClient, ContainerClient } from "@azure/stor
 
 const accountName = process.env.NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME;
 const sasToken = process.env.NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN;
-if (!accountName) throw Error("Azure Storage accountName not found");
-if (!sasToken) throw Error("Azure Storage accountKey not found");
+// if (!accountName) throw Error("Azure Storage accountName not found");
+// if (!sasToken) throw Error("Azure Storage accountKey not found");
 
 const blobServiceUri = `https://${accountName}.blob.core.windows.net?${sasToken}`;
 
