@@ -10,7 +10,7 @@ export const GoogleAnalytics = () => {
                 src="https://www.googletagmanager.com/gtag/js?id=G-YPXBB8KC6M"
             ></Script>
             <Script
-                id="microsoft-clarity"
+                id="google-analytics"
                 strategy="afterInteractive"
                 dangerouslySetInnerHTML={{
                     __html: `
