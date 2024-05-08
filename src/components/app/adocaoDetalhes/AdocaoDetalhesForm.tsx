@@ -6,8 +6,9 @@ import { toast } from "react-toastify";
 import { ADOCAO_FORMS_CONFIG, schemaAdocaoForm } from "./AdocaoDetalhesUtils";
 import { IAdocaoForm } from "./AdocaoDetalhesTypes";
 import Form from "@/components/Form/Form";
-import { sendEmailFunctionAdocaoForm } from "@/services/azure-function/send-email-adocao/send-email-function-adocao-form";
 import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
+import { blobServiceClient, uploadBlobFromBuffer } from "@/services/azure-blob/azure-blob";
+import { sendEmailFunctionAdocaoForm } from "@/services/azure-function/send-email-adocao/send-email-function-adocao-form";
 
 interface AdocaoDetalhesFormProps {
     cachorroSelecionado: IAdocaoDetails;
@@ -19,14 +20,47 @@ export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalh
         handleSubmit,
         formState: { errors },
         reset,
+        watch,
     } = useForm<IAdocaoForm>({
         resolver: yupResolver(schemaAdocaoForm),
     });
+
     const onSubmit = async (data: IAdocaoForm) => {
+        const containerClient = blobServiceClient.getContainerClient("adoption-form");
+
         try {
+            const linksArquivosAzureBlob: string[] = [];
+            if (data.arquivos.length > 0) {
+                const bufferPromise = Array(data.arquivos?.length)
+                    .fill(data.arquivos?.length)
+                    .map((_arquivo, index) => {
+                        return data.arquivos.item(index)?.arrayBuffer();
+                    });
+
+                const bufferResponse = (await Promise.all([...bufferPromise])) as ArrayBuffer[];
+
+                const uploadPromise = Array(data.arquivos?.length)
+                    .fill(data.arquivos?.length)
+                    .map((_arquivo, index) => {
+                        const filename = data.arquivos.item(index)?.name ?? "";
+                        linksArquivosAzureBlob.push(
+                            `https://${process.env.NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${process.env.NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME}/${filename}`
+                        );
+
+                        return uploadBlobFromBuffer(
+                            containerClient,
+                            filename,
+                            Buffer.from(bufferResponse[index])
+                        );
+                    });
+
+                await Promise.all([...uploadPromise]);
+            }
+
             await sendEmailFunctionAdocaoForm({
                 ...data,
                 nomeCachorroAdocao: cachorroSelecionado.nomeExibicao,
+                linksArquivosAzureBlob,
             });
             toast.success("Formulário enviado com sucesso!");
             reset();
@@ -35,6 +69,8 @@ export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalh
             toast.error("Houve um erro no envio do formulário");
         }
     };
+
+    const shouldDisabledSubmitButton = String(watch("consciente_termo_responsabilidade")) === "0";
 
     return (
         <section className="flex flex-col items-center">
@@ -77,6 +113,7 @@ export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalh
                     register={register}
                     errors={errors}
                     submitLabel="Enviar formulário"
+                    disabledSubmit={shouldDisabledSubmitButton}
                 />
             </div>
         </section>
