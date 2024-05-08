@@ -60,7 +60,7 @@ export default function FileInput<T>({ field, inputProps }: FileInputProps<T>) {
         <div className="flex flex-col items-start w-full">
             <label
                 htmlFor={field.key as string}
-                className="flex flex-col w-full items-center py-5 cursor-pointer text-grey-400 text-sm rounded bg-primary-100 hover:bg-primary-700 hover:text-white transition duration-150"
+                className="flex flex-col w-full items-center py-5 px-5 md:px-0 cursor-pointer text-grey-400 text-sm rounded bg-primary-100 hover:bg-primary-700 hover:text-white transition duration-150"
             >
                 <p className="font-semibold mb-1">{formatLabel()}</p>
                 <p>{`Máximo de ${
