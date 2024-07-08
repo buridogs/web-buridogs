@@ -6,7 +6,7 @@ import { Inter } from "next/font/google";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import ToastProvider from "@/providers/ToastProvider";
-import { MicrosoftClarity } from "@/services/clarity/clarity-tag";
+import { TracerTagsWrapper } from "@/components/TracerTagsWrapper/TracerTagsWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     <main className="flex-auto pt-[110px]">{children}</main>
                     <Footer />
                 </ToastProvider>
-                <MicrosoftClarity />
+                <TracerTagsWrapper />
             </body>
         </html>
     );
