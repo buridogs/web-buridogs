@@ -4,8 +4,8 @@ import Image from "next/image";
 export function ApadrinhamentoInstrucoes() {
     return (
         <section className="flex flex-col-reverse items-center lg:flex-row">
-            <div className="flex flex-col items-center">
-                <h1 className="text-primary-400 text-3xl leading-10 font-bold md:text-4xl mt-8">
+            <div className="flex flex-col items-center md:items-start">
+                <h1 className="text-primary-400 text-3xl leading-10 font-bold mt-8 md:text-4xl md:mt-0">
                     Apadrinhamento
                 </h1>
                 <h2 className="text-grey-400 text-2xl font-bold leading-9 my-6 text-left">
@@ -21,7 +21,7 @@ export function ApadrinhamentoInstrucoes() {
                 <strong className="text-grey-100 text-lg uppercase my-6">
                     Dicas para quem adota um cãozinho
                 </strong>
-                <ul className="list-disc [&>li+li]:mt-4">
+                <ul className="list-disc [&>li+li]:mt-4 ml-4">
                     <li className="text-grey-400 text-base font-medium">
                         Não há mistério na adoção de um cãozinho, a regra é ser amoroso e paciente.
                     </li>
