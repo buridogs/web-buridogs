@@ -4,8 +4,14 @@ import {
     AdocaoIdadeEnum,
     AdocaoPorteEnum,
 } from "@/interfaces/adocaoInterfaces";
+import { FiltroOptionsType } from "@/utils/types";
 
-export const filtrosAdocao = [
+export const filtrosAdocao: FiltroOptionsType<
+    AdocaoFiltrosEnum | 
+    AdocaoGeneroEnum | 
+    AdocaoIdadeEnum | 
+    AdocaoPorteEnum
+>[] = [
     {
         filtro: {
             label: "Gênero",
