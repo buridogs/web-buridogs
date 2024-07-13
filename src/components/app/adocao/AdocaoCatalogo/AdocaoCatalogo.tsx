@@ -25,11 +25,11 @@ export function AdocaoCatalogo() {
     }
 
     useEffect(() => {
-        const doesNotHaveAnyFilterSeelected = Object.entries(filtrosSelecionados).every(
+        const doesNotHaveAnyFilterSelected = Object.entries(filtrosSelecionados).every(
             (filtro) => !filtro[1].length
         );
 
-        if (doesNotHaveAnyFilterSeelected) {
+        if (doesNotHaveAnyFilterSelected) {
             setCachorrosFiltrados(cachorrosAdocao);
         }
     }, [filtrosSelecionados]);
