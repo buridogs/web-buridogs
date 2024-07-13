@@ -9,6 +9,7 @@ import {
     APADRINHAMENTO_FORMS_CONFIG,
     estadoInicialFiltrosApadrinhamento,
     filtrosApadrinhamento,
+    schemaApadrinhamentoComAnimalForm,
     schemaApadrinhamentoForm,
 } from "./ApadrinhamentoUtils";
 import MultipleTags from "@/components/MultipleTags/MultipleTags";
@@ -21,32 +22,37 @@ import { useEffect, useState } from "react";
 import { sendEmailFunctionApadrinhamentoForm } from "@/services/azure-function/send-email-apadrinhamento/send-email-function-apadrinhamento-form";
 
 export default function ApadrinhamentoForm() {
+    const [filtrosSelecionados, setFiltrosSelecionados] = useState<Record<string, string[]>>({
+        ...estadoInicialFiltrosApadrinhamento,
+    });
+
+    const opcaoEscolherQuemApadrinharFiltros =
+        filtrosSelecionados[ApadrinhamentoFiltrosEnum.escolher_quem_apadrinhar][0];
+
+    const schemaApadrinhamento =
+        opcaoEscolherQuemApadrinharFiltros === ApadrinhamentoEscolherOpcaoEnum.sim
+            ? schemaApadrinhamentoComAnimalForm
+            : schemaApadrinhamentoForm;
+
     const {
         register,
         handleSubmit,
         formState: { errors },
         reset,
         resetField,
-        // watch,
+        setValue,
     } = useForm<IApadrinhamentoForm>({
-        resolver: yupResolver(schemaApadrinhamentoForm),
-    });
-
-    const [filtrosSelecionados, setFiltrosSelecionados] = useState<Record<string, string[]>>({
-        ...estadoInicialFiltrosApadrinhamento,
+        resolver: yupResolver(schemaApadrinhamento),
     });
 
     const onSubmit = async (data: IApadrinhamentoForm) => {
-        console.log({ data });
-
         try {
             await sendEmailFunctionApadrinhamentoForm({
                 ...data,
-                apadrinhar_com:
-                    filtrosSelecionados[ApadrinhamentoFiltrosEnum.apadrinhar_com].join(","),
             });
             toast.success("Formulário enviado com sucesso!");
             reset();
+            setFiltrosSelecionados({ ...estadoInicialFiltrosApadrinhamento });
         } catch (err: unknown) {
             if (typeof err === "string") {
                 console.warn(err);
@@ -74,9 +80,6 @@ export default function ApadrinhamentoForm() {
         }));
     }
 
-    const opcaoEscolherQuemApadrinharFiltros =
-        filtrosSelecionados[ApadrinhamentoFiltrosEnum.escolher_quem_apadrinhar][0];
-
     const shouldShowApadrinhamentoForms =
         !!filtrosSelecionados[ApadrinhamentoFiltrosEnum.escolher_quem_apadrinhar].length;
 
@@ -88,14 +91,24 @@ export default function ApadrinhamentoForm() {
     const shouldDisabledSubmitButton = false;
 
     useEffect(() => {
+        setValue(
+            "escolher_quem_apadrinhar",
+            filtrosSelecionados[ApadrinhamentoFiltrosEnum.escolher_quem_apadrinhar][0]
+        );
         resetField("nome_animal");
     }, [opcaoEscolherQuemApadrinharFiltros]);
+
+    useEffect(() => {
+        setValue("apadrinhar_com", [
+            ...filtrosSelecionados[ApadrinhamentoFiltrosEnum.apadrinhar_com],
+        ]);
+    }, [filtrosSelecionados[ApadrinhamentoFiltrosEnum.apadrinhar_com]]);
 
     const renderApadrinhamentoForms = () => {
         if (!shouldShowApadrinhamentoForms) return null;
 
         return (
-            <div className="flex flex-col mt-10">
+            <div className="flex flex-col mt-8 md:mt-10">
                 <h2 className="text-primary-400 text-3xl leading-10 font-bold md:text-4xl">
                     Falta pouco! Agora é sé deixar aqui seu contato e pronto
                 </h2>
@@ -114,7 +127,7 @@ export default function ApadrinhamentoForm() {
     };
 
     return (
-        <section className="flex flex-col w-full">
+        <section className="flex flex-col w-full mt-6">
             <div className="flex flex-col items-start">
                 <h2 className="text-primary-400 text-3xl leading-10 font-bold md:text-4xl">
                     Encontre a sua forma de ajudar
@@ -122,7 +135,7 @@ export default function ApadrinhamentoForm() {
                 <p className="text-grey-400 text-lg mt-3">
                     Aqui você encontra algumas formas de realizar o apadrinhamento:
                 </p>
-                <div className="w-full flex flex-col items-start my-6 [&>div+div]:mt-6">
+                <div className="w-full flex flex-col items-start mt-6 [&>div+div]:mt-6">
                     {filtrosApadrinhamento.map((f) => {
                         return (
                             <MultipleTags<ApadrinhamentoEnums>

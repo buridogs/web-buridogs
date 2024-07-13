@@ -119,7 +119,25 @@ export const APADRINHAMENTO_FORMS_COM_NOME_ANIMAL_CONFIG: GeneralFormsType<IApad
             {
                 key: "nome_animal",
                 label: "Nome do animal que quer apadrinhar",
-                placeholder: "Juca",
+                placeholder: "Exemplo: Juca",
+                type: InputFormEnum.text,
+            },
+        ],
+    },
+];
+
+export const APADRINHAMENTO_FORMS_COM_CAMPOS_COMPLEMENTARES_CONFIG: GeneralFormsType<IApadrinhamentoForm>[] = [
+    ...APADRINHAMENTO_FORMS_COM_NOME_ANIMAL_CONFIG,
+    {
+        section: [
+            {
+                key: "apadrinhar_com",
+                label: "Apadrinhar com",
+                type: InputFormEnum.text,
+            },
+            {
+                key: "escolher_quem_apadrinhar",
+                label: "Quero apadrinhar algum animal específico?",
                 type: InputFormEnum.text,
             },
         ],
@@ -150,6 +168,46 @@ export const schemaApadrinhamentoForm = yup
                 MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequeno).tamanhoMaximo
             )
             .required(MENSAGENS_ERRO().campoObrigatorio),
+        preferencia_contato: yup.array().of(yup.string().required())
+            .min(1, MENSAGENS_ERRO().campoObrigatorio)
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        apadrinhar_com: yup.array().of(yup.string().required())
+            .min(1, MENSAGENS_ERRO().campoObrigatorio)
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        escolher_quem_apadrinhar: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.pequeno,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequeno).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+    })
+    .required();
+
+export const schemaApadrinhamentoComAnimalForm = yup
+    .object({
+        nome: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        email: yup
+            .string()
+            .email()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.medio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        telefone_contato: yup
+            .string()
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.pequeno,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequeno).tamanhoMaximo
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
         nome_animal: yup
             .string()
             .max(
@@ -157,14 +215,13 @@ export const schemaApadrinhamentoForm = yup
                 MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequeno).tamanhoMaximo
             )
             .required(MENSAGENS_ERRO().campoObrigatorio),
-        preferencia_contato: yup
-            .string()
-            .max(
-                LIMITE_TAMANHO_MENSAGEM.pequeno,
-                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequeno).tamanhoMaximo
-            )
+        preferencia_contato: yup.array().of(yup.string().required())
+            .min(1, MENSAGENS_ERRO().campoObrigatorio)
             .required(MENSAGENS_ERRO().campoObrigatorio),
-        apadrinhar_com: yup
+        apadrinhar_com: yup.array().of(yup.string().required())
+            .min(1, MENSAGENS_ERRO().campoObrigatorio)
+            .required(MENSAGENS_ERRO().campoObrigatorio),
+        escolher_quem_apadrinhar: yup
             .string()
             .max(
                 LIMITE_TAMANHO_MENSAGEM.pequeno,

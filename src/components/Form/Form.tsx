@@ -1,4 +1,4 @@
-import { FieldErrors, UseFormRegister, FieldValues } from "react-hook-form";
+import { FieldErrors, UseFormRegister, FieldValues, Path } from "react-hook-form";
 import { GeneralFormsType, FieldFormsType, InputFormEnum, OptionFormsType } from "./FormTypes";
 import { Spinner } from "../Spinner/Spinner";
 import React, { SyntheticEvent, useState } from "react";
@@ -36,7 +36,7 @@ export default function Form<T extends FieldValues>({
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
                         className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1 text-gray-500"
-                        {...register(field.key as any)}
+                        {...register(field.key as Path<T>)}
                     />
                 );
             case InputFormEnum.textarea:
@@ -45,7 +45,7 @@ export default function Form<T extends FieldValues>({
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
                         className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1 text-gray-500"
-                        {...register(field.key as any)}
+                        {...register(field.key as Path<T>)}
                         rows={4}
                     />
                 );
@@ -54,7 +54,7 @@ export default function Form<T extends FieldValues>({
                 return (
                     <FileInput
                         field={field}
-                        inputProps={register(field.key as any)}
+                        inputProps={register(field.key as Path<T>)}
                     />
                 );
             case InputFormEnum.checkbox:
@@ -63,14 +63,14 @@ export default function Form<T extends FieldValues>({
                         {options?.map((opt) => (
                             <div
                                 key={opt?.key}
-                                className="w-full flex items-center justify-start cursor-pointer"
+                                className="w-full flex items-center justify-start cursor-pointer mt-1"
                             >
                                 <input
                                     id={opt?.key}
                                     type="checkbox"
                                     value={opt?.value}
-                                    className="mr-2 cursor-pointer"
-                                    {...register(field.key as any)}
+                                    className="h-4 w-4 mr-2 rounded-sm cursor-pointer accent-primary-400"
+                                    {...register(field.key as Path<T>)}
                                 />
                                 <label
                                     htmlFor={opt?.key}
@@ -95,7 +95,7 @@ export default function Form<T extends FieldValues>({
                                     type="radio"
                                     value={opt?.value}
                                     className="mr-2 cursor-pointer"
-                                    {...register(field.key as any)}
+                                    {...register(field.key as Path<T>)}
                                 />
                                 <label
                                     htmlFor={opt?.key}
@@ -142,8 +142,8 @@ export default function Form<T extends FieldValues>({
                                 {field.label}
                             </label>
                             {renderInputs(field.type, field, field.options)}
-                            <p className="text-sm font-semibold text-red-400">
-                                {errors[field.key]?.message as any}
+                            <p className="text-sm font-semibold text-red-400 mt-0.5">
+                                {errors[field.key]?.message as string}
                             </p>
                         </div>
                     ))}
