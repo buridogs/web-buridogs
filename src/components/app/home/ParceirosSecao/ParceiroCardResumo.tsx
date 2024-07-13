@@ -20,11 +20,11 @@ export function ParceiroCardResumo({ parceiro }: ParceiroCardResumoProps) {
                     className="rounded-[50%] object-cover"
                 />
             ) : (
-                <div className="w-[165px] h-[165px] rounded-[50%] bg-grey-100" />
+                <div className="w-[165px] h-[165px] rounded-[50%] bg-gray-100" />
             )}
-            <strong className="w-full text-grey-700 mt-6">{nome}</strong>
-            <span className="w-full text-grey-100 text-sm text-left">{endereco}</span>
-            <span className="w-full text-grey-100 text-sm font-medium text-left">{contato}</span>
+            <strong className="w-full text-gray-700 mt-6">{nome}</strong>
+            <span className="w-full text-gray-100 text-sm text-left">{endereco}</span>
+            <span className="w-full text-gray-100 text-sm font-medium text-left">{contato}</span>
             <RedesSociaisParceiros redes={redesSociais} />
         </li>
     );

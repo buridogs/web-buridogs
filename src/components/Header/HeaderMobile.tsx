@@ -52,7 +52,7 @@ export function HeaderMobile({ isOpen, setIsOpen }: HeaderMobileProps) {
                         <li key={menuOption.label}>
                             <Link
                                 href={menuOption.path}
-                                className="text-grey-700 transition-color ease-in-out delay-800 hover:text-primary-400"
+                                className="text-gray-700 transition-color ease-in-out delay-800 hover:text-primary-400"
                             >
                                 {menuOption.label}
                             </Link>

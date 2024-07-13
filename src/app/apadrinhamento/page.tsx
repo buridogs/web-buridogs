@@ -23,8 +23,7 @@ export default function ApadrinhamentoPage() {
 }
 
 // TODO: Document process of creating a new lambda
-// TODO: Fix grey typo
+// TODO: Fix gray typo
 // TODO: Improve form to have 2 sides
 // TODO: Implement unit tests
 // TODO: Add the right photo and description for Apadrinhamento
-// TODO: Custom checkbox css

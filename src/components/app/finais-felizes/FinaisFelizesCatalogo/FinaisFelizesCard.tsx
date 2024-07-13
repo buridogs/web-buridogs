@@ -19,7 +19,7 @@ export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps
 
     return (
         <div className="w-[344px] flex flex-col items-start rounded shadow-[0px_1px_3px_0px_rgba(0,0,0,0.20),0px_2px_1px_0px_rgba(0,0,0,0.12),0px_1px_1px_0px_rgba(0,0,0,0.14)]">
-            <div className="w-full h-[350px] rounded rounded-b-2xl bg-grey-50 relative">
+            <div className="w-full h-[350px] rounded rounded-b-2xl bg-gray-50 relative">
                 {imagensUrlAntes?.concat(imagensUrlDepois ?? []).length ? (
                     <AliceCarousel
                         mouseTracking
@@ -38,7 +38,7 @@ export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps
                                 key={image}
                                 className="flex flex-col items-center md:flex-row md:justify-evenly"
                             >
-                                <div className="w-full h-[350px] rounded rounded-b-2xl bg-grey-50">
+                                <div className="w-full h-[350px] rounded rounded-b-2xl bg-gray-50">
                                     <Image
                                         src={generateImgURL(image)}
                                         alt={nome}
@@ -53,8 +53,8 @@ export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps
                 ) : null}
             </div>
             <div className="flex flex-col items-start px-4 pb-3">
-                <strong className="text-grey-400 text-xl font-medium mt-4">{nome}</strong>
-                <span className="text-grey-400 text-sm mb-4">{`${labelGenero}, ${labelIdade}, ${labelPorte}`}</span>
+                <strong className="text-gray-400 text-xl font-medium mt-4">{nome}</strong>
+                <span className="text-gray-400 text-sm mb-4">{`${labelGenero}, ${labelIdade}, ${labelPorte}`}</span>
                 <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
                     <Link href={`/finais-felizes/${id}-${nome.replaceAll(" ", "")}`}>
                         Ver História

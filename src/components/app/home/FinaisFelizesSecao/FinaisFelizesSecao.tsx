@@ -57,9 +57,9 @@ export function FinaisFelizesSecao() {
                                 <div className="flex flex-col items-start">
                                     <Link
                                         href="/finais-felizes"
-                                        className="group py-3 px-4 rounded-[40px] bg-grey-50 mb-5 mt-4 transition duration-150 hover:bg-grey-100"
+                                        className="group py-3 px-4 rounded-[40px] bg-gray-50 mb-5 mt-4 transition duration-150 hover:bg-gray-100"
                                     >
-                                        <span className="uppercase font-medium text-grey-400 transition duration-150 group-hover:text-white">
+                                        <span className="uppercase font-medium text-gray-400 transition duration-150 group-hover:text-white">
                                             {dog.nome}
                                         </span>
                                     </Link>
@@ -70,7 +70,7 @@ export function FinaisFelizesSecao() {
                                             width={32}
                                             height={32}
                                         />
-                                        <p className="max-w-[80%] text-grey-400 text-lg font-medium ml-1 text-ellipsis overflow-hidden line-clamp-6">
+                                        <p className="max-w-[80%] text-gray-400 text-lg font-medium ml-1 text-ellipsis overflow-hidden line-clamp-6">
                                             {dog.descricao}
                                         </p>
                                     </div>

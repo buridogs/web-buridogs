@@ -84,7 +84,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                     <h1 className="text-primary-400 text-3xl font-medium">
                         {cachorroSelecionado.nomeExibicao}
                     </h1>
-                    <span className="w-full text-grey-400 text-lg font-medium flex justify-start items-center mt-3">
+                    <span className="w-full text-gray-400 text-lg font-medium flex justify-start items-center mt-3">
                         <BsGenderAmbiguous
                             size={30}
                             className="text-primary-400 mr-2"
@@ -94,7 +94,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                             cachorroSelecionado.genero
                         )}
                     </span>
-                    <span className="w-full text-grey-400 text-lg font-medium flex justify-start items-center mt-2">
+                    <span className="w-full text-gray-400 text-lg font-medium flex justify-start items-center mt-2">
                         <MdBedroomBaby
                             size={30}
                             className="text-primary-400 mr-2"
@@ -104,7 +104,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                             cachorroSelecionado.idade
                         )}
                     </span>
-                    <span className="w-full text-grey-400 text-lg font-medium flex justify-start items-center mt-2">
+                    <span className="w-full text-gray-400 text-lg font-medium flex justify-start items-center mt-2">
                         <FaDog
                             size={30}
                             className="text-primary-400 mr-2"
@@ -116,7 +116,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                     </span>
                 </div>
             </div>
-            <p className="text-grey-400 text-base my-6">{cachorroSelecionado.descricaoLonga}</p>
+            <p className="text-gray-400 text-base my-6">{cachorroSelecionado.descricaoLonga}</p>
             {renderImagens(cachorroSelecionado.nomeExibicao, cachorroSelecionado.imagesSrc)}
             {cachorroSelecionado.youtubeSrcUrl ? (
                 <section className="mt-8 w-full h-[300px] flex flex-col items-start lg:w-[800px] lg:h-[480px] mx-auto">

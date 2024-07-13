@@ -35,7 +35,7 @@ export default function Form<T extends FieldValues>({
                     <input
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
-                        className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1 text-gray-500"
+                        className="w-[80%] py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500"
                         {...register(field.key as Path<T>)}
                     />
                 );
@@ -44,7 +44,7 @@ export default function Form<T extends FieldValues>({
                     <textarea
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
-                        className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1 text-gray-500"
+                        className="w-[80%] py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500"
                         {...register(field.key as Path<T>)}
                         rows={4}
                     />
@@ -74,7 +74,7 @@ export default function Form<T extends FieldValues>({
                                 />
                                 <label
                                     htmlFor={opt?.key}
-                                    className="w-full text-sm text-grey-100 font-normal cursor-pointer"
+                                    className="w-full text-sm text-gray-100 font-normal cursor-pointer"
                                 >
                                     {opt?.label}
                                 </label>
@@ -99,7 +99,7 @@ export default function Form<T extends FieldValues>({
                                 />
                                 <label
                                     htmlFor={opt?.key}
-                                    className="w-full text-sm text-grey-100 font-normal cursor-pointer"
+                                    className="w-full text-sm text-gray-100 font-normal cursor-pointer"
                                 >
                                     {opt?.label}
                                 </label>
@@ -137,7 +137,7 @@ export default function Form<T extends FieldValues>({
                         >
                             <label
                                 htmlFor={field.key as string}
-                                className="text-sm text-grey-100 font-medium"
+                                className="text-sm text-gray-100 font-medium"
                             >
                                 {field.label}
                             </label>
@@ -154,7 +154,7 @@ export default function Form<T extends FieldValues>({
                 htmlFor="submit"
                 className={` uppercase font-medium py-2 px-4 rounded-3xl border-solid border-2 mt-8 ${
                     disabledSubmit
-                        ? "cursor-not-allowed bg-grey-50 border-grey-50 text-grey-100"
+                        ? "cursor-not-allowed bg-gray-50 border-gray-50 text-gray-100"
                         : "text-primary-400 border-primary-400 cursor-pointer hover:bg-primary-100 hover:text-white hover:border-primary-100"
                 } transition duration-150 `}
             >

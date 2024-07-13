@@ -13,7 +13,7 @@ export function VolunteersCard({ volunteer, isContributor = false }: VolunteersC
 
     if (isContributor) {
         return (
-            <div className="min-w-[130px] bg-white flex flex-col justify-center items-center px-3 py-4 shadow-md border-[1.5px] border-solid border-grey-100 rounded-lg">
+            <div className="min-w-[130px] bg-white flex flex-col justify-center items-center px-3 py-4 shadow-md border-[1.5px] border-solid border-gray-100 rounded-lg">
                 <Image
                     src={generateImgURL(imageURL)}
                     alt={altImageURL}
@@ -25,9 +25,9 @@ export function VolunteersCard({ volunteer, isContributor = false }: VolunteersC
                 <strong className="max-w-[80px] text-xs font-semibold text-center leading-5 text-gray-900">
                     {name}
                 </strong>
-                <p className="text-grey-100 text-xs">{role}</p>
+                <p className="text-gray-100 text-xs">{role}</p>
                 {contactURL && (
-                    <p className="text-grey-100 text-xs underline hover:text-blue-100">
+                    <p className="text-gray-100 text-xs underline hover:text-blue-100">
                         <Link
                             href={contactURL}
                             target="_blank"
@@ -42,7 +42,7 @@ export function VolunteersCard({ volunteer, isContributor = false }: VolunteersC
 
     return (
         <div className="min-w-[130px] bg-white flex flex-col justify-center items-center px-4 py-4 shadow-md border-[1.5px] border-solid border-primary-100 rounded-lg">
-            <strong className="text-grey-100 text-sm mb-4 font-bold">{contribution}</strong>
+            <strong className="text-gray-100 text-sm mb-4 font-bold">{contribution}</strong>
             <Image
                 src={generateImgURL(imageURL)}
                 alt={altImageURL}
@@ -54,9 +54,9 @@ export function VolunteersCard({ volunteer, isContributor = false }: VolunteersC
             <strong className="max-w-[80px] text-sm font-semibold text-center leading-5 text-gray-900">
                 {name}
             </strong>
-            <p className="text-grey-100 text-sm">{role}</p>
+            <p className="text-gray-100 text-sm">{role}</p>
             {contactURL && (
-                <p className="text-grey-100 text-sm underline hover:text-blue-100">
+                <p className="text-gray-100 text-sm underline hover:text-blue-100">
                     <Link
                         href={contactURL}
                         target="_blank"

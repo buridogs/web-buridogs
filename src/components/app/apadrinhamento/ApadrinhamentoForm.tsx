@@ -132,7 +132,7 @@ export default function ApadrinhamentoForm() {
                 <h2 className="text-primary-400 text-3xl leading-10 font-bold md:text-4xl">
                     Encontre a sua forma de ajudar
                 </h2>
-                <p className="text-grey-400 text-lg mt-3">
+                <p className="text-gray-400 text-lg mt-3">
                     Aqui você encontra algumas formas de realizar o apadrinhamento:
                 </p>
                 <div className="w-full flex flex-col items-start mt-6 [&>div+div]:mt-6">
