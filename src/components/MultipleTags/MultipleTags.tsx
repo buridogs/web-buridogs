@@ -20,24 +20,24 @@ export default function MultipleTags<T>({
     return (
         <div
             key={filtro.value}
-            className="flex justify-start w-full"
+            className="flex flex-col justify-start w-full md:flex-row"
         >
             <strong className="text-grey-400 text-lg font-bold">{filtro.label}</strong>
-            <ul className="flex items-center flex-wrap gap-2 ml-8 [&>li+li]:ml-3">
+            <ul className="flex items-center flex-wrap gap-2 mt-2 md:mt-0 md:ml-8 md:[&>li+li]:ml-3">
                 {opcoes.map((o) => {
                     const filtroSelecionado = filtrosSelecionados[filtro.value].includes(o.value);
                     return (
                         <li
                             key={o.value}
-                            className={`flex items-center justify-center text-center border-solid ${
+                            className={`flex w-full items-center justify-between text-center border-solid ${
                                 filtroSelecionado
                                     ? "border-primary-400 bg-primary-400 text-white"
                                     : "border-grey-400 bg-transparent text-grey-400"
-                            } border rounded-2xl p-2 text-sm cursor-pointer transition duration-150 ${
+                            } border rounded-2xl p-2 px-4 text-sm cursor-pointer transition duration-150 ${
                                 !filtroSelecionado
                                     ? "hover:border-primary-400 hover:bg-primary-400 hover:text-white"
                                     : ""
-                            }`}
+                            } md:w-fit md:justify-center md:px-2`}
                             onClick={() =>
                                 customSetFiltrosSelecionados
                                     ? customSetFiltrosSelecionados(filtro.value, o.value)
@@ -58,7 +58,7 @@ export default function MultipleTags<T>({
                             {filtroSelecionado ? (
                                 <AiOutlineCloseCircle
                                     size={18}
-                                    className="text-grey-700 ml-2"
+                                    className="text-grey-700 ml-2 min-w-[18px]"
                                 />
                             ) : null}
                         </li>
