@@ -1,0 +1,142 @@
+"use client";
+import Form from "@/components/Form/Form";
+import { IApadrinhamentoForm } from "./ApadrinhamentoTypes";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import {
+    APADRINHAMENTO_FORMS_COM_NOME_ANIMAL_CONFIG,
+    APADRINHAMENTO_FORMS_CONFIG,
+    estadoInicialFiltrosApadrinhamento,
+    filtrosApadrinhamento,
+    schemaApadrinhamentoForm,
+} from "./ApadrinhamentoUtils";
+import MultipleTags from "@/components/MultipleTags/MultipleTags";
+import {
+    ApadrinhamentoEscolherOpcaoEnum,
+    ApadrinhamentoFiltrosEnum,
+    ApadrinhamentoOpcoesEnum,
+} from "@/interfaces/apadrinhamentoInterfaces";
+import { useEffect, useState } from "react";
+import { sendEmailFunctionApadrinhamentoForm } from "@/services/azure-function/send-email-apadrinhamento/send-email-function-apadrinhamento-form";
+
+export default function ApadrinhamentoForm() {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+        resetField,
+        // watch,
+    } = useForm<IApadrinhamentoForm>({
+        resolver: yupResolver(schemaApadrinhamentoForm),
+    });
+
+    const [filtrosSelecionados, setFiltrosSelecionados] = useState<Record<string, string[]>>({
+        ...estadoInicialFiltrosApadrinhamento,
+    });
+
+    const onSubmit = async (data: IApadrinhamentoForm) => {
+        console.log({ data });
+
+        try {
+            await sendEmailFunctionApadrinhamentoForm({
+                ...data,
+                apadrinhar_com:
+                    filtrosSelecionados[ApadrinhamentoFiltrosEnum.apadrinhar_com].join(","),
+            });
+            toast.success("Formulário enviado com sucesso!");
+            reset();
+        } catch (err: unknown) {
+            if (typeof err === "string") {
+                console.warn(err);
+            } else if (err instanceof Error) {
+                console.warn(err.message);
+            }
+            toast.error("Houve um erro no envio do formulário");
+        }
+    };
+
+    type ApadrinhamentoEnums =
+        | ApadrinhamentoFiltrosEnum
+        | ApadrinhamentoOpcoesEnum
+        | ApadrinhamentoEscolherOpcaoEnum;
+
+    function onSetFiltrosSelecionados(filtroValue: string, optionValue: string) {
+        const filtroSelecionado = filtrosSelecionados[filtroValue].includes(optionValue);
+        setFiltrosSelecionados((old) => ({
+            ...old,
+            [filtroValue]: filtroSelecionado
+                ? [...old[filtroValue].filter((a) => a !== optionValue)]
+                : filtroValue === ApadrinhamentoFiltrosEnum.escolher_quem_apadrinhar
+                  ? [optionValue]
+                  : [...old[filtroValue], optionValue],
+        }));
+    }
+
+    const opcaoEscolherQuemApadrinharFiltros =
+        filtrosSelecionados[ApadrinhamentoFiltrosEnum.escolher_quem_apadrinhar][0];
+
+    const shouldShowApadrinhamentoForms =
+        !!filtrosSelecionados[ApadrinhamentoFiltrosEnum.escolher_quem_apadrinhar].length;
+
+    const APADRINHAMENTO_FORMS =
+        opcaoEscolherQuemApadrinharFiltros === ApadrinhamentoEscolherOpcaoEnum.sim
+            ? APADRINHAMENTO_FORMS_COM_NOME_ANIMAL_CONFIG
+            : APADRINHAMENTO_FORMS_CONFIG;
+
+    const shouldDisabledSubmitButton = false;
+
+    useEffect(() => {
+        resetField("nome_animal");
+    }, [opcaoEscolherQuemApadrinharFiltros]);
+
+    const renderApadrinhamentoForms = () => {
+        if (!shouldShowApadrinhamentoForms) return null;
+
+        return (
+            <div className="flex flex-col mt-10">
+                <h2 className="text-primary-400 text-3xl leading-10 font-bold md:text-4xl">
+                    Falta pouco! Agora é sé deixar aqui seu contato e pronto
+                </h2>
+                <div>
+                    <Form<IApadrinhamentoForm>
+                        handleSubmit={handleSubmit(onSubmit)}
+                        formFields={APADRINHAMENTO_FORMS}
+                        register={register}
+                        errors={errors}
+                        submitLabel="Apadrinhar"
+                        disabledSubmit={shouldDisabledSubmitButton}
+                    />
+                </div>
+            </div>
+        );
+    };
+
+    return (
+        <section className="flex flex-col w-full">
+            <div className="flex flex-col items-start">
+                <h2 className="text-primary-400 text-3xl leading-10 font-bold md:text-4xl">
+                    Encontre a sua forma de ajudar
+                </h2>
+                <p className="text-grey-400 text-lg mt-3">
+                    Aqui você encontra algumas formas de realizar o apadrinhamento:
+                </p>
+                <div className="w-full flex flex-col items-start my-6 [&>div+div]:mt-6">
+                    {filtrosApadrinhamento.map((f) => {
+                        return (
+                            <MultipleTags<ApadrinhamentoEnums>
+                                key={f.filtro.label}
+                                filtroItem={f}
+                                filtrosSelecionados={filtrosSelecionados}
+                                setFiltrosSelecionados={setFiltrosSelecionados}
+                                customSetFiltrosSelecionados={onSetFiltrosSelecionados}
+                            />
+                        );
+                    })}
+                </div>
+                {renderApadrinhamentoForms()}
+            </div>
+        </section>
+    );
+}
