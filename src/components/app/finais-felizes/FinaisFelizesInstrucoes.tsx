@@ -11,7 +11,7 @@ export default function FinaisFelizesInstrucoes({ finaisFelizes }: FinaisFelizes
                 São mais de {finaisFelizes.length} cachorros com{" "}
                 <strong className="text-primary-100">Finais Felizes</strong>
             </h1>
-            <span className="text-grey-100 text-lg font-medium py-4">
+            <span className="text-gray-100 text-lg font-medium py-4">
                 Conseguimos alcançar essa incrível marca nesses anos de trajetória, graças ao
                 <strong className="ml-[6px]">apoio de nossos parceiros e buriamigos</strong>. <br />
                 <br />
@@ -20,7 +20,7 @@ export default function FinaisFelizesInstrucoes({ finaisFelizes }: FinaisFelizes
                 <strong className="ml-[4px]">contamos um pouquinho da sua história.</strong>{" "}
                 Confira!
             </span>
-            <p className="text-grey-400 text-base font-bold lg:text-left">
+            <p className="text-gray-400 text-base font-bold lg:text-left">
                 Nosso objetivo é aumentar cada vez mais essa lista!
             </p>
         </div>

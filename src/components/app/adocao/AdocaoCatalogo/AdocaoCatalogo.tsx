@@ -25,11 +25,11 @@ export function AdocaoCatalogo() {
     }
 
     useEffect(() => {
-        const doesNotHaveAnyFilterSeelected = Object.entries(filtrosSelecionados).every(
+        const doesNotHaveAnyFilterSelected = Object.entries(filtrosSelecionados).every(
             (filtro) => !filtro[1].length
         );
 
-        if (doesNotHaveAnyFilterSeelected) {
+        if (doesNotHaveAnyFilterSelected) {
             setCachorrosFiltrados(cachorrosAdocao);
         }
     }, [filtrosSelecionados]);
@@ -45,7 +45,7 @@ export function AdocaoCatalogo() {
                 Encontre um animalzinho pra chamar de seu
             </h2>
             <div className="flex flex-col items-start pb-8">
-                <span className="text-grey-400 text-base font-medium mt-4">
+                <span className="text-gray-400 text-base font-medium mt-4">
                     Aqui você encontra algumas características que podem facilitar a busca pelo
                     animalzinho que você tanto procura:
                 </span>

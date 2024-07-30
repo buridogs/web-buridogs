@@ -17,8 +17,8 @@ export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {
 
     return (
         <div className="py-6 flex flex-row items-center justify-center">
-            <div className="flex flex-col items-center justify-center bg-gray-100 py-4 px-4 rounded-3xl md:flex-row">
-                <div className="w-[250px] h-[250px] rounded rounded-b-2xl bg-grey-50 relative">
+            <div className="flex flex-col items-center justify-center bg-gray-50 py-4 px-4 rounded-3xl md:flex-row">
+                <div className="w-[250px] h-[250px] rounded rounded-b-2xl bg-gray-50 relative">
                     <Image
                         className="object-cover"
                         src={generateImgURL(image ?? "")}
@@ -29,8 +29,8 @@ export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {
                 <div className="flex flex-col items-center justify-center px-4 mt-4 md:items-start md:mt-0 md:ml-[64px] ">
                     <strong className="text-primary-400 text-2xl">{nomeExibicao}</strong>
                     <div className="flex flex-col items-center mt-2 md:items-start md:max-w-lg lg:max-w-xl">
-                        <span className="text-grey-400 text-sm">{`${labelGenero}, ${labelIdade}, ${labelPorte}`}</span>
-                        <p className="text-grey-100 text-sm mt-4 mb-4">{descricao}</p>
+                        <span className="text-gray-400 text-sm">{`${labelGenero}, ${labelIdade}, ${labelPorte}`}</span>
+                        <p className="text-gray-100 text-sm mt-4 mb-4">{descricao}</p>
                     </div>
                     <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
                         <Link href={`/adocao/${id}-${nomeURL.replaceAll(" ", "")}`}>
