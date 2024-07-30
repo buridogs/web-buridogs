@@ -3,7 +3,7 @@ import { CONTATO_FORMS_CONFIG } from "@/components/app/contato/ContatoUtils";
 import { formatDatetimePTBR } from "@/utils/methods";
 import { formatKeysAccordingToLabelsAndValues } from "../azure-function-utils/formatKeysAccordingToLabelsAndValues";
 
-export const convertDataToTemplateContato = (contatoData: IContatoFormData, customDate: string) => {
+export const convertDataToTemplateContato = (contatoData: IContatoFormData, customDate?: string) => {
   const keyLabels = formatKeysAccordingToLabelsAndValues<IContatoFormData>(CONTATO_FORMS_CONFIG, []);
   const renderFormattedAnswer = (answer: string | string[]) => {
     return answer;
