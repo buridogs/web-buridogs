@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import {
+    APADRINHAMENTO_CHECKBOX_FIELD,
     APADRINHAMENTO_FORMS_COM_NOME_ANIMAL_CONFIG,
     APADRINHAMENTO_FORMS_CONFIG,
     estadoInicialFiltrosApadrinhamento,
@@ -18,7 +19,7 @@ import {
     ApadrinhamentoFiltrosEnum,
     ApadrinhamentoOpcoesEnum,
 } from "@/interfaces/apadrinhamentoInterfaces";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { sendEmailFunctionApadrinhamentoForm } from "@/services/azure-function/send-email-apadrinhamento/send-email-function-apadrinhamento-form";
 
 export default function ApadrinhamentoForm() {
@@ -41,6 +42,7 @@ export default function ApadrinhamentoForm() {
         reset,
         resetField,
         setValue,
+        watch,
     } = useForm<IApadrinhamentoForm>({
         resolver: yupResolver(schemaApadrinhamento),
     });
@@ -81,14 +83,31 @@ export default function ApadrinhamentoForm() {
     }
 
     const shouldShowApadrinhamentoForms =
+        !!filtrosSelecionados[ApadrinhamentoFiltrosEnum.apadrinhar_com].length &&
         !!filtrosSelecionados[ApadrinhamentoFiltrosEnum.escolher_quem_apadrinhar].length;
 
-    const APADRINHAMENTO_FORMS =
-        opcaoEscolherQuemApadrinharFiltros === ApadrinhamentoEscolherOpcaoEnum.sim
-            ? APADRINHAMENTO_FORMS_COM_NOME_ANIMAL_CONFIG
-            : APADRINHAMENTO_FORMS_CONFIG;
+    const APADRINHAMENTO_FORMS = useCallback(() => {
+        const forms =
+            opcaoEscolherQuemApadrinharFiltros === ApadrinhamentoEscolherOpcaoEnum.sim
+                ? APADRINHAMENTO_FORMS_COM_NOME_ANIMAL_CONFIG
+                : APADRINHAMENTO_FORMS_CONFIG;
 
-    const shouldDisabledSubmitButton = false;
+        if (
+            !forms[0].section.rightSide.find((key) => key.key === APADRINHAMENTO_CHECKBOX_FIELD.key)
+        ) {
+            forms[0].section.rightSide = [
+                ...forms[0].section.rightSide.concat([APADRINHAMENTO_CHECKBOX_FIELD]),
+            ];
+        }
+
+        return forms;
+    }, [opcaoEscolherQuemApadrinharFiltros]);
+
+    const shouldDisabledSubmitButton =
+        !watch("preferencia_contato")?.length ||
+        !watch("nome") ||
+        !watch("email") ||
+        !watch("telefone_contato");
 
     useEffect(() => {
         setValue(
@@ -115,7 +134,7 @@ export default function ApadrinhamentoForm() {
                 <div>
                     <Form<IApadrinhamentoForm>
                         handleSubmit={handleSubmit(onSubmit)}
-                        formFields={APADRINHAMENTO_FORMS}
+                        formFields={APADRINHAMENTO_FORMS()}
                         register={register}
                         errors={errors}
                         submitLabel="Apadrinhar"

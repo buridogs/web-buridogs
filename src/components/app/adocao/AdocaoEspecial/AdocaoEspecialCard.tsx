@@ -17,7 +17,7 @@ export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {
 
     return (
         <div className="py-6 flex flex-row items-center justify-center">
-            <div className="flex flex-col items-center justify-center bg-gray-100 py-4 px-4 rounded-3xl md:flex-row">
+            <div className="flex flex-col items-center justify-center bg-gray-50 py-4 px-4 rounded-3xl md:flex-row">
                 <div className="w-[250px] h-[250px] rounded rounded-b-2xl bg-gray-50 relative">
                     <Image
                         className="object-cover"

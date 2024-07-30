@@ -35,7 +35,7 @@ export default function Form<T extends FieldValues>({
                     <input
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
-                        className="w-[80%] py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500"
+                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500 placeholder-primary-100"
                         {...register(field.key as Path<T>)}
                     />
                 );
@@ -44,7 +44,7 @@ export default function Form<T extends FieldValues>({
                     <textarea
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
-                        className="w-[80%] py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500"
+                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500"
                         {...register(field.key as Path<T>)}
                         rows={4}
                     />
@@ -94,7 +94,7 @@ export default function Form<T extends FieldValues>({
                                     id={opt?.key}
                                     type="radio"
                                     value={opt?.value}
-                                    className="mr-2 cursor-pointer"
+                                    className="mr-2 cursor-pointer accent-primary-400"
                                     {...register(field.key as Path<T>)}
                                 />
                                 <label
@@ -127,26 +127,51 @@ export default function Form<T extends FieldValues>({
         >
             {formFields.map((adocaoKey) => (
                 <div
-                    key={adocaoKey.section[0].key as string}
-                    className="w-full flex flex-col items-center justify-around md:flex-row"
+                    key={adocaoKey.section.leftSide[0].key as string}
+                    className="w-full flex flex-col items-start justify-around md:flex-row"
                 >
-                    {adocaoKey.section.map((field) => (
-                        <div
-                            key={field.key as string}
-                            className="w-full flex flex-col items-start mt-4"
-                        >
-                            <label
-                                htmlFor={field.key as string}
-                                className="text-sm text-gray-100 font-medium"
-                            >
-                                {field.label}
-                            </label>
-                            {renderInputs(field.type, field, field.options)}
-                            <p className="text-sm font-semibold text-red-400 mt-0.5">
-                                {errors[field.key]?.message as string}
-                            </p>
+                    {!!adocaoKey.section.leftSide.length && (
+                        <div className="w-full flex flex-col items-start mt-4 mr-6">
+                            {adocaoKey.section.leftSide.map((field) => (
+                                <div
+                                    key={field.key as string}
+                                    className="w-full flex flex-col items-start mt-4"
+                                >
+                                    <label
+                                        htmlFor={field.key as string}
+                                        className="text-sm text-gray-100 font-medium"
+                                    >
+                                        {field.label}
+                                    </label>
+                                    {renderInputs(field.type, field, field.options)}
+                                    <p className="text-sm font-semibold text-red-400 mt-0.5">
+                                        {errors[field.key]?.message as string}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    )}
+                    {!!adocaoKey.section.rightSide.length && (
+                        <div className="w-full flex flex-col items-start mt-4 ml-6">
+                            {adocaoKey.section.rightSide.map((field) => (
+                                <div
+                                    key={field.key as string}
+                                    className="w-full flex flex-col items-start mt-4"
+                                >
+                                    <label
+                                        htmlFor={field.key as string}
+                                        className="text-sm text-gray-100 font-medium"
+                                    >
+                                        {field.label}
+                                    </label>
+                                    {renderInputs(field.type, field, field.options)}
+                                    <p className="text-sm font-semibold text-red-400 mt-0.5">
+                                        {errors[field.key]?.message as string}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             ))}
 

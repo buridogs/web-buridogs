@@ -1,47 +1,31 @@
-import { IApadrinhamentoPOSTRequestForm } from "@/components/app/apadrinhamento/ApadrinhamentoTypes";
+import { IApadrinhamentoForm, IApadrinhamentoPOSTRequestForm } from "@/components/app/apadrinhamento/ApadrinhamentoTypes";
 import { APADRINHAMENTO_FORMS_COM_CAMPOS_COMPLEMENTARES_CONFIG } from "@/components/app/apadrinhamento/ApadrinhamentoUtils";
 import { formatDatetimePTBR } from "@/utils/methods";
+import { formatKeysAccordingToLabelsAndValues } from "../azure-function-utils/formatKeysAccordingToLabelsAndValues";
 
-export const convertDataToTemplate = (adocaoData: IApadrinhamentoPOSTRequestForm) => {
-    const keyToRemove: string[] = adocaoData.escolher_quem_apadrinhar === "sim" ? ["escolher_quem_apadrinhar"] : ["escolher_quem_apadrinhar", "nome_animal"];
+// TODO: Improve logic - Class?
+export const convertDataToTemplateApadrinhamento = (
+    apadrinhamentoData: IApadrinhamentoPOSTRequestForm,
+    customDate?: string
+) => {
+    const keysToRemove: string[] = apadrinhamentoData.escolher_quem_apadrinhar === "sim" ? 
+        ["escolher_quem_apadrinhar"] : 
+        ["escolher_quem_apadrinhar", "nome_animal"];
 
-    const keyLabels = APADRINHAMENTO_FORMS_COM_CAMPOS_COMPLEMENTARES_CONFIG.reduce((acm, cur) => {
-        if (!cur.section.length) return { ...acm };
+    const keyLabels = formatKeysAccordingToLabelsAndValues<IApadrinhamentoForm>(
+        APADRINHAMENTO_FORMS_COM_CAMPOS_COMPLEMENTARES_CONFIG, 
+        keysToRemove
+    );
 
-        const hasMoreSection = cur.section.length > 1;
-        if (hasMoreSection) {
-            const innerSection = cur.section.reduce(
-                (acumul, current) =>
-                    keyToRemove.includes(current.key)
-                        ? { ...acumul }
-                        : { ...acumul, [current.key]: current.label },
-                {}
-            );
-            return {
-                ...acm,
-                ...innerSection,
-            };
-        }
-
-        const singleSectionData = cur.section[0];
-
-        if (keyToRemove.includes(singleSectionData.key)) return { ...acm };
-
-        return {
-            ...acm,
-            [singleSectionData.key]: singleSectionData.label,
-        };
-    }, {});
-
-    const renderFormattedAwnser = (key: string, awnser: string | string[] | boolean) => {
-        if (awnser === true) {
+    const renderFormattedAnswer = (key: string, answer: string | string[] | boolean) => {
+        if (answer === true) {
             return "Sim";
-        } else if (awnser === false) {
+        } else if (answer === false) {
             return "Não";
-        } else if (Array.isArray(awnser)) {
-            return formatAnswerAccordingToKey(key, awnser);
+        } else if (Array.isArray(answer)) {
+            return formatAnswerAccordingToKey(key, answer);
         } else {
-            return awnser;
+            return answer;
         }
     };
 
@@ -51,7 +35,7 @@ export const convertDataToTemplate = (adocaoData: IApadrinhamentoPOSTRequestForm
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Formulário de Apadrinhamento</title>      
+      <title>Formulário de Apadrinhamento</title>
       </head>
 
       <style>
@@ -59,39 +43,38 @@ export const convertDataToTemplate = (adocaoData: IApadrinhamentoPOSTRequestForm
             width: 100%;
         }
       </style>
-      
+
       <body style="font-family: 'Arial', sans-serif; margin: 8px; padding: 8px ; background-color: #ef7e0740;">
         <div style = "max-width: 600px; margin: 40px auto; background-color: #ffffff; padding: 20px; border-radius: 8px;
         box-shadow: 0 0 10px #0000001a;">
 
-          <h1 style="color: #EF7E07; text-align: center;">Formulário de Apadrinhamento Preenchido</h1>    
-          <h2 style = "color: #303E46; margin-bottom: 20px; font-size: 17px;">📆 Data de envio: ${formatDatetimePTBR(
-              new Date().toISOString()
-          )}</h2>
+          <h1 style="color: #EF7E07; text-align: center;">Formulário de Apadrinhamento Preenchido</h1>
+          <h2 style = "color: #303E46; margin-bottom: 20px; font-size: 17px;">📆 Data de envio: ${
+            formatDatetimePTBR(
+                customDate ?? new Date().toISOString()
+            )}</h2>
           ${
-            adocaoData.escolher_quem_apadrinhar === "sim" ? `
-                <h2 style = "color: #303E46; margin-bottom: 20px; font-size: 17px; ">🐶 Cachorro interessado para apadrinhamento: ${
-                    adocaoData.nome_animal
-                }</h2> 
-            ` : `
-                <h2 style = "color: #303E46; margin-bottom: 20px; font-size: 17px; "> 🙌 ${
-                    formatAnswerAccordingToKey("escolher_quem_apadrinhar", adocaoData.escolher_quem_apadrinhar)
-                }</h2> 
-            `
+            apadrinhamentoData.escolher_quem_apadrinhar === "sim" ? 
+                `<h2 style = "color: #303E46; margin-bottom: 20px; font-size: 17px; ">🐶 Cachorro interessado para apadrinhamento: ${
+                    apadrinhamentoData.nome_animal
+                }</h2>` : 
+                `<h2 style = "color: #303E46; margin-bottom: 20px; font-size: 17px; "> 🙌 ${
+                    formatAnswerAccordingToKey("escolher_quem_apadrinhar", apadrinhamentoData.escolher_quem_apadrinhar)
+                }</h2>`
           }
           <p style = "color: #303E46; line-height: 1.6; font-weight: bold; padding-left: 26px"> Abaixo estão os resultados do formulário de adoção:</p>
 
           <ul>
-          ${Object.entries<Record<string, string | string[] | number>>(keyLabels).reduce(
+          ${Object.entries(keyLabels).reduce(
               (acm, kl) =>
                   acm +
                   `<li style = "margin: 10px;">
-                      <strong>${
-                          kl[1]
-                      } : <span style = "border-bottom: 2px solid #303e464d;">${renderFormattedAwnser(
-                       kl[0],
-                      adocaoData[kl[0] as keyof IApadrinhamentoPOSTRequestForm] as string
-                  )}<span></strong>                    
+                      <strong>${kl[1]} : <span style = "border-bottom: 2px solid #303e464d;">${
+                        renderFormattedAnswer(
+                            kl[0],
+                            apadrinhamentoData[kl[0] as keyof IApadrinhamentoPOSTRequestForm] as string
+                        )
+                      }<span></strong>
                   </li>\n`,
               ""
           )}
@@ -102,15 +85,15 @@ export const convertDataToTemplate = (adocaoData: IApadrinhamentoPOSTRequestForm
               entrar em contato com a equipe de desenvolvimento.
           </p>
         </div>
-      </body>    
+      </body>
     </html>`;
 };
 
-function formatAnswerAccordingToKey(key: string, answers: string | string[]){
+export function formatAnswerAccordingToKey(key: string, answers: string | string[]){
     const mappedValuesApadrinharCom: Record<string, string> = {
         ["dinheiro"]: "Dinheiro",
         ["racao"]: "Ração",
-        ["lar_temporario"]: "Lar Temporário",
+        ["lar-temporario"]: "Lar Temporário",
     };
     const mappedValuesEscolherQuemApadrinhar: Record<string, string> = {
         ["sim"]: "Quero escolher um animal para ajudar",

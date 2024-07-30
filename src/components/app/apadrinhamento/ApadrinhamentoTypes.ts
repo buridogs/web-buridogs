@@ -4,6 +4,7 @@ export interface IApadrinhamentoForm {
     telefone_contato: string;
     nome_animal?: string;
     preferencia_contato: string[];
+    quero_receber_contatos: boolean;
     apadrinhar_com: string[];
     escolher_quem_apadrinhar: string;
 }
