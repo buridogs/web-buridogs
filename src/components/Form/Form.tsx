@@ -131,7 +131,7 @@ export default function Form<T extends FieldValues>({
                     className="w-full flex flex-col items-start justify-around md:flex-row"
                 >
                     {!!adocaoKey.section.leftSide.length && (
-                        <div className="w-full flex flex-col items-start mt-4 mr-6">
+                        <div className="w-full flex flex-col items-start mt-4 md:mr-6">
                             {adocaoKey.section.leftSide.map((field) => (
                                 <div
                                     key={field.key as string}
@@ -152,7 +152,7 @@ export default function Form<T extends FieldValues>({
                         </div>
                     )}
                     {!!adocaoKey.section.rightSide.length && (
-                        <div className="w-full flex flex-col items-start mt-4 ml-6">
+                        <div className="w-full flex flex-col items-start mt-4 md:ml-6">
                             {adocaoKey.section.rightSide.map((field) => (
                                 <div
                                     key={field.key as string}
