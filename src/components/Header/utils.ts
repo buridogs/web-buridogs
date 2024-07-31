@@ -4,6 +4,10 @@ export const headerMenuLink = [
         path: "/adocao",
     },
     {
+        label: "Apadrinhamento",
+        path: "/apadrinhamento",
+    },
+    {
         label: "Finais Felizes",
         path: "/finais-felizes",
     },

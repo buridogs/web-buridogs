@@ -1,4 +1,4 @@
-import { FieldErrors, UseFormRegister, FieldValues } from "react-hook-form";
+import { FieldErrors, UseFormRegister, FieldValues, Path } from "react-hook-form";
 import { GeneralFormsType, FieldFormsType, InputFormEnum, OptionFormsType } from "./FormTypes";
 import { Spinner } from "../Spinner/Spinner";
 import React, { SyntheticEvent, useState } from "react";
@@ -35,8 +35,8 @@ export default function Form<T extends FieldValues>({
                     <input
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
-                        className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1 text-gray-500"
-                        {...register(field.key as any)}
+                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500 placeholder-primary-100"
+                        {...register(field.key as Path<T>)}
                     />
                 );
             case InputFormEnum.textarea:
@@ -44,8 +44,8 @@ export default function Form<T extends FieldValues>({
                     <textarea
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
-                        className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1 text-gray-500"
-                        {...register(field.key as any)}
+                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500"
+                        {...register(field.key as Path<T>)}
                         rows={4}
                     />
                 );
@@ -54,7 +54,7 @@ export default function Form<T extends FieldValues>({
                 return (
                     <FileInput
                         field={field}
-                        inputProps={register(field.key as any)}
+                        inputProps={register(field.key as Path<T>)}
                     />
                 );
             case InputFormEnum.checkbox:
@@ -63,18 +63,18 @@ export default function Form<T extends FieldValues>({
                         {options?.map((opt) => (
                             <div
                                 key={opt?.key}
-                                className="w-full flex items-center justify-start cursor-pointer"
+                                className="w-full flex items-center justify-start cursor-pointer mt-1"
                             >
                                 <input
                                     id={opt?.key}
                                     type="checkbox"
                                     value={opt?.value}
-                                    className="mr-2 cursor-pointer"
-                                    {...register(field.key as any)}
+                                    className="h-4 w-4 mr-2 rounded-sm cursor-pointer accent-primary-400"
+                                    {...register(field.key as Path<T>)}
                                 />
                                 <label
                                     htmlFor={opt?.key}
-                                    className="w-full text-sm text-grey-100 font-normal cursor-pointer"
+                                    className="w-full text-sm text-gray-100 font-normal cursor-pointer"
                                 >
                                     {opt?.label}
                                 </label>
@@ -94,12 +94,12 @@ export default function Form<T extends FieldValues>({
                                     id={opt?.key}
                                     type="radio"
                                     value={opt?.value}
-                                    className="mr-2 cursor-pointer"
-                                    {...register(field.key as any)}
+                                    className="mr-2 cursor-pointer accent-primary-400"
+                                    {...register(field.key as Path<T>)}
                                 />
                                 <label
                                     htmlFor={opt?.key}
-                                    className="w-full text-sm text-grey-100 font-normal cursor-pointer"
+                                    className="w-full text-sm text-gray-100 font-normal cursor-pointer"
                                 >
                                     {opt?.label}
                                 </label>
@@ -127,26 +127,51 @@ export default function Form<T extends FieldValues>({
         >
             {formFields.map((adocaoKey) => (
                 <div
-                    key={adocaoKey.section[0].key as string}
-                    className="w-full flex flex-col items-center justify-around md:flex-row"
+                    key={adocaoKey.section.leftSide[0].key as string}
+                    className="w-full flex flex-col items-start justify-around md:flex-row"
                 >
-                    {adocaoKey.section.map((field) => (
-                        <div
-                            key={field.key as string}
-                            className="w-full flex flex-col items-start mt-4"
-                        >
-                            <label
-                                htmlFor={field.key as string}
-                                className="text-sm text-grey-100 font-medium"
-                            >
-                                {field.label}
-                            </label>
-                            {renderInputs(field.type, field, field.options)}
-                            <p className="text-sm font-semibold text-red-400">
-                                {errors[field.key]?.message as any}
-                            </p>
+                    {!!adocaoKey.section.leftSide.length && (
+                        <div className="w-full flex flex-col items-start mt-4 md:mr-6">
+                            {adocaoKey.section.leftSide.map((field) => (
+                                <div
+                                    key={field.key as string}
+                                    className="w-full flex flex-col items-start mt-4"
+                                >
+                                    <label
+                                        htmlFor={field.key as string}
+                                        className="text-sm text-gray-100 font-medium"
+                                    >
+                                        {field.label}
+                                    </label>
+                                    {renderInputs(field.type, field, field.options)}
+                                    <p className="text-sm font-semibold text-red-400 mt-0.5">
+                                        {errors[field.key]?.message as string}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    )}
+                    {!!adocaoKey.section.rightSide.length && (
+                        <div className="w-full flex flex-col items-start mt-4 md:ml-6">
+                            {adocaoKey.section.rightSide.map((field) => (
+                                <div
+                                    key={field.key as string}
+                                    className="w-full flex flex-col items-start mt-4"
+                                >
+                                    <label
+                                        htmlFor={field.key as string}
+                                        className="text-sm text-gray-100 font-medium"
+                                    >
+                                        {field.label}
+                                    </label>
+                                    {renderInputs(field.type, field, field.options)}
+                                    <p className="text-sm font-semibold text-red-400 mt-0.5">
+                                        {errors[field.key]?.message as string}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             ))}
 
@@ -154,7 +179,7 @@ export default function Form<T extends FieldValues>({
                 htmlFor="submit"
                 className={` uppercase font-medium py-2 px-4 rounded-3xl border-solid border-2 mt-8 ${
                     disabledSubmit
-                        ? "cursor-not-allowed bg-grey-50 border-grey-50 text-grey-100"
+                        ? "cursor-not-allowed bg-gray-50 border-gray-50 text-gray-100"
                         : "text-primary-400 border-primary-400 cursor-pointer hover:bg-primary-100 hover:text-white hover:border-primary-100"
                 } transition duration-150 `}
             >

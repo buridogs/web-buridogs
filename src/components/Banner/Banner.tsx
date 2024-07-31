@@ -30,7 +30,7 @@ export function Banner() {
                             <div className="max-w-[50%] flex flex-col items-start justify-center">
                                 <strong className="text-gray-100 text-2xl">{parceiro.nome}</strong>
                                 <div className="flex items-start mt-2 md:max-w-lg lg:max-w-xl">
-                                    <p className="text-grey-400 text-base sm:text-xl font-medium">
+                                    <p className="text-gray-400 text-base sm:text-xl font-medium">
                                         {parceiro.descricao}
                                     </p>
                                 </div>

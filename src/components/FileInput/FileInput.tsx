@@ -29,7 +29,7 @@ export default function FileInput<T>({ field, inputProps }: FileInputProps<T>) {
                 return (
                     <p
                         key={idx}
-                        className="font-sm text-grey-400 pl-2 mt-1"
+                        className="font-sm text-gray-400 pl-2 mt-1"
                     >
                         •{" "}
                         {`${files?.item(idx)?.name} - ${formatFileSize(
@@ -60,7 +60,7 @@ export default function FileInput<T>({ field, inputProps }: FileInputProps<T>) {
         <div className="flex flex-col items-start w-full">
             <label
                 htmlFor={field.key as string}
-                className="flex flex-col w-full items-center py-5 px-5 md:px-0 cursor-pointer text-grey-400 text-sm rounded bg-primary-100 hover:bg-primary-700 hover:text-white transition duration-150"
+                className="flex flex-col w-full items-center py-5 px-5 md:px-0 cursor-pointer text-gray-400 text-sm rounded bg-primary-100 hover:bg-primary-700 hover:text-white transition duration-150"
             >
                 <p className="font-semibold mb-1">{formatLabel()}</p>
                 <p>{`Máximo de ${
@@ -77,7 +77,7 @@ export default function FileInput<T>({ field, inputProps }: FileInputProps<T>) {
                 type="file"
                 multiple
                 accept={field.fileSettings?.supportedExtensions.join(",") ?? ""}
-                className="w-[80%] py-2 px-2 border-2 border-grey-100 border-solid rounded mt-1 text-gray-500"
+                className="w-[80%] py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500"
                 {...inputProps}
                 onChange={(evt) => {
                     setFiles(evt.target.files);

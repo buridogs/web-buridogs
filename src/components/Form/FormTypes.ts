@@ -29,5 +29,8 @@ export type FieldFormsType<T> = {
 };
 
 export type GeneralFormsType<T> = {
-    section: FieldFormsType<T>[];
+    section: {
+        leftSide: FieldFormsType<T>[],
+        rightSide: FieldFormsType<T>[]
+    };
 };

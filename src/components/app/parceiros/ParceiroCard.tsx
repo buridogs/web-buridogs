@@ -21,17 +21,17 @@ export function ParceiroCard({ parceiro }: ParceiroCardProps) {
                     className="rounded-[50%] object-cover"
                 />
             ) : (
-                <div className="w-[150px] h-[150px] rounded-[50%] bg-grey-100 md:w-[150px] md:h-[150px]" />
+                <div className="w-[150px] h-[150px] rounded-[50%] bg-gray-100 md:w-[150px] md:h-[150px]" />
             )}
             <div className="flex flex-col items-start justify-start ml-8 max-w-[70%] mt-4 md:mt-0">
                 <p className="text-primary-400 text-md font-bold">{categoria}</p>
-                <strong className="text-grey-400 font-bold text-lg lg:text-2xl my-1">{nome}</strong>
+                <strong className="text-gray-400 font-bold text-lg lg:text-2xl my-1">{nome}</strong>
                 <span className="flex items-center">
                     <FaLocationDot
                         className="text-primary-400 mr-3"
                         size={20}
                     />
-                    <span className="max-w-[80%] text-grey-400 font-medium text-sm lg:text-base">
+                    <span className="max-w-[80%] text-gray-400 font-medium text-sm lg:text-base">
                         {endereco}
                     </span>
                 </span>
@@ -40,7 +40,7 @@ export function ParceiroCard({ parceiro }: ParceiroCardProps) {
                         className="text-primary-400 mr-3"
                         size={20}
                     />
-                    <span className="max-w-[80%] text-grey-400 font-medium text-sm lg:text-base">
+                    <span className="max-w-[80%] text-gray-400 font-medium text-sm lg:text-base">
                         {contato}
                     </span>
                 </div>

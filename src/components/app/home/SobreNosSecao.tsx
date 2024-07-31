@@ -11,7 +11,7 @@ export function SobreNosSecao() {
                     <h1 className="text-primary-400 text-3xl font-bold leading-[40px] mb-4 lg:text-4xl lg:leading-[52px]">
                         Conheça mais do nosso trabalho
                     </h1>
-                    <span className="text-grey-400 text-xl leading-8 mb-8 lg:3xl">
+                    <span className="text-gray-400 text-xl leading-8 mb-8 lg:3xl">
                         A partir de uma ideia e de pessoas comprometidas e apaixonadas pelos
                         animais, o grupo iniciou e foi crescendo aos poucos. Nossa história vem
                         sendo construída a cada ano que passa!
@@ -22,8 +22,8 @@ export function SobreNosSecao() {
                     >
                         <Button
                             label="Conheça o Buridogs"
-                            customBorderColor="border-grey-400"
-                            customTextColor="text-grey-400"
+                            customBorderColor="border-gray-400"
+                            customTextColor="text-gray-400"
                             customCss="w-full"
                         />
                     </Link>

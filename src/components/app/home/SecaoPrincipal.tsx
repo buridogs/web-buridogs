@@ -9,10 +9,10 @@ export function SecaoPrincipal() {
             <div className="flex flex-col items-center lg:flex-row-reverse px-8 py-8">
                 <div className="max-w-[600px] lg:ml-10">
                     <div className="flex flex-col py-8">
-                        <h1 className="text-grey-400 text-3xl font-bold leading-[40px] mb-4 lg:text-4xl lg:leading-[52px]">
+                        <h1 className="text-gray-400 text-3xl font-bold leading-[40px] mb-4 lg:text-4xl lg:leading-[52px]">
                             Prazer, somos o <strong className="text-primary-400">Buri Dogs</strong>!
                         </h1>
-                        <span className="text-grey-400 text-xl leading-8 lg:3xl">
+                        <span className="text-gray-400 text-xl leading-8 lg:3xl">
                             O Buri Dogs é um grupo de proteção animal fundado no bairro Buritis, em
                             Belo Horizonte, que acolhe, cuida e busca adoção para cães abandonados.
                             Em quatro anos de atuação já tirou das ruas e encaminhou cerca de 700

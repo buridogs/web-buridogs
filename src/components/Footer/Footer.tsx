@@ -56,7 +56,7 @@ export function Footer() {
                     </div>
                 </div>
             </section>
-            <div className="w-[100%] bg-grey-400 flex justify-center py-3">
+            <div className="w-[100%] bg-gray-400 flex justify-center py-3">
                 <button onClick={() => setIsOpen(true)}>
                     <strong className="text-base text-white underline cursor-pointer lg:text-lg">
                         Desenvolvido por voluntários

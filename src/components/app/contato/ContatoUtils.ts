@@ -5,44 +5,36 @@ import { IContatoFormData } from "./ContatoTypes";
 
 export const CONTATO_FORMS_CONFIG: GeneralFormsType<IContatoFormData>[] = [
     {
-        section: [
-            {
-                key: "nome",
-                label: "Nome Completo",
-                placeholder: "Exemplo: José da Silva",
-                type: InputFormEnum.text,
-            },
-        ],
-    },
-    {
-        section: [
-            {
-                key: "email",
-                label: "E-mail",
-                placeholder: "Exemplo: jose@email.com",
-                type: InputFormEnum.text,
-            },
-        ],
-    },
-    {
-        section: [
-            {
-                key: "contato",
-                label: "Contato",
-                placeholder: "Exemplo: xx-xxxxx-xxxx",
-                type: InputFormEnum.text,
-            },
-        ],
-    },
-    {
-        section: [
-            {
-                key: "mensagem",
-                label: "Mensagem",
-                placeholder: "Digite sua mensagem",
-                type: InputFormEnum.textarea,
-            },
-        ],
+        section: {
+            leftSide: [
+                {
+                    key: "nome",
+                    label: "Nome Completo",
+                    placeholder: "Exemplo: José da Silva",
+                    type: InputFormEnum.text,
+                },
+                {
+                    key: "email",
+                    label: "E-mail",
+                    placeholder: "Exemplo: jose@email.com",
+                    type: InputFormEnum.text,
+                },
+                {
+                    key: "contato",
+                    label: "Contato",
+                    placeholder: "Exemplo: xx-xxxxx-xxxx",
+                    type: InputFormEnum.text,
+                },
+
+                {
+                    key: "mensagem",
+                    label: "Mensagem",
+                    placeholder: "Digite sua mensagem",
+                    type: InputFormEnum.textarea,
+                },
+            ],
+            rightSide: []
+        },
     },
 ];
 
