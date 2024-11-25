@@ -12,6 +12,7 @@ export interface IVolunteersData {
     role: string;
     contact?: string;
     contactURL?: string;
+    isInactive?: boolean;
 }
 
 export interface IVolunteersSections {

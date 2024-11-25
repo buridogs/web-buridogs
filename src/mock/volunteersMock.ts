@@ -5,7 +5,7 @@ export const volunteersWithHisSection: IVolunteersSections[] = [
         situation: VolunteerSituationEnum.origin,
         volunteers: [
             {
-                contribution: "Idealizador do Software",
+                contribution: "Idealizador e desenvolvedor do software",
                 imageURL: "voluntario-diogo.png",
                 altImageURL: "Voluntário Diogo Almazan",
                 name: "Diogo de P. Almazan",
@@ -17,16 +17,22 @@ export const volunteersWithHisSection: IVolunteersSections[] = [
     },
     {
         situation: VolunteerSituationEnum.deliveries,
-        situationDescription: "Responsáveis pela 1ª entrega",
+        situationDescription: "Designer",
         volunteers: [
             {
-                imageURL: "voluntario-joao.png",
-                altImageURL: "Voluntário João C. Lot Junior",
-                name: "João C. Lot Junior",
-                role: "Desenvolvedor",
-                contact: "@joaolotjr",
-                contactURL: "https://www.instagram.com/joaolotjr/",
+                imageURL: "voluntario-maria.jpeg",
+                altImageURL: "Voluntária Maria Emília Bergo",
+                name: "Maria Emília Bergo",
+                role: "Designer WEB",
+                contact: "@mareh_bergo",
+                contactURL: "https://www.instagram.com/mareh_bergo/",
             },
+        ],
+    },
+    {
+        situation: VolunteerSituationEnum.deliveries,
+        situationDescription: "Contribuidores Inativos",
+        volunteers: [
             {
                 imageURL: "voluntario-karina.jpeg",
                 altImageURL: "Voluntária Karina Pochini",
@@ -34,14 +40,16 @@ export const volunteersWithHisSection: IVolunteersSections[] = [
                 role: "Analista financeira",
                 contact: "@karinapochini",
                 contactURL: "https://www.instagram.com/karinapochini/",
+                isInactive: true
             },
             {
-                imageURL: "voluntario-maria.jpeg",
-                altImageURL: "Voluntária Maria Emília Bergo",
-                name: "Maria Emília Bergo",
-                role: "Designer",
-                contact: "@mareh_bergo",
-                contactURL: "https://www.instagram.com/mareh_bergo/",
+                imageURL: "voluntario-joao.png",
+                altImageURL: "Voluntário João C. Lot Junior",
+                name: "João C. Lot Junior",
+                role: "Desenvolvedor",
+                contact: "@joaolotjr",
+                contactURL: "https://www.instagram.com/joaolotjr/",
+                isInactive: true
             },
         ],
     },
