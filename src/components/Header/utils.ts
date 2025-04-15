@@ -1,3 +1,5 @@
+import { User, UserRole } from "@/interfaces/authInterfaces";
+
 export const headerMenuLink = [
     {
         label: "Adoção",
@@ -24,3 +26,24 @@ export const headerMenuLink = [
         path: "/contato",
     },
 ];
+
+export const getAuthenticatedLinks = (user: User | null) => {
+    if (!user) return [];
+
+    const links = [
+        {
+            label: "Área Voluntário",
+            path: "/volunteer",
+        },
+    ];
+
+    // Add admin-specific links
+    if (user.role === UserRole.ADMIN) {
+        links.push({
+            label: "Admin",
+            path: "/admin",
+        });
+    }
+
+    return links;
+};
