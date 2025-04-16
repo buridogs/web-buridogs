@@ -1,8 +1,10 @@
 import { LoginCredentials, User, UserRole } from "@/interfaces/authInterfaces";
+import { getAuthService } from "../../api-factory";
 
 // This is a mock auth service to simulate API calls
 // In a real app, these would be actual API requests to your backend
 
+// TODO CHECK
 // Mock user database for demonstration
 const mockUsers = [
     {
@@ -50,11 +52,18 @@ export const loginUser = async (
     credentials: LoginCredentials
 ): Promise<{ user: User; token: string }> => {
     // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    // await new Promise((resolve) => setTimeout(resolve, 800));
 
-    const user = mockUsers.find(
-        (u) => u.email === credentials.email && u.password === credentials.password
-    );
+    const authService = getAuthService();
+
+    console.log("Login credentials:", credentials);
+    const { user, token } = await authService.login(credentials);
+    console.log("User from API:", user);
+    console.log("Token from API:", token);
+
+    // const user = mockUsers.find(
+    //     (u) => u.email === credentials.email && u.password === credentials.password
+    // );
 
     if (!user) {
         throw new Error("Invalid credentials");
@@ -62,7 +71,7 @@ export const loginUser = async (
 
     // Create user object without the password
     const { password, ...userWithoutPassword } = user;
-    const token = generateToken(userWithoutPassword);
+    // const token = generateToken(userWithoutPassword);
 
     return {
         user: userWithoutPassword,
