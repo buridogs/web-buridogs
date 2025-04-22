@@ -3,8 +3,6 @@ import "./globals.css";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Header } from "@/components/Header/Header";
-import { Footer } from "@/components/Footer/Footer";
 import ToastProvider from "@/providers/ToastProvider";
 import { TracerTagsWrapper } from "@/components/TracerTagsWrapper/TracerTagsWrapper";
 import { AuthProvider } from "@/providers/auth/AuthProvider";
@@ -24,11 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <html lang="en">
             <body className={`${inter.className} flex flex-col`}>
                 <ToastProvider>
-                    <AuthProvider>
-                        <Header />
-                        <main className="flex-auto pt-[110px]">{children}</main>
-                        <Footer />
-                    </AuthProvider>
+                    <AuthProvider>{children}</AuthProvider>
                 </ToastProvider>
                 <TracerTagsWrapper />
             </body>

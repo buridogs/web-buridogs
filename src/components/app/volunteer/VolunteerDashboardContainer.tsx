@@ -11,7 +11,7 @@ export default function VolunteerDashboardContainer() {
 
     return (
         <ProtectedRoute allowedRoles={[UserRole.VOLUNTEER, UserRole.ADMIN]}>
-            <main className="bg-white">
+            <div className="h-full bg-white">
                 <div className="max-w-screen-xl mx-auto px-8 py-11 md:py-12">
                     <div className="mb-8 flex flex-col md:flex-row md:justify-between md:items-center">
                         <h1 className="text-3xl font-bold text-primary-700 mb-4 md:mb-0">
@@ -180,7 +180,7 @@ export default function VolunteerDashboardContainer() {
                         </div>
                     </div>
                 </div>
-            </main>
+            </div>
         </ProtectedRoute>
     );
 }

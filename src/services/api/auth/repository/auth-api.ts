@@ -12,7 +12,6 @@ export class HttpAuthApi extends BaseApiService implements IAuthApi {
      * Authenticate user with credentials via API
      */
     public async login(credentials: LoginCredentials): Promise<{ user: User; token: string }> {
-        console.log("Login credentials here:", credentials);
         return this.fetchWithAuth<{ user: User; token: string }>(
             "/auth/signin",
             {
