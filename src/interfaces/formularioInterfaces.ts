@@ -11,19 +11,11 @@ export enum FormAvailableEnum {
     CONTACT = "CONTATO",
 }
 
-export type AdoptionStatusType =
+export type FormStatusType =
     | FormStatusEnum.APPROVED
     | FormStatusEnum.PENDENT
     | FormStatusEnum.REJECTED
     | FormStatusEnum.IN_PROCESS;
-
-export type SponsorshipStatusType =
-    | FormStatusEnum.APPROVED
-    | FormStatusEnum.PENDENT
-    | FormStatusEnum.REJECTED
-    | FormStatusEnum.IN_PROCESS;
-
-export type ContactStatusType = FormStatusEnum.APPROVED | FormStatusEnum.PENDENT;
 
 interface IFormBase {
     id: string;
@@ -58,7 +50,7 @@ export interface IFormAdoption extends IFormBase {
     return_adoption_situation: string;
     aware_of_responsibility_term: boolean;
     dog_name: string;
-    status: AdoptionStatusType;
+    status: FormStatusType;
     images?: string[];
 }
 
@@ -67,14 +59,14 @@ export interface IFormSponsorship extends IFormBase {
     dog_name?: string;
     contact_method_preference: string[];
     allow_receiving_news: boolean;
-    status: SponsorshipStatusType;
+    status: FormStatusType;
     sponsorship_method: string[];
 }
 
 export interface IFormContact extends IFormBase {
     email: string;
     message: string;
-    status: ContactStatusType;
+    status: FormStatusType;
 }
 
 export type IForm = IFormAdoption | IFormSponsorship | IFormContact;

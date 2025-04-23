@@ -1,16 +1,23 @@
 "use client";
 
-import { formatDatetimePTBR, generateImgURL } from "@/utils/methods";
-import Image from "next/image";
+import { formatDatetimePTBR } from "@/utils/methods";
 import { useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import { BsClipboard, BsCheck2Square, BsXSquare } from "react-icons/bs";
 import { MdOutlineHouse, MdPerson } from "react-icons/md";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { FormStatusEnum, IForm } from "@/interfaces/formularioInterfaces";
+import {
+    FormAvailableEnum,
+    FormStatusEnum,
+    IForm,
+    IFormAdoption,
+    IFormContact,
+    IFormSponsorship,
+} from "@/interfaces/formularioInterfaces";
+import { getStatusBadgeClass, getStatusText } from "./FormulariosPendentesUtils";
 
-interface AdocoesPendentesModalProps {
+interface FormulariosPendentesModalProps {
     adoption: IForm;
     onClose: () => void;
     onUpdateStatus: (id: string, status: string) => void;
@@ -20,7 +27,7 @@ export function FormulariosPendentesModal({
     adoption,
     onClose,
     onUpdateStatus,
-}: AdocoesPendentesModalProps) {
+}: FormulariosPendentesModalProps) {
     const modalRef = useRef<HTMLDivElement>(null);
 
     // Handle clicking outside to close
@@ -64,36 +71,6 @@ export function FormulariosPendentesModal({
         toast.success(`${label} copiado para a área de transferência`);
     };
 
-    const getStatusBadgeClass = (status: string) => {
-        switch (status) {
-            case FormStatusEnum.PENDENT:
-                return "bg-yellow-100 text-yellow-800";
-            case FormStatusEnum.APPROVED:
-                return "bg-green-100 text-green-800";
-            case FormStatusEnum.REJECTED:
-                return "bg-red-100 text-red-800";
-            case FormStatusEnum.IN_PROCESS:
-                return "bg-blue-100 text-blue-800";
-            default:
-                return "bg-gray-100 text-gray-800";
-        }
-    };
-
-    const getStatusText = (status: string) => {
-        switch (status) {
-            case FormStatusEnum.PENDENT:
-                return "Pendente";
-            case FormStatusEnum.APPROVED:
-                return "Aprovado";
-            case FormStatusEnum.REJECTED:
-                return "Rejeitado";
-            case FormStatusEnum.IN_PROCESS:
-                return "Em Análise";
-            default:
-                return status;
-        }
-    };
-
     const renderBooleanValue = (value: boolean) => {
         return value ? (
             <span className="flex items-center text-green-600">
@@ -106,6 +83,351 @@ export function FormulariosPendentesModal({
         );
     };
 
+    const renderApplicantInfo = (adoptionData: IForm) => {
+        let adoption: IForm = {} as IForm;
+
+        if (adoptionData.form_type === FormAvailableEnum.ADOPTION) {
+            adoption = adoptionData as IFormAdoption;
+            return (
+                <>
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                            <FaPhone
+                                className="mr-2 text-gray-500"
+                                size={16}
+                            />
+                            <span className="text-gray-700">{adoption.phone_number}</span>
+                        </div>
+                        <button
+                            onClick={() => copyToClipboard(adoption.phone_number, "Telefone")}
+                            className="text-blue-600 p-1 rounded hover:bg-blue-50"
+                            title="Copiar telefone"
+                        >
+                            <BsClipboard size={14} />
+                        </button>
+                    </div>
+
+                    <div className="flex items-center">
+                        <FaMapMarkerAlt
+                            className="mr-2 text-gray-500"
+                            size={16}
+                        />
+                        <span className="text-gray-700">
+                            {adoption.street}, {adoption.number}
+                            {adoption.complement ? `, ${adoption.complement}` : ""} -{" "}
+                            {adoption.neighborhood}, {adoption.city}/{adoption.state}
+                        </span>
+                    </div>
+
+                    <div className="flex items-center">
+                        <MdOutlineHouse
+                            className="mr-2 text-gray-500"
+                            size={18}
+                        />
+                        <span className="text-gray-700">
+                            Mora em: {adoption.lives_in_house_or_apartment}
+                        </span>
+                    </div>
+
+                    <div className="pt-2 border-t">
+                        <p className="text-gray-700">
+                            <span className="font-medium">Redes sociais:</span>
+                            <br />
+                            <a
+                                href={adoption.facebook_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:underline"
+                            >
+                                Facebook
+                            </a>
+                            {" | "}
+                            <a
+                                href={adoption.instagram_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:underline"
+                            >
+                                Instagram
+                            </a>
+                        </p>
+                    </div>
+                </>
+            );
+        } else if (adoptionData.form_type === FormAvailableEnum.SPONSORSHIP) {
+            adoption = adoptionData as IFormSponsorship;
+            return (
+                <>
+                    {adoption.email && (
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                                <FaEnvelope
+                                    className="mr-2 text-gray-500"
+                                    size={16}
+                                />
+                                <span className="text-gray-700">{adoption.email}</span>
+                            </div>
+                            <button
+                                onClick={() => copyToClipboard(adoption.email || "", "Email")}
+                                className="text-blue-600 p-1 rounded hover:bg-blue-50"
+                                title="Copiar email"
+                            >
+                                <BsClipboard size={14} />
+                            </button>
+                        </div>
+                    )}
+
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                            <FaPhone
+                                className="mr-2 text-gray-500"
+                                size={16}
+                            />
+                            <span className="text-gray-700">{adoption.phone_number}</span>
+                        </div>
+                        <button
+                            onClick={() => copyToClipboard(adoption.phone_number, "Telefone")}
+                            className="text-blue-600 p-1 rounded hover:bg-blue-50"
+                            title="Copiar telefone"
+                        >
+                            <BsClipboard size={14} />
+                        </button>
+                    </div>
+
+                    <div className="flex items-center">
+                        <FaMapMarkerAlt
+                            className="mr-2 text-gray-500"
+                            size={16}
+                        />
+                        <span className="text-gray-700">
+                            Método de contato: {adoption.contact_method_preference.join(", ")}
+                        </span>
+                    </div>
+
+                    <div className="flex items-center">
+                        <MdOutlineHouse
+                            className="mr-2 text-gray-500"
+                            size={18}
+                        />
+                        <span className="text-gray-700">
+                            Quer apadrinhar{" "}
+                            <strong className="text-gray-900 font-extrabold">
+                                {" "}
+                                {adoption.dog_name}{" "}
+                            </strong>{" "}
+                            com {adoption.sponsorship_method.join(", ")}
+                        </span>
+                    </div>
+
+                    <div className="pt-2 border-t">
+                        <p className="text-gray-700">
+                            <span className="font-medium">Aceita receber novidades:</span>
+                            <br />
+                            <div>{renderBooleanValue(adoption.allow_receiving_news)}</div>
+                        </p>
+                    </div>
+                </>
+            );
+        } else {
+            adoption = adoptionData as IFormContact;
+            return (
+                <>
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                            <FaEnvelope
+                                className="mr-2 text-gray-500"
+                                size={16}
+                            />
+                            <span className="text-gray-700">{adoption.email}</span>
+                        </div>
+                        <button
+                            onClick={() => copyToClipboard(adoption.email || "", "Email")}
+                            className="text-blue-600 p-1 rounded hover:bg-blue-50"
+                            title="Copiar email"
+                        >
+                            <BsClipboard size={14} />
+                        </button>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                            <FaPhone
+                                className="mr-2 text-gray-500"
+                                size={16}
+                            />
+                            <span className="text-gray-700">{adoption.phone_number}</span>
+                        </div>
+                        <button
+                            onClick={() => copyToClipboard(adoption.phone_number, "Telefone")}
+                            className="text-blue-600 p-1 rounded hover:bg-blue-50"
+                            title="Copiar telefone"
+                        >
+                            <BsClipboard size={14} />
+                        </button>
+                    </div>
+                    <div className="flex items-center">
+                        <FaMapMarkerAlt
+                            className="mr-2 text-gray-500"
+                            size={16}
+                        />
+                        <span className="text-gray-700">Mensagem: {adoption.message}</span>
+                    </div>
+                </>
+            );
+        }
+    };
+
+    const renderAdoptionDetails = (adoptionData: IForm) => {
+        const adoption = adoptionData as IFormAdoption;
+
+        return (
+            <div className="w-full md:w-1/2">
+                <h4 className="text-lg font-semibold text-primary-400 mb-4">
+                    Detalhes da solicitação
+                </h4>
+
+                <div className="mb-4">
+                    <span
+                        className={`inline-flex px-3 py-1 rounded-full text-sm font-semibold ${getStatusBadgeClass(adoption.status)}`}
+                    >
+                        {getStatusText(adoption.status)}
+                    </span>
+                    <span className="ml-2 text-gray-500 text-sm">
+                        Enviado em {formatDatetimePTBR(adoption.createdAt)}
+                    </span>
+                </div>
+
+                {adoptionData.form_type === FormAvailableEnum.ADOPTION && (
+                    <>
+                        <div className="flex items-center mb-4">
+                            <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4">
+                                {adoption.images && adoption.images.length > 0 ? (
+                                    <></>
+                                ) : (
+                                    // <Image
+                                    //     src={generateImgURL(adoption.fotos[0])}
+                                    //     alt={adoption.nomeCachorroAdocao}
+                                    //     fill
+                                    //     className="object-cover"
+                                    // />
+                                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                                        <span className="text-xs text-gray-500">Sem foto</span>
+                                    </div>
+                                )}
+                            </div>
+                            <div>
+                                <h5 className="font-medium text-gray-900">{adoption.dog_name}</h5>
+                            </div>
+                        </div>
+
+                        <div className="space-y-3 text-sm">
+                            <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                                <div>
+                                    <span className="text-gray-500">Primeira adoção:</span>
+                                    <div>{renderBooleanValue(adoption.first_adoption)}</div>
+                                </div>
+                                <div>
+                                    <span className="text-gray-500">Ciente dos gastos:</span>
+                                    <div>{renderBooleanValue(adoption.aware_of_expenses)}</div>
+                                </div>
+                                <div>
+                                    <span className="text-gray-500">Pessoas de acordo:</span>
+                                    <div>
+                                        {renderBooleanValue(adoption.people_agree_with_adoption)}
+                                    </div>
+                                </div>
+                                <div>
+                                    <span className="text-gray-500">
+                                        Termo de responsabilidade:
+                                    </span>
+                                    <div>
+                                        {renderBooleanValue(adoption.aware_of_responsibility_term)}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span className="text-gray-500">Outros animais:</span>
+                                <p className="text-gray-700">{adoption.has_other_animals}</p>
+                            </div>
+
+                            <div>
+                                <span className="text-gray-500">Já teve outros animais:</span>
+                                <p className="text-gray-700">{adoption.has_had_other_animals}</p>
+                            </div>
+
+                            <div>
+                                <span className="text-gray-500">Motivo da adoção:</span>
+                                <p className="text-gray-700">{adoption.reason_for_adoption}</p>
+                            </div>
+
+                            <div>
+                                <span className="text-gray-500">Descrição do local:</span>
+                                <p className="text-gray-700">{adoption.animal_place_description}</p>
+                            </div>
+
+                            <div>
+                                <span className="text-gray-500">
+                                    Considerações sobre devolução:
+                                </span>
+                                <p className="text-gray-700">
+                                    {adoption.return_adoption_situation}
+                                </p>
+                            </div>
+                        </div>
+                    </>
+                )}
+            </div>
+        );
+    };
+
+    const renderImages = (formData: IForm) => {
+        if (formData.form_type !== FormAvailableEnum.ADOPTION) return;
+
+        const adoption = formData as IFormAdoption;
+
+        if (!adoption.images || adoption.images.length === 0) return null;
+
+        return (
+            <div className="mt-6 border-t pt-6">
+                <h4 className="text-lg font-semibold text-primary-400 mb-4">Fotos do ambiente</h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {adoption.images.map((url, index) => (
+                        <div
+                            key={index}
+                            className="relative h-48 rounded-lg overflow-hidden"
+                        >
+                            <a
+                                href={url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <></>
+                                {/* <Image
+                                            src={url}
+                                            alt={`Foto ${index + 1} do ambiente`}
+                                            fill
+                                            className="object-cover hover:opacity-90 transition-opacity"
+                                        /> */}
+                            </a>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    };
+
+    const renderTitle = (formData: IForm) => {
+        if (formData.form_type === FormAvailableEnum.ADOPTION) {
+            return "Detalhes da solicitação de adoção";
+        } else if (formData.form_type === FormAvailableEnum.SPONSORSHIP) {
+            return "Detalhes da solicitação de apadrinhamento";
+        } else if (formData.form_type === FormAvailableEnum.CONTACT) {
+            return "Detalhes da solicitação de contato";
+        }
+        return "Detalhes da solicitação";
+    };
+
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4">
             <div
@@ -114,9 +436,7 @@ export function FormulariosPendentesModal({
             >
                 {/* Header */}
                 <div className="flex justify-between items-center border-b p-4 bg-gray-50 rounded-t-lg">
-                    <h3 className="text-xl font-semibold text-gray-900">
-                        Detalhes da solicitação de adoção
-                    </h3>
+                    <h3 className="text-xl font-semibold text-gray-900">{renderTitle(adoption)}</h3>
                     <button
                         onClick={onClose}
                         className="text-gray-500 hover:text-gray-700 focus:outline-none p-1 rounded-full hover:bg-gray-200"
@@ -151,249 +471,16 @@ export function FormulariosPendentesModal({
                                         <BsClipboard size={14} />
                                     </button>
                                 </div>
-
-                                {adoption.email && (
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center">
-                                            <FaEnvelope
-                                                className="mr-2 text-gray-500"
-                                                size={16}
-                                            />
-                                            <span className="text-gray-700">{adoption.email}</span>
-                                        </div>
-                                        <button
-                                            onClick={() =>
-                                                copyToClipboard(adoption.email || "", "Email")
-                                            }
-                                            className="text-blue-600 p-1 rounded hover:bg-blue-50"
-                                            title="Copiar email"
-                                        >
-                                            <BsClipboard size={14} />
-                                        </button>
-                                    </div>
-                                )}
-
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center">
-                                        <FaPhone
-                                            className="mr-2 text-gray-500"
-                                            size={16}
-                                        />
-                                        <span className="text-gray-700">
-                                            {adoption.phone_number}
-                                        </span>
-                                    </div>
-                                    <button
-                                        onClick={() =>
-                                            copyToClipboard(adoption.phone_number, "Telefone")
-                                        }
-                                        className="text-blue-600 p-1 rounded hover:bg-blue-50"
-                                        title="Copiar telefone"
-                                    >
-                                        <BsClipboard size={14} />
-                                    </button>
-                                </div>
-
-                                <div className="flex items-center">
-                                    <FaMapMarkerAlt
-                                        className="mr-2 text-gray-500"
-                                        size={16}
-                                    />
-                                    <span className="text-gray-700">
-                                        {adoption.formData.endereco_rua},{" "}
-                                        {adoption.formData.endereco_numero}
-                                        {adoption.formData.endereco_complemento
-                                            ? `, ${adoption.formData.endereco_complemento}`
-                                            : ""}{" "}
-                                        - {adoption.formData.endereco_bairro},{" "}
-                                        {adoption.formData.endereco_cidade}/
-                                        {adoption.formData.endereco_estado}
-                                    </span>
-                                </div>
-
-                                <div className="flex items-center">
-                                    <MdOutlineHouse
-                                        className="mr-2 text-gray-500"
-                                        size={18}
-                                    />
-                                    <span className="text-gray-700">
-                                        Mora em: {adoption.formData.mora_casa_apt}
-                                    </span>
-                                </div>
-
-                                <div className="pt-2 border-t">
-                                    <p className="text-gray-700">
-                                        <span className="font-medium">Redes sociais:</span>
-                                        <br />
-                                        <a
-                                            href={adoption.formData.facebook_url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-blue-600 hover:underline"
-                                        >
-                                            Facebook
-                                        </a>
-                                        {" | "}
-                                        <a
-                                            href={adoption.formData.instagram_url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-blue-600 hover:underline"
-                                        >
-                                            Instagram
-                                        </a>
-                                    </p>
-                                </div>
+                                {renderApplicantInfo(adoption)}
                             </div>
                         </div>
 
                         {/* Right column - Dog and request info */}
-                        <div className="w-full md:w-1/2">
-                            <h4 className="text-lg font-semibold text-primary-400 mb-4">
-                                Detalhes da Adoção
-                            </h4>
-
-                            <div className="mb-4">
-                                <span
-                                    className={`inline-flex px-3 py-1 rounded-full text-sm font-semibold ${getStatusBadgeClass(adoption.status)}`}
-                                >
-                                    {getStatusText(adoption.status)}
-                                </span>
-                                <span className="ml-2 text-gray-500 text-sm">
-                                    Enviado em {formatDatetimePTBR(adoption.dataEnvio)}
-                                </span>
-                            </div>
-
-                            <div className="flex items-center mb-4">
-                                <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4">
-                                    {adoption.fotos && adoption.fotos.length > 0 ? (
-                                        <></>
-                                    ) : (
-                                        // <Image
-                                        //     src={generateImgURL(adoption.fotos[0])}
-                                        //     alt={adoption.nomeCachorroAdocao}
-                                        //     fill
-                                        //     className="object-cover"
-                                        // />
-                                        <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                                            <span className="text-xs text-gray-500">Sem foto</span>
-                                        </div>
-                                    )}
-                                </div>
-                                <div>
-                                    <h5 className="font-medium text-gray-900">
-                                        {adoption.nomeCachorroAdocao}
-                                    </h5>
-                                </div>
-                            </div>
-
-                            <div className="space-y-3 text-sm">
-                                <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                                    <div>
-                                        <span className="text-gray-500">Primeira adoção:</span>
-                                        <div>
-                                            {renderBooleanValue(adoption.formData.primeira_adocao)}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span className="text-gray-500">Ciente dos gastos:</span>
-                                        <div>
-                                            {renderBooleanValue(
-                                                adoption.formData.esta_ciente_gastos
-                                            )}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span className="text-gray-500">Pessoas de acordo:</span>
-                                        <div>
-                                            {renderBooleanValue(
-                                                adoption.formData.pessoas_de_acordo_adocao
-                                            )}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span className="text-gray-500">
-                                            Termo de responsabilidade:
-                                        </span>
-                                        <div>
-                                            {renderBooleanValue(
-                                                adoption.formData.consciente_termo_responsabilidade
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <span className="text-gray-500">Outros animais:</span>
-                                    <p className="text-gray-700">
-                                        {adoption.formData.ha_outros_animais}
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <span className="text-gray-500">Já teve outros animais:</span>
-                                    <p className="text-gray-700">
-                                        {adoption.formData.ja_teve_outros_animais}
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <span className="text-gray-500">Motivo da adoção:</span>
-                                    <p className="text-gray-700">
-                                        {adoption.formData.motivo_adocao}
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <span className="text-gray-500">Descrição do local:</span>
-                                    <p className="text-gray-700">
-                                        {adoption.formData.descricao_lugar_animal}
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <span className="text-gray-500">
-                                        Considerações sobre devolução:
-                                    </span>
-                                    <p className="text-gray-700">
-                                        {adoption.formData.situacao_devolucao_adocao}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        {renderAdoptionDetails(adoption)}
                     </div>
 
                     {/* Photos from Azure Blob */}
-                    {adoption.formData.linksArquivosAzureBlob &&
-                        adoption.formData.linksArquivosAzureBlob.length > 0 && (
-                            <div className="mt-6 border-t pt-6">
-                                <h4 className="text-lg font-semibold text-primary-400 mb-4">
-                                    Fotos do ambiente
-                                </h4>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    {adoption.formData.linksArquivosAzureBlob.map((url, index) => (
-                                        <div
-                                            key={index}
-                                            className="relative h-48 rounded-lg overflow-hidden"
-                                        >
-                                            <a
-                                                href={url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                <></>
-                                                {/* <Image
-                                                    src={url}
-                                                    alt={`Foto ${index + 1} do ambiente`}
-                                                    fill
-                                                    className="object-cover hover:opacity-90 transition-opacity"
-                                                /> */}
-                                            </a>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
+                    {renderImages(adoption)}
                 </div>
 
                 {/* Footer with action buttons */}
@@ -410,27 +497,42 @@ export function FormulariosPendentesModal({
                         Aprovar
                     </button>
                     <button
-                        onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.IN_PROCESS)}
-                        disabled={adoption.status === FormStatusEnum.IN_PROCESS}
-                        className={`px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors ${
-                            adoption.status === FormStatusEnum.IN_PROCESS
+                        onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.PENDENT)}
+                        disabled={adoption.status === FormStatusEnum.PENDENT}
+                        className={`px-4 py-2 text-white bg-yellow-600 rounded hover:bg-yellow-700 transition-colors ${
+                            adoption.status === FormStatusEnum.PENDENT
                                 ? "opacity-50 cursor-not-allowed"
                                 : ""
                         }`}
                     >
-                        Em Análise
+                        Pendente
                     </button>
-                    <button
-                        onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.REJECTED)}
-                        disabled={adoption.status === FormStatusEnum.REJECTED}
-                        className={`px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700 transition-colors ${
-                            adoption.status === FormStatusEnum.REJECTED
-                                ? "opacity-50 cursor-not-allowed"
-                                : ""
-                        }`}
-                    >
-                        Rejeitar
-                    </button>
+                    {adoption.form_type === FormAvailableEnum.ADOPTION && (
+                        <button
+                            onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.IN_PROCESS)}
+                            disabled={adoption.status === FormStatusEnum.IN_PROCESS}
+                            className={`px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors ${
+                                adoption.status === FormStatusEnum.IN_PROCESS
+                                    ? "opacity-50 cursor-not-allowed"
+                                    : ""
+                            }`}
+                        >
+                            Em Análise
+                        </button>
+                    )}
+                    {adoption.form_type === FormAvailableEnum.ADOPTION && (
+                        <button
+                            onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.REJECTED)}
+                            disabled={adoption.status === FormStatusEnum.REJECTED}
+                            className={`px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700 transition-colors ${
+                                adoption.status === FormStatusEnum.REJECTED
+                                    ? "opacity-50 cursor-not-allowed"
+                                    : ""
+                            }`}
+                        >
+                            Rejeitar
+                        </button>
+                    )}
                     <button
                         onClick={onClose}
                         className="px-4 py-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300 transition-colors ml-2"

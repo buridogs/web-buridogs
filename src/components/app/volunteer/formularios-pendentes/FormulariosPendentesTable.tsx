@@ -10,6 +10,12 @@ import { FaCheck } from "react-icons/fa6";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { MdPending } from "react-icons/md";
 import { TbZoomQuestion } from "react-icons/tb";
+import {
+    getStatusBadgeClass,
+    getStatusText,
+    getTypeBadgeClass,
+    getTypeText,
+} from "./FormulariosPendentesUtils";
 
 interface FormulariosPendentesTableProps {
     adoptions: IForm[];
@@ -33,16 +39,14 @@ export function FormulariosPendentesTable({
             const matchesStatus =
                 (statusFilter === "all" || adoption.status.toString() === statusFilter) &&
                 (typeFilter === "all" || adoption.form_type.toString() === typeFilter);
-            console.log({ adoption, typeFilter, statusFilter, matchesStatus });
             const matchesSearch =
                 adoption.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                adoption.dog_name.toLowerCase().includes(searchTerm.toLowerCase());
+                ("dog_name" in adoption &&
+                    adoption.dog_name?.toLowerCase().includes(searchTerm.toLowerCase()));
 
             return matchesStatus && matchesSearch;
         });
     }, [statusFilter, typeFilter, searchTerm, adoptions]);
-
-    console.log("filteredAdoptions", filteredAdoptions);
 
     useEffect(() => {
         if (queryForm) {
@@ -51,62 +55,6 @@ export function FormulariosPendentesTable({
             setTypeFilter(formType);
         }
     }, [queryForm]);
-
-    const getStatusBadgeClass = (status: string) => {
-        switch (status) {
-            case FormStatusEnum.PENDENT:
-                return "bg-yellow-100 text-yellow-800";
-            case FormStatusEnum.APPROVED:
-                return "bg-green-100 text-green-800";
-            case FormStatusEnum.REJECTED:
-                return "bg-red-100 text-red-800";
-            case FormStatusEnum.IN_PROCESS:
-                return "bg-blue-100 text-blue-800";
-            default:
-                return "bg-gray-100 text-gray-800";
-        }
-    };
-
-    const getTypeBadgeClass = (status: string) => {
-        switch (status) {
-            case FormAvailableEnum.ADOPTION:
-                return "bg-yellow-100 text-yellow-800";
-            case FormAvailableEnum.SPONSORSHIP:
-                return "bg-green-100 text-green-800";
-            case FormAvailableEnum.CONTACT:
-                return "bg-red-100 text-red-800";
-            default:
-                return "bg-gray-100 text-gray-800";
-        }
-    };
-
-    const getStatusText = (status: string) => {
-        switch (status) {
-            case FormStatusEnum.PENDENT:
-                return "Pendente";
-            case FormStatusEnum.APPROVED:
-                return "Aprovado";
-            case FormStatusEnum.REJECTED:
-                return "Rejeitado";
-            case FormStatusEnum.IN_PROCESS:
-                return "Em Análise";
-            default:
-                return status;
-        }
-    };
-
-    const getTypeText = (status: string) => {
-        switch (status) {
-            case FormAvailableEnum.ADOPTION:
-                return "Adoção";
-            case FormAvailableEnum.SPONSORSHIP:
-                return "Apadrinhamento";
-            case FormAvailableEnum.CONTACT:
-                return "Contato";
-            default:
-                return status;
-        }
-    };
 
     return (
         <div className="w-full">
@@ -203,7 +151,7 @@ export function FormulariosPendentesTable({
                                         {adoption.name}
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {adoption.dog_name}
+                                        {"dog_name" in adoption ? adoption.dog_name : ""}
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap">
                                         <span
@@ -247,7 +195,7 @@ export function FormulariosPendentesTable({
                                             >
                                                 <FaCheck size={16} />
                                             </button>
-                                            {adoption.form_type !== FormAvailableEnum.CONTACT && (
+                                            {adoption.form_type === FormAvailableEnum.ADOPTION && (
                                                 <button
                                                     onClick={() =>
                                                         onUpdateStatus(
@@ -268,7 +216,7 @@ export function FormulariosPendentesTable({
                                                     <FaDeleteLeft size={16} />
                                                 </button>
                                             )}
-                                            {adoption.form_type !== FormAvailableEnum.CONTACT && (
+                                            {adoption.form_type === FormAvailableEnum.ADOPTION && (
                                                 <button
                                                     onClick={() =>
                                                         onUpdateStatus(

@@ -5,7 +5,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FormulariosPendentesTable } from "./FormulariosPendentesTable";
 import { FormulariosPendentesModal } from "./FormulariosPendentesModal";
-import { pendingAdocoesMock } from "@/mock/pendingAdocaoMock";
+import {
+    pendingAdocoesMock,
+    pendingApadrinhamentosMock,
+    pendingContatosMock,
+} from "@/mock/pendingAdocaoMock";
 import { toast } from "react-toastify";
 import { UserRole } from "@/interfaces/authInterfaces";
 import { PublicRoutes } from "@/components/Header/utils";
@@ -38,7 +42,9 @@ export default function FormulariosPendentesContainer() {
         if (!isLoading && isAuthenticated) {
             // In a real app, this would be an API call
             // For now, we're using mock data
-            setPendingAdoptions(pendingAdocoesMock);
+            setPendingAdoptions(
+                pendingAdocoesMock.concat(pendingApadrinhamentosMock).concat(pendingContatosMock)
+            );
             setIsLoadingData(false);
         }
     }, [isLoading, isAuthenticated, user, router]);
