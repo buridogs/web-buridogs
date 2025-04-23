@@ -1,6 +1,7 @@
 "use client";
 
 import ProtectedRoute from "@/components/app/auth/ProtectedRoute";
+import { PrivateRoutes } from "@/components/Header/utils";
 import { UserRole } from "@/interfaces/authInterfaces";
 import { useAuth } from "@/providers/auth/AuthProvider";
 import Link from "next/link";
@@ -58,7 +59,7 @@ export default function VolunteerDashboardContainer() {
                                 </p>
                             </div>
                             <Link
-                                href="/volunteer/adocoes-pendentes"
+                                href={PrivateRoutes.ADOPTION_PENDING}
                                 className="mt-4 inline-block text-primary-400 font-medium hover:text-primary-700 transition-colors"
                             >
                                 Ver detalhes &rarr;
@@ -83,7 +84,7 @@ export default function VolunteerDashboardContainer() {
                                 </p>
                             </div>
                             <Link
-                                href="/volunteer/apadrinhamentos-pendentes"
+                                href={PrivateRoutes.SPONSORSHIP_PENDING}
                                 className="mt-4 inline-block text-primary-400 font-medium hover:text-primary-700 transition-colors"
                             >
                                 Ver detalhes &rarr;
@@ -106,7 +107,7 @@ export default function VolunteerDashboardContainer() {
                                 <p className="text-amber-800 text-sm">7 mensagens não lidas</p>
                             </div>
                             <Link
-                                href="/volunteer/contatos-pendentes"
+                                href={PrivateRoutes.CONTACT_PENDING}
                                 className="mt-4 inline-block text-primary-400 font-medium hover:text-primary-700 transition-colors"
                             >
                                 Ver detalhes &rarr;
@@ -132,7 +133,7 @@ export default function VolunteerDashboardContainer() {
                                 </div>
                             </div>
                             <Link
-                                href="/volunteer/gerenciar-cachorros"
+                                href={PrivateRoutes.MANAGE_DOGS}
                                 className="mt-4 inline-block text-primary-400 font-medium hover:text-primary-700 transition-colors"
                             >
                                 Gerenciar &rarr;
@@ -152,7 +153,7 @@ export default function VolunteerDashboardContainer() {
                                 </div>
                             </div>
                             <Link
-                                href="/volunteer/gerenciar-finais-felizes"
+                                href={PrivateRoutes.MANAGE_HAPPY_ENDINGS}
                                 className="mt-4 inline-block text-primary-400 font-medium hover:text-primary-700 transition-colors"
                             >
                                 Gerenciar &rarr;
@@ -172,7 +173,7 @@ export default function VolunteerDashboardContainer() {
                                 </div>
                             </div>
                             <Link
-                                href="/volunteer/gerenciar-parceiros"
+                                href={PrivateRoutes.MANAGE_PARTNERS}
                                 className="mt-4 inline-block text-primary-400 font-medium hover:text-primary-700 transition-colors"
                             >
                                 Gerenciar &rarr;

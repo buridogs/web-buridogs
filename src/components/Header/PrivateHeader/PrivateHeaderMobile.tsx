@@ -4,6 +4,7 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
 import { generateImgURL } from "@/utils/methods";
 import { User } from "@/interfaces/authInterfaces";
+import { PrivateRoutes } from "../utils";
 
 interface HeaderMobileProps {
     isOpen: boolean;
@@ -30,7 +31,7 @@ export function PrivateHeaderMobile({
     return (
         <div className="w-[100%] bg-white py-8 px-8 shadow fixed z-10 xl:px-0 lg:hidden">
             <section className="max-w-screen-xl flex justify-between items-center m-auto">
-                <Link href="/volunteer">
+                <Link href={PrivateRoutes.DASHBOARD}>
                     <Image
                         src={generateImgURL("logo-buridogs.png")}
                         alt="Buridogs logo"

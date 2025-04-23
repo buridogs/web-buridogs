@@ -1,5 +1,6 @@
 "use client";
 
+import { PrivateRoutes } from "@/components/Header/utils";
 import { AuthContextType, LoginCredentials, User } from "@/interfaces/authInterfaces";
 import { loginUser, verifyToken } from "@/services/api/auth/service/authService";
 import {
@@ -76,7 +77,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             toast.success("Login realizado com sucesso!");
 
             // Redirect to homepage or dashboard
-            router.push("/volunteer");
+            router.push(PrivateRoutes.DASHBOARD);
         } catch (error: any) {
             console.error("Login error:", error);
             toast.error(error.message || "Falha na autenticação");

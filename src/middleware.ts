@@ -1,13 +1,14 @@
 // This file should be placed at the root level of your project, alongside package.json
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { PrivateRoutes } from "./components/Header/utils";
 
 export async function middleware(request: NextRequest) {
     // Get token from cookies
     const token = request.cookies.get("auth-token")?.value;
 
     // Define protected paths that require authentication
-    const authRequiredPaths = ["/admin", "/volunteer"];
+    const authRequiredPaths = [PrivateRoutes.DASHBOARD];
 
     const path = request.nextUrl.pathname;
 
@@ -24,5 +25,5 @@ export async function middleware(request: NextRequest) {
 
 // Configure which paths the middleware should run on
 export const config = {
-    matcher: ["/admin/:path*", "/volunteer/:path*"],
+    matcher: [`${PrivateRoutes.DASHBOARD}/:path*`],
 };

@@ -1,22 +1,22 @@
 "use client";
 
-import { AdocaoStatusEnum, IPendingAdoption } from "@/interfaces/adocaoInterfaces";
 import { formatDatetimePTBR, generateImgURL } from "@/utils/methods";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
-import { BsClipboard, BsGenderAmbiguous, BsCheck2Square, BsXSquare } from "react-icons/bs";
+import { BsClipboard, BsCheck2Square, BsXSquare } from "react-icons/bs";
 import { MdOutlineHouse, MdPerson } from "react-icons/md";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { FormStatusEnum, IForm } from "@/interfaces/formularioInterfaces";
 
 interface AdocoesPendentesModalProps {
-    adoption: IPendingAdoption;
+    adoption: IForm;
     onClose: () => void;
     onUpdateStatus: (id: string, status: string) => void;
 }
 
-export function AdocoesPendentesModal({
+export function FormulariosPendentesModal({
     adoption,
     onClose,
     onUpdateStatus,
@@ -66,13 +66,13 @@ export function AdocoesPendentesModal({
 
     const getStatusBadgeClass = (status: string) => {
         switch (status) {
-            case AdocaoStatusEnum.PENDENTE:
+            case FormStatusEnum.PENDENT:
                 return "bg-yellow-100 text-yellow-800";
-            case AdocaoStatusEnum.APROVADO:
+            case FormStatusEnum.APPROVED:
                 return "bg-green-100 text-green-800";
-            case AdocaoStatusEnum.REJEITADO:
+            case FormStatusEnum.REJECTED:
                 return "bg-red-100 text-red-800";
-            case AdocaoStatusEnum.EM_ANALISE:
+            case FormStatusEnum.IN_PROCESS:
                 return "bg-blue-100 text-blue-800";
             default:
                 return "bg-gray-100 text-gray-800";
@@ -81,13 +81,13 @@ export function AdocoesPendentesModal({
 
     const getStatusText = (status: string) => {
         switch (status) {
-            case AdocaoStatusEnum.PENDENTE:
+            case FormStatusEnum.PENDENT:
                 return "Pendente";
-            case AdocaoStatusEnum.APROVADO:
+            case FormStatusEnum.APPROVED:
                 return "Aprovado";
-            case AdocaoStatusEnum.REJEITADO:
+            case FormStatusEnum.REJECTED:
                 return "Rejeitado";
-            case AdocaoStatusEnum.EM_ANALISE:
+            case FormStatusEnum.IN_PROCESS:
                 return "Em Análise";
             default:
                 return status;
@@ -141,10 +141,10 @@ export function AdocoesPendentesModal({
                                             className="mr-2 text-gray-500"
                                             size={18}
                                         />
-                                        <span className="text-gray-700">{adoption.nome}</span>
+                                        <span className="text-gray-700">{adoption.name}</span>
                                     </div>
                                     <button
-                                        onClick={() => copyToClipboard(adoption.nome, "Nome")}
+                                        onClick={() => copyToClipboard(adoption.name, "Nome")}
                                         className="text-blue-600 p-1 rounded hover:bg-blue-50"
                                         title="Copiar nome"
                                     >
@@ -179,11 +179,13 @@ export function AdocoesPendentesModal({
                                             className="mr-2 text-gray-500"
                                             size={16}
                                         />
-                                        <span className="text-gray-700">{adoption.celular}</span>
+                                        <span className="text-gray-700">
+                                            {adoption.phone_number}
+                                        </span>
                                     </div>
                                     <button
                                         onClick={() =>
-                                            copyToClipboard(adoption.celular, "Telefone")
+                                            copyToClipboard(adoption.phone_number, "Telefone")
                                         }
                                         className="text-blue-600 p-1 rounded hover:bg-blue-50"
                                         title="Copiar telefone"
@@ -265,13 +267,14 @@ export function AdocoesPendentesModal({
                             <div className="flex items-center mb-4">
                                 <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4">
                                     {adoption.fotos && adoption.fotos.length > 0 ? (
-                                        <Image
-                                            src={generateImgURL(adoption.fotos[0])}
-                                            alt={adoption.nomeCachorroAdocao}
-                                            fill
-                                            className="object-cover"
-                                        />
+                                        <></>
                                     ) : (
+                                        // <Image
+                                        //     src={generateImgURL(adoption.fotos[0])}
+                                        //     alt={adoption.nomeCachorroAdocao}
+                                        //     fill
+                                        //     className="object-cover"
+                                        // />
                                         <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                                             <span className="text-xs text-gray-500">Sem foto</span>
                                         </div>
@@ -378,12 +381,13 @@ export function AdocoesPendentesModal({
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                             >
-                                                <Image
+                                                <></>
+                                                {/* <Image
                                                     src={url}
                                                     alt={`Foto ${index + 1} do ambiente`}
                                                     fill
                                                     className="object-cover hover:opacity-90 transition-opacity"
-                                                />
+                                                /> */}
                                             </a>
                                         </div>
                                     ))}
@@ -395,10 +399,10 @@ export function AdocoesPendentesModal({
                 {/* Footer with action buttons */}
                 <div className="border-t p-4 bg-gray-50 rounded-b-lg flex flex-wrap gap-2 justify-end">
                     <button
-                        onClick={() => onUpdateStatus(adoption.id, AdocaoStatusEnum.APROVADO)}
-                        disabled={adoption.status === AdocaoStatusEnum.APROVADO}
+                        onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.APPROVED)}
+                        disabled={adoption.status === FormStatusEnum.APPROVED}
                         className={`px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700 transition-colors ${
-                            adoption.status === AdocaoStatusEnum.APROVADO
+                            adoption.status === FormStatusEnum.APPROVED
                                 ? "opacity-50 cursor-not-allowed"
                                 : ""
                         }`}
@@ -406,10 +410,10 @@ export function AdocoesPendentesModal({
                         Aprovar
                     </button>
                     <button
-                        onClick={() => onUpdateStatus(adoption.id, AdocaoStatusEnum.EM_ANALISE)}
-                        disabled={adoption.status === AdocaoStatusEnum.EM_ANALISE}
+                        onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.IN_PROCESS)}
+                        disabled={adoption.status === FormStatusEnum.IN_PROCESS}
                         className={`px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors ${
-                            adoption.status === AdocaoStatusEnum.EM_ANALISE
+                            adoption.status === FormStatusEnum.IN_PROCESS
                                 ? "opacity-50 cursor-not-allowed"
                                 : ""
                         }`}
@@ -417,10 +421,10 @@ export function AdocoesPendentesModal({
                         Em Análise
                     </button>
                     <button
-                        onClick={() => onUpdateStatus(adoption.id, AdocaoStatusEnum.REJEITADO)}
-                        disabled={adoption.status === AdocaoStatusEnum.REJEITADO}
+                        onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.REJECTED)}
+                        disabled={adoption.status === FormStatusEnum.REJECTED}
                         className={`px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700 transition-colors ${
-                            adoption.status === AdocaoStatusEnum.REJEITADO
+                            adoption.status === FormStatusEnum.REJECTED
                                 ? "opacity-50 cursor-not-allowed"
                                 : ""
                         }`}

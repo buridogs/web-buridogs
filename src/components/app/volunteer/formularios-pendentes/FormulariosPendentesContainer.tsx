@@ -1,33 +1,36 @@
 "use client";
 
 import { useAuth } from "@/providers/auth/AuthProvider";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AdocoesPendentesTable } from "./AdocoesPendentesTable";
-import { AdocoesPendentesModal } from "./AdocoesPendentesModal";
+import { FormulariosPendentesTable } from "./FormulariosPendentesTable";
+import { FormulariosPendentesModal } from "./FormulariosPendentesModal";
 import { pendingAdocoesMock } from "@/mock/pendingAdocaoMock";
-import { IPendingAdoption, AdocaoStatusEnum } from "@/interfaces/adocaoInterfaces";
 import { toast } from "react-toastify";
 import { UserRole } from "@/interfaces/authInterfaces";
+import { PublicRoutes } from "@/components/Header/utils";
+import { FormStatusEnum, IForm } from "@/interfaces/formularioInterfaces";
 
 // TODO: REFACTOR THIS COMPONENT
-export default function AdocoesPendentesContainer() {
+export default function FormulariosPendentesContainer() {
     const { user, isAuthenticated, isLoading } = useAuth();
     const router = useRouter();
-    const [pendingAdoptions, setPendingAdoptions] = useState<IPendingAdoption[]>([]);
+    const formQueryParam = useSearchParams().get("formulario");
+    console.log("pathname", formQueryParam);
+    const [pendingAdoptions, setPendingAdoptions] = useState<IForm[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedAdoption, setSelectedAdoption] = useState<IPendingAdoption | null>(null);
+    const [selectedAdoption, setSelectedAdoption] = useState<IForm | null>(null);
     const [isLoadingData, setIsLoadingData] = useState(true);
 
     useEffect(() => {
         // Check authentication and role
         if (!isLoading && !isAuthenticated) {
-            router.push("/login");
+            router.push(PublicRoutes.LOGIN);
             return;
         }
 
         if (!isLoading && isAuthenticated && user?.role === UserRole.VOLUNTEER) {
-            router.push("/unauthorized");
+            router.push(PublicRoutes.NAO_AUTORIZADO);
             return;
         }
 
@@ -40,7 +43,7 @@ export default function AdocoesPendentesContainer() {
         }
     }, [isLoading, isAuthenticated, user, router]);
 
-    const handleViewDetails = (adoption: IPendingAdoption) => {
+    const handleViewDetails = (adoption: IForm) => {
         setSelectedAdoption(adoption);
         setIsModalOpen(true);
     };
@@ -58,7 +61,7 @@ export default function AdocoesPendentesContainer() {
                 if (adoption.id === id) {
                     return {
                         ...adoption,
-                        status: newStatus as AdocaoStatusEnum,
+                        status: newStatus as FormStatusEnum,
                     };
                 }
                 return adoption;
@@ -66,14 +69,14 @@ export default function AdocoesPendentesContainer() {
         );
 
         const statusMessages = {
-            [AdocaoStatusEnum.APROVADO]: "Adoção aprovada com sucesso!",
-            [AdocaoStatusEnum.REJEITADO]: "Adoção rejeitada.",
-            [AdocaoStatusEnum.EM_ANALISE]: "Adoção marcada como em análise.",
-            [AdocaoStatusEnum.PENDENTE]: "Adoção marcada como pendente.",
+            [FormStatusEnum.APPROVED]: "Adoção aprovada com sucesso!",
+            [FormStatusEnum.REJECTED]: "Adoção rejeitada.",
+            [FormStatusEnum.IN_PROCESS]: "Adoção marcada como em análise.",
+            [FormStatusEnum.PENDENT]: "Adoção marcada como pendente.",
         };
 
         toast.success(
-            statusMessages[newStatus as AdocaoStatusEnum] || "Status atualizado com sucesso!"
+            statusMessages[newStatus as FormStatusEnum] || "Status atualizado com sucesso!"
         );
 
         if (isModalOpen) {
@@ -93,11 +96,11 @@ export default function AdocoesPendentesContainer() {
         <main className="bg-white min-h-screen">
             <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col item-center md:py-12">
                 <h1 className="text-primary-400 text-3xl leading-10 font-bold mb-6 md:text-4xl md:mb-10">
-                    Adoções Pendentes
+                    Formulários enviados
                 </h1>
 
                 <div className="w-full">
-                    <AdocoesPendentesTable
+                    <FormulariosPendentesTable
                         adoptions={pendingAdoptions}
                         onViewDetails={handleViewDetails}
                         onUpdateStatus={handleUpdateStatus}
@@ -105,7 +108,7 @@ export default function AdocoesPendentesContainer() {
                 </div>
 
                 {isModalOpen && selectedAdoption && (
-                    <AdocoesPendentesModal
+                    <FormulariosPendentesModal
                         adoption={selectedAdoption}
                         onClose={handleCloseModal}
                         onUpdateStatus={handleUpdateStatus}

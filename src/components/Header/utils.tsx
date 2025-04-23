@@ -9,30 +9,53 @@ import {
     FaHouse,
 } from "react-icons/fa6";
 
+export enum PublicRoutes {
+    HOME = "/",
+    ADOPTION = "/adocao",
+    SPONSORSHIP = "/apadrinhamento",
+    HAPPY_ENDINGS = "/finais-felizes",
+    PARTNERS = "/parceiros",
+    ABOUT_US = "/sobre-nos",
+    CONTACT = "/contato",
+    LOGIN = "/login",
+    NAO_AUTORIZADO = "/unathorized",
+}
+
+export enum PrivateRoutes {
+    DASHBOARD = "/volunteer",
+    ADOPTION_PENDING = "/volunteer/formularios-pendentes?formulario=adocao",
+    SPONSORSHIP_PENDING = "/volunteer/formularios-pendentes?formulario=apadrinhamento",
+    CONTACT_PENDING = "/volunteer/formularios-pendentes?formulario=contato",
+    MANAGE_DOGS = "/volunteer/gerenciar-cachorros",
+    MANAGE_HAPPY_ENDINGS = "/volunteer/gerenciar-finais-felizes",
+    MANAGE_PARTNERS = "/volunteer/gerenciar-parceiros",
+    MANAGE_USERS = "/volunteer/usuarios",
+}
+
 export const headerMenuLink = [
     {
         label: "Adoção",
-        path: "/adocao",
+        path: PublicRoutes.ADOPTION,
     },
     {
         label: "Apadrinhamento",
-        path: "/apadrinhamento",
+        path: PublicRoutes.SPONSORSHIP,
     },
     {
         label: "Finais Felizes",
-        path: "/finais-felizes",
+        path: PublicRoutes.HAPPY_ENDINGS,
     },
     {
         label: "Parceiros",
-        path: "/parceiros",
+        path: PublicRoutes.PARTNERS,
     },
     {
         label: "Sobre Nós",
-        path: "/sobre-nos",
+        path: PublicRoutes.ABOUT_US,
     },
     {
         label: "Contato",
-        path: "/contato",
+        path: PublicRoutes.CONTACT,
     },
 ];
 
@@ -42,37 +65,37 @@ export const getAuthenticatedLinks = (user: User | null) => {
     const links = [
         {
             title: "Dashboard",
-            href: "/volunteer",
+            href: PrivateRoutes.DASHBOARD,
             icon: <FaHouse className="w-5 h-5" />,
         },
         {
             title: "Adoções Pendentes",
-            href: "/adocoes-pendentes",
+            href: PrivateRoutes.ADOPTION_PENDING,
             icon: <FaDog className="w-5 h-5" />,
         },
         {
             title: "Apadrinhamentos Pendentes",
-            href: "/apadrinhamentos-pendentes",
+            href: PrivateRoutes.SPONSORSHIP_PENDING,
             icon: <FaUsers className="w-5 h-5" />,
         },
         {
             title: "Contatos Pendentes",
-            href: "/contatos-pendentes",
+            href: PrivateRoutes.CONTACT_PENDING,
             icon: <FaEnvelope className="w-5 h-5" />,
         },
         {
             title: "Gerenciar Cachorros",
-            href: "/gerenciar-cachorros",
+            href: PrivateRoutes.MANAGE_DOGS,
             icon: <FaPaw className="w-5 h-5" />,
         },
         {
             title: "Gerenciar Finais Felizes",
-            href: "/gerenciar-finais-felizes",
+            href: PrivateRoutes.MANAGE_HAPPY_ENDINGS,
             icon: <FaHeartCircleCheck className="w-5 h-5" />,
         },
         {
             title: "Gerenciar Parceiros",
-            href: "/gerenciar-parceiros",
+            href: PrivateRoutes.MANAGE_PARTNERS,
             icon: <FaHandshake className="w-5 h-5" />,
         },
     ];
@@ -80,9 +103,8 @@ export const getAuthenticatedLinks = (user: User | null) => {
     // Add admin-specific links
     if (user.role === UserRole.ADMIN) {
         links.push({
-            // TODO: LOOK HERE
-            title: "Admin",
-            href: "/admin",
+            title: "Gerenciar Usuários",
+            href: PrivateRoutes.MANAGE_USERS,
             icon: <FaUsers className="w-5 h-5" />,
         });
     }
