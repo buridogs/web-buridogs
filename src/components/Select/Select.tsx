@@ -8,6 +8,7 @@ interface SelectProps {
     error?: boolean;
     disabled?: boolean;
     shouldDisplayPlaceholder?: boolean;
+    isVerticalLabel?: boolean;
 }
 
 export default function Select({
@@ -20,13 +21,14 @@ export default function Select({
     error,
     disabled = false,
     shouldDisplayPlaceholder = false,
+    isVerticalLabel = false,
 }: SelectProps) {
     return (
-        <div className="flex items-center">
+        <div className={`flex ${isVerticalLabel ? "flex-col" : "items-center"}`}>
             {label && (
                 <label
                     htmlFor={id}
-                    className="mr-2 text-gray-700"
+                    className={`text-gray-700 ${isVerticalLabel ? "mb-1" : "mr-2"}`}
                 >
                     {label}:
                 </label>

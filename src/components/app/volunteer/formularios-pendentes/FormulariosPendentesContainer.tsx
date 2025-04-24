@@ -99,7 +99,7 @@ export default function FormulariosPendentesContainer() {
     }
 
     return (
-        <main className="bg-white min-h-screen">
+        <div className="bg-white min-h-screen">
             <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col item-center md:py-12">
                 <h1 className="text-primary-400 text-3xl leading-10 font-bold mb-6 md:text-4xl md:mb-10">
                     Formulários enviados
@@ -121,6 +121,6 @@ export default function FormulariosPendentesContainer() {
                     />
                 )}
             </div>
-        </main>
+        </div>
     );
 }
