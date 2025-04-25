@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/Button/Button";
-import { finaisFelizes } from "@/mock/finaisFelizesMock";
+import { dogs } from "@/mock/dogsMock";
 import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 export function FinaisFelizesSecao() {
-    const finaisFelizesHighlight = finaisFelizes.slice(0, 3);
+    const finaisFelizesHighlight = dogs.filter((d) => d.status === "finais-felizes").slice(0, 3);
 
     return (
         <section>
@@ -40,13 +40,15 @@ export function FinaisFelizesSecao() {
                         )}
                         items={finaisFelizesHighlight.map((dog) => (
                             <div
-                                key={dog.nome}
+                                key={dog.nomeExibicao}
                                 className="w-full flex flex-col items-center md:flex-row md:justify-evenly md:pl-2"
                             >
-                                {dog.imagemPrincipal ? (
+                                {dog.images?.find((i) => i.type === "main")?.src ? (
                                     <Image
-                                        src={generateImgURL(dog.imagemPrincipal)}
-                                        alt={dog.nome}
+                                        src={generateImgURL(
+                                            dog.images?.find((i) => i.type === "main")?.src ?? "" // TODO: CHECK THIS
+                                        )}
+                                        alt={dog.nomeExibicao}
                                         width={280}
                                         height={280}
                                         className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-[50%] object-cover"
@@ -60,7 +62,7 @@ export function FinaisFelizesSecao() {
                                         className="group py-3 px-4 rounded-[40px] bg-gray-50 mb-5 mt-4 transition duration-150 hover:bg-gray-100"
                                     >
                                         <span className="uppercase font-medium text-gray-400 transition duration-150 group-hover:text-white">
-                                            {dog.nome}
+                                            {dog.nomeExibicao}
                                         </span>
                                     </Link>
                                     <div className="w-full h-fit flex items-start md:max-w-lg lg:max-w-xl">

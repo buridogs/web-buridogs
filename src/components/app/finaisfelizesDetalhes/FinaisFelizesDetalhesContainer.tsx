@@ -1,10 +1,10 @@
 "use client";
-import { IFinalFeliz } from "@/interfaces/finaisFelizesInterfaces";
-import { finaisFelizes } from "@/mock/finaisFelizesMock";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import FinaisFelizesDetalhesInfo from "./FinaisFelizesDetalhesInfo";
 import FinaisFelizesAntesDepoisInfo from "./FinaisFelizesAntesDepoisInfo";
+import { dogs } from "@/mock/dogsMock";
+import { IDog } from "@/interfaces/dogInterfaces";
 
 interface FinaisFelizesDetalhesContainerProps {
     slug?: string;
@@ -13,16 +13,15 @@ interface FinaisFelizesDetalhesContainerProps {
 export default function FinaisFelizesDetalhesContainer({
     slug,
 }: FinaisFelizesDetalhesContainerProps) {
-    const [finalFelizSelecionado, setFinalFelizSelecionado] = useState<IFinalFeliz>(
-        {} as IFinalFeliz
-    );
+    const [finalFelizSelecionado, setFinalFelizSelecionado] = useState<IDog>({} as IDog);
 
     useEffect(() => {
         if (slug) {
             const idAnimalSelecionado = slug.split("-")[0];
             setFinalFelizSelecionado(
-                finaisFelizes.find((c) => c.id.toString() === idAnimalSelecionado) ??
-                    ({} as IFinalFeliz)
+                dogs.find(
+                    (c) => c.status === "finais-felizes" && c.id.toString() === idAnimalSelecionado
+                ) ?? ({} as IDog)
             );
         }
     }, [slug]);
@@ -37,15 +36,29 @@ export default function FinaisFelizesDetalhesContainer({
                     </p>
                     <FinaisFelizesAntesDepoisInfo
                         label="Antes"
-                        nome={finalFelizSelecionado.nome}
-                        imagensUrl={finalFelizSelecionado.imagensUrlAntes}
-                        youtubeUrlId={finalFelizSelecionado.youtubeUrlIdAntes}
+                        nome={finalFelizSelecionado.nomeExibicao}
+                        imagensUrl={
+                            finalFelizSelecionado.images
+                                ?.filter((i) => i.type === "before")
+                                .map((i) => i.src) ?? []
+                        }
+                        youtubeUrlId={
+                            finalFelizSelecionado.youtubeVideos?.find((i) => i.type === "before")
+                                ?.src
+                        }
                     />
                     <FinaisFelizesAntesDepoisInfo
                         label="Depois"
-                        nome={finalFelizSelecionado.nome}
-                        imagensUrl={finalFelizSelecionado.imagensUrlDepois}
-                        youtubeUrlId={finalFelizSelecionado.youtubeUrlIdDepois}
+                        nome={finalFelizSelecionado.nomeExibicao}
+                        imagensUrl={
+                            finalFelizSelecionado.images
+                                ?.filter((i) => i.type === "after")
+                                .map((i) => i.src) ?? []
+                        }
+                        youtubeUrlId={
+                            finalFelizSelecionado.youtubeVideos?.find((i) => i.type === "after")
+                                ?.src
+                        }
                     />
                 </section>
                 <h2 className="text-primary-400 text-3xl font-medium text-center leading-10">

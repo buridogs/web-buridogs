@@ -1,31 +1,29 @@
 "use client";
 
-import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
-import { cachorrosAdocao } from "@/mock/adocaoMock";
 import { useEffect, useState } from "react";
 import AdocaoDetalhesInfo from "./AdocaoDetalhesInfo";
 import AdocaoDetalhesForm from "./AdocaoDetalhesForm";
+import { dogs } from "@/mock/dogsMock";
+import { IDog } from "@/interfaces/dogInterfaces";
 
 interface AdocaoDetalhesContainerProps {
     slug?: string;
 }
 
 export default function AdocaoDetalhesContainer({ slug }: AdocaoDetalhesContainerProps) {
-    const [cachorroSelecionado, setCachorroSelecionado] = useState<IAdocaoDetails>(
-        {} as IAdocaoDetails
-    );
+    const [cachorroSelecionado, setCachorroSelecionado] = useState<IDog>({} as IDog);
 
-    const cachorrosIncapacitados = cachorrosAdocao.filter(
-        (cachorro) => !!cachorro.possuiAlgumaInaptidao
-    );
+    const cachorrosIncapacitados = dogs.filter((cachorro) => !!cachorro.possuiAlgumaInaptidao);
 
     useEffect(() => {
         if (slug) {
             const idAnimalSelecionado = slug.split("-")[0];
             setCachorroSelecionado(
-                cachorrosAdocao
+                dogs
                     .concat(cachorrosIncapacitados)
-                    .find((c) => c.id.toString() === idAnimalSelecionado) ?? ({} as IAdocaoDetails)
+                    .find(
+                        (c) => c.status === "adocao" && c.id.toString() === idAnimalSelecionado
+                    ) ?? ({} as IDog)
             );
         }
     }, [cachorrosIncapacitados, slug]);

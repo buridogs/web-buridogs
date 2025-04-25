@@ -5,12 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LuArrowLeft } from "react-icons/lu";
-import {
-    AdocaoGeneroEnum,
-    AdocaoIdadeEnum,
-    AdocaoPorteEnum,
-    IAdocaoDetails,
-} from "@/interfaces/adocaoInterfaces";
+import { AdocaoGeneroEnum, AdocaoIdadeEnum, AdocaoPorteEnum } from "@/interfaces/adocaoInterfaces";
 import { toast } from "react-toastify";
 import Form from "@/components/Form/Form";
 import {
@@ -21,6 +16,7 @@ import {
 import { IDogForm } from "../shared/GerenciarCachorrosNovoTypes";
 import { useEffect, useState } from "react";
 import { cachorrosMock } from "../../components/mock";
+import { IDog } from "@/interfaces/dogInterfaces";
 
 export default function GerenciarCachorrosNovoContainer() {
     const router = useRouter();
@@ -79,18 +75,29 @@ export default function GerenciarCachorrosNovoContainer() {
 
             // This is where you would handle image uploading and API request
             // Example structure of data to match IAdocaoDetails
-            const dogData: IAdocaoDetails = {
+            const dogData: IDog = {
                 id: Math.floor(Math.random() * 1000),
                 nomeExibicao: data.nomeExibicao,
-                nomeURL: data.nomeExibicao.toLowerCase().replace(/\s+/g, "-"),
+                slug: data.nomeExibicao.toLowerCase().replace(/\s+/g, "-"),
+                status: data.status,
                 genero: data.genero as AdocaoGeneroEnum,
                 idade: data.idade as AdocaoIdadeEnum,
                 porte: data.porte as AdocaoPorteEnum,
                 descricao: data.descricao,
                 possuiAlgumaInaptidao: data.possuiAlgumaInaptidao === "true",
-                imageSrc: "/placeholder.jpg", // Would come from uploaded image
-                descricaoLonga: data.descricaoLonga,
-                youtubeSrcUrl: data.youtubeSrcUrlAntes,
+                images: [
+                    {
+                        src: "/placeholder.jpg",
+                        alt: "Placeholder image",
+                        type: "main",
+                    },
+                ], // Would come from uploaded image
+                youtubeVideos: [
+                    {
+                        src: data.youtubeSrcUrlAntes ?? "",
+                        type: "common",
+                    },
+                ],
             };
 
             console.log("Submitted dog data:", dogData);

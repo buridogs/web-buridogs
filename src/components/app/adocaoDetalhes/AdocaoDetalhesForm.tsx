@@ -6,12 +6,12 @@ import { toast } from "react-toastify";
 import { ADOCAO_FORMS_CONFIG, schemaAdocaoForm } from "./AdocaoDetalhesUtils";
 import { IAdocaoForm } from "./AdocaoDetalhesTypes";
 import Form from "@/components/Form/Form";
-import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
 import { blobServiceClient, uploadBlobFromBuffer } from "@/services/azure-blob/azure-blob";
 import { sendEmailFunctionAdocaoForm } from "@/services/azure-function/send-email-adocao/send-email-function-adocao-form";
+import { IDog } from "@/interfaces/dogInterfaces";
 
 interface AdocaoDetalhesFormProps {
-    cachorroSelecionado: IAdocaoDetails;
+    cachorroSelecionado: IDog;
 }
 
 export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalhesFormProps) {

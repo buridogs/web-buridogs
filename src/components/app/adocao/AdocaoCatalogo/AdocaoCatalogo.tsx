@@ -3,10 +3,11 @@ import { estadoInicialFiltrosAdocao } from "../AdocaoUtils";
 import { useEffect, useState } from "react";
 import { AdocaoFiltros } from "./AdocaoFiltros";
 import { AdocaoCachorroCard } from "./AdocaoCachorroCard";
-import { cachorrosAdocao } from "@/mock/adocaoMock";
-import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
+import { dogs } from "@/mock/dogsMock";
+import { IDog } from "@/interfaces/dogInterfaces";
 
 export function AdocaoCatalogo() {
+    const cachorrosAdocao = dogs.filter((cachorro) => cachorro.status === "adocao");
     const [filtrosSelecionados, setFiltrosSelecionados] = useState<Record<string, string[]>>({
         ...estadoInicialFiltrosAdocao,
     });
@@ -17,7 +18,7 @@ export function AdocaoCatalogo() {
             return Object.entries(filtrosSelecionados).every(
                 (filtro) =>
                     !filtro[1].length ||
-                    filtro[1].includes(cachorro[filtro[0] as keyof IAdocaoDetails] as string)
+                    filtro[1].includes(cachorro[filtro[0] as keyof IDog] as string)
             );
         });
 

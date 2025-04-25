@@ -1,19 +1,20 @@
-import { AdocaoFiltrosEnum, IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
+import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
+import { IDog } from "@/interfaces/dogInterfaces";
 import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 
 interface AdocaoEspecialCardProps {
-    dog: IAdocaoDetails;
+    dog: IDog;
 }
 
 export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {
-    const { id, descricao, genero, idade, imageSrc, nomeExibicao, nomeURL, porte, imagesSrc } = dog;
+    const { id, descricao, genero, idade, images, nomeExibicao, slug, porte } = dog;
     const labelGenero = returnFormattedOptionLabel(AdocaoFiltrosEnum.genero, genero);
     const labelIdade = returnFormattedOptionLabel(AdocaoFiltrosEnum.idade, idade);
     const labelPorte = returnFormattedOptionLabel(AdocaoFiltrosEnum.porte, porte);
 
-    const image = imagesSrc ? imagesSrc[0] : imageSrc;
+    const image = images?.find((img) => img.type === "main")?.src ?? images?.[0]?.src;
 
     return (
         <div className="py-6 flex flex-row items-center justify-center">
@@ -33,9 +34,7 @@ export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {
                         <p className="text-gray-100 text-sm mt-4 mb-4">{descricao}</p>
                     </div>
                     <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
-                        <Link href={`/adocao/${id}-${nomeURL.replaceAll(" ", "")}`}>
-                            Quero adotar esse
-                        </Link>
+                        <Link href={`/adocao/${id}-${slug}`}>Quero adotar esse</Link>
                     </button>
                 </div>
             </div>

@@ -1,7 +1,7 @@
-import { IFinalFeliz } from "@/interfaces/finaisFelizesInterfaces";
+import { IDog } from "@/interfaces/dogInterfaces";
 
 interface FinaisFelizesInstrucoesProps {
-    finaisFelizes: IFinalFeliz[];
+    finaisFelizes: IDog[];
 }
 
 export default function FinaisFelizesInstrucoes({ finaisFelizes }: FinaisFelizesInstrucoesProps) {

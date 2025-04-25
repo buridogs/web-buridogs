@@ -1,19 +1,20 @@
-import { AdocaoFiltrosEnum, IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
+import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
 import Image from "next/image";
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight, FaDog } from "react-icons/fa6";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { MdBedroomBaby } from "react-icons/md";
 import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
+import { IDog } from "@/interfaces/dogInterfaces";
 
 interface AdocaoDetalhesInfoProps {
-    cachorroSelecionado: IAdocaoDetails;
+    cachorroSelecionado: IDog;
 }
 
 export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalhesInfoProps) {
-    const image = cachorroSelecionado.imagesSrc
-        ? cachorroSelecionado.imagesSrc[0]
-        : cachorroSelecionado.imageSrc;
+    const image =
+        cachorroSelecionado.images?.find((i) => i.type === "main")?.src ??
+        cachorroSelecionado.images?.[0]?.src;
 
     const renderImagens = (nomeCachorro: string, imagens?: string[]) => {
         if (!imagens?.length || imagens?.length === 1) return null;
@@ -116,9 +117,12 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                     </span>
                 </div>
             </div>
-            <p className="text-gray-400 text-base my-6">{cachorroSelecionado.descricaoLonga}</p>
-            {renderImagens(cachorroSelecionado.nomeExibicao, cachorroSelecionado.imagesSrc)}
-            {cachorroSelecionado.youtubeSrcUrl ? (
+            <p className="text-gray-400 text-base my-6">{cachorroSelecionado.descricao}</p>
+            {renderImagens(
+                cachorroSelecionado.nomeExibicao,
+                cachorroSelecionado.images?.map((i) => i.src)
+            )}
+            {cachorroSelecionado.youtubeVideos?.find((v) => v.type === "common")?.src ? (
                 <section className="mt-8 w-full h-[300px] flex flex-col items-start lg:w-[800px] lg:h-[480px] mx-auto">
                     <h2 className="text-primary-400 text-2xl font-medium mb-4">
                         Veja também um vídeo dele(a)
@@ -127,7 +131,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                         title={`Vídeo do ${cachorroSelecionado.nomeExibicao}`}
                         width="100%"
                         height="100%"
-                        src={`https://www.youtube.com/embed/${cachorroSelecionado.youtubeSrcUrl}`}
+                        src={`https://www.youtube.com/embed/${cachorroSelecionado.youtubeVideos?.find((v) => v.type === "common")?.src}`}
                     ></iframe>
                 </section>
             ) : null}

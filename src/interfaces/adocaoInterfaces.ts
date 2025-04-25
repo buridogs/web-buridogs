@@ -24,22 +24,6 @@ export enum AdocaoPorteEnum {
 
 export type AdocaoPorteType = "mini" | "pequeno-porte" | "medio-porte" | "grande-porte";
 
-// TODO: CONVERT TO IDOG
-export interface IAdocaoDetails {
-    id: number;
-    imageSrc: string;
-    nomeExibicao: string;
-    nomeURL: string;
-    genero: AdocaoGeneroType;
-    idade: AdocaoIdadeType;
-    porte: AdocaoPorteType;
-    descricao: string;
-    possuiAlgumaInaptidao?: boolean;
-    imagesSrc?: string[];
-    descricaoLonga?: string;
-    youtubeSrcUrl?: string;
-}
-
 export enum AdocaoFiltrosEnum {
     genero = "genero",
     idade = "idade",
