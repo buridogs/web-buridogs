@@ -33,6 +33,10 @@ export const schema = yup
                 MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.grande).tamanhoMaximo
             )
             .required(MENSAGENS_ERRO().campoObrigatorio),
+        status: yup
+            .string()
+            .oneOf(["adocao", "finais-felizes"], "Selecione uma opção válida")
+            .required(MENSAGENS_ERRO().campoObrigatorio),
         possuiAlgumaInaptidao: yup
             .string()
             .oneOf(["true", "false"], "Selecione uma opção válida")
@@ -99,6 +103,23 @@ export const getBaseFormConfig = (): GeneralFormsType<IDogForm>[] => [
                     label: "Nome do Cachorro",
                     placeholder: "Ex: Thor",
                     type: InputFormEnum.text,
+                },
+                {
+                    key: "status",
+                    label: "Status",
+                    type: InputFormEnum.radio,
+                    options: [
+                        {
+                            key: "adocao",
+                            label: "Adoção",
+                            value: "adocao",
+                        },
+                        {
+                            key: "finais-felizes",
+                            label: "Finais Felizes",
+                            value: "finais-felizes",
+                        },
+                    ],
                 },
             ],
             rightSide: [

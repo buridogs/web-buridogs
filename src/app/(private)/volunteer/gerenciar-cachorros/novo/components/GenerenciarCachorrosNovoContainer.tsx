@@ -19,19 +19,20 @@ import {
     schema,
 } from "../shared/GerenciarCachorrosNovoUtils";
 import { IDogForm } from "../shared/GerenciarCachorrosNovoTypes";
-import { useEffect } from "react";
-import { cachorrosMock } from "../../components/GerenciarCachorrosContainer";
+import { useEffect, useState } from "react";
+import { cachorrosMock } from "../../components/mock";
 
 export default function GerenciarCachorrosNovoContainer() {
     const router = useRouter();
-    const isHappyEndingMode = useSearchParams().get("happy-ending") !== null;
     const dogIdEditMode = useSearchParams().get("dogId");
+    const [isHappyEndingMode, setIsHappyEndingMode] = useState(false);
 
     const {
         register,
         handleSubmit,
         formState: { errors },
         setValue,
+        watch,
     } = useForm<IDogForm>({
         resolver: yupResolver(schema),
         context: { showExtendedFields: isHappyEndingMode },
@@ -40,13 +41,25 @@ export default function GerenciarCachorrosNovoContainer() {
         },
     });
 
+    const watchDogStatus = watch("status");
+
+    useEffect(() => {
+        if (watchDogStatus === "finais-felizes") {
+            setIsHappyEndingMode(true);
+        } else {
+            setIsHappyEndingMode(false);
+        }
+    }, [watchDogStatus]);
+
     useEffect(() => {
         if (dogIdEditMode) {
             // Fetch dog data by ID and set default values
             const foundDog = cachorrosMock.find((dog) => dog.id.toString() === dogIdEditMode);
             if (foundDog) {
+                setIsHappyEndingMode(foundDog?.status === "finais-felizes");
                 console.log("Dog found for edit mode:", foundDog);
                 setValue("nomeExibicao", foundDog.nomeExibicao);
+                setValue("status", foundDog.status);
                 setValue("genero", foundDog.genero as AdocaoGeneroEnum);
                 setValue("idade", foundDog.idade as AdocaoIdadeEnum);
                 setValue("porte", foundDog.porte as AdocaoPorteEnum);

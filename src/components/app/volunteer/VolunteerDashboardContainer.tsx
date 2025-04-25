@@ -1,11 +1,11 @@
 "use client";
 
 import ProtectedRoute from "@/components/app/auth/ProtectedRoute";
-import { PrivateRoutes } from "@/components/Header/utils";
+import { PrivateRoutes } from "@/components/Header/routes-ui";
 import { UserRole } from "@/interfaces/authInterfaces";
 import { useAuth } from "@/providers/auth/AuthProvider";
 import Link from "next/link";
-import { FaDog, FaHandHoldingHeart, FaEnvelope, FaPaw, FaHeart, FaHandshake } from "react-icons/fa";
+import { FaEnvelope, FaPaw, FaHandshake } from "react-icons/fa";
 
 export default function VolunteerDashboardContainer() {
     const { user, logout } = useAuth();
@@ -43,56 +43,6 @@ export default function VolunteerDashboardContainer() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                         <div className="bg-white p-6 rounded-lg shadow border border-gray-100">
                             <div className="flex items-start">
-                                <FaDog className="text-primary-400 text-2xl mr-3 mt-1" />
-                                <div>
-                                    <h3 className="text-lg font-semibold text-primary-700 mb-2">
-                                        Adoções Pendentes
-                                    </h3>
-                                    <p className="text-gray-600 mb-4">
-                                        Solicitações de adoção para aprovação
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="bg-blue-50 p-3 rounded">
-                                <p className="text-blue-800 text-sm">
-                                    5 solicitações para analisar
-                                </p>
-                            </div>
-                            <Link
-                                href={PrivateRoutes.ADOPTION_PENDING}
-                                className="mt-4 inline-block text-primary-400 font-medium hover:text-primary-700 transition-colors"
-                            >
-                                Ver detalhes &rarr;
-                            </Link>
-                        </div>
-
-                        <div className="bg-white p-6 rounded-lg shadow border border-gray-100">
-                            <div className="flex items-start">
-                                <FaHandHoldingHeart className="text-primary-400 text-2xl mr-3 mt-1" />
-                                <div>
-                                    <h3 className="text-lg font-semibold text-primary-700 mb-2">
-                                        Apadrinhamentos Pendentes
-                                    </h3>
-                                    <p className="text-gray-600 mb-4">
-                                        Solicitações de apadrinhamento para aprovação
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="bg-green-50 p-3 rounded">
-                                <p className="text-green-800 text-sm">
-                                    3 solicitações para analisar
-                                </p>
-                            </div>
-                            <Link
-                                href={PrivateRoutes.SPONSORSHIP_PENDING}
-                                className="mt-4 inline-block text-primary-400 font-medium hover:text-primary-700 transition-colors"
-                            >
-                                Ver detalhes &rarr;
-                            </Link>
-                        </div>
-
-                        <div className="bg-white p-6 rounded-lg shadow border border-gray-100">
-                            <div className="flex items-start">
                                 <FaEnvelope className="text-primary-400 text-2xl mr-3 mt-1" />
                                 <div>
                                     <h3 className="text-lg font-semibold text-primary-700 mb-2">
@@ -107,7 +57,7 @@ export default function VolunteerDashboardContainer() {
                                 <p className="text-amber-800 text-sm">7 mensagens não lidas</p>
                             </div>
                             <Link
-                                href={PrivateRoutes.CONTACT_PENDING}
+                                href={PrivateRoutes.REQUESTS_PENDING}
                                 className="mt-4 inline-block text-primary-400 font-medium hover:text-primary-700 transition-colors"
                             >
                                 Ver detalhes &rarr;
@@ -134,26 +84,6 @@ export default function VolunteerDashboardContainer() {
                             </div>
                             <Link
                                 href={PrivateRoutes.MANAGE_DOGS}
-                                className="mt-4 inline-block text-primary-400 font-medium hover:text-primary-700 transition-colors"
-                            >
-                                Gerenciar &rarr;
-                            </Link>
-                        </div>
-
-                        <div className="bg-white p-6 rounded-lg shadow border border-gray-100">
-                            <div className="flex items-start">
-                                <FaHeart className="text-primary-400 text-2xl mr-3 mt-1" />
-                                <div>
-                                    <h3 className="text-lg font-semibold text-primary-700 mb-2">
-                                        Gerenciar Finais Felizes
-                                    </h3>
-                                    <p className="text-gray-600 mb-4">
-                                        Adicionar, editar ou remover histórias de sucesso
-                                    </p>
-                                </div>
-                            </div>
-                            <Link
-                                href={PrivateRoutes.MANAGE_HAPPY_ENDINGS}
                                 className="mt-4 inline-block text-primary-400 font-medium hover:text-primary-700 transition-colors"
                             >
                                 Gerenciar &rarr;

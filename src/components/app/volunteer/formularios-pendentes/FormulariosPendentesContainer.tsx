@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/providers/auth/AuthProvider";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FormulariosPendentesTable } from "./FormulariosPendentesTable";
 import { FormulariosPendentesModal } from "./FormulariosPendentesModal";
@@ -12,15 +12,13 @@ import {
 } from "@/mock/pendingAdocaoMock";
 import { toast } from "react-toastify";
 import { UserRole } from "@/interfaces/authInterfaces";
-import { PublicRoutes } from "@/components/Header/utils";
 import { FormStatusEnum, IForm } from "@/interfaces/formularioInterfaces";
+import { PublicRoutes } from "@/components/Header/routes-ui";
 
 // TODO: REFACTOR THIS COMPONENT
 export default function FormulariosPendentesContainer() {
     const { user, isAuthenticated, isLoading } = useAuth();
     const router = useRouter();
-    const formQueryParam = useSearchParams().get("formulario");
-    console.log("pathname", formQueryParam);
     const [pendingAdoptions, setPendingAdoptions] = useState<IForm[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedAdoption, setSelectedAdoption] = useState<IForm | null>(null);

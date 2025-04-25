@@ -1,7 +1,7 @@
 // This file should be placed at the root level of your project, alongside package.json
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { PrivateRoutes } from "./components/Header/utils";
+import { PrivateRoutes } from "./components/Header/routes-ui";
 
 export async function middleware(request: NextRequest) {
     // Get token from cookies

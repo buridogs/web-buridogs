@@ -4,7 +4,7 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
 import { generateImgURL } from "@/utils/methods";
 import { User } from "@/interfaces/authInterfaces";
-import { PrivateRoutes } from "../utils";
+import { PrivateRoutes } from "../routes-ui";
 
 interface HeaderMobileProps {
     isOpen: boolean;

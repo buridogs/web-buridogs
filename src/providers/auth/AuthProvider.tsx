@@ -1,6 +1,6 @@
 "use client";
 
-import { PrivateRoutes } from "@/components/Header/utils";
+import { PrivateRoutes } from "@/components/Header/routes-ui";
 import { AuthContextType, LoginCredentials, User } from "@/interfaces/authInterfaces";
 import { loginUser, verifyToken } from "@/services/api/auth/service/authService";
 import {

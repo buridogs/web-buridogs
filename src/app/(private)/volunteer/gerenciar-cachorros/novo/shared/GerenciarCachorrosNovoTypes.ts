@@ -1,11 +1,12 @@
 import { AdocaoGeneroEnum, AdocaoIdadeEnum, AdocaoPorteEnum } from "@/interfaces/adocaoInterfaces";
 
-// TODO: CHECK IT
+// TODO: SHOULD MATCH THE IDOG INTERFACE
 export interface IDogForm {
     nomeExibicao: string;
     genero: AdocaoGeneroEnum;
     idade: AdocaoIdadeEnum;
     porte: AdocaoPorteEnum;
+    status: "adocao" | "finais-felizes"; // TODO: CHECK THIS
     descricao: string;
     possuiAlgumaInaptidao: "true" | "false";
     // Advanced fields

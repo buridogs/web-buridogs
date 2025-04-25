@@ -1,11 +1,12 @@
-import { AdocaoFiltrosEnum, IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
+import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
+import { IDog } from "@/interfaces/dogInterfaces";
 import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 import { LuPencil } from "react-icons/lu";
 
 interface AdocaoCachorroCardProps {
-    cachorroInformacao: IAdocaoDetails;
+    cachorroInformacao: IDog;
     isManagementMode?: boolean;
 }
 
@@ -13,13 +14,12 @@ export function AdocaoCachorroCard({
     cachorroInformacao,
     isManagementMode = false,
 }: AdocaoCachorroCardProps) {
-    const { id, descricao, genero, idade, imageSrc, nomeExibicao, nomeURL, porte, imagesSrc } =
-        cachorroInformacao;
+    const { id, descricao, genero, idade, images, nomeExibicao, slug, porte } = cachorroInformacao;
     const labelGenero = returnFormattedOptionLabel(AdocaoFiltrosEnum.genero, genero);
     const labelIdade = returnFormattedOptionLabel(AdocaoFiltrosEnum.idade, idade);
     const labelPorte = returnFormattedOptionLabel(AdocaoFiltrosEnum.porte, porte);
 
-    const image = imagesSrc ? imagesSrc[0] : imageSrc;
+    const image = images?.find((img) => img.type === "main")?.src;
 
     return (
         <div className="max-w-full w-[344px] flex flex-col items-start rounded shadow-[0px_1px_3px_0px_rgba(0,0,0,0.20),0px_2px_1px_0px_rgba(0,0,0,0.12),0px_1px_1px_0px_rgba(0,0,0,0.14)]">
@@ -57,9 +57,7 @@ export function AdocaoCachorroCard({
                     </div>
                 ) : (
                     <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
-                        <Link href={`/adocao/${id}-${nomeURL.replaceAll(" ", "")}`}>
-                            Quero adotar esse
-                        </Link>
+                        <Link href={`/adocao/${id}-${slug}`}>Quero adotar esse</Link>
                     </button>
                 )}
             </div>

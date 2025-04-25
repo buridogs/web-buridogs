@@ -24,6 +24,7 @@ export enum AdocaoPorteEnum {
 
 export type AdocaoPorteType = "mini" | "pequeno-porte" | "medio-porte" | "grande-porte";
 
+// TODO: CONVERT TO IDOG
 export interface IAdocaoDetails {
     id: number;
     imageSrc: string;

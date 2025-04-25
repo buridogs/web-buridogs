@@ -1,3 +1,4 @@
+// TODO: CONVERT TO IDOG
 export interface IFinalFeliz {
     id: number;
     nome: string;

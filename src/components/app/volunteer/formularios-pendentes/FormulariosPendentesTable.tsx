@@ -3,8 +3,7 @@
 import Select from "@/components/Select/Select";
 import { FormAvailableEnum, FormStatusEnum, IForm } from "@/interfaces/formularioInterfaces";
 import { formatDatetimePTBR } from "@/utils/methods";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { FaDeleteLeft } from "react-icons/fa6";
@@ -32,8 +31,6 @@ export function FormulariosPendentesTable({
     const [typeFilter, setTypeFilter] = useState<string>("all");
     const [searchTerm, setSearchTerm] = useState<string>("");
 
-    const queryForm = useSearchParams().get("formulario");
-
     const filteredAdoptions = useMemo(() => {
         return adoptions.filter((adoption) => {
             const matchesStatus =
@@ -47,14 +44,6 @@ export function FormulariosPendentesTable({
             return matchesStatus && matchesSearch;
         });
     }, [statusFilter, typeFilter, searchTerm, adoptions]);
-
-    useEffect(() => {
-        if (queryForm) {
-            const formType = queryForm.toUpperCase() as FormAvailableEnum;
-            console.log("formType", formType);
-            setTypeFilter(formType);
-        }
-    }, [queryForm]);
 
     return (
         <div className="w-full">
