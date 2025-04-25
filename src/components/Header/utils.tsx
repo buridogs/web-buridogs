@@ -9,6 +9,7 @@ import {
     FaHouse,
 } from "react-icons/fa6";
 
+// TODO: CHANGE THIS TO A CONSTANT FILE
 export enum PublicRoutes {
     HOME = "/",
     ADOPTION = "/adocao",
