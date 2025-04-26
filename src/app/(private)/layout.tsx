@@ -12,17 +12,27 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [isClient, setIsClient] = useState(false);
     const pathname = usePathname();
     const { isAuthenticated, logout, user } = useAuth();
     const authLinks = getAuthenticatedLinks(user);
 
+    // Initialize state from localStorage only after component mounts (client-side)
+    useEffect(() => {
+        setIsClient(true);
+        const storedCollapsedState = localStorage.getItem("isCollapsed") === "true";
+        setIsCollapsed(storedCollapsedState);
+    }, []);
+
     // Check if we're on mobile when component mounts and when window resizes
     useEffect(() => {
+        if (!isClient) return;
+
         const checkIfMobile = () => {
             setIsMobile(window.innerWidth < 1024);
             // Auto-collapse sidebar on mobile
             if (window.innerWidth < 1024) {
-                setIsCollapsed(true);
+                handleCollapsed(true);
             }
         };
 
@@ -41,6 +51,11 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
         setIsNavOpen(false);
     };
 
+    const handleCollapsed = (value: boolean) => {
+        localStorage.setItem("isCollapsed", JSON.stringify(value));
+        setIsCollapsed(value);
+    };
+
     if (!isAuthenticated) return null;
 
     return (
@@ -48,7 +63,7 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
             {/* Desktop Sidebar */}
             <PrivateHeaderDesktop
                 isCollapsed={isCollapsed}
-                setIsCollapsed={setIsCollapsed}
+                setIsCollapsed={handleCollapsed}
                 pathname={pathname}
                 handleLogout={handleLogout}
                 authenticatedLinks={authLinks}
