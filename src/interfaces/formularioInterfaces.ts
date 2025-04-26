@@ -1,6 +1,6 @@
 export enum FormStatusEnum {
     PENDENT = "PENDENT",
-    APPROVED = "APPROVED",
+    SOLVED = "SOLVED",
     REJECTED = "REJECTED",
     IN_PROCESS = "IN_PROCESS",
 }
@@ -12,7 +12,7 @@ export enum FormAvailableEnum {
 }
 
 export type FormStatusType =
-    | FormStatusEnum.APPROVED
+    | FormStatusEnum.SOLVED
     | FormStatusEnum.PENDENT
     | FormStatusEnum.REJECTED
     | FormStatusEnum.IN_PROCESS;

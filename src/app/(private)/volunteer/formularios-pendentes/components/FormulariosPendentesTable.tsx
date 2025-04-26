@@ -6,10 +6,12 @@ import { formatDatetimePTBR } from "@/utils/methods";
 import { useMemo, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-import { FaDeleteLeft } from "react-icons/fa6";
+import { FaTrashCan } from "react-icons/fa6";
 import { MdPending } from "react-icons/md";
 import { TbZoomQuestion } from "react-icons/tb";
 import {
+    getFilterOptionsFormType,
+    getFilterOptionsStatus,
     getStatusBadgeClass,
     getStatusText,
     getTypeBadgeClass,
@@ -50,25 +52,14 @@ export function FormulariosPendentesTable({
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
                 <Select
                     id="statusFilter"
-                    options={[
-                        { value: "all", label: "Todos" },
-                        { value: FormStatusEnum.PENDENT, label: "Pendente" },
-                        { value: FormStatusEnum.APPROVED, label: "Aprovado" },
-                        { value: FormStatusEnum.REJECTED, label: "Rejeitado" },
-                        { value: FormStatusEnum.IN_PROCESS, label: "Em Análise" },
-                    ]}
+                    options={getFilterOptionsStatus()}
                     value={statusFilter}
                     onChange={(value) => setStatusFilter(value)}
                     label="Status"
                 />
                 <Select
                     id="typeFilter"
-                    options={[
-                        { value: "all", label: "Todos" },
-                        { value: FormAvailableEnum.ADOPTION, label: "Adoção" },
-                        { value: FormAvailableEnum.SPONSORSHIP, label: "Apadrinhamento" },
-                        { value: FormAvailableEnum.CONTACT, label: "Contato" },
-                    ]}
+                    options={getFilterOptionsFormType()}
                     value={typeFilter}
                     onChange={(value) => setTypeFilter(value)}
                     label="Tipo Formulário"
@@ -130,7 +121,7 @@ export function FormulariosPendentesTable({
                         {filteredAdoptions.length > 0 ? (
                             filteredAdoptions.map((adoption) => (
                                 <tr
-                                    key={adoption.id}
+                                    key={`${adoption.id}-${adoption.name}`}
                                     className="hover:bg-gray-50"
                                 >
                                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -169,18 +160,16 @@ export function FormulariosPendentesTable({
                                                 onClick={() =>
                                                     onUpdateStatus(
                                                         adoption.id,
-                                                        FormStatusEnum.APPROVED
+                                                        FormStatusEnum.SOLVED
                                                     )
                                                 }
-                                                disabled={
-                                                    adoption.status === FormStatusEnum.APPROVED
-                                                }
+                                                disabled={adoption.status === FormStatusEnum.SOLVED}
                                                 className={`text-green-600 hover:text-green-800 p-1 rounded-full hover:bg-green-100 transition-colors ${
-                                                    adoption.status === FormStatusEnum.APPROVED
+                                                    adoption.status === FormStatusEnum.SOLVED
                                                         ? "opacity-50 cursor-not-allowed"
                                                         : ""
                                                 }`}
-                                                title="Aprovar"
+                                                title="Marcar como resolvido"
                                             >
                                                 <FaCheck size={16} />
                                             </button>
@@ -200,9 +189,9 @@ export function FormulariosPendentesTable({
                                                             ? "opacity-50 cursor-not-allowed"
                                                             : ""
                                                     }`}
-                                                    title="Rejeitar adoção"
+                                                    title="Marcar como rejeitado"
                                                 >
-                                                    <FaDeleteLeft size={16} />
+                                                    <FaTrashCan size={16} />
                                                 </button>
                                             )}
                                             {adoption.form_type === FormAvailableEnum.ADOPTION && (

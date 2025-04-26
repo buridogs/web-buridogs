@@ -1,12 +1,13 @@
 "use client";
 
 import Select from "@/components/Select/Select";
-import { IVoluntarios, PermissaoEnum } from "@/interfaces/voluntariosInterfaces";
+import { IVoluntarios } from "@/interfaces/voluntariosInterfaces";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { FaRegTrashCan } from "react-icons/fa6";
+import { getFilterOptionsPermissions } from "../shared/GerenciarVoluntariosUtils";
 
 interface GerenciarVoluntariosTableProps {
     volunteers: IVoluntarios[];
@@ -42,12 +43,7 @@ export function GerenciarVoluntariosTable({
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
                 <Select
                     id="permissionFilter"
-                    options={[
-                        { value: "all", label: "Todas" },
-                        { value: PermissaoEnum.ADMIN, label: "Administrador" },
-                        { value: PermissaoEnum.VOLUNTEER, label: "Voluntário" },
-                        { value: PermissaoEnum.EDITOR, label: "Editor" },
-                    ]}
+                    options={getFilterOptionsPermissions()}
                     value={permissionFilter}
                     onChange={(value) => setPermissionFilter(value)}
                     label="Permissão"

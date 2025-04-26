@@ -394,7 +394,7 @@ export function FormulariosPendentesModal({
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {adoption.images.map((url, index) => (
                         <div
-                            key={index}
+                            key={`${index}-${url}`}
                             className="relative h-48 rounded-lg overflow-hidden"
                         >
                             <a
@@ -486,10 +486,10 @@ export function FormulariosPendentesModal({
                 {/* Footer with action buttons */}
                 <div className="border-t p-4 bg-gray-50 rounded-b-lg flex flex-wrap gap-2 justify-end">
                     <button
-                        onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.APPROVED)}
-                        disabled={adoption.status === FormStatusEnum.APPROVED}
+                        onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.SOLVED)}
+                        disabled={adoption.status === FormStatusEnum.SOLVED}
                         className={`px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700 transition-colors ${
-                            adoption.status === FormStatusEnum.APPROVED
+                            adoption.status === FormStatusEnum.SOLVED
                                 ? "opacity-50 cursor-not-allowed"
                                 : ""
                         }`}

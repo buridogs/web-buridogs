@@ -106,7 +106,7 @@ export const pendingApadrinhamentosMock: IForm[] = [
         form_type: FormAvailableEnum.SPONSORSHIP,
         contact_method_preference: ["email"],
         allow_receiving_news: true,
-        status: FormStatusEnum.APPROVED,
+        status: FormStatusEnum.SOLVED,
         sponsorship_method: ["monthly_donation"],
     },
     {
@@ -157,7 +157,7 @@ export const pendingContatosMock: IForm[] = [
         form_type: FormAvailableEnum.CONTACT,
         message:
             "Encontrei um cachorro abandonado próximo à minha casa. Vocês fazem resgates ou podem me orientar sobre como proceder?",
-        status: FormStatusEnum.APPROVED,
+        status: FormStatusEnum.SOLVED,
     },
 ];
 

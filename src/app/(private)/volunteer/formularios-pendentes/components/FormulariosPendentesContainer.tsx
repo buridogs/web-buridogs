@@ -73,7 +73,7 @@ export default function FormulariosPendentesContainer() {
         );
 
         const statusMessages = {
-            [FormStatusEnum.APPROVED]: "Adoção aprovada com sucesso!",
+            [FormStatusEnum.SOLVED]: "Adoção aprovada com sucesso!",
             [FormStatusEnum.REJECTED]: "Adoção rejeitada.",
             [FormStatusEnum.IN_PROCESS]: "Adoção marcada como em análise.",
             [FormStatusEnum.PENDENT]: "Adoção marcada como pendente.",

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import { ReactNode } from "react";
 import { LuPanelLeftClose, LuPanelLeftOpen } from "react-icons/lu";
 import Link from "next/link";
 import { FaSignOutAlt } from "react-icons/fa";
@@ -7,7 +7,7 @@ import { generateImgURL } from "@/utils/methods";
 
 interface PrivateHeaderDesktopProps {
     isCollapsed: boolean;
-    setIsCollapsed: Dispatch<SetStateAction<boolean>>;
+    setIsCollapsed: (value: boolean) => void;
     pathname: string;
     handleLogout: () => void;
     authenticatedLinks: {

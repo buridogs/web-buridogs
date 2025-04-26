@@ -76,8 +76,10 @@ export default function GerenciarParceirosContainer() {
     return (
         <div className="bg-white min-h-screen">
             <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col item-center md:py-12">
-                <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-2xl font-bold text-gray-900">Gerenciar Parceiros</h1>
+                <div className="flex justify-between items-center mb-6 md:mb-10">
+                    <h1 className="text-primary-400 text-3xl leading-10 font-bold md:text-4xl">
+                        Gerenciar Parceiros
+                    </h1>
                     <Link
                         href={PrivateRoutes.ADD_PARTNER}
                         className="bg-primary-700 hover:bg-primary-400 text-white py-2 px-4 rounded-lg flex items-center gap-2 transition-colors"

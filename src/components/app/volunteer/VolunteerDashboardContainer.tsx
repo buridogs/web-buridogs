@@ -20,7 +20,7 @@ export default function VolunteerDashboardContainer() {
                         </h1>
                         <button
                             onClick={logout}
-                            className="py-2 px-4 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors text-gray-800 max-w-fit"
+                            className="py-2 px-4 bg-red-600 rounded-lg hover:bg-red-700 transition-colors text-gray-200 max-w-fit"
                         >
                             Sair
                         </button>
