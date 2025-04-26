@@ -46,7 +46,7 @@ export default function VolunteerDashboardContainer() {
                                 <FaEnvelope className="text-primary-400 text-2xl mr-3 mt-1" />
                                 <div>
                                     <h3 className="text-lg font-semibold text-primary-700 mb-2">
-                                        Contatos Pendentes
+                                        Solicitações Pendentes
                                     </h3>
                                     <p className="text-gray-600 mb-4">
                                         Mensagens de contato para resposta

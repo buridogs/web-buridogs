@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
     return (
-        <main className="bg-white">
+        <div className="bg-white">
             <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col item-center md:py-12">
                 <LoginContainer />
             </div>
-        </main>
+        </div>
     );
 }
