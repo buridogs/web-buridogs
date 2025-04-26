@@ -91,7 +91,7 @@ export function GerenciarVoluntariosModal({
                             </div>
                             <div className="text-gray-600 mb-4">
                                 <span className="text-primary-400 font-semibold">Permissão: </span>
-                                {volunteer.permissao}
+                                {volunteer.role}
                             </div>
                         </div>
                     </div>

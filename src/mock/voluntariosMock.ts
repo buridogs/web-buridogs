@@ -1,4 +1,5 @@
-import { IVoluntarios, PermissaoEnum } from "@/interfaces/voluntariosInterfaces";
+import { UserRole } from "@/interfaces/authInterfaces";
+import { IVoluntarios } from "@/interfaces/voluntariosInterfaces";
 
 export const voluntarios: IVoluntarios[] = [
     {
@@ -6,34 +7,27 @@ export const voluntarios: IVoluntarios[] = [
         nome: "Ana Silva",
         email: "ana.silva@buridogs.org",
         apelido: "Ana",
-        permissao: PermissaoEnum.ADMIN,
+        role: UserRole.ADMIN,
     },
     {
         id: "2",
         nome: "Pedro Santos",
         email: "pedro.santos@buridogs.org",
         apelido: "Pedro",
-        permissao: PermissaoEnum.VOLUNTEER,
-    },
-    {
-        id: "3",
-        nome: "Carla Oliveira",
-        email: "carla.oliveira@buridogs.org",
-        apelido: "Carlinha",
-        permissao: PermissaoEnum.EDITOR,
+        role: UserRole.VOLUNTEER,
     },
     {
         id: "4",
         nome: "Roberto Gomes",
         email: "roberto.gomes@buridogs.org",
         apelido: "Beto",
-        permissao: PermissaoEnum.VOLUNTEER,
+        role: UserRole.VOLUNTEER,
     },
     {
         id: "5",
         nome: "Juliana Costa",
         email: "juliana.costa@buridogs.org",
         apelido: "Ju",
-        permissao: PermissaoEnum.VOLUNTEER,
+        role: UserRole.VOLUNTEER,
     },
 ];

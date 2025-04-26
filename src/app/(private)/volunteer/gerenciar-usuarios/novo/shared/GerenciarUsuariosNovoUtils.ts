@@ -2,7 +2,7 @@ import { LIMITE_TAMANHO_MENSAGEM, MENSAGENS_ERRO } from "@/components/Form/FormC
 import { GeneralFormsType, InputFormEnum } from "@/components/Form/FormTypes";
 import * as yup from "yup";
 import { IUsuariosForm } from "./GerenciarUsuariosNovoTypes";
-import { PermissaoEnum } from "@/interfaces/voluntariosInterfaces";
+import { UserRole } from "@/interfaces/authInterfaces";
 
 export const schema = yup
     .object({
@@ -22,9 +22,9 @@ export const schema = yup
                 MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.grande).tamanhoMaximo
             )
             .required("Contato é obrigatório"),
-        permissao: yup
+        role: yup
             .string()
-            .oneOf(Object.values(PermissaoEnum), "Selecione uma permissão válida")
+            .oneOf(Object.values(UserRole), "Selecione uma permissão válida")
             .required(MENSAGENS_ERRO().campoObrigatorio),
     })
     .required();
@@ -43,18 +43,18 @@ export const getFormConfig = (): GeneralFormsType<IUsuariosForm>[] => [
             ],
             rightSide: [
                 {
-                    key: "permissao",
+                    key: "role",
                     label: "Permissão",
                     type: InputFormEnum.radio,
                     options: [
                         {
-                            key: PermissaoEnum.ADMIN,
-                            value: PermissaoEnum.ADMIN,
+                            key: UserRole.ADMIN,
+                            value: UserRole.ADMIN,
                             label: "Administrador",
                         },
                         {
-                            key: PermissaoEnum.VOLUNTEER,
-                            value: PermissaoEnum.VOLUNTEER,
+                            key: UserRole.VOLUNTEER,
+                            value: UserRole.VOLUNTEER,
                             label: "Voluntário",
                         },
                     ],

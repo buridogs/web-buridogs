@@ -1,8 +1,8 @@
 "use client";
 
-import { PrivateRoutes } from "@/components/Header/routes-ui";
+import { PrivateRoutes, PublicRoutes } from "@/components/Header/routes-ui";
 import { AuthContextType, LoginCredentials, User } from "@/interfaces/authInterfaces";
-import { loginUser, verifyToken } from "@/services/api/auth/service/authService";
+import { AuthService } from "@/services/api/modules/auth/auth-service";
 import {
     clearAuthData,
     getToken,
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                         setIsAuthenticated(true);
                     } else {
                         // If we have a valid token but no user, try to get user information
-                        const userData = await verifyToken(token);
+                        const userData = await AuthService.verifyToken(token ?? "");
                         setUserState(userData);
                         setUser(userData);
                         setIsAuthenticated(true);
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const login = async (credentials: LoginCredentials): Promise<void> => {
         setIsLoading(true);
         try {
-            const { user, token } = await loginUser(credentials);
+            const { user, token } = await AuthService.loginUser(credentials);
 
             // Store auth data
             setToken(token);
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUserState(null);
         setIsAuthenticated(false);
         setIsLoading(false);
-        router.push("/login");
+        router.push(PublicRoutes.LOGIN);
         toast.info("Você foi desconectado");
     };
 
@@ -111,7 +111,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             if (isValidToken(token)) {
                 // If token is valid but we don't have user data, get it
                 if (!user) {
-                    const userData = await verifyToken(token);
+                    const userData = await AuthService.verifyToken(token);
                     setUserState(userData);
                     setUser(userData);
                     setIsAuthenticated(true);

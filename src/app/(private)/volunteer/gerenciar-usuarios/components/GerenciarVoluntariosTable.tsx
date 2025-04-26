@@ -28,7 +28,7 @@ export function GerenciarVoluntariosTable({
     const filteredVolunteers = useMemo(() => {
         return volunteers.filter((volunteer) => {
             const matchesPermission =
-                permissionFilter === "all" || volunteer.permissao?.toString() === permissionFilter;
+                permissionFilter === "all" || volunteer.role?.toString() === permissionFilter;
             const matchesSearch =
                 volunteer.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 volunteer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -112,7 +112,7 @@ export function GerenciarVoluntariosTable({
                                         {volunteer.apelido}
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {volunteer.permissao}
+                                        {volunteer.role}
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                                         <div className="flex gap-2">

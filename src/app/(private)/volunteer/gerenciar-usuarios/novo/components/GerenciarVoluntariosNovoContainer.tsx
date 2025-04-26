@@ -8,15 +8,22 @@ import { LuArrowLeft } from "react-icons/lu";
 import { toast } from "react-toastify";
 import Form from "@/components/Form/Form";
 import { useEffect } from "react";
-import { voluntarios } from "@/mock/voluntariosMock";
 import { IVoluntarios } from "@/interfaces/voluntariosInterfaces";
 import { getFormConfig, schema } from "../shared/GerenciarUsuariosNovoUtils";
 import { IUsuariosForm } from "../shared/GerenciarUsuariosNovoTypes";
 import { PrivateRoutes } from "@/components/Header/routes-ui";
+import { useVolunteers } from "@/hooks/users-hook";
 
 export default function GerenciarVoluntariosNovoContainer() {
     const router = useRouter();
     const volunteerId = useSearchParams().get("id");
+
+    const {
+        isLoading: volunteersLoading,
+        getVolunteerById,
+        createVolunteer,
+        updateVolunteer,
+    } = useVolunteers();
 
     const {
         register,
@@ -28,25 +35,35 @@ export default function GerenciarVoluntariosNovoContainer() {
     });
 
     useEffect(() => {
-        if (volunteerId) {
-            // Fetch volunteer data by ID and set default values
-            const foundVolunteer = voluntarios.find(
-                (volunteer) => volunteer.id?.toString() === volunteerId
-            );
-            if (foundVolunteer) {
-                console.log("Volunteer found for edit mode:", foundVolunteer);
-                setValue("nome", foundVolunteer.nome);
-                setValue("email", foundVolunteer.email);
-                setValue("apelido", foundVolunteer.apelido);
-                setValue("permissao", foundVolunteer.permissao);
+        const fetchVolunteerData = async () => {
+            if (volunteerId) {
+                // Fetch volunteer data by ID and set default values
+                const foundVolunteer = await getVolunteerById(volunteerId);
+                // const foundVolunteer = voluntarios.find(
+                //     (volunteer) => volunteer.id?.toString() === volunteerId
+                // );
+                if (foundVolunteer) {
+                    console.log("Volunteer found for edit mode:", foundVolunteer);
+                    setValue("nome", foundVolunteer.nome);
+                    setValue("email", foundVolunteer.email);
+                    setValue("apelido", foundVolunteer.apelido);
+                    setValue("role", foundVolunteer.role);
+                }
             }
-        }
+        };
+
+        fetchVolunteerData();
     }, [volunteerId, setValue]);
 
     const onSubmit = async (data: IUsuariosForm) => {
         try {
-            // Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            if (volunteerId) {
+                // Update existing volunteer
+                await updateVolunteer(volunteerId, data);
+            } else {
+                // Create new volunteer
+                await createVolunteer(data);
+            }
 
             // This is where you would handle API request
             const volunteerData: IVoluntarios = {
@@ -54,7 +71,7 @@ export default function GerenciarVoluntariosNovoContainer() {
                 nome: data.nome,
                 email: data.email,
                 apelido: data.apelido,
-                permissao: data.permissao,
+                role: data.role,
             };
 
             console.log("Submitted volunteer data:", volunteerData);
@@ -75,6 +92,14 @@ export default function GerenciarVoluntariosNovoContainer() {
     const formFields = getFormConfig();
     const title = volunteerId ? "Editar Voluntário" : "Adicionar Voluntário";
     const buttonLabel = volunteerId ? "Salvar Alterações" : "Salvar Voluntário";
+
+    if (volunteersLoading) {
+        return (
+            <div className="flex justify-center items-center min-h-screen">
+                <div className="loader"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-white min-h-screen">

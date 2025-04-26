@@ -1,9 +1,8 @@
-import { BaseApiService } from "../../base-service-api";
-import { IAuthApi } from "./interfaces/auth-api.interface";
+import { BaseApiService } from "../../core/base-service-api";
 import { LoginCredentials, User, UserRole } from "@/interfaces/authInterfaces";
+import { IAuthRepository } from "./auth-repository-interface";
 
-// TODO: CHECK NAME
-export class MockAuthApi extends BaseApiService implements IAuthApi {
+export class AuthRepositoryMock extends BaseApiService implements IAuthRepository {
     private mockUsers: Array<User & { password: string }> = [
         {
             id: "1",
@@ -18,13 +17,6 @@ export class MockAuthApi extends BaseApiService implements IAuthApi {
             email: "volunteer@buridogs.org",
             password: "volunteer123",
             role: UserRole.VOLUNTEER,
-        },
-        {
-            id: "3",
-            name: "Editor User",
-            email: "editor@buridogs.org",
-            password: "editor123",
-            role: UserRole.EDITOR,
         },
     ];
 

@@ -1,9 +1,10 @@
-import { BaseApiService } from "../../base-service-api";
-import { IAuthApi } from "./interfaces/auth-api.interface";
+import { BaseApiService } from "../../core/base-service-api";
+import { IAuthRepository } from "./auth-repository-interface";
 import { LoginCredentials, User } from "@/interfaces/authInterfaces";
+import { Auth } from "./auth-types";
 
 // TODO: CHECK NAME AND METHODS
-export class HttpAuthApi extends BaseApiService implements IAuthApi {
+export class AuthRepository extends BaseApiService implements IAuthRepository {
     constructor() {
         super();
     }
@@ -11,8 +12,8 @@ export class HttpAuthApi extends BaseApiService implements IAuthApi {
     /**
      * Authenticate user with credentials via API
      */
-    public async login(credentials: LoginCredentials): Promise<{ user: User; token: string }> {
-        return this.fetchWithAuth<{ user: User; token: string }>(
+    public async login(credentials: LoginCredentials): Promise<Auth> {
+        return this.fetchWithAuth<Auth>(
             "/auth/signin",
             {
                 method: "POST",

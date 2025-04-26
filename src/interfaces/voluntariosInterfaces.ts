@@ -1,9 +1,11 @@
+import { UserRole } from "./authInterfaces";
+
 export interface IVoluntarios {
     id: string;
     nome: string;
     email: string;
     apelido: string;
-    permissao: PermissaoEnum;
+    role: UserRole;
 }
 
 export enum PermissaoEnum {

@@ -1,7 +1,7 @@
 // This file should be placed at the root level of your project, alongside package.json
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { PrivateRoutes } from "./components/Header/routes-ui";
+import { PrivateRoutes, PublicRoutes } from "./components/Header/routes-ui";
 
 export async function middleware(request: NextRequest) {
     // Get token from cookies
@@ -17,9 +17,10 @@ export async function middleware(request: NextRequest) {
 
     if (isProtectedPath && !token) {
         // No token found, redirect to login
-        return NextResponse.redirect(new URL("/unauthorized", request.url));
+        return NextResponse.redirect(new URL(PublicRoutes.NAO_AUTORIZADO, request.url));
     }
 
+    console.log("Token exists, proceeding to the requested page.");
     return NextResponse.next();
 }
 
