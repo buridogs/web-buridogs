@@ -14,7 +14,7 @@ import {
     getStatusText,
     getTypeBadgeClass,
     getTypeText,
-} from "./FormulariosPendentesUtils";
+} from "../shared/FormulariosPendentesUtils";
 
 interface FormulariosPendentesTableProps {
     adoptions: IForm[];

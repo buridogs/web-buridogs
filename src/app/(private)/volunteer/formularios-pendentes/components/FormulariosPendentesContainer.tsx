@@ -4,7 +4,6 @@ import { useAuth } from "@/providers/auth/AuthProvider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FormulariosPendentesTable } from "./FormulariosPendentesTable";
-import { FormulariosPendentesModal } from "./FormulariosPendentesModal";
 import {
     pendingAdocoesMock,
     pendingApadrinhamentosMock,
@@ -14,6 +13,7 @@ import { toast } from "react-toastify";
 import { UserRole } from "@/interfaces/authInterfaces";
 import { FormStatusEnum, IForm } from "@/interfaces/formularioInterfaces";
 import { PublicRoutes } from "@/components/Header/routes-ui";
+import { FormulariosPendentesModal } from "./FormulariosPendentesModal";
 
 // TODO: REFACTOR THIS COMPONENT
 export default function FormulariosPendentesContainer() {

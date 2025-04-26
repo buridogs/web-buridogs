@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import FormulariosPendentesContainer from "@/components/app/volunteer/formularios-pendentes/FormulariosPendentesContainer";
+import FormulariosPendentesContainer from "./components/FormulariosPendentesContainer";
 
 export const metadata: Metadata = {
     title: "Formulários Pendentes | Admin Buridogs",

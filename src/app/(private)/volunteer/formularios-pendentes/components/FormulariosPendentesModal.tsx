@@ -15,7 +15,7 @@ import {
     IFormContact,
     IFormSponsorship,
 } from "@/interfaces/formularioInterfaces";
-import { getStatusBadgeClass, getStatusText } from "./FormulariosPendentesUtils";
+import { getStatusBadgeClass, getStatusText } from "../shared/FormulariosPendentesUtils";
 
 interface FormulariosPendentesModalProps {
     adoption: IForm;
