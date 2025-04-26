@@ -15,5 +15,5 @@ export enum PrivateRoutes {
     REQUESTS_PENDING = "/volunteer/formularios-pendentes",
     MANAGE_DOGS = "/volunteer/gerenciar-cachorros",
     MANAGE_PARTNERS = "/volunteer/gerenciar-parceiros",
-    MANAGE_USERS = "/volunteer/usuarios",
+    MANAGE_USERS = "/volunteer/gerenciar-usuarios",
 }
