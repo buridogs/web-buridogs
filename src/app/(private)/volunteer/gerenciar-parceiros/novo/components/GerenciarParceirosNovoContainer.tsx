@@ -12,6 +12,7 @@ import { parceiros } from "@/mock/parceirosMock";
 import { IParceiros } from "@/interfaces/parceirosInterfaces";
 import { getFormConfig, schema } from "../shared/GerenciarParceirosNovoUtils";
 import { IPartnerForm } from "../shared/GerenciarParceirosNovoTypes";
+import { PrivateRoutes } from "@/components/Header/routes-ui";
 
 export default function GerenciarParceirosNovoContainer() {
     const router = useRouter();
@@ -76,7 +77,7 @@ export default function GerenciarParceirosNovoContainer() {
             toast.success(
                 partnerId ? "Parceiro atualizado com sucesso!" : "Parceiro cadastrado com sucesso!"
             );
-            router.push("/volunteer/gerenciar-parceiros");
+            router.push(PrivateRoutes.MANAGE_PARTNERS);
             router.refresh();
         } catch (error) {
             console.error("Erro ao salvar parceiro:", error);
@@ -93,7 +94,7 @@ export default function GerenciarParceirosNovoContainer() {
             <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col w-full">
                 <div className="flex items-center mb-6">
                     <Link
-                        href="/volunteer/gerenciar-parceiros"
+                        href={PrivateRoutes.MANAGE_PARTNERS}
                         className="bg-primary-400 hover:bg-gray-200 text-gray-700 p-2 rounded-full mr-4 transition-colors"
                     >
                         <LuArrowLeft className="h-5 w-5" />

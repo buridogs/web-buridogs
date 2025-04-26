@@ -6,6 +6,7 @@ import { LuPlus } from "react-icons/lu";
 import Link from "next/link";
 import GerenciarCachorrosFiltros from "./GerenciarCachorrosFiltros";
 import { cachorrosMock } from "./mock";
+import { PrivateRoutes } from "@/components/Header/routes-ui";
 
 export default function GerenciarCachorrosContainer() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -40,7 +41,7 @@ export default function GerenciarCachorrosContainer() {
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-2xl font-bold text-gray-900">Gerenciar Cachorros</h1>
                     <Link
-                        href="/volunteer/gerenciar-cachorros/novo"
+                        href={PrivateRoutes.ADD_DOG}
                         className="bg-primary-700 hover:bg-primary-400 text-white py-2 px-4 rounded-lg flex items-center gap-2 transition-colors"
                     >
                         <LuPlus className="h-5 w-5" />

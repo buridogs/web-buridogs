@@ -17,6 +17,7 @@ import { IDogForm } from "../shared/GerenciarCachorrosNovoTypes";
 import { useEffect, useState } from "react";
 import { cachorrosMock } from "../../components/mock";
 import { IDog } from "@/interfaces/dogInterfaces";
+import { PrivateRoutes } from "@/components/Header/routes-ui";
 
 export default function GerenciarCachorrosNovoContainer() {
     const router = useRouter();
@@ -103,7 +104,7 @@ export default function GerenciarCachorrosNovoContainer() {
             console.log("Submitted dog data:", dogData);
 
             toast.success("Cachorro cadastrado com sucesso!");
-            router.push("/volunteer/gerenciar-cachorros");
+            router.push(PrivateRoutes.MANAGE_DOGS);
             router.refresh();
         } catch (error) {
             console.error("Erro ao cadastrar cachorro:", error);
@@ -124,7 +125,7 @@ export default function GerenciarCachorrosNovoContainer() {
             <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col w-full">
                 <div className="flex items-center mb-6">
                     <Link
-                        href="/volunteer/gerenciar-cachorros"
+                        href={PrivateRoutes.MANAGE_DOGS}
                         className="bg-primary-400 hover:bg-gray-200 text-gray-700 p-2 rounded-full mr-4 transition-colors"
                     >
                         <LuArrowLeft className="h-5 w-5" />

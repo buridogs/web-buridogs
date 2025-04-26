@@ -1,27 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GerenciarParceirosTable } from "./GerenciarParceirosTable";
-import { GerenciarParceirosModal } from "./GerenciarParceirosModal";
+import { GerenciarVoluntariosTable } from "./GerenciarVoluntariosTable";
+import { GerenciarVoluntariosModal } from "./GerenciarVoluntariosModal";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth/AuthProvider";
 import { PrivateRoutes, PublicRoutes } from "@/components/Header/routes-ui";
 import { UserRole } from "@/interfaces/authInterfaces";
-import { IParceiros } from "@/interfaces/parceirosInterfaces";
-import { parceiros } from "@/mock/parceirosMock";
+import { IVoluntarios } from "@/interfaces/voluntariosInterfaces";
+import { voluntarios } from "@/mock/voluntariosMock";
 import Link from "next/link";
 import { LuPlus } from "react-icons/lu";
 import ConfirmationModal from "@/components/ConfirmationModal/ConfirmationModal";
 
-// TODO: REFACTOR THIS COMPONENT
-export default function GerenciarParceirosContainer() {
+export default function GerenciarVoluntariosContainer() {
     const { user, isAuthenticated, isLoading } = useAuth();
     const router = useRouter();
-    const [partners, setPartners] = useState<IParceiros[]>([]);
+    const [allVolunteers, setAllVolunteers] = useState<IVoluntarios[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-    const [selectedPartner, setSelectedPartner] = useState<IParceiros | null>(null);
-    const [selectedPartnerToDelete, setSelectedPartnerToDelete] = useState<IParceiros | null>(null);
+    const [selectedVolunteer, setSelectedVolunteer] = useState<IVoluntarios | null>(null);
+    const [selectedVolunteerToDelete, setSelectedVolunteerToDelete] = useState<IVoluntarios | null>(
+        null
+    );
     const [isLoadingData, setIsLoadingData] = useState(true);
 
     useEffect(() => {
@@ -40,19 +41,19 @@ export default function GerenciarParceirosContainer() {
         if (!isLoading && isAuthenticated) {
             // In a real app, this would be an API call
             // For now, we're using mock data
-            setPartners([...parceiros]);
+            setAllVolunteers([...voluntarios]);
             setIsLoadingData(false);
         }
     }, [isLoading, isAuthenticated, user, router]);
 
-    const handleViewDetails = (adoption: IParceiros) => {
-        setSelectedPartner(adoption);
+    const handleViewDetails = (volunteer: IVoluntarios) => {
+        setSelectedVolunteer(volunteer);
         setIsModalOpen(true);
     };
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
-        setSelectedPartner(null);
+        setSelectedVolunteer(null);
     };
 
     if (isLoading || isLoadingData) {
@@ -64,7 +65,7 @@ export default function GerenciarParceirosContainer() {
     }
 
     const handleConfirm = () => {
-        console.log("Confirmed action", { selectedPartnerToDelete });
+        console.log("Confirmed action", { selectedVolunteerToDelete });
         setIsConfirmationModalOpen(false);
     };
 
@@ -77,42 +78,42 @@ export default function GerenciarParceirosContainer() {
         <div className="bg-white min-h-screen">
             <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col item-center md:py-12">
                 <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-2xl font-bold text-gray-900">Gerenciar Parceiros</h1>
+                    <h1 className="text-2xl font-bold text-gray-900">Gerenciar Voluntários</h1>
                     <Link
-                        href={PrivateRoutes.ADD_PARTNER}
+                        href={PrivateRoutes.ADD_USER}
                         className="bg-primary-700 hover:bg-primary-400 text-white py-2 px-4 rounded-lg flex items-center gap-2 transition-colors"
                     >
                         <LuPlus className="h-5 w-5" />
-                        Adicionar Parceiro
+                        Adicionar Voluntário
                     </Link>
                 </div>
 
                 <div className="w-full">
-                    <GerenciarParceirosTable
-                        partners={partners}
+                    <GerenciarVoluntariosTable
+                        volunteers={allVolunteers}
                         onViewDetails={handleViewDetails}
-                        onDelete={(partner) => {
-                            setSelectedPartnerToDelete(partner);
+                        onDelete={(volunteer) => {
+                            setSelectedVolunteerToDelete(volunteer);
                             setIsConfirmationModalOpen(true);
                         }}
                     />
                 </div>
 
-                {isModalOpen && selectedPartner && (
-                    <GerenciarParceirosModal
-                        partner={selectedPartner}
+                {isModalOpen && selectedVolunteer && (
+                    <GerenciarVoluntariosModal
+                        volunteer={selectedVolunteer}
                         onClose={handleCloseModal}
                         onDelete={() => {
-                            setSelectedPartnerToDelete(selectedPartner);
+                            setSelectedVolunteerToDelete(selectedVolunteer);
                             setIsConfirmationModalOpen(true);
                         }}
                     />
                 )}
-                {isConfirmationModalOpen && selectedPartnerToDelete && (
+                {isConfirmationModalOpen && selectedVolunteerToDelete && (
                     <ConfirmationModal
                         isOpen={isConfirmationModalOpen}
-                        title="Deletar Parceiro"
-                        description={`Você tem certeza que deseja deletar o parceiro ${selectedPartnerToDelete.nome}? Esta ação não pode ser desfeita.`}
+                        title="Deletar Voluntário"
+                        description={`Você tem certeza que deseja deletar o voluntário ${selectedVolunteerToDelete.nome}? Esta ação não pode ser desfeita.`}
                         primaryButtonText="Deletar"
                         secondaryButtonText="Cancelar"
                         onPrimaryAction={handleConfirm}

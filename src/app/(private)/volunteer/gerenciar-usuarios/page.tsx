@@ -1,7 +1,11 @@
-export default function GerenciarUsuariosPage() {
-    return (
-        <div className="flex justify-center items-center min-h-screen">
-            <h1 className="text-3xl font-bold">Gerenciar Usuários</h1>
-        </div>
-    );
+import { Metadata } from "next";
+import GerenciarVoluntariosContainer from "./components/GerenciarVoluntariosContainer";
+
+export const metadata: Metadata = {
+    title: "Gerenciar Voluntários | Admin Buridogs",
+    description: "Gerenciamento de voluntários",
+};
+
+export default function GerenciarVoluntariosPage() {
+    return <GerenciarVoluntariosContainer />;
 }
