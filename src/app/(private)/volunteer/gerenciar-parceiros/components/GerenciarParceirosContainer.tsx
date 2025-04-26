@@ -9,6 +9,8 @@ import { PublicRoutes } from "@/components/Header/routes-ui";
 import { UserRole } from "@/interfaces/authInterfaces";
 import { IParceiros } from "@/interfaces/parceirosInterfaces";
 import { parceiros } from "@/mock/parceirosMock";
+import Link from "next/link";
+import { LuPlus } from "react-icons/lu";
 
 // TODO: REFACTOR THIS COMPONENT
 export default function GerenciarParceirosContainer() {
@@ -61,9 +63,16 @@ export default function GerenciarParceirosContainer() {
     return (
         <div className="bg-white min-h-screen">
             <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col item-center md:py-12">
-                <h1 className="text-primary-400 text-3xl leading-10 font-bold mb-6 md:text-4xl md:mb-10">
-                    Formulários enviados
-                </h1>
+                <div className="flex justify-between items-center mb-6">
+                    <h1 className="text-2xl font-bold text-gray-900">Gerenciar Parceiros</h1>
+                    <Link
+                        href="/volunteer/gerenciar-parceiros/novo"
+                        className="bg-primary-700 hover:bg-primary-400 text-white py-2 px-4 rounded-lg flex items-center gap-2 transition-colors"
+                    >
+                        <LuPlus className="h-5 w-5" />
+                        Adicionar Parceiro
+                    </Link>
+                </div>
 
                 <div className="w-full">
                     <GerenciarParceirosTable
