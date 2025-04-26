@@ -7,6 +7,8 @@ import Link from "next/link";
 import GerenciarCachorrosFiltros from "./GerenciarCachorrosFiltros";
 import { cachorrosMock } from "./mock";
 import { PrivateRoutes } from "@/components/Header/routes-ui";
+import ConfirmationModal from "@/components/ConfirmationModal/ConfirmationModal";
+import { IDog } from "@/interfaces/dogInterfaces";
 
 export default function GerenciarCachorrosContainer() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +16,8 @@ export default function GerenciarCachorrosContainer() {
     const [selectedIdade, setSelectedIdade] = useState<string>("");
     const [selectedPorte, setSelectedPorte] = useState<string>("");
     const [isHappyEnding, setIsHappyEnding] = useState(false);
+    const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+    const [selectedDogToDelete, setSelectedDogToDelete] = useState<IDog | null>(null);
 
     const filteredDogs = useMemo(() => {
         return cachorrosMock.filter((dog) => {
@@ -72,6 +76,10 @@ export default function GerenciarCachorrosContainer() {
                                 key={cachorro.id}
                                 cachorroInformacao={cachorro}
                                 isManagementMode
+                                onDelete={(dog) => {
+                                    setSelectedDogToDelete(dog);
+                                    setIsConfirmationModalOpen(true);
+                                }}
                             />
                         ))
                     ) : (
@@ -83,6 +91,18 @@ export default function GerenciarCachorrosContainer() {
                     )}
                 </div>
             </div>
+            {isConfirmationModalOpen && selectedDogToDelete && (
+                <ConfirmationModal
+                    isOpen={isConfirmationModalOpen}
+                    title="Deletar Cachorro"
+                    description={`Você tem certeza que deseja deletar o cachorro ${selectedDogToDelete.nomeExibicao}? Esta ação não pode ser desfeita.`}
+                    primaryButtonText="Deletar"
+                    secondaryButtonText="Cancelar"
+                    onPrimaryAction={() => console.log("Confirmed action")}
+                    onSecondaryAction={() => setIsConfirmationModalOpen(false)}
+                    onClose={() => setIsConfirmationModalOpen(false)}
+                />
+            )}
         </div>
     );
 }

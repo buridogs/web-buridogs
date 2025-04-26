@@ -8,11 +8,13 @@ import { LuPencil } from "react-icons/lu";
 interface AdocaoCachorroCardProps {
     cachorroInformacao: IDog;
     isManagementMode?: boolean;
+    onDelete?: (dog: IDog) => void;
 }
 
 export function AdocaoCachorroCard({
     cachorroInformacao,
     isManagementMode = false,
+    onDelete,
 }: AdocaoCachorroCardProps) {
     const { id, descricao, genero, idade, images, nomeExibicao, slug, porte } = cachorroInformacao;
     const labelGenero = returnFormattedOptionLabel(AdocaoFiltrosEnum.genero, genero);
@@ -50,10 +52,20 @@ export function AdocaoCachorroCard({
                     <div className="flex justify-between w-full">
                         <Link
                             href={`/volunteer/gerenciar-cachorros/novo?dogId=${id}`}
-                            className="text-primary-400 uppercase text-sm font-medium py-2 underline"
+                            className="text-primary-400 hover:text-primary-700 uppercase text-sm font-medium py-2 underline"
                         >
                             Editar
                         </Link>
+                        {onDelete && (
+                            <button
+                                className="text-primary-400 hover:text-primary-700 uppercase text-sm font-medium py-2 underline"
+                                onClick={() => {
+                                    onDelete(cachorroInformacao);
+                                }}
+                            >
+                                Deletar
+                            </button>
+                        )}
                     </div>
                 ) : (
                     <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
