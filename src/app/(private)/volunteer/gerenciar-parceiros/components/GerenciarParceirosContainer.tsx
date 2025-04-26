@@ -11,6 +11,7 @@ import { IParceiros } from "@/interfaces/parceirosInterfaces";
 import { parceiros } from "@/mock/parceirosMock";
 import Link from "next/link";
 import { LuPlus } from "react-icons/lu";
+import ConfirmationModal from "@/components/ConfirmationModal/ConfirmationModal";
 
 // TODO: REFACTOR THIS COMPONENT
 export default function GerenciarParceirosContainer() {
@@ -18,7 +19,9 @@ export default function GerenciarParceirosContainer() {
     const router = useRouter();
     const [partners, setPartners] = useState<IParceiros[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
     const [selectedPartner, setSelectedPartner] = useState<IParceiros | null>(null);
+    const [selectedPartnerToDelete, setSelectedPartnerToDelete] = useState<IParceiros | null>(null);
     const [isLoadingData, setIsLoadingData] = useState(true);
 
     useEffect(() => {
@@ -60,6 +63,16 @@ export default function GerenciarParceirosContainer() {
         );
     }
 
+    const handleConfirm = () => {
+        console.log("Confirmed action", { selectedPartnerToDelete });
+        setIsConfirmationModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        console.log("Cancelled action");
+        setIsConfirmationModalOpen(false);
+    };
+
     return (
         <div className="bg-white min-h-screen">
             <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col item-center md:py-12">
@@ -78,6 +91,10 @@ export default function GerenciarParceirosContainer() {
                     <GerenciarParceirosTable
                         partners={partners}
                         onViewDetails={handleViewDetails}
+                        onDelete={(partner) => {
+                            setSelectedPartnerToDelete(partner);
+                            setIsConfirmationModalOpen(true);
+                        }}
                     />
                 </div>
 
@@ -85,7 +102,22 @@ export default function GerenciarParceirosContainer() {
                     <GerenciarParceirosModal
                         partner={selectedPartner}
                         onClose={handleCloseModal}
-                        onDelete={(partner) => console.log("Delete", partner)}
+                        onDelete={() => {
+                            setSelectedPartnerToDelete(selectedPartner);
+                            setIsConfirmationModalOpen(true);
+                        }}
+                    />
+                )}
+                {isConfirmationModalOpen && selectedPartnerToDelete && (
+                    <ConfirmationModal
+                        isOpen={isConfirmationModalOpen}
+                        title="Deletar Parceiro"
+                        description={`Você tem certeza que deseja deletar o parceiro ${selectedPartnerToDelete.nome}? Esta ação não pode ser desfeita.`}
+                        primaryButtonText="Deletar"
+                        secondaryButtonText="Cancelar"
+                        onPrimaryAction={handleConfirm}
+                        onSecondaryAction={handleCancel}
+                        onClose={handleCloseModal}
                     />
                 )}
             </div>

@@ -11,9 +11,14 @@ import { FaRegTrashCan } from "react-icons/fa6";
 interface GerenciarParceirosTableProps {
     partners: IParceiros[];
     onViewDetails: (partner: IParceiros) => void;
+    onDelete: (partner: IParceiros) => void;
 }
 
-export function GerenciarParceirosTable({ partners, onViewDetails }: GerenciarParceirosTableProps) {
+export function GerenciarParceirosTable({
+    partners,
+    onViewDetails,
+    onDelete,
+}: GerenciarParceirosTableProps) {
     const [categoryFilter, setCategoryFilter] = useState<string>("all");
     const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -54,7 +59,7 @@ export function GerenciarParceirosTable({ partners, onViewDetails }: GerenciarPa
                         placeholder="Buscar por nome"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="border border-gray-300 rounded px-3 py-2 w-full md:w-80 focus:outline-none focus:ring-2 focus:ring-primary-400"
+                        className="text-gray-500 border border-gray-300 rounded px-3 py-2 w-full md:w-80 focus:outline-none focus:ring-2 focus:ring-primary-400"
                     />
                 </div>
             </div>
@@ -126,7 +131,7 @@ export function GerenciarParceirosTable({ partners, onViewDetails }: GerenciarPa
                                                 <FaPencil size={16} />
                                             </button>
                                             <button
-                                                onClick={() => () => console.log("Aprovar")}
+                                                onClick={() => onDelete(partner)}
                                                 className="text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-red-100 transition-colors"
                                                 title="Excluir"
                                             >
