@@ -1,52 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GerenciarVoluntariosTable } from "./GerenciarVoluntariosTable";
 import { GerenciarVoluntariosModal } from "./GerenciarVoluntariosModal";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/providers/auth/AuthProvider";
-import { PrivateRoutes, PublicRoutes } from "@/components/Header/routes-ui";
-import { UserRole } from "@/interfaces/authInterfaces";
+import { PrivateRoutes } from "@/components/Header/routes-ui";
 import { IVoluntarios } from "@/interfaces/voluntariosInterfaces";
 import Link from "next/link";
 import { LuPlus } from "react-icons/lu";
 import ConfirmationModal from "@/components/ConfirmationModal/ConfirmationModal";
 import { useVolunteers } from "@/hooks/users-hook";
+import { Spinner } from "@/components/Spinner/Spinner";
 
 export default function GerenciarVoluntariosContainer() {
-    const { user, isAuthenticated, isLoading } = useAuth();
-    const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
     const [selectedVolunteer, setSelectedVolunteer] = useState<IVoluntarios | null>(null);
     const [selectedVolunteerToDelete, setSelectedVolunteerToDelete] = useState<IVoluntarios | null>(
         null
     );
-    const [isLoadingData, setIsLoadingData] = useState(true);
 
     const { isLoading: volunteersLoading, volunteers, deleteVolunteer } = useVolunteers();
-
-    useEffect(() => {
-        // Check authentication and role
-        if (!isLoading && !isAuthenticated) {
-            router.push(PublicRoutes.LOGIN);
-            return;
-        }
-
-        if (
-            !isLoading &&
-            isAuthenticated &&
-            ((user?.role && ![UserRole.ADMIN].includes(user?.role)) || !user?.role)
-        ) {
-            router.push(PublicRoutes.NAO_AUTORIZADO);
-            return;
-        }
-
-        // Fetch data
-        if (!isLoading && isAuthenticated) {
-            setIsLoadingData(false);
-        }
-    }, [isLoading, isAuthenticated, user, router]);
 
     const handleViewDetails = (volunteer: IVoluntarios) => {
         setSelectedVolunteer(volunteer);
@@ -71,10 +44,10 @@ export default function GerenciarVoluntariosContainer() {
     };
 
     const renderContent = () => {
-        if (isLoadingData || isLoading || volunteersLoading) {
+        if (volunteersLoading) {
             return (
                 <div className="flex justify-center items-center min-h-screen">
-                    <div className="loader"></div>
+                    <Spinner />
                 </div>
             );
         }
@@ -101,10 +74,6 @@ export default function GerenciarVoluntariosContainer() {
     };
 
     const renderAddButton = () => {
-        if (isLoading || isLoadingData) {
-            return null;
-        }
-
         return (
             <Link
                 href={PrivateRoutes.ADD_USER}

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <html lang="en">
+        <html lang="pt-BR">
             <body className={`${inter.className} flex flex-col h-screen`}>
                 <ToastProvider>
                     <AuthProvider>{children}</AuthProvider>

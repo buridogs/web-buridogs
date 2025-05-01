@@ -12,12 +12,18 @@ import { IVolunteerForm } from "../shared/GerenciarUsuariosNovoTypes";
 import { PrivateRoutes } from "@/components/Header/routes-ui";
 import { useVolunteers } from "@/hooks/users-hook";
 import { UpdateVolunteerDto } from "@/services/api/modules/users/types";
+import { Spinner } from "@/components/Spinner/Spinner";
 
 export default function GerenciarVoluntariosNovoContainer() {
     const router = useRouter();
     const volunteerId = useSearchParams().get("id");
 
-    const { getVolunteerById, createVolunteer, updateVolunteer } = useVolunteers();
+    const {
+        getVolunteerById,
+        createVolunteer,
+        updateVolunteer,
+        isLoading: volunteersLoading,
+    } = useVolunteers();
 
     const {
         register,
@@ -72,6 +78,28 @@ export default function GerenciarVoluntariosNovoContainer() {
     const title = volunteerId ? "Editar Voluntário" : "Adicionar Voluntário";
     const buttonLabel = volunteerId ? "Salvar Alterações" : "Salvar Voluntário";
 
+    const renderContent = () => {
+        if (volunteersLoading) {
+            return (
+                <div className="flex justify-center items-center min-h-screen">
+                    <Spinner />
+                </div>
+            );
+        }
+
+        return (
+            <div className="bg-gray-200 shadow-md rounded-lg p-6">
+                <Form<IVolunteerForm>
+                    handleSubmit={handleSubmit(onSubmit)}
+                    formFields={formFields}
+                    register={register}
+                    errors={errors}
+                    submitLabel={buttonLabel}
+                />
+            </div>
+        );
+    };
+
     return (
         <div className="bg-white min-h-screen">
             <div className="max-w-screen-xl mx-auto px-8 py-11 flex flex-col w-full">
@@ -85,15 +113,7 @@ export default function GerenciarVoluntariosNovoContainer() {
                     <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
                 </div>
 
-                <div className="bg-gray-200 shadow-md rounded-lg p-6">
-                    <Form<IVolunteerForm>
-                        handleSubmit={handleSubmit(onSubmit)}
-                        formFields={formFields}
-                        register={register}
-                        errors={errors}
-                        submitLabel={buttonLabel}
-                    />
-                </div>
+                {renderContent()}
             </div>
         </div>
     );
