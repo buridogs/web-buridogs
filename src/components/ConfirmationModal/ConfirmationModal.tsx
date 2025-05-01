@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { Spinner } from "../Spinner/Spinner";
 
 export interface ConfirmationModalProps {
     isOpen: boolean;
@@ -97,7 +98,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                         disabled={isLoading}
                         style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
                     >
-                        {primaryButtonText}
+                        {isLoading ? <Spinner /> : primaryButtonText}
                     </button>
                 </div>
             </div>
