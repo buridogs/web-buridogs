@@ -2,14 +2,17 @@ import { UserRole } from "@/interfaces/authInterfaces";
 
 export interface IVolunteer {
     id: string;
-    nome: string;
+    name: string;
     email: string;
-    apelido: string;
+    nickname: string;
     role: UserRole;
     createdAt: string;
     updatedAt: string;
+    password?: string;
 }
 
 export type CreateVolunteerDto = Omit<IVolunteer, "id" | "createdAt" | "updatedAt">;
 
-export type UpdateVolunteerDto = Partial<Omit<IVolunteer, "id" | "createdAt" | "updatedAt">>;
+export type UpdateVolunteerDto = Partial<
+    Omit<IVolunteer, "id" | "createdAt" | "updatedAt" | "password" | "email">
+>;

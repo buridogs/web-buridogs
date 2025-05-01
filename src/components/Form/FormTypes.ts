@@ -20,6 +20,7 @@ export type FieldFormsType<T> = {
     placeholder?: string;
     type: InputFormEnum;
     options?: OptionFormsType[];
+    disabled?: boolean;
     fileSettings?: {
         isMultiple?: boolean;
         filesQuantityLimit?: number;
@@ -30,7 +31,7 @@ export type FieldFormsType<T> = {
 
 export type GeneralFormsType<T> = {
     section: {
-        leftSide: FieldFormsType<T>[],
-        rightSide: FieldFormsType<T>[]
+        leftSide: FieldFormsType<T>[];
+        rightSide: FieldFormsType<T>[];
     };
 };

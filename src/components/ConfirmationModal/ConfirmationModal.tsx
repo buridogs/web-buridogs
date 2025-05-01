@@ -11,6 +11,7 @@ export interface ConfirmationModalProps {
     onPrimaryAction: () => void;
     onSecondaryAction: () => void;
     onClose: () => void;
+    isLoading?: boolean;
 }
 
 export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -22,6 +23,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     onPrimaryAction,
     onSecondaryAction,
     onClose,
+    isLoading = false,
 }) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -92,6 +94,8 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                         type="button"
                         className="inline-flex justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
                         onClick={onPrimaryAction}
+                        disabled={isLoading}
+                        style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
                     >
                         {primaryButtonText}
                     </button>

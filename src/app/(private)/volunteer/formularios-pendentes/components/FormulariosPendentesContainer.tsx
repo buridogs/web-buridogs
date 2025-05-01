@@ -31,7 +31,12 @@ export default function FormulariosPendentesContainer() {
             return;
         }
 
-        if (!isLoading && isAuthenticated && user?.role === UserRole.VOLUNTEER) {
+        if (
+            !isLoading &&
+            isAuthenticated &&
+            ((user?.role && ![UserRole.VOLUNTEER, UserRole.ADMIN].includes(user?.role)) ||
+                !user?.role)
+        ) {
             router.push(PublicRoutes.NAO_AUTORIZADO);
             return;
         }

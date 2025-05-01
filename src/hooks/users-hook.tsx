@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useCallback, useEffect } from "react";
 
 import { toast } from "react-toastify";
@@ -27,7 +29,7 @@ export const useVolunteers = () => {
             setStatus("success");
         } catch (err) {
             setStatus("error");
-            const message = err instanceof ApiError ? err.message : "Failed to fetch volunteers";
+            const message = err instanceof ApiError ? err.message : "Erro ao buscar voluntários";
             setError(message);
             toast.error(message);
         }
@@ -48,7 +50,7 @@ export const useVolunteers = () => {
                 const message =
                     err instanceof ApiError
                         ? err.message
-                        : `Failed to fetch volunteer with ID ${id}`;
+                        : `Erro ao buscar voluntário com ID ${id}`;
                 setError(message);
                 toast.error(message);
                 throw err;
@@ -67,12 +69,12 @@ export const useVolunteers = () => {
                 const newVolunteer = await volunteerService.createVolunteer(data);
                 setVolunteers((prev) => [...prev, newVolunteer]);
                 setStatus("success");
-                toast.success("Volunteer created successfully");
+                toast.success("Voluntário cadastrado com sucesso!");
                 return newVolunteer;
             } catch (err) {
                 setStatus("error");
                 const message =
-                    err instanceof ApiError ? err.message : "Failed to create volunteer";
+                    err instanceof ApiError ? err.message : "Erro ao cadastrar voluntário";
                 setError(message);
                 toast.error(message);
                 throw err;
@@ -93,14 +95,14 @@ export const useVolunteers = () => {
                     prev.map((volunteer) => (volunteer.id === id ? updatedVolunteer : volunteer))
                 );
                 setStatus("success");
-                toast.success("Volunteer updated successfully");
+                toast.success("Voluntário atualizado com sucesso!");
                 return updatedVolunteer;
             } catch (err) {
                 setStatus("error");
                 const message =
                     err instanceof ApiError
                         ? err.message
-                        : `Failed to update volunteer with ID ${id}`;
+                        : `Erro ao atualizar voluntário com ID ${id}`;
                 setError(message);
                 toast.error(message);
                 throw err;
@@ -119,13 +121,13 @@ export const useVolunteers = () => {
                 await volunteerService.deleteVolunteer(id);
                 setVolunteers((prev) => prev.filter((volunteer) => volunteer.id !== id));
                 setStatus("success");
-                toast.success("Volunteer deleted successfully");
+                toast.success("Voluntário excluído com sucesso!");
             } catch (err) {
                 setStatus("error");
                 const message =
                     err instanceof ApiError
                         ? err.message
-                        : `Failed to delete volunteer with ID ${id}`;
+                        : `Erro ao deletar voluntário com ID ${id}`;
                 setError(message);
                 toast.error(message);
                 throw err;

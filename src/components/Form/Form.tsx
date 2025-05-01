@@ -35,7 +35,8 @@ export default function Form<T extends FieldValues>({
                     <input
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
-                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500 placeholder-primary-100"
+                        disabled={field.disabled}
+                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500 placeholder-primary-100 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300"
                         {...register(field.key as Path<T>)}
                     />
                 );
@@ -44,7 +45,8 @@ export default function Form<T extends FieldValues>({
                     <textarea
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
-                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500"
+                        disabled={field.disabled}
+                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300"
                         {...register(field.key as Path<T>)}
                         rows={4}
                     />
@@ -69,7 +71,8 @@ export default function Form<T extends FieldValues>({
                                     id={opt?.key}
                                     type="checkbox"
                                     value={opt?.value}
-                                    className="h-4 w-4 mr-2 rounded-sm cursor-pointer accent-primary-400"
+                                    disabled={field.disabled}
+                                    className="h-4 w-4 mr-2 rounded-sm cursor-pointer accent-primary-400 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300"
                                     {...register(field.key as Path<T>)}
                                 />
                                 <label
@@ -94,7 +97,8 @@ export default function Form<T extends FieldValues>({
                                     id={opt?.key}
                                     type="radio"
                                     value={opt?.value}
-                                    className="mr-2 cursor-pointer accent-primary-400"
+                                    disabled={field.disabled}
+                                    className="mr-2 cursor-pointer accent-primary-400 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300"
                                     {...register(field.key as Path<T>)}
                                 />
                                 <label

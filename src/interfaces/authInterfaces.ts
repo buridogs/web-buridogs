@@ -6,8 +6,8 @@ export interface User {
 }
 
 export enum UserRole {
-    ADMIN = "ADMIN",
-    VOLUNTEER = "VOLUNTEER",
+    ADMIN = "admin",
+    VOLUNTEER = "volunteer",
 }
 
 export interface AuthState {

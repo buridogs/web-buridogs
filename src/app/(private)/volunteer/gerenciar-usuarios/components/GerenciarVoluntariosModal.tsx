@@ -5,12 +5,13 @@ import { IoMdClose, IoMdCreate, IoMdTrash } from "react-icons/io";
 import { FaEnvelope, FaUser, FaTag } from "react-icons/fa";
 import { IVoluntarios } from "@/interfaces/voluntariosInterfaces";
 import { useRouter } from "next/navigation";
-import { IUsuariosForm } from "../novo/shared/GerenciarUsuariosNovoTypes";
+import { IVolunteerForm } from "../novo/shared/GerenciarUsuariosNovoTypes";
+import { useAuth } from "@/providers/auth/AuthProvider";
 
 interface GerenciarVoluntariosModalProps {
     volunteer: IVoluntarios;
     onClose: () => void;
-    onDelete?: (volunteer: IUsuariosForm) => void;
+    onDelete?: (volunteer: IVolunteerForm) => void;
 }
 
 export function GerenciarVoluntariosModal({
@@ -18,6 +19,7 @@ export function GerenciarVoluntariosModal({
     onClose,
     onDelete,
 }: GerenciarVoluntariosModalProps) {
+    const { user } = useAuth();
     const modalRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
 
@@ -70,7 +72,7 @@ export function GerenciarVoluntariosModal({
                                 <FaUser className="mr-2 text-gray-500" />
                                 <span>
                                     <span className="text-primary-400 font-semibold">Nome: </span>
-                                    {volunteer.nome}
+                                    {volunteer.name}
                                 </span>
                             </div>
                             <div className="text-gray-600 mb-4 flex items-center">
@@ -86,7 +88,7 @@ export function GerenciarVoluntariosModal({
                                     <span className="text-primary-400 font-semibold">
                                         Apelido:{" "}
                                     </span>
-                                    {volunteer.apelido}
+                                    {volunteer.nickname}
                                 </span>
                             </div>
                             <div className="text-gray-600 mb-4">
@@ -108,7 +110,13 @@ export function GerenciarVoluntariosModal({
                     </button>
                     <button
                         onClick={() => onDelete && onDelete(volunteer)}
-                        className="flex items-center px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700 transition-colors"
+                        className="flex items-center px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled={user?.email === volunteer.email}
+                        title={
+                            user?.email === volunteer.email
+                                ? "Você não pode excluir seu próprio usuário"
+                                : "Excluir"
+                        }
                     >
                         <IoMdTrash className="mr-2" /> Excluir
                     </button>

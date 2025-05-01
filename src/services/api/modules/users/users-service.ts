@@ -34,7 +34,7 @@ class VolunteerService extends BaseApiService {
      */
     async updateVolunteer(id: string, volunteerData: UpdateVolunteerDto): Promise<IVolunteer> {
         return this.fetchWithAuth<IVolunteer>(`/volunteers/${id}`, {
-            method: "PUT",
+            method: "PATCH",
             body: JSON.stringify(volunteerData),
         });
     }

@@ -8,6 +8,7 @@ import { FaEye } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { getFilterOptionsPermissions } from "../shared/GerenciarVoluntariosUtils";
+import { useAuth } from "@/providers/auth/AuthProvider";
 
 interface GerenciarVoluntariosTableProps {
     volunteers: IVoluntarios[];
@@ -20,6 +21,7 @@ export function GerenciarVoluntariosTable({
     onViewDetails,
     onDelete,
 }: GerenciarVoluntariosTableProps) {
+    const { user } = useAuth();
     const [permissionFilter, setPermissionFilter] = useState<string>("all");
     const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -30,9 +32,9 @@ export function GerenciarVoluntariosTable({
             const matchesPermission =
                 permissionFilter === "all" || volunteer.role?.toString() === permissionFilter;
             const matchesSearch =
-                volunteer.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                volunteer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 volunteer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                volunteer.apelido.toLowerCase().includes(searchTerm.toLowerCase());
+                volunteer.nickname.toLowerCase().includes(searchTerm.toLowerCase());
 
             return matchesPermission && matchesSearch;
         });
@@ -103,13 +105,13 @@ export function GerenciarVoluntariosTable({
                                     className="hover:bg-gray-50"
                                 >
                                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {volunteer.nome}
+                                        {volunteer.name}
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                         {volunteer.email}
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {volunteer.apelido}
+                                        {volunteer.nickname}
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                         {volunteer.role}
@@ -136,8 +138,13 @@ export function GerenciarVoluntariosTable({
                                             </button>
                                             <button
                                                 onClick={() => onDelete(volunteer)}
-                                                className="text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-red-100 transition-colors"
-                                                title="Excluir"
+                                                className="text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-red-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                                title={
+                                                    user?.email === volunteer.email
+                                                        ? "Você não pode excluir seu próprio usuário"
+                                                        : "Excluir"
+                                                }
+                                                disabled={user?.email === volunteer.email}
                                             >
                                                 <FaRegTrashCan size={16} />
                                             </button>

@@ -4,30 +4,30 @@ import { IVoluntarios } from "@/interfaces/voluntariosInterfaces";
 export const voluntarios: IVoluntarios[] = [
     {
         id: "1",
-        nome: "Ana Silva",
+        name: "Ana Silva",
         email: "ana.silva@buridogs.org",
-        apelido: "Ana",
+        nickname: "Ana",
         role: UserRole.ADMIN,
     },
     {
         id: "2",
-        nome: "Pedro Santos",
+        name: "Pedro Santos",
         email: "pedro.santos@buridogs.org",
-        apelido: "Pedro",
+        nickname: "Pedro",
         role: UserRole.VOLUNTEER,
     },
     {
         id: "4",
-        nome: "Roberto Gomes",
+        name: "Roberto Gomes",
         email: "roberto.gomes@buridogs.org",
-        apelido: "Beto",
+        nickname: "Beto",
         role: UserRole.VOLUNTEER,
     },
     {
         id: "5",
-        nome: "Juliana Costa",
+        name: "Juliana Costa",
         email: "juliana.costa@buridogs.org",
-        apelido: "Ju",
+        nickname: "Ju",
         role: UserRole.VOLUNTEER,
     },
 ];

@@ -1,15 +1,10 @@
 import { UserRole } from "./authInterfaces";
 
+// TODO: CHECK User interface from authInterfaces.ts and IVolunteer interface from api/modules/users/types.ts
 export interface IVoluntarios {
     id: string;
-    nome: string;
+    name: string;
     email: string;
-    apelido: string;
+    nickname: string;
     role: UserRole;
-}
-
-export enum PermissaoEnum {
-    ADMIN = "Administrador",
-    VOLUNTEER = "Voluntário",
-    EDITOR = "Editor",
 }

@@ -1,9 +1,9 @@
-import { PermissaoEnum } from "@/interfaces/voluntariosInterfaces";
+import { UserRole } from "@/interfaces/authInterfaces";
 
 export const getFilterOptionsPermissions = () => {
     return [
         { value: "all", label: "Todas" },
-        { value: PermissaoEnum.ADMIN, label: "Administrador" },
-        { value: PermissaoEnum.VOLUNTEER, label: "Voluntário" },
+        { value: UserRole.ADMIN, label: "Administrador" },
+        { value: UserRole.VOLUNTEER, label: "Voluntário" },
     ];
 };
