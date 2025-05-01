@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { useRouter } from "next/navigation";
 import { UserRole } from "@/interfaces/authInterfaces";
+import { PublicRoutes } from "@/components/Header/routes-ui";
 
 interface ProtectedRouteProps {
     children: React.ReactNode;
@@ -23,7 +24,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
 
                 if (!isAuth) {
                     // User is not authenticated, redirect to login
-                    router.push("/login");
+                    router.push(PublicRoutes.LOGIN);
                     return;
                 }
 
@@ -31,12 +32,12 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
                 if (allowedRoles && allowedRoles.length > 0 && user) {
                     if (!allowedRoles.includes(user.role)) {
                         // User doesn't have the required role
-                        router.push("/unauthorized");
+                        router.push(PublicRoutes.NAO_AUTORIZADO);
                     }
                 }
             } catch (error) {
                 console.error("Auth verification error:", error);
-                router.push("/login");
+                router.push(PublicRoutes.LOGIN);
             } finally {
                 setChecking(false);
             }
@@ -51,7 +52,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
     if (isLoading || checking) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <Spinner size="large" />
+                <Spinner />
             </div>
         );
     }
