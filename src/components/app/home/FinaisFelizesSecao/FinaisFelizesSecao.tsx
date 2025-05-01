@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/Button/Button";
-import { dogs } from "@/mock/dogsMock";
+import { useDogs } from "@/hooks/dogs-hook";
+import { DogStatusEnum } from "@/services/api/modules/dogs/types";
 import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +9,10 @@ import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 export function FinaisFelizesSecao() {
-    const finaisFelizesHighlight = dogs.filter((d) => d.status === "finais-felizes").slice(0, 3);
+    const { dogs } = useDogs();
+    const finaisFelizesHighlight = dogs
+        .filter((d) => d.status === DogStatusEnum.adotado)
+        .slice(0, 3);
 
     return (
         <section>

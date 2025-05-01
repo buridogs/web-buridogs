@@ -3,10 +3,10 @@ import { BsGenderAmbiguous } from "react-icons/bs";
 import { MdBedroomBaby } from "react-icons/md";
 import { returnFormattedOptionLabel } from "@/utils/methods";
 import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
-import { IDog } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 
 interface FinaisFelizesDetalhesInfoProps {
-    finalFelizSelecionado: IDog;
+    finalFelizSelecionado: IDogUI;
 }
 
 export default function FinaisFelizesDetalhesInfo({

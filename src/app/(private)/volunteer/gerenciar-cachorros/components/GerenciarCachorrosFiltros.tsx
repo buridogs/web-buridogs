@@ -1,6 +1,11 @@
 import Select from "@/components/Select/Select";
 import Toggle from "@/components/Toggle/Toggle";
 import { LuSearch } from "react-icons/lu";
+import {
+    getFilterOptionsDogAge,
+    getFilterOptionsDogGender,
+    getFilterOptionsDogSize,
+} from "../shared/GerenciarCachorrosUtils";
 
 interface GerenciarCachorrosFiltrosProps {
     searchTerm: string;
@@ -56,11 +61,7 @@ export default function GerenciarCachorrosFiltros({
 
                 <Select
                     id="genero"
-                    options={[
-                        { value: "", label: "Todos" },
-                        { value: "macho", label: "Macho" },
-                        { value: "femea", label: "Fêmea" },
-                    ]}
+                    options={getFilterOptionsDogGender()}
                     value={selectedGenero}
                     onChange={(value) => setSelectedGenero(value)}
                     label="Gênero"
@@ -69,12 +70,7 @@ export default function GerenciarCachorrosFiltros({
 
                 <Select
                     id="idade"
-                    options={[
-                        { value: "", label: "Todos" },
-                        { value: "filhote", label: "Filhote" },
-                        { value: "adulto", label: "Adulto" },
-                        { value: "idoso", label: "Idoso" },
-                    ]}
+                    options={getFilterOptionsDogAge()}
                     value={selectedIdade}
                     onChange={(value) => setSelectedIdade(value)}
                     label="Idade"
@@ -83,13 +79,7 @@ export default function GerenciarCachorrosFiltros({
 
                 <Select
                     id="porte"
-                    options={[
-                        // TODO: CHECK THESE VALUES
-                        { value: "", label: "Todos" },
-                        { value: "pequeno-porte", label: "Pequeno" },
-                        { value: "medio-porte", label: "Medio" },
-                        { value: "grande-porte", label: "Grande" },
-                    ]}
+                    options={getFilterOptionsDogSize()}
                     value={selectedPorte}
                     onChange={(value) => setSelectedPorte(value)}
                     label="Porte"

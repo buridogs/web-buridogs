@@ -5,10 +5,10 @@ import { FaArrowLeft, FaArrowRight, FaDog } from "react-icons/fa6";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { MdBedroomBaby } from "react-icons/md";
 import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
-import { IDog } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 
 interface AdocaoDetalhesInfoProps {
-    cachorroSelecionado: IDog;
+    cachorroSelecionado: IDogUI;
 }
 
 export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalhesInfoProps) {

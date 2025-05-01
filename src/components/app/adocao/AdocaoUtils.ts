@@ -1,16 +1,11 @@
-import {
-    AdocaoFiltrosEnum,
-    AdocaoGeneroEnum,
-    AdocaoIdadeEnum,
-    AdocaoPorteEnum,
-} from "@/interfaces/adocaoInterfaces";
+import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
+import { DogAgeEnum, DogGenderEnum, DogSizeEnum } from "@/services/api/modules/dogs/types";
 import { FiltroOptionsType } from "@/utils/types";
 
+export const SLUG_CHARACTER_SEPARATOR = "__";
+
 export const filtrosAdocao: FiltroOptionsType<
-    AdocaoFiltrosEnum | 
-    AdocaoGeneroEnum | 
-    AdocaoIdadeEnum | 
-    AdocaoPorteEnum
+    AdocaoFiltrosEnum | DogGenderEnum | DogAgeEnum | DogSizeEnum
 >[] = [
     {
         filtro: {
@@ -20,11 +15,11 @@ export const filtrosAdocao: FiltroOptionsType<
         opcoes: [
             {
                 label: "Macho",
-                value: AdocaoGeneroEnum.macho,
+                value: DogGenderEnum.macho,
             },
             {
                 label: "Fêmea",
-                value: AdocaoGeneroEnum.femea,
+                value: DogGenderEnum.femea,
             },
         ],
     },
@@ -36,19 +31,19 @@ export const filtrosAdocao: FiltroOptionsType<
         opcoes: [
             {
                 label: "Filhote",
-                value: AdocaoIdadeEnum.filhote,
+                value: DogAgeEnum.filhote,
             },
             {
                 label: "Até 1 ano",
-                value: AdocaoIdadeEnum.ate1Ano,
+                value: DogAgeEnum.jovem,
             },
             {
                 label: "Adulto",
-                value: AdocaoIdadeEnum.adulto,
+                value: DogAgeEnum.adulto,
             },
             {
                 label: "Idoso",
-                value: AdocaoIdadeEnum.idoso,
+                value: DogAgeEnum.idoso,
             },
         ],
     },
@@ -60,26 +55,26 @@ export const filtrosAdocao: FiltroOptionsType<
         opcoes: [
             {
                 label: "Mini",
-                value: AdocaoPorteEnum.mini,
+                value: DogSizeEnum.mini,
             },
             {
                 label: "Pequeno Porte",
-                value: AdocaoPorteEnum.pequenoPorte,
+                value: DogSizeEnum.pequeno,
             },
             {
                 label: "Médio Porte",
-                value: AdocaoPorteEnum.medioPorte,
+                value: DogSizeEnum.medio,
             },
             {
                 label: "Grande Porte",
-                value: AdocaoPorteEnum.grandePorte,
+                value: DogSizeEnum.grande,
             },
         ],
     },
 ];
 
 export const estadoInicialFiltrosAdocao = {
-    genero: [],
-    idade: [],
-    porte: [],
+    [AdocaoFiltrosEnum.genero]: [],
+    [AdocaoFiltrosEnum.idade]: [],
+    [AdocaoFiltrosEnum.porte]: [],
 };

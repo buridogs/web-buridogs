@@ -4,7 +4,7 @@
 export interface RequestOptions extends Omit<RequestInit, "body" | "method"> {
     method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     body?: any;
-    params?: Record<string, string | number | boolean>;
+    params?: PaginationParams;
     headers?: Record<string, string>;
 }
 

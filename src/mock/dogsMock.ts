@@ -1,6 +1,6 @@
-import { IDog } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 
-export const dogs: IDog[] = [
+export const dogs: IDogUI[] = [
     {
         id: 3,
         nomeExibicao: "Zazá",

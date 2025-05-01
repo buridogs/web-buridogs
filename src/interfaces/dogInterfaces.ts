@@ -1,4 +1,4 @@
-import { AdocaoGeneroType, AdocaoIdadeType, AdocaoPorteType } from "./adocaoInterfaces";
+import { DogAge, DogGender, DogSize, DogStatus } from "@/services/api/modules/dogs/types";
 
 interface Img {
     src: string;
@@ -12,14 +12,14 @@ interface Video {
 }
 
 // TODO: APPLY THIS INTERFACE TO THE WHOLE PROJECT
-export interface IDog {
-    id: number;
+export interface IDogUI {
+    id: string;
     nomeExibicao: string;
-    status: "adocao" | "finais-felizes";
+    status: DogStatus;
     slug: string;
-    genero: AdocaoGeneroType;
-    idade: AdocaoIdadeType;
-    porte: AdocaoPorteType;
+    genero: DogGender;
+    idade: DogAge;
+    porte: DogSize;
     descricao: string;
     possuiAlgumaInaptidao?: boolean;
     images?: Img[];

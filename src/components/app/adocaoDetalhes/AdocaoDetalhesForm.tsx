@@ -8,10 +8,10 @@ import { IAdocaoForm } from "./AdocaoDetalhesTypes";
 import Form from "@/components/Form/Form";
 import { blobServiceClient, uploadBlobFromBuffer } from "@/services/azure-blob/azure-blob";
 import { sendEmailFunctionAdocaoForm } from "@/services/azure-function/send-email-adocao/send-email-function-adocao-form";
-import { IDog } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 
 interface AdocaoDetalhesFormProps {
-    cachorroSelecionado: IDog;
+    cachorroSelecionado: IDogUI;
 }
 
 export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalhesFormProps) {

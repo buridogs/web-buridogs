@@ -1,7 +1,7 @@
-import { IDog } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 
 // Mock data - replace with API call in production
-export const cachorrosMock: IDog[] = [
+export const cachorrosMock: IDogUI[] = [
     {
         id: 1,
         nomeExibicao: "Thor",

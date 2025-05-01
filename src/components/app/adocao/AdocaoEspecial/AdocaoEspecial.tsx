@@ -2,10 +2,19 @@
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { AdocaoEspecialCard } from "./AdocaoEspecialCard";
-import { dogs } from "@/mock/dogsMock";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 
-export function AdocaoEspecial() {
-    const cachorrosIncapacitados = dogs.filter((cachorro) => !!cachorro.possuiAlgumaInaptidao);
+interface AdocaoEspecialProps {
+    cachorrosAdocao: IDogUI[];
+}
+
+export function AdocaoEspecial({ cachorrosAdocao }: AdocaoEspecialProps) {
+    const cachorrosIncapacitados = cachorrosAdocao.filter(
+        (cachorro) => !!cachorro.possuiAlgumaInaptidao
+    );
+
+    if (cachorrosIncapacitados.length === 0) return null;
+    const isMoreThanOne = cachorrosIncapacitados.length > 1;
 
     return (
         <section className="relative flex flex-col items-center py-6 mt-6">
@@ -20,6 +29,7 @@ export function AdocaoEspecial() {
             <AliceCarousel
                 mouseTracking
                 disableDotsControls
+                disableButtonsControls={!isMoreThanOne}
                 renderPrevButton={() => (
                     <div className="absolute top-[90%] left-0 w-10 h-10 flex items-center justify-center float-left rounded-[50%] bg-primary-400 cursor-pointer transition hover:bg-primary-100">
                         <FaArrowLeft color="white" />
@@ -31,7 +41,7 @@ export function AdocaoEspecial() {
                     </div>
                 )}
                 infinite
-                autoPlay
+                autoPlay={isMoreThanOne}
                 autoPlayInterval={3500}
                 responsive={{
                     0: {

@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import FinaisFelizesDetalhesInfo from "./FinaisFelizesDetalhesInfo";
 import FinaisFelizesAntesDepoisInfo from "./FinaisFelizesAntesDepoisInfo";
-import { dogs } from "@/mock/dogsMock";
-import { IDog } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
+import { useDogs } from "@/hooks/dogs-hook";
+import { SLUG_CHARACTER_SEPARATOR } from "../adocao/AdocaoUtils";
+import { Spinner } from "@/components/Spinner/Spinner";
 
 interface FinaisFelizesDetalhesContainerProps {
     slug?: string;
@@ -13,18 +15,28 @@ interface FinaisFelizesDetalhesContainerProps {
 export default function FinaisFelizesDetalhesContainer({
     slug,
 }: FinaisFelizesDetalhesContainerProps) {
-    const [finalFelizSelecionado, setFinalFelizSelecionado] = useState<IDog>({} as IDog);
+    const { getDogById, isLoading: dogsLoading } = useDogs();
+    const [finalFelizSelecionado, setFinalFelizSelecionado] = useState<IDogUI>({} as IDogUI);
 
     useEffect(() => {
         if (slug) {
-            const idAnimalSelecionado = slug.split("-")[0];
-            setFinalFelizSelecionado(
-                dogs.find(
-                    (c) => c.status === "finais-felizes" && c.id.toString() === idAnimalSelecionado
-                ) ?? ({} as IDog)
-            );
+            const fetchDogData = async () => {
+                const idAnimalSelecionado = slug.split(SLUG_CHARACTER_SEPARATOR)[0];
+                if (idAnimalSelecionado) {
+                    const foundDog = await getDogById(idAnimalSelecionado);
+                    if (foundDog) {
+                        setFinalFelizSelecionado(foundDog);
+                    }
+                }
+            };
+
+            fetchDogData();
         }
     }, [slug]);
+
+    if (dogsLoading) {
+        return <Spinner />;
+    }
 
     return (
         <main className="bg-white">

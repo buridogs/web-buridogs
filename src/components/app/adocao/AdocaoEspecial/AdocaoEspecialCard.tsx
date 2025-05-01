@@ -1,11 +1,11 @@
 import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
-import { IDog } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 
 interface AdocaoEspecialCardProps {
-    dog: IDog;
+    dog: IDogUI;
 }
 
 export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {

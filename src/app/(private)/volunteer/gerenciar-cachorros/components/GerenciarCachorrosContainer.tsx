@@ -5,10 +5,12 @@ import { AdocaoCachorroCard } from "@/components/app/adocao/AdocaoCatalogo/Adoca
 import { LuPlus } from "react-icons/lu";
 import Link from "next/link";
 import GerenciarCachorrosFiltros from "./GerenciarCachorrosFiltros";
-import { cachorrosMock } from "./mock";
 import { PrivateRoutes } from "@/components/Header/routes-ui";
 import ConfirmationModal from "@/components/ConfirmationModal/ConfirmationModal";
-import { IDog } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
+import { useDogs } from "@/hooks/dogs-hook";
+import { Spinner } from "@/components/Spinner/Spinner";
+import { DogStatusEnum } from "@/services/api/modules/dogs/types";
 
 export default function GerenciarCachorrosContainer() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -17,26 +19,65 @@ export default function GerenciarCachorrosContainer() {
     const [selectedPorte, setSelectedPorte] = useState<string>("");
     const [isHappyEnding, setIsHappyEnding] = useState(false);
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-    const [selectedDogToDelete, setSelectedDogToDelete] = useState<IDog | null>(null);
+    const [selectedDogToDelete, setSelectedDogToDelete] = useState<IDogUI | null>(null);
+
+    const { isLoading: dogsLoading, dogs, deleteDog } = useDogs();
 
     const filteredDogs = useMemo(() => {
-        return cachorrosMock.filter((dog) => {
+        return dogs.filter((dog) => {
             const matchesName = dog.nomeExibicao.toLowerCase().includes(searchTerm.toLowerCase());
             const matchesGenero = selectedGenero ? dog.genero === selectedGenero : true;
             const matchesIdade = selectedIdade ? dog.idade === selectedIdade : true;
             const matchesPorte = selectedPorte ? dog.porte === selectedPorte : true;
             const matchesStatus = isHappyEnding
-                ? dog.status === "finais-felizes"
-                : dog.status !== "finais-felizes";
+                ? dog.status === DogStatusEnum.adotado
+                : dog.status !== DogStatusEnum.adotado;
             return matchesName && matchesGenero && matchesIdade && matchesPorte && matchesStatus;
         });
-    }, [searchTerm, selectedGenero, selectedIdade, selectedPorte, isHappyEnding]);
+    }, [searchTerm, selectedGenero, selectedIdade, selectedPorte, isHappyEnding, dogs]);
 
     const handleClearFilters = () => {
         setSearchTerm("");
         setSelectedGenero("");
         setSelectedIdade("");
         setSelectedPorte("");
+    };
+
+    const renderContent = () => {
+        if (dogsLoading) {
+            return <Spinner />;
+        }
+
+        return (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredDogs.length > 0 ? (
+                    filteredDogs.map((cachorro) => (
+                        <AdocaoCachorroCard
+                            key={cachorro.id}
+                            cachorroInformacao={cachorro}
+                            isManagementMode
+                            onDelete={(dog) => {
+                                setSelectedDogToDelete(dog);
+                                setIsConfirmationModalOpen(true);
+                            }}
+                        />
+                    ))
+                ) : (
+                    <div className="col-span-full text-center py-8">
+                        <p className="text-gray-500">
+                            Nenhum cachorro encontrado com os filtros selecionados.
+                        </p>
+                    </div>
+                )}
+            </div>
+        );
+    };
+
+    const handleDeleteDog = async () => {
+        if (selectedDogToDelete) {
+            await deleteDog(selectedDogToDelete.id);
+            setIsConfirmationModalOpen(false);
+        }
     };
 
     return (
@@ -71,27 +112,7 @@ export default function GerenciarCachorrosContainer() {
                 />
 
                 {/* Card List */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredDogs.length > 0 ? (
-                        filteredDogs.map((cachorro) => (
-                            <AdocaoCachorroCard
-                                key={cachorro.id}
-                                cachorroInformacao={cachorro}
-                                isManagementMode
-                                onDelete={(dog) => {
-                                    setSelectedDogToDelete(dog);
-                                    setIsConfirmationModalOpen(true);
-                                }}
-                            />
-                        ))
-                    ) : (
-                        <div className="col-span-full text-center py-8">
-                            <p className="text-gray-500">
-                                Nenhum cachorro encontrado com os filtros selecionados.
-                            </p>
-                        </div>
-                    )}
-                </div>
+                {renderContent()}
             </div>
             {isConfirmationModalOpen && selectedDogToDelete && (
                 <ConfirmationModal
@@ -100,7 +121,7 @@ export default function GerenciarCachorrosContainer() {
                     description={`Você tem certeza que deseja deletar o cachorro ${selectedDogToDelete.nomeExibicao}? Esta ação não pode ser desfeita.`}
                     primaryButtonText="Deletar"
                     secondaryButtonText="Cancelar"
-                    onPrimaryAction={() => console.log("Confirmed action")}
+                    onPrimaryAction={() => handleDeleteDog()}
                     onSecondaryAction={() => setIsConfirmationModalOpen(false)}
                     onClose={() => setIsConfirmationModalOpen(false)}
                 />

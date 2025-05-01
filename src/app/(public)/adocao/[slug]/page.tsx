@@ -1,5 +1,6 @@
+import { SLUG_CHARACTER_SEPARATOR } from "@/components/app/adocao/AdocaoUtils";
 import AdocaoDetalhesContainer from "@/components/app/adocaoDetalhes/AdocaoDetalhesContainer";
-import { dogs } from "@/mock/dogsMock";
+import { dogService } from "@/services/api/modules/dogs/dogs-service";
 import { generateImgURL } from "@/utils/methods";
 import { Metadata } from "next";
 import { ResolvingMetadata } from "next/dist/lib/metadata/types/metadata-interface";
@@ -18,20 +19,18 @@ export async function generateMetadata(
 ): Promise<Metadata> {
     const slug = params.slug;
 
-    const idAnimalSelecionado = slug.split("-")[0];
+    const idAnimalSelecionado = slug.split(SLUG_CHARACTER_SEPARATOR)[0];
 
-    const cachorro = dogs.find(
-        (c) => c.status === "adocao" && c.id.toString() === idAnimalSelecionado
-    );
+    const dog = await dogService.getDogById(idAnimalSelecionado);
 
     const previousImages = (await parent).openGraph?.images || [];
 
     return {
-        title: `${cachorro?.nomeExibicao} | Adoção Detalhes`,
-        description: `${cachorro?.descricao}`,
+        title: `${dog?.name} | Adoção Detalhes`,
+        description: `${dog?.description} | Adoção Detalhes`,
         openGraph: {
             images: [
-                `${generateImgURL(cachorro?.images?.find((i) => i.type === "main")?.src ?? "")}`,
+                `${generateImgURL(dog?.assets?.find((i) => i.assetType === "none")?.urlLink ?? "")}`,
                 ...previousImages.map((pi) => generateImgURL(pi as string)),
             ],
         },

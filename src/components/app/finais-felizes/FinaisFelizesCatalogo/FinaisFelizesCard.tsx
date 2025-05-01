@@ -1,13 +1,14 @@
 "use client";
 import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
-import { IDog } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 import AliceCarousel from "react-alice-carousel";
+import { SLUG_CHARACTER_SEPARATOR } from "../../adocao/AdocaoUtils";
 
 interface FinaisFelizesCardProps {
-    finalFeliz: IDog;
+    finalFeliz: IDogUI;
 }
 
 export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps) {
@@ -60,7 +61,9 @@ export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps
                 <strong className="text-gray-400 text-xl font-medium mt-4">{nomeExibicao}</strong>
                 <span className="text-gray-400 text-sm mb-4">{`${labelGenero}, ${labelIdade}, ${labelPorte}`}</span>
                 <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
-                    <Link href={`/finais-felizes/${id}-${nomeExibicao.replaceAll(" ", "")}`}>
+                    <Link
+                        href={`/finais-felizes/${id}${SLUG_CHARACTER_SEPARATOR}${nomeExibicao.replaceAll(" ", "")}`}
+                    >
                         Ver História
                     </Link>
                 </button>

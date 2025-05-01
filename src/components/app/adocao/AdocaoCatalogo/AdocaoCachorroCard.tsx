@@ -1,14 +1,15 @@
 import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
-import { IDog } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 import { LuPencil } from "react-icons/lu";
+import { SLUG_CHARACTER_SEPARATOR } from "../AdocaoUtils";
 
 interface AdocaoCachorroCardProps {
-    cachorroInformacao: IDog;
+    cachorroInformacao: IDogUI;
     isManagementMode?: boolean;
-    onDelete?: (dog: IDog) => void;
+    onDelete?: (dog: IDogUI) => void;
 }
 
 export function AdocaoCachorroCard({
@@ -69,7 +70,9 @@ export function AdocaoCachorroCard({
                     </div>
                 ) : (
                     <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
-                        <Link href={`/adocao/${id}-${slug}`}>Quero adotar esse</Link>
+                        <Link href={`/adocao/${id}${SLUG_CHARACTER_SEPARATOR}${slug}`}>
+                            Quero adotar esse
+                        </Link>
                     </button>
                 )}
             </div>

@@ -33,8 +33,6 @@ export abstract class BaseApiService {
             headers.set("Authorization", `Bearer ${token}`);
         }
 
-        console.log({ options });
-
         // Build query string for GET requests with params
         let url = `${this.apiBaseUrl}${endpoint}`;
         if (params) {

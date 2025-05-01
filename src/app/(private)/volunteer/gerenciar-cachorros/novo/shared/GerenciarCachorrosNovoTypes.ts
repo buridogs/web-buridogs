@@ -1,12 +1,12 @@
-import { AdocaoGeneroEnum, AdocaoIdadeEnum, AdocaoPorteEnum } from "@/interfaces/adocaoInterfaces";
+import { DogAge, DogGender, DogSize, DogStatus } from "@/services/api/modules/dogs/types";
 
 // TODO: SHOULD MATCH THE IDOG INTERFACE
 export interface IDogForm {
     nomeExibicao: string;
-    genero: AdocaoGeneroEnum;
-    idade: AdocaoIdadeEnum;
-    porte: AdocaoPorteEnum;
-    status: "adocao" | "finais-felizes"; // TODO: CHECK THIS
+    genero: DogGender;
+    idade: DogAge;
+    porte: DogSize;
+    status: DogStatus;
     descricao: string;
     possuiAlgumaInaptidao: "true" | "false";
     // Advanced fields
@@ -16,7 +16,7 @@ export interface IDogForm {
     youtubeSrcUrlAntes?: string;
     youtubeSrcUrlDepois?: string;
     // Images
-    imagensPrincipais: FileList;
+    imagensPrincipais?: FileList; // TODO: FIX IT
     imagensAntes?: FileList;
     imagensDepois?: FileList;
 }

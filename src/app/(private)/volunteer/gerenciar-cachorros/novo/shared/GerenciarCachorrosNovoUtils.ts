@@ -1,9 +1,14 @@
 import { LIMITE_TAMANHO_MENSAGEM, MENSAGENS_ERRO } from "@/components/Form/FormConsts";
 import { GeneralFormsType, InputFormEnum } from "@/components/Form/FormTypes";
-import { AdocaoGeneroEnum, AdocaoIdadeEnum, AdocaoPorteEnum } from "@/interfaces/adocaoInterfaces";
 
 import * as yup from "yup";
 import { IDogForm } from "./GerenciarCachorrosNovoTypes";
+import {
+    DogAgeEnum,
+    DogGenderEnum,
+    DogSizeEnum,
+    DogStatusEnum,
+} from "@/services/api/modules/dogs/types";
 
 export const schema = yup
     .object({
@@ -16,15 +21,15 @@ export const schema = yup
             .required(MENSAGENS_ERRO().campoObrigatorio),
         genero: yup
             .string()
-            .oneOf(Object.values(AdocaoGeneroEnum), "Selecione um gênero válido")
+            .oneOf(Object.values(DogGenderEnum), "Selecione um gênero válido")
             .required(MENSAGENS_ERRO().campoObrigatorio),
         idade: yup
             .string()
-            .oneOf(Object.values(AdocaoIdadeEnum), "Selecione uma idade válida")
+            .oneOf(Object.values(DogAgeEnum), "Selecione uma idade válida")
             .required(MENSAGENS_ERRO().campoObrigatorio),
         porte: yup
             .string()
-            .oneOf(Object.values(AdocaoPorteEnum), "Selecione um porte válido")
+            .oneOf(Object.values(DogSizeEnum), "Selecione um porte válido")
             .required(MENSAGENS_ERRO().campoObrigatorio),
         descricao: yup
             .string()
@@ -35,7 +40,7 @@ export const schema = yup
             .required(MENSAGENS_ERRO().campoObrigatorio),
         status: yup
             .string()
-            .oneOf(["adocao", "finais-felizes"], "Selecione uma opção válida")
+            .oneOf(Object.values(DogStatusEnum), "Selecione uma opção válida")
             .required(MENSAGENS_ERRO().campoObrigatorio),
         possuiAlgumaInaptidao: yup
             .string()
@@ -44,12 +49,13 @@ export const schema = yup
         // Images
         imagensPrincipais: yup
             .mixed<FileList>()
-            .test(
-                "imagensPrincipais",
-                MENSAGENS_ERRO().campoObrigatorio,
-                (files: FileList | undefined) => (files?.length ?? 0) > 0
-            )
-            .required(MENSAGENS_ERRO().campoObrigatorio),
+            // .test(
+            //     "imagensPrincipais",
+            //     MENSAGENS_ERRO().campoObrigatorio,
+            //     (files: FileList | undefined) => (files?.length ?? 0) > 0
+            // )
+            .optional(),
+        // .required(MENSAGENS_ERRO().campoObrigatorio), // TODO: FIX IT
         // Advanced fields (conditional validation based on showExtendedFields)
         descricaoLonga: yup.string().when("$showExtendedFields", {
             is: true,
@@ -112,12 +118,12 @@ export const getBaseFormConfig = (): GeneralFormsType<IDogForm>[] => [
                         {
                             key: "adocao",
                             label: "Adoção",
-                            value: "adocao",
+                            value: DogStatusEnum.aguardando_adocao,
                         },
                         {
                             key: "finais-felizes",
                             label: "Finais Felizes",
-                            value: "finais-felizes",
+                            value: DogStatusEnum.adotado,
                         },
                     ],
                 },
@@ -131,12 +137,12 @@ export const getBaseFormConfig = (): GeneralFormsType<IDogForm>[] => [
                         {
                             key: "macho",
                             label: "Macho",
-                            value: AdocaoGeneroEnum.macho,
+                            value: DogGenderEnum.macho,
                         },
                         {
                             key: "femea",
                             label: "Fêmea",
-                            value: AdocaoGeneroEnum.femea,
+                            value: DogGenderEnum.femea,
                         },
                     ],
                 },
@@ -154,22 +160,22 @@ export const getBaseFormConfig = (): GeneralFormsType<IDogForm>[] => [
                         {
                             key: "filhote",
                             label: "Filhote",
-                            value: AdocaoIdadeEnum.filhote,
+                            value: DogAgeEnum.filhote,
                         },
                         {
                             key: "ate1Ano",
                             label: "Até 1 ano",
-                            value: AdocaoIdadeEnum.ate1Ano,
+                            value: DogAgeEnum.jovem,
                         },
                         {
                             key: "adulto",
                             label: "Adulto",
-                            value: AdocaoIdadeEnum.adulto,
+                            value: DogAgeEnum.adulto,
                         },
                         {
                             key: "idoso",
                             label: "Idoso",
-                            value: AdocaoIdadeEnum.idoso,
+                            value: DogAgeEnum.idoso,
                         },
                     ],
                 },
@@ -183,22 +189,22 @@ export const getBaseFormConfig = (): GeneralFormsType<IDogForm>[] => [
                         {
                             key: "mini",
                             label: "Mini",
-                            value: AdocaoPorteEnum.mini,
+                            value: DogSizeEnum.mini,
                         },
                         {
                             key: "pequenoPorte",
                             label: "Pequeno Porte",
-                            value: AdocaoPorteEnum.pequenoPorte,
+                            value: DogSizeEnum.pequeno,
                         },
                         {
                             key: "medioPorte",
                             label: "Médio Porte",
-                            value: AdocaoPorteEnum.medioPorte,
+                            value: DogSizeEnum.medio,
                         },
                         {
                             key: "grandePorte",
                             label: "Grande Porte",
-                            value: AdocaoPorteEnum.grandePorte,
+                            value: DogSizeEnum.grande,
                         },
                     ],
                 },
