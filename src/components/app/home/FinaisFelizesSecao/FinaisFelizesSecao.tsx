@@ -14,6 +14,8 @@ export function FinaisFelizesSecao() {
         .filter((d) => d.status === DogStatusEnum.adotado)
         .slice(0, 3);
 
+    if (finaisFelizesHighlight.length === 0) return null;
+
     return (
         <section>
             <div className="max-w-screen-xl mx-auto px-8 py-8">
