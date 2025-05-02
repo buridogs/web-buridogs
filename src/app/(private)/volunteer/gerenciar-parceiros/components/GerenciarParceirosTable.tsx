@@ -1,7 +1,9 @@
 "use client";
 
 import Select from "@/components/Select/Select";
-import { IParceiros, PartnerCategoryEnum } from "@/interfaces/parceirosInterfaces";
+import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { PartnerCategoryEnum } from "@/services/api/modules/partners/types";
+import { mapPartnerCategoryLabels } from "@/utils/partnersUtils";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { FaEye } from "react-icons/fa";
@@ -9,9 +11,9 @@ import { FaPencil } from "react-icons/fa6";
 import { FaRegTrashCan } from "react-icons/fa6";
 
 interface GerenciarParceirosTableProps {
-    partners: IParceiros[];
-    onViewDetails: (partner: IParceiros) => void;
-    onDelete: (partner: IParceiros) => void;
+    partners: IPartnerUI[];
+    onViewDetails: (partner: IPartnerUI) => void;
+    onDelete: (partner: IPartnerUI) => void;
 }
 
 export function GerenciarParceirosTable({
@@ -41,7 +43,7 @@ export function GerenciarParceirosTable({
                     id="categoryFilter"
                     options={[
                         { value: "all", label: "Todas" },
-                        { value: PartnerCategoryEnum.veteriary, label: "Veterinaria" },
+                        { value: PartnerCategoryEnum.veterinary, label: "Veterinaria" },
                         { value: PartnerCategoryEnum.petShop, label: "Pet Shop" },
                         { value: PartnerCategoryEnum.clothing, label: "Vestuário" },
                         {
@@ -105,7 +107,7 @@ export function GerenciarParceirosTable({
                                         {partner.nome}
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {partner.categoria}
+                                        {mapPartnerCategoryLabels[partner.categoria]}
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                         {partner.contato}

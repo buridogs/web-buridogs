@@ -1,7 +1,9 @@
+import { SocialMediaUI } from "@/interfaces/parceirosInterfaces";
+import { PartnetSocialMediaEnum } from "@/services/api/modules/partners/types";
 import { FaFacebook, FaInstagram, FaLink } from "react-icons/fa6";
 
 interface RedesSociaisParceirosProps {
-    redes?: Record<string, string>;
+    redes?: SocialMediaUI[];
 }
 
 export function RedesSociaisParceiros({ redes }: RedesSociaisParceirosProps) {
@@ -9,28 +11,28 @@ export function RedesSociaisParceiros({ redes }: RedesSociaisParceirosProps) {
 
     return (
         <ul className="w-full flex justify-start items-center mt-2">
-            {Object.entries(redes).map((r) => (
+            {redes.map((r) => (
                 <li
-                    key={r[1]}
+                    key={r.urlLink}
                     className="mr-2"
                 >
                     <a
-                        href={r[1]}
+                        href={r.urlLink}
                         target="_blank"
                     >
-                        {r[0] === "instagram" && (
+                        {r.socialMedia === PartnetSocialMediaEnum.instagram && (
                             <FaInstagram
                                 size={22}
                                 className="text-primary-400"
                             />
                         )}
-                        {r[0] === "facebook" && (
+                        {r.socialMedia === PartnetSocialMediaEnum.facebook && (
                             <FaFacebook
                                 size={22}
                                 className="text-primary-400"
                             />
                         )}
-                        {r[0] === "site" && (
+                        {r.socialMedia === PartnetSocialMediaEnum.website && (
                             <FaLink
                                 size={22}
                                 className="text-primary-400"

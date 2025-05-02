@@ -1,4 +1,4 @@
-import { PartnerCategoryEnum } from "@/interfaces/parceirosInterfaces";
+import { PartnerCategoryEnum } from "@/services/api/modules/partners/types";
 
 // Define partner form interface
 export interface IPartnerForm {
@@ -10,5 +10,5 @@ export interface IPartnerForm {
     instagram?: string;
     facebook?: string;
     website?: string;
-    imagem: FileList;
+    imagem?: FileList; // TODO: CHANGE THIS
 }

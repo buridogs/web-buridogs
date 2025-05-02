@@ -2,14 +2,16 @@
 
 import { useEffect, useRef } from "react";
 import { IoMdClose, IoMdCreate, IoMdTrash } from "react-icons/io";
-import { FaPhone, FaMapMarkerAlt, FaInstagram, FaFacebook } from "react-icons/fa";
-import { IParceiros } from "@/interfaces/parceirosInterfaces";
+import { FaPhone, FaMapMarkerAlt, FaInstagram, FaFacebook, FaLink } from "react-icons/fa";
+import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
 import { useRouter } from "next/navigation";
+import { mapPartnerCategoryLabels } from "@/utils/partnersUtils";
+import { PartnetSocialMediaEnum } from "@/services/api/modules/partners/types";
 
 interface GerenciarParceirosModalProps {
-    partner: IParceiros;
+    partner: IPartnerUI;
     onClose: () => void;
-    onDelete?: (partner: any) => void;
+    onDelete?: (partner: IPartnerUI) => void;
 }
 
 // TODO: STANDARDIZE THIS COMPONENT
@@ -18,7 +20,6 @@ export function GerenciarParceirosModal({
     onClose,
     onDelete,
 }: GerenciarParceirosModalProps) {
-    console.log({ partner });
     const modalRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
 
@@ -80,7 +81,7 @@ export function GerenciarParceirosModal({
                             </div>
                             <div className="text-gray-600 mb-2">
                                 <span className="text-primary-400 font-semibold">Categoria: </span>
-                                {partner.categoria}
+                                {mapPartnerCategoryLabels[partner.categoria]}
                             </div>
                             {partner.endereco && (
                                 <div className="text-gray-600 mb-2 flex items-center">
@@ -104,36 +105,57 @@ export function GerenciarParceirosModal({
                                     </span>
                                 </div>
                             )}
-                            {(partner.redesSociais?.facebook ||
-                                partner.redesSociais?.instagram) && (
-                                <div className="text-gray-600 mb-2 flex items-center gap-4">
-                                    <span className="text-primary-400 font-semibold">
-                                        Redes sociais:{" "}
-                                    </span>
-                                    {partner.redesSociais?.facebook && (
-                                        <a
-                                            href={partner.redesSociais?.facebook}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-blue-600 hover:underline flex items-center"
+                            {partner.redesSociais?.map((socialMedia) => {
+                                if (socialMedia.socialMedia === PartnetSocialMediaEnum.instagram) {
+                                    return (
+                                        <div
+                                            key={socialMedia.id}
+                                            className="text-gray-600 mb-2 flex items-center"
                                         >
-                                            <FaFacebook className="mr-1" />
-                                            Facebook
-                                        </a>
-                                    )}
-                                    {partner.redesSociais?.instagram && (
-                                        <a
-                                            href={partner.redesSociais?.instagram}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-pink-600 hover:underline flex items-center"
+                                            <FaInstagram className="mr-2 text-gray-500" />
+                                            <span>
+                                                <span className="text-primary-400 font-semibold">
+                                                    Instagram:{" "}
+                                                </span>
+                                                {socialMedia.urlLink}
+                                            </span>
+                                        </div>
+                                    );
+                                }
+                                if (socialMedia.socialMedia === PartnetSocialMediaEnum.facebook) {
+                                    return (
+                                        <div
+                                            key={socialMedia.id}
+                                            className="text-gray-600 mb-2 flex items-center"
                                         >
-                                            <FaInstagram className="mr-1" />
-                                            Instagram
-                                        </a>
-                                    )}
-                                </div>
-                            )}
+                                            <FaFacebook className="mr-2 text-gray-500" />
+                                            <span>
+                                                <span className="text-primary-400 font-semibold">
+                                                    Facebook:{" "}
+                                                </span>
+                                                {socialMedia.urlLink}
+                                            </span>
+                                        </div>
+                                    );
+                                }
+                                if (socialMedia.socialMedia === PartnetSocialMediaEnum.website) {
+                                    return (
+                                        <div
+                                            key={socialMedia.id}
+                                            className="text-gray-600 mb-2 flex items-center"
+                                        >
+                                            <FaLink className="mr-2 text-gray-500" />
+                                            <span>
+                                                <span className="text-primary-400 font-semibold">
+                                                    Website:{" "}
+                                                </span>
+                                                {socialMedia.urlLink}
+                                            </span>
+                                        </div>
+                                    );
+                                }
+                                return null;
+                            })}
                         </div>
                     </div>
                 </div>

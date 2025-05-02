@@ -1,10 +1,10 @@
-import { IParceiros } from "@/interfaces/parceirosInterfaces";
+import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
 import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
 import { RedesSociaisParceiros } from "@/components/RedesSociaisParceiros/RedesSociaisParceiros";
 
 interface ParceiroCardResumoProps {
-    parceiro: IParceiros;
+    parceiro: IPartnerUI;
 }
 
 export function ParceiroCardResumo({ parceiro }: ParceiroCardResumoProps) {

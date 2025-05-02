@@ -1,8 +1,15 @@
 import { LIMITE_TAMANHO_MENSAGEM, MENSAGENS_ERRO } from "@/components/Form/FormConsts";
 import { GeneralFormsType, InputFormEnum } from "@/components/Form/FormTypes";
-import { PartnerCategoryEnum } from "@/interfaces/parceirosInterfaces";
 import * as yup from "yup";
 import { IPartnerForm } from "./GerenciarParceirosNovoTypes";
+import {
+    CreatePartnerDto,
+    PartnerCategoryEnum,
+    PartnetSocialMediaEnum,
+    SocialMedia,
+    UpdatePartnetDto,
+} from "@/services/api/modules/partners/types";
+import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
 
 export const schema = yup
     .object({
@@ -35,14 +42,13 @@ export const schema = yup
         instagram: yup.string().url("Formato de URL inválido").optional(),
         facebook: yup.string().url("Formato de URL inválido").optional(),
         website: yup.string().url("Formato de URL inválido").optional(),
-        imagem: yup
-            .mixed<FileList>()
-            .test(
-                "imagem",
-                MENSAGENS_ERRO().campoObrigatorio,
-                (files: FileList | undefined) => (files?.length ?? 0) > 0
-            )
-            .required(MENSAGENS_ERRO().campoObrigatorio),
+        imagem: yup.mixed<FileList>().optional(),
+        // .test(
+        //     "imagem",
+        //     MENSAGENS_ERRO().campoObrigatorio,
+        //     (files: FileList | undefined) => (files?.length ?? 0) > 0
+        // )
+        // .required(MENSAGENS_ERRO().campoObrigatorio),
     })
     .required();
 
@@ -70,8 +76,8 @@ export const getFormConfig = (): GeneralFormsType<IPartnerForm>[] => [
                             label: "Pet Shop",
                         },
                         {
-                            key: PartnerCategoryEnum.veteriary,
-                            value: PartnerCategoryEnum.veteriary,
+                            key: PartnerCategoryEnum.veterinary,
+                            value: PartnerCategoryEnum.veterinary,
                             label: "Veterinário",
                         },
                         {
@@ -165,3 +171,78 @@ export const getFormConfig = (): GeneralFormsType<IPartnerForm>[] => [
         },
     },
 ];
+
+export function mapPayloadCreateData(partner: IPartnerForm): CreatePartnerDto {
+    return {
+        name: partner.nome,
+        address: partner.endereco,
+        phone: partner.contato,
+        category: partner.categoria,
+        description: partner.descricao,
+        imageSrc: partner.imagem?.item(0)?.name,
+        socialMedia: [
+            partner.instagram
+                ? {
+                      urlLink: partner.instagram ?? "",
+                      socialMedia: PartnetSocialMediaEnum.instagram,
+                  }
+                : undefined,
+            partner.facebook
+                ? {
+                      urlLink: partner.facebook ?? "",
+                      socialMedia: PartnetSocialMediaEnum.facebook,
+                  }
+                : undefined,
+            partner.website
+                ? {
+                      urlLink: partner.website ?? "",
+                      socialMedia: PartnetSocialMediaEnum.website,
+                  }
+                : undefined,
+        ].filter(Boolean) as SocialMedia[],
+    };
+}
+
+export function mapPayloadUpdateData(
+    partner: IPartnerForm,
+    partnerToEdit: IPartnerUI | null
+): UpdatePartnetDto {
+    return {
+        name: partnerToEdit?.nome === partner.nome ? undefined : partner.nome,
+        address: partnerToEdit?.endereco === partner.endereco ? undefined : partner.endereco,
+        phone: partnerToEdit?.contato === partner.contato ? undefined : partner.contato,
+        category: partnerToEdit?.categoria === partner.categoria ? undefined : partner.categoria,
+        description: partnerToEdit?.descricao === partner.descricao ? undefined : partner.descricao,
+        imageSrc:
+            partnerToEdit?.imagemSrc === partner.imagem ? undefined : partner.imagem?.item(0)?.name,
+        socialMedia: [
+            partner.instagram
+                ? {
+                      id: partnerToEdit?.redesSociais?.find(
+                          (sm) => sm.socialMedia === PartnetSocialMediaEnum.instagram
+                      )?.id,
+                      urlLink: partner.instagram ?? "",
+                      socialMedia: PartnetSocialMediaEnum.instagram,
+                  }
+                : undefined,
+            partner.facebook
+                ? {
+                      id: partnerToEdit?.redesSociais?.find(
+                          (sm) => sm.socialMedia === PartnetSocialMediaEnum.facebook
+                      )?.id,
+                      urlLink: partner.facebook ?? "",
+                      socialMedia: PartnetSocialMediaEnum.facebook,
+                  }
+                : undefined,
+            partner.website
+                ? {
+                      id: partnerToEdit?.redesSociais?.find(
+                          (sm) => sm.socialMedia === PartnetSocialMediaEnum.website
+                      )?.id,
+                      urlLink: partner.website ?? "",
+                      socialMedia: PartnetSocialMediaEnum.website,
+                  }
+                : undefined,
+        ].filter(Boolean) as SocialMedia[],
+    };
+}

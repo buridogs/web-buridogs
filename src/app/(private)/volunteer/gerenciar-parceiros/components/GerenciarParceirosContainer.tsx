@@ -1,56 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GerenciarParceirosTable } from "./GerenciarParceirosTable";
 import { GerenciarParceirosModal } from "./GerenciarParceirosModal";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/providers/auth/AuthProvider";
-import { PrivateRoutes, PublicRoutes } from "@/components/Header/routes-ui";
-import { UserRole } from "@/interfaces/authInterfaces";
-import { IParceiros } from "@/interfaces/parceirosInterfaces";
-import { parceiros } from "@/mock/parceirosMock";
+import { PrivateRoutes } from "@/components/Header/routes-ui";
+import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
 import Link from "next/link";
 import { LuPlus } from "react-icons/lu";
 import ConfirmationModal from "@/components/ConfirmationModal/ConfirmationModal";
+import { usePartners } from "@/hooks/partners-hook";
+import { Spinner } from "@/components/Spinner/Spinner";
 
-// TODO: REFACTOR THIS COMPONENT
 export default function GerenciarParceirosContainer() {
-    const { user, isAuthenticated, isLoading } = useAuth();
-    const router = useRouter();
-    const [partners, setPartners] = useState<IParceiros[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-    const [selectedPartner, setSelectedPartner] = useState<IParceiros | null>(null);
-    const [selectedPartnerToDelete, setSelectedPartnerToDelete] = useState<IParceiros | null>(null);
-    const [isLoadingData, setIsLoadingData] = useState(true);
+    const [selectedPartner, setSelectedPartner] = useState<IPartnerUI | null>(null);
+    const [selectedPartnerToDelete, setSelectedPartnerToDelete] = useState<IPartnerUI | null>(null);
 
-    useEffect(() => {
-        // Check authentication and role
-        if (!isLoading && !isAuthenticated) {
-            router.push(PublicRoutes.LOGIN);
-            return;
-        }
+    const { isLoading: partnersLoading, partners, deletePartner } = usePartners();
 
-        if (
-            !isLoading &&
-            isAuthenticated &&
-            ((user?.role && ![UserRole.VOLUNTEER, UserRole.ADMIN].includes(user?.role)) ||
-                !user?.role)
-        ) {
-            router.push(PublicRoutes.NAO_AUTORIZADO);
-            return;
-        }
-
-        // Fetch data
-        if (!isLoading && isAuthenticated) {
-            // In a real app, this would be an API call
-            // For now, we're using mock data
-            setPartners([...parceiros]);
-            setIsLoadingData(false);
-        }
-    }, [isLoading, isAuthenticated, user, router]);
-
-    const handleViewDetails = (adoption: IParceiros) => {
+    const handleViewDetails = (adoption: IPartnerUI) => {
         setSelectedPartner(adoption);
         setIsModalOpen(true);
     };
@@ -60,22 +29,37 @@ export default function GerenciarParceirosContainer() {
         setSelectedPartner(null);
     };
 
-    if (isLoading || isLoadingData) {
-        return (
-            <div className="flex justify-center items-center min-h-screen">
-                <div className="loader"></div>
-            </div>
-        );
-    }
-
-    const handleConfirm = () => {
-        console.log("Confirmed action", { selectedPartnerToDelete });
-        setIsConfirmationModalOpen(false);
+    const handleConfirm = async () => {
+        if (selectedPartnerToDelete) {
+            await deletePartner(selectedPartnerToDelete.id);
+            setIsConfirmationModalOpen(false);
+            setSelectedPartnerToDelete(null);
+        }
     };
 
     const handleCancel = () => {
-        console.log("Cancelled action");
         setIsConfirmationModalOpen(false);
+    };
+
+    const renderContent = () => {
+        if (partnersLoading) {
+            return <Spinner />;
+        }
+
+        if (partners.length === 0) {
+            return <div className="text-left text-gray-600">Nenhum parceiro encontrado.</div>;
+        }
+
+        return (
+            <GerenciarParceirosTable
+                partners={partners}
+                onViewDetails={handleViewDetails}
+                onDelete={(partner) => {
+                    setSelectedPartnerToDelete(partner);
+                    setIsConfirmationModalOpen(true);
+                }}
+            />
+        );
     };
 
     return (
@@ -94,23 +78,14 @@ export default function GerenciarParceirosContainer() {
                     </Link>
                 </div>
 
-                <div className="w-full">
-                    <GerenciarParceirosTable
-                        partners={partners}
-                        onViewDetails={handleViewDetails}
-                        onDelete={(partner) => {
-                            setSelectedPartnerToDelete(partner);
-                            setIsConfirmationModalOpen(true);
-                        }}
-                    />
-                </div>
+                <div className="w-full">{renderContent()}</div>
 
                 {isModalOpen && selectedPartner && (
                     <GerenciarParceirosModal
                         partner={selectedPartner}
                         onClose={handleCloseModal}
-                        onDelete={() => {
-                            setSelectedPartnerToDelete(selectedPartner);
+                        onDelete={(partner) => {
+                            setSelectedPartnerToDelete(partner);
                             setIsConfirmationModalOpen(true);
                         }}
                     />

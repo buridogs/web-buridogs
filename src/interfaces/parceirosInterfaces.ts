@@ -1,4 +1,6 @@
-export interface IParceiros {
+import { PartnerCategoryEnum } from "@/services/api/modules/partners/types";
+
+export interface IPartnerUI {
     id: string;
     nome: string;
     endereco: string;
@@ -7,16 +9,11 @@ export interface IParceiros {
     descricao?: string;
     linkURL?: string;
     categoria: PartnerCategoryEnum;
-    redesSociais?: {
-        instagram?: string;
-        facebook?: string;
-        site?: string;
-    };
+    redesSociais?: SocialMediaUI[];
 }
 
-export enum PartnerCategoryEnum {
-    veteriary = "Veterinário",
-    petShop = "Pet Shop",
-    clothing = "Vestuário",
-    vehicleProtection = "Proteção Veicular",
-}
+export type SocialMediaUI = {
+    id?: string;
+    socialMedia: string;
+    urlLink: string;
+};

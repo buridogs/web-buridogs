@@ -1,6 +1,7 @@
-import { IParceiros, PartnerCategoryEnum } from "@/interfaces/parceirosInterfaces";
+import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { PartnerCategoryEnum } from "@/services/api/modules/partners/types";
 
-export const parceiros: IParceiros[] = [
+export const parceiros: IPartnerUI[] = [
     {
         id: "1",
         nome: "Petvita Clínica Veterinária (Dra Silene Rodrigues)",
@@ -9,7 +10,7 @@ export const parceiros: IParceiros[] = [
         imagemSrc: "parceiro-petvita.png",
         descricao: "",
         linkURL: "",
-        categoria: PartnerCategoryEnum.veteriary,
+        categoria: PartnerCategoryEnum.veterinary,
         redesSociais: {
             instagram: "https://www.instagram.com/petvitaclinicaveterinaria/",
         },
@@ -22,7 +23,7 @@ export const parceiros: IParceiros[] = [
         imagemSrc: "parceiro-life-pet.jpeg",
         descricao: "",
         linkURL: "",
-        categoria: PartnerCategoryEnum.veteriary,
+        categoria: PartnerCategoryEnum.veterinary,
         redesSociais: {
             instagram: "https://www.instagram.com/lifepetclinica/",
         },
@@ -35,7 +36,7 @@ export const parceiros: IParceiros[] = [
         imagemSrc: "parceiro-hosp-vet-arnaldo.png",
         descricao: "",
         linkURL: "",
-        categoria: PartnerCategoryEnum.veteriary,
+        categoria: PartnerCategoryEnum.veterinary,
         redesSociais: {
             instagram: "https://www.instagram.com/hospitalveterinarioarnaldo/",
         },
@@ -143,7 +144,7 @@ export const parceiros: IParceiros[] = [
         redesSociais: {
             instagram: "https://www.instagram.com/geraisprotecao/",
             facebook: "https://www.facebook.com/gerais.protecao",
-            site: "https://geraisprotecao.com/",
+            website: "https://geraisprotecao.com/",
         },
     },
 ];
