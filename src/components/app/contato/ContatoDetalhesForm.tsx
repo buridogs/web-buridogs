@@ -3,10 +3,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { CONTATO_FORMS_CONFIG, schemaContatoForm } from "./ContatoUtils";
 import { IContatoFormData } from "./ContatoTypes";
-import { sendEmailFunctionContato } from "@/services/azure-function/send-email-contato/send-email-contato-form";
+// import { sendEmailFunctionContato } from "@/services/azure-function/send-email-contato/send-email-contato-form";
 import { toast } from "react-toastify";
+import { FormRequestTypeEnum } from "@/services/api/modules/form-requests/types";
+import { useFormRequests } from "@/hooks/form-requests-hook";
 
 export function ContatoDetalhesForm() {
+    const { createFormRequest, isLoading: formRequestsLoading } = useFormRequests({
+        shouldFetch: false,
+    });
+
     const {
         register,
         handleSubmit,
@@ -18,10 +24,13 @@ export function ContatoDetalhesForm() {
 
     const onSubmit = async (data: IContatoFormData) => {
         try {
-            await sendEmailFunctionContato({
-                ...data,
+            // await sendEmailFunctionContato({
+            //     ...data,
+            // });
+            await createFormRequest({
+                detailsForm: { ...data },
+                requestType: FormRequestTypeEnum.contact,
             });
-            toast.success("Formulário enviado com sucesso!");
             reset();
         } catch (err: any) {
             console.warn(err.message);
@@ -36,6 +45,7 @@ export function ContatoDetalhesForm() {
             register={register}
             errors={errors}
             submitLabel="Enviar Mensagem"
+            disabledSubmit={formRequestsLoading}
         />
     );
 }

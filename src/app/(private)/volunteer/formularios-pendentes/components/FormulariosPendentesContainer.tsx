@@ -1,58 +1,26 @@
 "use client";
 
-import { useAuth } from "@/providers/auth/AuthProvider";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormulariosPendentesTable } from "./FormulariosPendentesTable";
-import {
-    pendingAdocoesMock,
-    pendingApadrinhamentosMock,
-    pendingContatosMock,
-} from "@/mock/pendingAdocaoMock";
-import { toast } from "react-toastify";
-import { UserRole } from "@/interfaces/authInterfaces";
-import { FormStatusEnum, IForm } from "@/interfaces/formularioInterfaces";
-import { PublicRoutes } from "@/components/Header/routes-ui";
+import { IFormUI } from "@/interfaces/formularioInterfaces";
 import { FormulariosPendentesModal } from "./FormulariosPendentesModal";
+import { useFormRequests } from "@/hooks/form-requests-hook";
+import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
+import { Spinner } from "@/components/Spinner/Spinner";
 
-// TODO: REFACTOR THIS COMPONENT
 export default function FormulariosPendentesContainer() {
-    const { user, isAuthenticated, isLoading } = useAuth();
-    const router = useRouter();
-    const [pendingAdoptions, setPendingAdoptions] = useState<IForm[]>([]);
+    const {
+        formRequests,
+        isLoading: formRequestsLoading,
+        updateFormRequestStatus,
+    } = useFormRequests({
+        shouldFetch: true,
+    });
+
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedAdoption, setSelectedAdoption] = useState<IForm | null>(null);
-    const [isLoadingData, setIsLoadingData] = useState(true);
+    const [selectedAdoption, setSelectedAdoption] = useState<IFormUI | null>(null);
 
-    useEffect(() => {
-        // Check authentication and role
-        if (!isLoading && !isAuthenticated) {
-            router.push(PublicRoutes.LOGIN);
-            return;
-        }
-
-        if (
-            !isLoading &&
-            isAuthenticated &&
-            ((user?.role && ![UserRole.VOLUNTEER, UserRole.ADMIN].includes(user?.role)) ||
-                !user?.role)
-        ) {
-            router.push(PublicRoutes.NAO_AUTORIZADO);
-            return;
-        }
-
-        // Fetch data
-        if (!isLoading && isAuthenticated) {
-            // In a real app, this would be an API call
-            // For now, we're using mock data
-            setPendingAdoptions(
-                pendingAdocoesMock.concat(pendingApadrinhamentosMock).concat(pendingContatosMock)
-            );
-            setIsLoadingData(false);
-        }
-    }, [isLoading, isAuthenticated, user, router]);
-
-    const handleViewDetails = (adoption: IForm) => {
+    const handleViewDetails = (adoption: IFormUI) => {
         setSelectedAdoption(adoption);
         setIsModalOpen(true);
     };
@@ -62,44 +30,31 @@ export default function FormulariosPendentesContainer() {
         setSelectedAdoption(null);
     };
 
-    const handleUpdateStatus = (id: string, newStatus: string) => {
-        // In a real app, this would be an API call
-        // For now, we'll just update the local state
-        setPendingAdoptions((prevAdoptions) =>
-            prevAdoptions.map((adoption) => {
-                if (adoption.id === id) {
-                    return {
-                        ...adoption,
-                        status: newStatus as FormStatusEnum,
-                    };
-                }
-                return adoption;
-            })
-        );
-
-        const statusMessages = {
-            [FormStatusEnum.SOLVED]: "Adoção aprovada com sucesso!",
-            [FormStatusEnum.REJECTED]: "Adoção rejeitada.",
-            [FormStatusEnum.IN_PROCESS]: "Adoção marcada como em análise.",
-            [FormStatusEnum.PENDENT]: "Adoção marcada como pendente.",
-        };
-
-        toast.success(
-            statusMessages[newStatus as FormStatusEnum] || "Status atualizado com sucesso!"
-        );
+    const handleUpdateStatus = async (id: string, newStatus: FormRequestStatusEnum) => {
+        await updateFormRequestStatus(id, newStatus);
 
         if (isModalOpen) {
             handleCloseModal();
         }
     };
 
-    if (isLoading || isLoadingData) {
+    const renderContent = () => {
+        if (formRequestsLoading) {
+            return <Spinner />;
+        }
+
+        if (formRequests.length === 0) {
+            return <div className="text-center">Nenhum formulário pendente encontrado.</div>;
+        }
+
         return (
-            <div className="flex justify-center items-center min-h-screen">
-                <div className="loader"></div>
-            </div>
+            <FormulariosPendentesTable
+                formRequests={formRequests}
+                onViewDetails={handleViewDetails}
+                onUpdateStatus={handleUpdateStatus}
+            />
         );
-    }
+    };
 
     return (
         <div className="bg-white min-h-screen">
@@ -108,17 +63,11 @@ export default function FormulariosPendentesContainer() {
                     Formulários enviados
                 </h1>
 
-                <div className="w-full">
-                    <FormulariosPendentesTable
-                        adoptions={pendingAdoptions}
-                        onViewDetails={handleViewDetails}
-                        onUpdateStatus={handleUpdateStatus}
-                    />
-                </div>
+                <div className="w-full">{renderContent()}</div>
 
                 {isModalOpen && selectedAdoption && (
                     <FormulariosPendentesModal
-                        adoption={selectedAdoption}
+                        formRequest={selectedAdoption}
                         onClose={handleCloseModal}
                         onUpdateStatus={handleUpdateStatus}
                     />

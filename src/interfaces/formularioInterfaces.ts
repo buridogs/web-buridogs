@@ -1,3 +1,5 @@
+import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
+
 export enum FormStatusEnum {
     PENDENT = "PENDENT",
     SOLVED = "SOLVED",
@@ -11,18 +13,13 @@ export enum FormAvailableEnum {
     CONTACT = "CONTATO",
 }
 
-export type FormStatusType =
-    | FormStatusEnum.SOLVED
-    | FormStatusEnum.PENDENT
-    | FormStatusEnum.REJECTED
-    | FormStatusEnum.IN_PROCESS;
-
 interface IFormBase {
     id: string;
     createdAt: string;
     name: string;
     phone_number: string;
     form_type: FormAvailableEnum;
+    status: FormRequestStatusEnum;
 }
 
 export interface IFormAdoption extends IFormBase {
@@ -50,7 +47,6 @@ export interface IFormAdoption extends IFormBase {
     return_adoption_situation: string;
     aware_of_responsibility_term: boolean;
     dog_name: string;
-    status: FormStatusType;
     images?: string[];
 }
 
@@ -59,14 +55,12 @@ export interface IFormSponsorship extends IFormBase {
     dog_name?: string;
     contact_method_preference: string[];
     allow_receiving_news: boolean;
-    status: FormStatusType;
     sponsorship_method: string[];
 }
 
 export interface IFormContact extends IFormBase {
     email: string;
     message: string;
-    status: FormStatusType;
 }
 
-export type IForm = IFormAdoption | IFormSponsorship | IFormContact;
+export type IFormUI = IFormAdoption | IFormSponsorship | IFormContact;

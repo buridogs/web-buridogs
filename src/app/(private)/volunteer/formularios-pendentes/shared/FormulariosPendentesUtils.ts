@@ -1,29 +1,30 @@
-import { FormAvailableEnum, FormStatusEnum } from "@/interfaces/formularioInterfaces";
+import { FormAvailableEnum } from "@/interfaces/formularioInterfaces";
+import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
 
 export const getStatusBadgeClass = (status: string) => {
     switch (status) {
-        case FormStatusEnum.PENDENT:
+        case FormRequestStatusEnum.pending:
             return "bg-yellow-100 text-yellow-800";
-        case FormStatusEnum.SOLVED:
+        case FormRequestStatusEnum.solved:
             return "bg-green-100 text-green-800";
-        case FormStatusEnum.REJECTED:
+        case FormRequestStatusEnum.rejected:
             return "bg-red-100 text-red-800";
-        case FormStatusEnum.IN_PROCESS:
+        case FormRequestStatusEnum.in_progress:
             return "bg-blue-100 text-blue-800";
         default:
             return "bg-gray-100 text-gray-800";
     }
 };
 
-export const getStatusText = (status: string) => {
+export const getStatusText = (status: FormRequestStatusEnum) => {
     switch (status) {
-        case FormStatusEnum.PENDENT:
+        case FormRequestStatusEnum.pending:
             return "Pendente";
-        case FormStatusEnum.SOLVED:
+        case FormRequestStatusEnum.solved:
             return "Resolvido";
-        case FormStatusEnum.REJECTED:
+        case FormRequestStatusEnum.rejected:
             return "Rejeitado";
-        case FormStatusEnum.IN_PROCESS:
+        case FormRequestStatusEnum.in_progress:
             return "Em Análise";
         default:
             return status;
@@ -59,10 +60,10 @@ export const getTypeText = (status: string) => {
 export const getFilterOptionsStatus = () => {
     return [
         { value: "all", label: "Todos" },
-        { value: FormStatusEnum.PENDENT, label: "Pendente" },
-        { value: FormStatusEnum.SOLVED, label: "Resolvido" },
-        { value: FormStatusEnum.REJECTED, label: "Rejeitado" },
-        { value: FormStatusEnum.IN_PROCESS, label: "Em Análise" },
+        { value: FormRequestStatusEnum.pending, label: "Pendente" },
+        { value: FormRequestStatusEnum.solved, label: "Resolvido" },
+        { value: FormRequestStatusEnum.rejected, label: "Rejeitado" },
+        { value: FormRequestStatusEnum.in_progress, label: "Em Análise" },
     ];
 };
 

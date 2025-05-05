@@ -1,12 +1,12 @@
 "use client";
 
 import Select from "@/components/Select/Select";
-import { FormAvailableEnum, FormStatusEnum, IForm } from "@/interfaces/formularioInterfaces";
+import { FormAvailableEnum, IFormUI } from "@/interfaces/formularioInterfaces";
 import { formatDatetimePTBR } from "@/utils/methods";
 import { useMemo, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-import { FaTrashCan } from "react-icons/fa6";
+import { IoMdClose } from "react-icons/io";
 import { MdPending } from "react-icons/md";
 import { TbZoomQuestion } from "react-icons/tb";
 import {
@@ -17,15 +17,16 @@ import {
     getTypeBadgeClass,
     getTypeText,
 } from "../shared/FormulariosPendentesUtils";
+import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
 
 interface FormulariosPendentesTableProps {
-    adoptions: IForm[];
-    onViewDetails: (adoption: IForm) => void;
-    onUpdateStatus: (id: string, status: string) => void;
+    formRequests: IFormUI[];
+    onViewDetails: (formRequest: IFormUI) => void;
+    onUpdateStatus: (id: string, status: FormRequestStatusEnum) => void;
 }
 
 export function FormulariosPendentesTable({
-    adoptions,
+    formRequests,
     onViewDetails,
     onUpdateStatus,
 }: FormulariosPendentesTableProps) {
@@ -33,19 +34,19 @@ export function FormulariosPendentesTable({
     const [typeFilter, setTypeFilter] = useState<string>("all");
     const [searchTerm, setSearchTerm] = useState<string>("");
 
-    const filteredAdoptions = useMemo(() => {
-        return adoptions.filter((adoption) => {
+    const filteredFormRequests = useMemo(() => {
+        return formRequests.filter((formRequest) => {
             const matchesStatus =
-                (statusFilter === "all" || adoption.status.toString() === statusFilter) &&
-                (typeFilter === "all" || adoption.form_type.toString() === typeFilter);
+                (statusFilter === "all" || formRequest.status.toString() === statusFilter) &&
+                (typeFilter === "all" || formRequest.form_type.toString() === typeFilter);
             const matchesSearch =
-                adoption.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                ("dog_name" in adoption &&
-                    adoption.dog_name?.toLowerCase().includes(searchTerm.toLowerCase()));
+                formRequest.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                ("dog_name" in formRequest &&
+                    formRequest.dog_name?.toLowerCase().includes(searchTerm.toLowerCase()));
 
             return matchesStatus && matchesSearch;
         });
-    }, [statusFilter, typeFilter, searchTerm, adoptions]);
+    }, [statusFilter, typeFilter, searchTerm, formRequests]);
 
     return (
         <div className="w-full">
@@ -118,39 +119,39 @@ export function FormulariosPendentesTable({
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {filteredAdoptions.length > 0 ? (
-                            filteredAdoptions.map((adoption) => (
+                        {filteredFormRequests.length > 0 ? (
+                            filteredFormRequests.map((formRequest) => (
                                 <tr
-                                    key={`${adoption.id}-${adoption.name}`}
+                                    key={`${formRequest.id}-${formRequest.name}`}
                                     className="hover:bg-gray-50"
                                 >
                                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        {formatDatetimePTBR(adoption.createdAt)}
+                                        {formatDatetimePTBR(formRequest.createdAt)}
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {adoption.name}
+                                        {formRequest.name}
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {"dog_name" in adoption ? adoption.dog_name : ""}
+                                        {"dog_name" in formRequest ? formRequest.dog_name : ""}
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap">
                                         <span
-                                            className={`inline-flex px-2 py-1 rounded-full text-xs font-semibold ${getTypeBadgeClass(adoption.form_type)}`}
+                                            className={`inline-flex px-2 py-1 rounded-full text-xs font-semibold ${getTypeBadgeClass(formRequest.form_type)}`}
                                         >
-                                            {getTypeText(adoption.form_type)}
+                                            {getTypeText(formRequest.form_type)}
                                         </span>
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap">
                                         <span
-                                            className={`inline-flex px-2 py-1 rounded-full text-xs font-semibold ${getStatusBadgeClass(adoption.status)}`}
+                                            className={`inline-flex px-2 py-1 rounded-full text-xs font-semibold ${getStatusBadgeClass(formRequest.status)}`}
                                         >
-                                            {getStatusText(adoption.status)}
+                                            {getStatusText(formRequest.status)}
                                         </span>
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                                         <div className="flex gap-2">
                                             <button
-                                                onClick={() => onViewDetails(adoption)}
+                                                onClick={() => onViewDetails(formRequest)}
                                                 className="text-blue-600 hover:text-blue-800 p-1 rounded-full hover:bg-blue-100 transition-colors"
                                                 title="Ver detalhes"
                                             >
@@ -159,60 +160,83 @@ export function FormulariosPendentesTable({
                                             <button
                                                 onClick={() =>
                                                     onUpdateStatus(
-                                                        adoption.id,
-                                                        FormStatusEnum.SOLVED
+                                                        formRequest.id,
+                                                        FormRequestStatusEnum.solved
                                                     )
                                                 }
-                                                disabled={adoption.status === FormStatusEnum.SOLVED}
+                                                disabled={
+                                                    formRequest.status ===
+                                                    FormRequestStatusEnum.solved
+                                                }
                                                 className={`text-green-600 hover:text-green-800 p-1 rounded-full hover:bg-green-100 transition-colors ${
-                                                    adoption.status === FormStatusEnum.SOLVED
+                                                    formRequest.status ===
+                                                    FormRequestStatusEnum.solved
                                                         ? "opacity-50 cursor-not-allowed"
                                                         : ""
                                                 }`}
-                                                title="Marcar como resolvido"
+                                                title={
+                                                    formRequest.status ===
+                                                    FormRequestStatusEnum.solved
+                                                        ? "Marcar como resolvido desabilitado"
+                                                        : "Marcar como resolvido"
+                                                }
                                             >
                                                 <FaCheck size={16} />
                                             </button>
-                                            {adoption.form_type === FormAvailableEnum.ADOPTION && (
+                                            {formRequest.form_type ===
+                                                FormAvailableEnum.ADOPTION && (
                                                 <button
                                                     onClick={() =>
                                                         onUpdateStatus(
-                                                            adoption.id,
-                                                            FormStatusEnum.REJECTED
+                                                            formRequest.id,
+                                                            FormRequestStatusEnum.rejected
                                                         )
                                                     }
                                                     disabled={
-                                                        adoption.status === FormStatusEnum.REJECTED
+                                                        formRequest.status ===
+                                                        FormRequestStatusEnum.rejected
                                                     }
                                                     className={`text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-red-100 transition-colors ${
-                                                        adoption.status === FormStatusEnum.REJECTED
+                                                        formRequest.status ===
+                                                        FormRequestStatusEnum.rejected
                                                             ? "opacity-50 cursor-not-allowed"
                                                             : ""
                                                     }`}
-                                                    title="Marcar como rejeitado"
+                                                    title={
+                                                        formRequest.status ===
+                                                        FormRequestStatusEnum.rejected
+                                                            ? "Marcar como rejeitado desabilitado"
+                                                            : "Marcar como rejeitado"
+                                                    }
                                                 >
-                                                    <FaTrashCan size={16} />
+                                                    <IoMdClose size={16} />
                                                 </button>
                                             )}
-                                            {adoption.form_type === FormAvailableEnum.ADOPTION && (
+                                            {formRequest.form_type ===
+                                                FormAvailableEnum.ADOPTION && (
                                                 <button
                                                     onClick={() =>
                                                         onUpdateStatus(
-                                                            adoption.id,
-                                                            FormStatusEnum.IN_PROCESS
+                                                            formRequest.id,
+                                                            FormRequestStatusEnum.in_progress
                                                         )
                                                     }
                                                     disabled={
-                                                        adoption.status ===
-                                                        FormStatusEnum.IN_PROCESS
+                                                        formRequest.status ===
+                                                        FormRequestStatusEnum.in_progress
                                                     }
                                                     className={`text-blue-600 hover:text-blue-800 p-1 rounded-full hover:bg-blue-100 transition-colors ${
-                                                        adoption.status ===
-                                                        FormStatusEnum.IN_PROCESS
+                                                        formRequest.status ===
+                                                        FormRequestStatusEnum.in_progress
                                                             ? "opacity-50 cursor-not-allowed"
                                                             : ""
                                                     }`}
-                                                    title="Marcar como em análise"
+                                                    title={
+                                                        formRequest.status ===
+                                                        FormRequestStatusEnum.in_progress
+                                                            ? "Marcar como pendente desabilitado"
+                                                            : "Marcar como pendente"
+                                                    }
                                                 >
                                                     <TbZoomQuestion size={16} />
                                                 </button>
@@ -220,19 +244,26 @@ export function FormulariosPendentesTable({
                                             <button
                                                 onClick={() =>
                                                     onUpdateStatus(
-                                                        adoption.id,
-                                                        FormStatusEnum.PENDENT
+                                                        formRequest.id,
+                                                        FormRequestStatusEnum.pending
                                                     )
                                                 }
                                                 disabled={
-                                                    adoption.status === FormStatusEnum.PENDENT
+                                                    formRequest.status ===
+                                                    FormRequestStatusEnum.pending
                                                 }
                                                 className={`text-yellow-600 hover:text-yellow-800 p-1 rounded-full hover:bg-yellow-100 transition-colors ${
-                                                    adoption.status === FormStatusEnum.PENDENT
+                                                    formRequest.status ===
+                                                    FormRequestStatusEnum.pending
                                                         ? "opacity-50 cursor-not-allowed"
                                                         : ""
                                                 }`}
-                                                title="Marcar como pendente"
+                                                title={
+                                                    formRequest.status ===
+                                                    FormRequestStatusEnum.pending
+                                                        ? "Marcar como pendente desabilitado"
+                                                        : "Marcar como pendente"
+                                                }
                                             >
                                                 <MdPending size={16} />
                                             </button>

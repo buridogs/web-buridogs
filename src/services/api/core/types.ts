@@ -25,6 +25,7 @@ export interface PaginationParams {
     limit?: number;
     sort?: string;
     order?: "asc" | "desc";
+    filter?: Record<string, any>;
 }
 
 /**

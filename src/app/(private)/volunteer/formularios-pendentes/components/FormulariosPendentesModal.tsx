@@ -9,22 +9,22 @@ import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import {
     FormAvailableEnum,
-    FormStatusEnum,
-    IForm,
+    IFormUI,
     IFormAdoption,
     IFormContact,
     IFormSponsorship,
 } from "@/interfaces/formularioInterfaces";
 import { getStatusBadgeClass, getStatusText } from "../shared/FormulariosPendentesUtils";
+import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
 
 interface FormulariosPendentesModalProps {
-    adoption: IForm;
+    formRequest: IFormUI;
     onClose: () => void;
-    onUpdateStatus: (id: string, status: string) => void;
+    onUpdateStatus: (id: string, status: FormRequestStatusEnum) => void;
 }
 
 export function FormulariosPendentesModal({
-    adoption,
+    formRequest,
     onClose,
     onUpdateStatus,
 }: FormulariosPendentesModalProps) {
@@ -83,11 +83,11 @@ export function FormulariosPendentesModal({
         );
     };
 
-    const renderApplicantInfo = (adoptionData: IForm) => {
-        let adoption: IForm = {} as IForm;
+    const renderApplicantInfo = (formData: IFormUI) => {
+        let formRequestData: IFormUI = {} as IFormUI;
 
-        if (adoptionData.form_type === FormAvailableEnum.ADOPTION) {
-            adoption = adoptionData as IFormAdoption;
+        if (formData.form_type === FormAvailableEnum.ADOPTION) {
+            formRequestData = formData as IFormAdoption;
             return (
                 <>
                     <div className="flex items-center justify-between">
@@ -96,10 +96,12 @@ export function FormulariosPendentesModal({
                                 className="mr-2 text-gray-500"
                                 size={16}
                             />
-                            <span className="text-gray-700">{adoption.phone_number}</span>
+                            <span className="text-gray-700">{formRequestData.phone_number}</span>
                         </div>
                         <button
-                            onClick={() => copyToClipboard(adoption.phone_number, "Telefone")}
+                            onClick={() =>
+                                copyToClipboard(formRequestData.phone_number, "Telefone")
+                            }
                             className="text-blue-600 p-1 rounded hover:bg-blue-50"
                             title="Copiar telefone"
                         >
@@ -113,9 +115,11 @@ export function FormulariosPendentesModal({
                             size={16}
                         />
                         <span className="text-gray-700">
-                            {adoption.street}, {adoption.number}
-                            {adoption.complement ? `, ${adoption.complement}` : ""} -{" "}
-                            {adoption.neighborhood}, {adoption.city}/{adoption.state}
+                            {formRequestData.street}, {formRequestData.number}
+                            {formRequestData.complement
+                                ? `, ${formRequestData.complement}`
+                                : ""} - {formRequestData.neighborhood}, {formRequestData.city}/
+                            {formRequestData.state}
                         </span>
                     </div>
 
@@ -125,7 +129,7 @@ export function FormulariosPendentesModal({
                             size={18}
                         />
                         <span className="text-gray-700">
-                            Mora em: {adoption.lives_in_house_or_apartment}
+                            Mora em: {formRequestData.lives_in_house_or_apartment}
                         </span>
                     </div>
 
@@ -134,7 +138,7 @@ export function FormulariosPendentesModal({
                             <span className="font-medium">Redes sociais:</span>
                             <br />
                             <a
-                                href={adoption.facebook_url}
+                                href={formRequestData.facebook_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-blue-600 hover:underline"
@@ -143,7 +147,7 @@ export function FormulariosPendentesModal({
                             </a>
                             {" | "}
                             <a
-                                href={adoption.instagram_url}
+                                href={formRequestData.instagram_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-blue-600 hover:underline"
@@ -154,21 +158,23 @@ export function FormulariosPendentesModal({
                     </div>
                 </>
             );
-        } else if (adoptionData.form_type === FormAvailableEnum.SPONSORSHIP) {
-            adoption = adoptionData as IFormSponsorship;
+        } else if (formData.form_type === FormAvailableEnum.SPONSORSHIP) {
+            formRequestData = formData as IFormSponsorship;
             return (
                 <>
-                    {adoption.email && (
+                    {formRequestData.email && (
                         <div className="flex items-center justify-between">
                             <div className="flex items-center">
                                 <FaEnvelope
                                     className="mr-2 text-gray-500"
                                     size={16}
                                 />
-                                <span className="text-gray-700">{adoption.email}</span>
+                                <span className="text-gray-700">{formRequestData.email}</span>
                             </div>
                             <button
-                                onClick={() => copyToClipboard(adoption.email || "", "Email")}
+                                onClick={() =>
+                                    copyToClipboard(formRequestData.email || "", "Email")
+                                }
                                 className="text-blue-600 p-1 rounded hover:bg-blue-50"
                                 title="Copiar email"
                             >
@@ -183,10 +189,12 @@ export function FormulariosPendentesModal({
                                 className="mr-2 text-gray-500"
                                 size={16}
                             />
-                            <span className="text-gray-700">{adoption.phone_number}</span>
+                            <span className="text-gray-700">{formRequestData.phone_number}</span>
                         </div>
                         <button
-                            onClick={() => copyToClipboard(adoption.phone_number, "Telefone")}
+                            onClick={() =>
+                                copyToClipboard(formRequestData.phone_number, "Telefone")
+                            }
                             className="text-blue-600 p-1 rounded hover:bg-blue-50"
                             title="Copiar telefone"
                         >
@@ -200,7 +208,8 @@ export function FormulariosPendentesModal({
                             size={16}
                         />
                         <span className="text-gray-700">
-                            Método de contato: {adoption.contact_method_preference.join(", ")}
+                            Método de contato:{" "}
+                            {formRequestData.contact_method_preference.join(", ")}
                         </span>
                     </div>
 
@@ -213,9 +222,9 @@ export function FormulariosPendentesModal({
                             Quer apadrinhar{" "}
                             <strong className="text-gray-900 font-extrabold">
                                 {" "}
-                                {adoption.dog_name}{" "}
+                                {formRequestData.dog_name}{" "}
                             </strong>{" "}
-                            com {adoption.sponsorship_method.join(", ")}
+                            com {formRequestData.sponsorship_method.join(", ")}
                         </span>
                     </div>
 
@@ -223,13 +232,13 @@ export function FormulariosPendentesModal({
                         <p className="text-gray-700">
                             <span className="font-medium">Aceita receber novidades:</span>
                             <br />
-                            <div>{renderBooleanValue(adoption.allow_receiving_news)}</div>
+                            <div>{renderBooleanValue(formRequestData.allow_receiving_news)}</div>
                         </p>
                     </div>
                 </>
             );
         } else {
-            adoption = adoptionData as IFormContact;
+            formRequestData = formData as IFormContact;
             return (
                 <>
                     <div className="flex items-center justify-between">
@@ -238,10 +247,10 @@ export function FormulariosPendentesModal({
                                 className="mr-2 text-gray-500"
                                 size={16}
                             />
-                            <span className="text-gray-700">{adoption.email}</span>
+                            <span className="text-gray-700">{formRequestData.email}</span>
                         </div>
                         <button
-                            onClick={() => copyToClipboard(adoption.email || "", "Email")}
+                            onClick={() => copyToClipboard(formRequestData.email || "", "Email")}
                             className="text-blue-600 p-1 rounded hover:bg-blue-50"
                             title="Copiar email"
                         >
@@ -255,10 +264,12 @@ export function FormulariosPendentesModal({
                                 className="mr-2 text-gray-500"
                                 size={16}
                             />
-                            <span className="text-gray-700">{adoption.phone_number}</span>
+                            <span className="text-gray-700">{formRequestData.phone_number}</span>
                         </div>
                         <button
-                            onClick={() => copyToClipboard(adoption.phone_number, "Telefone")}
+                            onClick={() =>
+                                copyToClipboard(formRequestData.phone_number, "Telefone")
+                            }
                             className="text-blue-600 p-1 rounded hover:bg-blue-50"
                             title="Copiar telefone"
                         >
@@ -270,14 +281,14 @@ export function FormulariosPendentesModal({
                             className="mr-2 text-gray-500"
                             size={16}
                         />
-                        <span className="text-gray-700">Mensagem: {adoption.message}</span>
+                        <span className="text-gray-700">Mensagem: {formRequestData.message}</span>
                     </div>
                 </>
             );
         }
     };
 
-    const renderAdoptionDetails = (adoptionData: IForm) => {
+    const renderAdoptionDetails = (adoptionData: IFormUI) => {
         const adoption = adoptionData as IFormAdoption;
 
         return (
@@ -381,7 +392,7 @@ export function FormulariosPendentesModal({
         );
     };
 
-    const renderImages = (formData: IForm) => {
+    const renderImages = (formData: IFormUI) => {
         if (formData.form_type !== FormAvailableEnum.ADOPTION) return;
 
         const adoption = formData as IFormAdoption;
@@ -417,7 +428,7 @@ export function FormulariosPendentesModal({
         );
     };
 
-    const renderTitle = (formData: IForm) => {
+    const renderTitle = (formData: IFormUI) => {
         if (formData.form_type === FormAvailableEnum.ADOPTION) {
             return "Detalhes da solicitação de adoção";
         } else if (formData.form_type === FormAvailableEnum.SPONSORSHIP) {
@@ -436,7 +447,9 @@ export function FormulariosPendentesModal({
             >
                 {/* Header */}
                 <div className="flex justify-between items-center border-b p-4 bg-gray-50 rounded-t-lg">
-                    <h3 className="text-xl font-semibold text-gray-900">{renderTitle(adoption)}</h3>
+                    <h3 className="text-xl font-semibold text-gray-900">
+                        {renderTitle(formRequest)}
+                    </h3>
                     <button
                         onClick={onClose}
                         className="text-gray-500 hover:text-gray-700 focus:outline-none p-1 rounded-full hover:bg-gray-200"
@@ -461,35 +474,35 @@ export function FormulariosPendentesModal({
                                             className="mr-2 text-gray-500"
                                             size={18}
                                         />
-                                        <span className="text-gray-700">{adoption.name}</span>
+                                        <span className="text-gray-700">{formRequest.name}</span>
                                     </div>
                                     <button
-                                        onClick={() => copyToClipboard(adoption.name, "Nome")}
+                                        onClick={() => copyToClipboard(formRequest.name, "Nome")}
                                         className="text-blue-600 p-1 rounded hover:bg-blue-50"
                                         title="Copiar nome"
                                     >
                                         <BsClipboard size={14} />
                                     </button>
                                 </div>
-                                {renderApplicantInfo(adoption)}
+                                {renderApplicantInfo(formRequest)}
                             </div>
                         </div>
 
                         {/* Right column - Dog and request info */}
-                        {renderAdoptionDetails(adoption)}
+                        {renderAdoptionDetails(formRequest)}
                     </div>
 
                     {/* Photos from Azure Blob */}
-                    {renderImages(adoption)}
+                    {renderImages(formRequest)}
                 </div>
 
                 {/* Footer with action buttons */}
                 <div className="border-t p-4 bg-gray-50 rounded-b-lg flex flex-wrap gap-2 justify-end">
                     <button
-                        onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.SOLVED)}
-                        disabled={adoption.status === FormStatusEnum.SOLVED}
+                        onClick={() => onUpdateStatus(formRequest.id, FormRequestStatusEnum.solved)}
+                        disabled={formRequest.status === FormRequestStatusEnum.solved}
                         className={`px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700 transition-colors ${
-                            adoption.status === FormStatusEnum.SOLVED
+                            formRequest.status === FormRequestStatusEnum.solved
                                 ? "opacity-50 cursor-not-allowed"
                                 : ""
                         }`}
@@ -497,22 +510,26 @@ export function FormulariosPendentesModal({
                         Aprovar
                     </button>
                     <button
-                        onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.PENDENT)}
-                        disabled={adoption.status === FormStatusEnum.PENDENT}
+                        onClick={() =>
+                            onUpdateStatus(formRequest.id, FormRequestStatusEnum.pending)
+                        }
+                        disabled={formRequest.status === FormRequestStatusEnum.pending}
                         className={`px-4 py-2 text-white bg-yellow-600 rounded hover:bg-yellow-700 transition-colors ${
-                            adoption.status === FormStatusEnum.PENDENT
+                            formRequest.status === FormRequestStatusEnum.pending
                                 ? "opacity-50 cursor-not-allowed"
                                 : ""
                         }`}
                     >
                         Pendente
                     </button>
-                    {adoption.form_type === FormAvailableEnum.ADOPTION && (
+                    {formRequest.form_type === FormAvailableEnum.ADOPTION && (
                         <button
-                            onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.IN_PROCESS)}
-                            disabled={adoption.status === FormStatusEnum.IN_PROCESS}
+                            onClick={() =>
+                                onUpdateStatus(formRequest.id, FormRequestStatusEnum.in_progress)
+                            }
+                            disabled={formRequest.status === FormRequestStatusEnum.in_progress}
                             className={`px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors ${
-                                adoption.status === FormStatusEnum.IN_PROCESS
+                                formRequest.status === FormRequestStatusEnum.in_progress
                                     ? "opacity-50 cursor-not-allowed"
                                     : ""
                             }`}
@@ -520,12 +537,14 @@ export function FormulariosPendentesModal({
                             Em Análise
                         </button>
                     )}
-                    {adoption.form_type === FormAvailableEnum.ADOPTION && (
+                    {formRequest.form_type === FormAvailableEnum.ADOPTION && (
                         <button
-                            onClick={() => onUpdateStatus(adoption.id, FormStatusEnum.REJECTED)}
-                            disabled={adoption.status === FormStatusEnum.REJECTED}
+                            onClick={() =>
+                                onUpdateStatus(formRequest.id, FormRequestStatusEnum.rejected)
+                            }
+                            disabled={formRequest.status === FormRequestStatusEnum.rejected}
                             className={`px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700 transition-colors ${
-                                adoption.status === FormStatusEnum.REJECTED
+                                formRequest.status === FormRequestStatusEnum.rejected
                                     ? "opacity-50 cursor-not-allowed"
                                     : ""
                             }`}

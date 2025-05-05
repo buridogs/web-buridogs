@@ -1,7 +1,7 @@
-import { FormAvailableEnum, FormStatusEnum, IForm } from "@/interfaces/formularioInterfaces";
+import { FormAvailableEnum, FormStatusEnum, IFormUI } from "@/interfaces/formularioInterfaces";
 
 // Adoption forms
-export const pendingAdocoesMock: IForm[] = [
+export const pendingAdocoesMock: IFormUI[] = [
     {
         id: "1",
         createdAt: "2025-04-01T14:32:00Z",
@@ -83,7 +83,7 @@ export const pendingAdocoesMock: IForm[] = [
 ];
 
 // Sponsorship forms
-export const pendingApadrinhamentosMock: IForm[] = [
+export const pendingApadrinhamentosMock: IFormUI[] = [
     {
         id: "1",
         createdAt: "2025-04-10T09:15:00Z",
@@ -125,7 +125,7 @@ export const pendingApadrinhamentosMock: IForm[] = [
 ];
 
 // Contact forms
-export const pendingContatosMock: IForm[] = [
+export const pendingContatosMock: IFormUI[] = [
     {
         id: "1",
         createdAt: "2025-04-18T10:05:00Z",
@@ -162,7 +162,7 @@ export const pendingContatosMock: IForm[] = [
 ];
 
 // Combined mock data for all form types
-export const allFormsMock: IForm[] = [
+export const allFormsMock: IFormUI[] = [
     ...pendingAdocoesMock,
     ...pendingApadrinhamentosMock,
     ...pendingContatosMock,
