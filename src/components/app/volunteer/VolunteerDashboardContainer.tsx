@@ -2,18 +2,27 @@
 
 import ProtectedRoute from "@/components/app/auth/ProtectedRoute";
 import { PrivateRoutes } from "@/components/Header/routes-ui";
+import { useFormRequests } from "@/hooks/form-requests-hook";
 import { UserRole } from "@/interfaces/authInterfaces";
 import { useAuth } from "@/providers/auth/AuthProvider";
+import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
 import Link from "next/link";
 import { FaEnvelope, FaPaw, FaHandshake } from "react-icons/fa";
 
 export default function VolunteerDashboardContainer() {
     const { user, logout } = useAuth();
+    const { formRequests, isLoading: formRequestsLoading } = useFormRequests({
+        shouldFetch: true,
+    });
+
+    const pendingRequests = formRequests.filter(
+        (request) => request.status === FormRequestStatusEnum.pending
+    );
 
     return (
         <ProtectedRoute allowedRoles={[UserRole.VOLUNTEER, UserRole.ADMIN]}>
             <div className="h-full bg-white">
-                <div className="max-w-screen-xl mx-auto px-8 py-11 md:py-12">
+                <div className="max-w-screen-xl mx-auto px-8 py-11 mt-20 md:py-12 md:mt-0">
                     <div className="mb-8 flex flex-col md:flex-row md:justify-between md:items-center">
                         <h1 className="text-3xl font-bold text-primary-700 mb-4 md:mb-0">
                             Área do Voluntário
@@ -54,7 +63,18 @@ export default function VolunteerDashboardContainer() {
                                 </div>
                             </div>
                             <div className="bg-amber-50 p-3 rounded">
-                                <p className="text-amber-800 text-sm">7 mensagens não lidas</p>
+                                {formRequestsLoading ? (
+                                    <p className="text-gray-500">Carregando...</p>
+                                ) : (
+                                    <p className="text-amber-800 text-sm">
+                                        {pendingRequests.length > 0
+                                            ? pendingRequests.length
+                                            : "Nenhuma "}{" "}
+                                        {pendingRequests.length > 1
+                                            ? "mensagens não lidas"
+                                            : "mensagem não lida"}
+                                    </p>
+                                )}
                             </div>
                             <Link
                                 href={PrivateRoutes.REQUESTS_PENDING}

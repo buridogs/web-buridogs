@@ -1,23 +1,28 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import { HeaderMobile } from "./PublicHeader/HeaderMobile";
 import { generateImgURL } from "@/utils/methods";
 import { HeaderDesktop } from "./PublicHeader/HeaderDesktop";
-import { useAuth } from "@/providers/auth/AuthProvider";
+import { PublicRoutes } from "./routes-ui";
 
 export function Header() {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const pathname = usePathname();
-    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
         setIsNavOpen(false);
     }, [pathname]);
 
-    if (isAuthenticated) return null;
+    const isPublicRoute = useMemo(() => {
+        return Object.values(PublicRoutes).some((route) => pathname === route);
+    }, [pathname]);
+
+    if (!isPublicRoute) {
+        return null;
+    }
 
     return (
         <div className="w-[100%] bg-white py-8 px-8 shadow fixed z-10 xl:px-0">

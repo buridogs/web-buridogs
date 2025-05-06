@@ -36,6 +36,7 @@ export abstract class BaseApiService {
         // Build query string for GET requests with params
         let url = `${this.apiBaseUrl}${endpoint}`;
         if (params) {
+            // TODO: HANDLE NESTED OBJECTS FOR FILTER
             const queryString = Object.entries(params)
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 .filter(([_, value]) => value !== undefined && value !== null)

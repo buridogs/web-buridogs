@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
 import { headerMenuLink } from "../utils";
 import { FaSignInAlt } from "react-icons/fa";
+import { useAuth } from "@/providers/auth/AuthProvider";
 
 interface HeaderMobileProps {
     isOpen: boolean;
@@ -9,6 +10,8 @@ interface HeaderMobileProps {
 }
 
 export function HeaderMobile({ isOpen, setIsOpen }: HeaderMobileProps) {
+    const { isAuthenticated } = useAuth();
+
     return (
         <section className="flex lg:hidden">
             <div
@@ -64,15 +67,26 @@ export function HeaderMobile({ isOpen, setIsOpen }: HeaderMobileProps) {
                     ))}
 
                     {/* Authentication Links */}
-                    <li className="my-4">
-                        <Link
-                            href="/login"
-                            className="flex items-center gap-2 bg-primary-400 text-white transition-colors py-2 px-6 rounded-full hover:bg-primary-700"
-                        >
-                            <FaSignInAlt />
-                            <span>Login</span>
-                        </Link>
-                    </li>
+                    {isAuthenticated ? (
+                        <li className="my-4">
+                            <Link
+                                href="/volunteer"
+                                className="flex items-center gap-2 bg-primary-400 text-white transition-colors py-2 px-6 rounded-full hover:bg-primary-700"
+                            >
+                                <span>Admin</span>
+                            </Link>
+                        </li>
+                    ) : (
+                        <li className="my-4">
+                            <Link
+                                href="/login"
+                                className="flex items-center gap-2 bg-primary-400 text-white transition-colors py-2 px-6 rounded-full hover:bg-primary-700"
+                            >
+                                <FaSignInAlt />
+                                <span>Login</span>
+                            </Link>
+                        </li>
+                    )}
                 </ul>
             </div>
             <style>

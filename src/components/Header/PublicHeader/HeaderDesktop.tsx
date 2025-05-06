@@ -2,8 +2,11 @@
 import Link from "next/link";
 import { headerMenuLink } from "../utils";
 import { FaSignInAlt } from "react-icons/fa";
+import { useAuth } from "@/providers/auth/AuthProvider";
 
 export function HeaderDesktop() {
+    const { isAuthenticated } = useAuth();
+
     return (
         <ul className="hidden lg:flex items-center">
             {headerMenuLink.map((menuOption) => (
@@ -21,15 +24,26 @@ export function HeaderDesktop() {
             ))}
 
             {/* Authentication Links */}
-            <li className="ml-4">
-                <Link
-                    href="/login"
-                    className="flex items-center gap-2 bg-primary-400 text-white transition-colors py-2 px-4 rounded-full hover:bg-primary-700"
-                >
-                    <FaSignInAlt />
-                    <span>Login</span>
-                </Link>
-            </li>
+            {isAuthenticated ? (
+                <li className="ml-4">
+                    <Link
+                        href="/volunteer"
+                        className="flex items-center gap-2 bg-primary-400 text-white transition-colors py-2 px-4 rounded-full hover:bg-primary-700"
+                    >
+                        <span>Admin</span>
+                    </Link>
+                </li>
+            ) : (
+                <li className="ml-4">
+                    <Link
+                        href="/login"
+                        className="flex items-center gap-2 bg-primary-400 text-white transition-colors py-2 px-4 rounded-full hover:bg-primary-700"
+                    >
+                        <FaSignInAlt />
+                        <span>Login</span>
+                    </Link>
+                </li>
+            )}
         </ul>
     );
 }

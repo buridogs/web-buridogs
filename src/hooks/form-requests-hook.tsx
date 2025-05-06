@@ -23,9 +23,13 @@ type RequestServiceStatus = "idle" | "loading" | "success" | "error";
 
 interface UseFormRequestsProps {
     shouldFetch?: boolean;
+    requestStatusToFetch?: FormRequestStatusEnum;
 }
 
-export const useFormRequests = ({ shouldFetch = true }: UseFormRequestsProps) => {
+export const useFormRequests = ({
+    shouldFetch = true,
+    requestStatusToFetch,
+}: UseFormRequestsProps) => {
     const [formRequests, setFormRequests] = useState<IFormUI[]>([]);
     const [status, setStatus] = useState<RequestServiceStatus>("idle");
     const [error, setError] = useState<string | null>(null);
@@ -111,16 +115,13 @@ export const useFormRequests = ({ shouldFetch = true }: UseFormRequestsProps) =>
     };
 
     // Function to fetch all form requests
-    const fetchFormRequests = useCallback(async (requestType?: FormRequestTypeEnum) => {
+    const fetchFormRequests = useCallback(async (requestStatus?: FormRequestStatusEnum) => {
         setStatus("loading");
         setError(null);
 
         try {
-            const data = await formRequestsService.getFormRequests({
-                filter: {
-                    requestType,
-                },
-            });
+            const params = requestStatus ? { filter: { requestStatus } } : undefined;
+            const data = await formRequestsService.getFormRequests(params);
             setFormRequests(data.map(convertFormRequestToUI));
             setStatus("success");
         } catch (err) {
@@ -190,8 +191,8 @@ export const useFormRequests = ({ shouldFetch = true }: UseFormRequestsProps) =>
     useEffect(() => {
         if (!shouldFetch) return;
 
-        fetchFormRequests();
-    }, [fetchFormRequests, shouldFetch]);
+        fetchFormRequests(requestStatusToFetch);
+    }, [fetchFormRequests, shouldFetch, requestStatusToFetch]);
 
     return {
         formRequests,

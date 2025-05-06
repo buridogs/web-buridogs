@@ -3,13 +3,24 @@
 import { BURIDOGS_FACEBOOK_LINK, BURIDOGS_INSTAGRAM_LINK } from "@/utils/consts";
 import { FaInstagram, FaFacebook } from "react-icons/fa6";
 import { Button } from "../Button/Button";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Modal } from "../Modal/Modal";
 import Link from "next/link";
 import { Volunteers } from "./Volunteers/Volunteers";
+import { PublicRoutes } from "../Header/routes-ui";
+import { usePathname } from "next/navigation";
 
 export function Footer() {
     const [isOpen, setIsOpen] = useState(false);
+    const pathname = usePathname();
+
+    const isPublicRoute = useMemo(() => {
+        return Object.values(PublicRoutes).some((route) => pathname === route);
+    }, [pathname]);
+
+    if (!isPublicRoute) {
+        return null;
+    }
 
     return (
         <footer className="w-[100%] flex flex-col items-center">
