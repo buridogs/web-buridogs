@@ -56,10 +56,7 @@ export default function Form<T extends FieldValues>({
                 );
             case InputFormEnum.multipleFiles:
             case InputFormEnum.singleFile: {
-                if (
-                    !defaultValues[field.type] ||
-                    !(defaultValues[field.type] instanceof FileList)
-                ) {
+                if (defaultValues[field.type] && !(defaultValues[field.type] instanceof FileList)) {
                     toast.error("Erro ao carregar arquivo. Tipo inválido. Tente novamente.");
                     return;
                 }

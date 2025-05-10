@@ -4,7 +4,6 @@ import {
     AzureBlobStorageContainerNames,
     mountBlobStorageLink,
 } from "@/services/azure-blob/azure-blob";
-import { formatFileNameToUpload } from "@/utils/methods";
 
 interface FileInputProps<T> {
     field: FieldFormsType<T>;
@@ -109,6 +108,8 @@ export default function FileInput<T>({ field, inputProps, defaultValue }: FileIn
         return "Clique para adicionar imagens";
     };
 
+    console.log({ field });
+
     if (!field.fileSettings?.domainContainerName) {
         return (
             <p className="text-red-400 text-sm font-semibold my-1">
@@ -162,23 +163,7 @@ export default function FileInput<T>({ field, inputProps, defaultValue }: FileIn
                         return;
                     }
 
-                    // TODO: REVIEW IF NEED THIS
-                    const newFiles = Array.from(evt.target.files ?? []).map((file) => {
-                        const newFileName = formatFileNameToUpload(
-                            field.fileSettings
-                                ?.domainContainerName as AzureBlobStorageContainerNames,
-                            file.name
-                        );
-                        const newFile = new File([file], newFileName, {
-                            type: file.type,
-                            lastModified: file.lastModified,
-                        });
-                        return newFile;
-                    });
-                    const dataTransfer = new DataTransfer();
-                    newFiles.forEach((file) => dataTransfer.items.add(file));
-                    const newFileList = dataTransfer.files;
-                    setFiles(newFileList);
+                    setFiles(evt.target.files);
                     setErrors({ quantity: false, size: false });
 
                     if (inputProps.onChange) {
