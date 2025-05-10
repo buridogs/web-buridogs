@@ -9,6 +9,7 @@ import {
     DogSizeEnum,
     DogStatusEnum,
 } from "@/services/api/modules/dogs/types";
+import { AzureBlobStorageContainerNames } from "@/services/azure-blob/azure-blob";
 
 export const schema = yup
     .object({
@@ -254,6 +255,7 @@ export const getBaseFormConfig = (): GeneralFormsType<IDogForm>[] => [
                         filesQuantityLimit: 5,
                         filesSizeLimit: 1024 * 1000,
                         supportedExtensions: ["image/png", "image/jpeg", "image/jpg"],
+                        domainContainerName: AzureBlobStorageContainerNames.DOGS,
                     },
                 },
             ],
@@ -308,6 +310,7 @@ export const getExtendedFormConfig = (): GeneralFormsType<IDogForm>[] => [
                         filesQuantityLimit: 3,
                         filesSizeLimit: 1024 * 1000,
                         supportedExtensions: ["image/png", "image/jpeg", "image/jpg"],
+                        domainContainerName: AzureBlobStorageContainerNames.DOGS,
                     },
                 },
             ],
@@ -321,6 +324,7 @@ export const getExtendedFormConfig = (): GeneralFormsType<IDogForm>[] => [
                         filesQuantityLimit: 3,
                         filesSizeLimit: 1024 * 1000,
                         supportedExtensions: ["image/png", "image/jpeg", "image/jpg"],
+                        domainContainerName: AzureBlobStorageContainerNames.DOGS,
                     },
                 },
             ],

@@ -1,19 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FieldFormsType } from "../Form/FormTypes";
+import {
+    AzureBlobStorageContainerNames,
+    mountBlobStorageLink,
+} from "@/services/azure-blob/azure-blob";
+import { formatFileNameToUpload } from "@/utils/methods";
 
 interface FileInputProps<T> {
     field: FieldFormsType<T>;
     inputProps: React.HTMLProps<HTMLInputElement>;
+    defaultValue?: FileList | null;
 }
 
 const BYTE_SIZE = 1024;
 
-export default function FileInput<T>({ field, inputProps }: FileInputProps<T>) {
-    const [files, setFiles] = useState<FileList | null>(null);
+export default function FileInput<T>({ field, inputProps, defaultValue }: FileInputProps<T>) {
+    const [files, setFiles] = useState<FileList | null>(defaultValue ?? null);
     const [errors, setErrors] = useState<{ size: boolean; quantity: boolean }>({
         quantity: false,
         size: false,
     });
+
+    useEffect(() => {
+        if (files?.length) return;
+
+        if (inputProps.value && !files?.length) {
+            setFiles(inputProps.value as unknown as FileList);
+            return;
+        }
+
+        const formValue = inputProps.name
+            ? (document.querySelector(`input[name="${inputProps.name}"]`) as HTMLInputElement)
+                  ?.files
+            : null;
+        if (formValue && formValue.length > 0 && !files?.length) {
+            setFiles(formValue);
+            return;
+        }
+
+        if (defaultValue && !files?.length) {
+            setFiles(defaultValue);
+            return;
+        }
+    }, [inputProps, files, defaultValue]);
 
     const formatFileSize = (fileSize: number) => {
         return Math.ceil(fileSize / BYTE_SIZE);
@@ -26,16 +55,40 @@ export default function FileInput<T>({ field, inputProps }: FileInputProps<T>) {
         return Array(files?.length)
             .fill(files?.length)
             .map((_cur, idx) => {
+                const file = files.item(idx);
+
+                const isImage = file?.type.startsWith("image/");
+                const objectUrl = file ? URL.createObjectURL(file) : "";
                 return (
-                    <p
+                    <div
+                        className="flex flex-col items-start"
                         key={idx}
-                        className="font-sm text-gray-400 pl-2 mt-1"
                     >
-                        •{" "}
-                        {`${files?.item(idx)?.name} - ${formatFileSize(
-                            files.item(idx)?.size ?? 0
-                        )} KB`}
-                    </p>
+                        {isImage ? (
+                            <img
+                                src={objectUrl}
+                                alt={file?.name}
+                                className="mt-1 ml-10 max-h-24 rounded"
+                                onLoad={() => URL.revokeObjectURL(objectUrl)}
+                            />
+                        ) : (
+                            <img
+                                src={mountBlobStorageLink(
+                                    field.fileSettings
+                                        ?.domainContainerName as AzureBlobStorageContainerNames,
+                                    files.item(idx)?.name ?? ""
+                                )}
+                                alt={file?.name}
+                                className="mt-1 ml-10 max-h-24 rounded"
+                            />
+                        )}
+                        <p className="font-sm text-gray-400 pl-2 mt-1">
+                            •{" "}
+                            {`${files?.item(idx)?.name} - ${formatFileSize(
+                                files.item(idx)?.size ?? 0
+                            )} KB`}
+                        </p>
+                    </div>
                 );
             });
     };
@@ -55,6 +108,14 @@ export default function FileInput<T>({ field, inputProps }: FileInputProps<T>) {
 
         return "Clique para adicionar imagens";
     };
+
+    if (!field.fileSettings?.domainContainerName) {
+        return (
+            <p className="text-red-400 text-sm font-semibold my-1">
+                Erro ao carregar o container de imagens.
+            </p>
+        );
+    }
 
     return (
         <div className="flex flex-col items-start w-full">
@@ -80,7 +141,6 @@ export default function FileInput<T>({ field, inputProps }: FileInputProps<T>) {
                 className="w-[80%] py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500"
                 {...inputProps}
                 onChange={(evt) => {
-                    setFiles(evt.target.files);
                     if (
                         (evt.target.files?.length ?? 0) >
                         (field.fileSettings?.filesQuantityLimit ?? 0)
@@ -102,8 +162,28 @@ export default function FileInput<T>({ field, inputProps }: FileInputProps<T>) {
                         return;
                     }
 
-                    inputProps.onChange!(evt);
+                    // TODO: REVIEW IF NEED THIS
+                    const newFiles = Array.from(evt.target.files ?? []).map((file) => {
+                        const newFileName = formatFileNameToUpload(
+                            field.fileSettings
+                                ?.domainContainerName as AzureBlobStorageContainerNames,
+                            file.name
+                        );
+                        const newFile = new File([file], newFileName, {
+                            type: file.type,
+                            lastModified: file.lastModified,
+                        });
+                        return newFile;
+                    });
+                    const dataTransfer = new DataTransfer();
+                    newFiles.forEach((file) => dataTransfer.items.add(file));
+                    const newFileList = dataTransfer.files;
+                    setFiles(newFileList);
                     setErrors({ quantity: false, size: false });
+
+                    if (inputProps.onChange) {
+                        inputProps.onChange(evt);
+                    }
                 }}
             />
             {errors.quantity && (

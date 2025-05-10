@@ -3,6 +3,7 @@ import { GeneralFormsType, FieldFormsType, InputFormEnum, OptionFormsType } from
 import { Spinner } from "../Spinner/Spinner";
 import React, { SyntheticEvent, useState } from "react";
 import FileInput from "../FileInput/FileInput";
+import { toast } from "react-toastify";
 
 interface FormProps<T extends FieldValues> {
     handleSubmit: () => Promise<void>;
@@ -11,6 +12,7 @@ interface FormProps<T extends FieldValues> {
     errors: FieldErrors<T>;
     submitLabel: string;
     disabledSubmit?: boolean;
+    defaultValues: Partial<Record<InputFormEnum, string | FileList | number | boolean>>;
 }
 
 export default function Form<T extends FieldValues>({
@@ -20,6 +22,7 @@ export default function Form<T extends FieldValues>({
     errors,
     submitLabel,
     disabledSubmit,
+    defaultValues,
 }: FormProps<T>) {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -52,13 +55,23 @@ export default function Form<T extends FieldValues>({
                     />
                 );
             case InputFormEnum.multipleFiles:
-            case InputFormEnum.singleFile:
+            case InputFormEnum.singleFile: {
+                if (
+                    !defaultValues[field.type] ||
+                    !(defaultValues[field.type] instanceof FileList)
+                ) {
+                    toast.error("Erro ao carregar arquivo. Tipo inválido. Tente novamente.");
+                    return;
+                }
+
                 return (
                     <FileInput
                         field={field}
-                        inputProps={register(field.key as Path<T>)}
+                        inputProps={{ ...register(field.key as Path<T>) }}
+                        defaultValue={defaultValues[field.type] as FileList}
                     />
                 );
+            }
             case InputFormEnum.checkbox:
                 return (
                     <>

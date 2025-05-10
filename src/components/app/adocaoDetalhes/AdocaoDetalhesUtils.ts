@@ -2,6 +2,7 @@ import { LIMITE_TAMANHO_MENSAGEM, MENSAGENS_ERRO } from "@/components/Form/FormC
 import { GeneralFormsType, InputFormEnum } from "@/components/Form/FormTypes";
 import * as yup from "yup";
 import { IAdocaoForm } from "./AdocaoDetalhesTypes";
+import { AzureBlobStorageContainerNames } from "@/services/azure-blob/azure-blob";
 
 export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
     {
@@ -341,6 +342,7 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                         filesQuantityLimit: 3,
                         filesSizeLimit: 1024 * 1000,
                         supportedExtensions: ["image/png", "image/jpeg", "image/jpg"],
+                        domainContainerName: AzureBlobStorageContainerNames.ADOPTION_FORM,
                     },
                 },
             ],

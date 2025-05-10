@@ -19,6 +19,13 @@ import { usePartners } from "@/hooks/partners-hook";
 import { PartnetSocialMediaEnum } from "@/services/api/modules/partners/types";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import {
+    convertFileToBufferAndUpload,
+    deleteBlob,
+    PARTNERS_AZURE_CONTAINER_NAME,
+} from "@/services/azure-blob/azure-blob";
+import { urlToFileList } from "@/utils/methods";
+import { InputFormEnum } from "@/components/Form/FormTypes";
 
 export default function GerenciarParceirosNovoContainer() {
     const router = useRouter();
@@ -37,6 +44,7 @@ export default function GerenciarParceirosNovoContainer() {
         handleSubmit,
         formState: { errors },
         setValue,
+        watch,
     } = useForm<IPartnerForm>({
         resolver: yupResolver(schema),
     });
@@ -53,6 +61,14 @@ export default function GerenciarParceirosNovoContainer() {
                     setValue("contato", foundPartner.contato || "");
                     setValue("descricao", foundPartner.descricao || "");
                     setValue("categoria", foundPartner.categoria);
+
+                    if (foundPartner.imagemSrc) {
+                        const fileList = await urlToFileList(
+                            foundPartner.imagemSrc,
+                            foundPartner.imagemSrc
+                        );
+                        setValue("imagem", fileList);
+                    }
 
                     // Set social media values if they exist
                     if (foundPartner.redesSociais) {
@@ -82,15 +98,39 @@ export default function GerenciarParceirosNovoContainer() {
         }
     }, [partnerId, setValue]);
 
-    const onSubmit = async (data: IPartnerForm) => {
+    const onSubmit = async (currentFormData: IPartnerForm) => {
         try {
-            if (partnerId) {
+            if (partnerId && partnerToEdit) {
+                // Just one file is allowed here
+                let fileName = partnerToEdit?.imagemSrc;
+
+                if (
+                    !!currentFormData.imagem.item(0)?.name &&
+                    !!partnerToEdit?.imagemSrc &&
+                    currentFormData.imagem.item(0)?.name !== partnerToEdit?.imagemSrc
+                ) {
+                    await deleteBlob(PARTNERS_AZURE_CONTAINER_NAME, partnerToEdit?.imagemSrc || "");
+                    const uploadedFileName = await convertFileToBufferAndUpload(
+                        PARTNERS_AZURE_CONTAINER_NAME,
+                        currentFormData.imagem
+                    );
+                    fileName = uploadedFileName[0];
+                }
+
                 // Update existing partner
-                const updatedPartner = mapPayloadUpdateData(data, partnerToEdit);
+                const updatedPartner = mapPayloadUpdateData(
+                    currentFormData,
+                    partnerToEdit,
+                    fileName
+                );
                 await updatePartner(partnerId, updatedPartner);
             } else {
+                const uploadedFileName = await convertFileToBufferAndUpload(
+                    PARTNERS_AZURE_CONTAINER_NAME,
+                    currentFormData.imagem
+                );
                 // Create new partner
-                const newPartner = mapPayloadCreateData(data);
+                const newPartner = mapPayloadCreateData(currentFormData, uploadedFileName[0]);
                 await createPartner(newPartner);
             }
             router.push(PrivateRoutes.MANAGE_PARTNERS);
@@ -109,6 +149,10 @@ export default function GerenciarParceirosNovoContainer() {
             return <Spinner />;
         }
 
+        const defaultValues = {
+            [InputFormEnum.singleFile]: watch("imagem"),
+        };
+
         return (
             <div className="bg-gray-200 shadow-md rounded-lg p-6">
                 <Form<IPartnerForm>
@@ -117,6 +161,7 @@ export default function GerenciarParceirosNovoContainer() {
                     register={register}
                     errors={errors}
                     submitLabel={buttonLabel}
+                    defaultValues={defaultValues}
                 />
             </div>
         );

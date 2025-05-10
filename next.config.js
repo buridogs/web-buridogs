@@ -12,6 +12,12 @@ const nextConfig = {
                 port: "",
                 pathname: "/files/**",
             },
+            {
+                protocol: "https",
+                hostname: "buridogsstorage.blob.core.windows.net",
+                port: "",
+                pathname: "/partner-management/**",
+            },
         ],
     },
 };

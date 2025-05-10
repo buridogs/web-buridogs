@@ -38,8 +38,12 @@ jobs:
                   NEXT_PUBLIC_AZURE_FUNCTION_KEY_SEND_EMAIL_FUNCTION_CONTATO_FORM: "TWOUQpyW3582V1_K-NHqg1AVkfMOoSwFgct208lkP3mjAzFu_BTXXA=="
                   NEXT_PUBLIC_AZURE_FUNCTION_KEY_SEND_EMAIL_FUNCTION_APADRINHAMENTO_FORM: "v3LsrJtSyDTepOlD98xVwJ1SK4yYGfBFsn3JNg1RGIbWAzFu5siW3g=="
                   NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME: buridogsstorage
-                  NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME: adoption-form
+                  NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME: adoption-form # TODO: REVIEW THIS
+                  NEXT_PUBLIC_AZURE_STORAGE_PARTNERS_CONTAINER_NAME: partner-management
+                  NEXT_PUBLIC_AZURE_STORAGE_DOGS_CONTAINER_NAME: test
+                  NEXT_PUBLIC_AZURE_STORAGE_ADOPTION_FORM_CONTAINER_NAME: adoption-form
                   NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN: sv=2022-11-02&ss=b&srt=sco&sp=rwdlacytfx&se=2025-05-01T23:39:02Z&st=2024-04-12T15:39:02Z&spr=https,http&sig=5IeQLkYjVLgvNA3RRAlVcpHuNSQmBjPR09GzlmNFaig%3D
+                  #  TODO: ADD THE FOLLOWING ENV VARS
 
     close_pull_request_job:
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -57,5 +61,9 @@ jobs:
                   NEXT_PUBLIC_AZURE_FUNCTION_KEY_SEND_EMAIL_FUNCTION_ADOCAO_FORM: "KhHcGupwNvZ-Gu_LiRmh2JxX-8DG3fcTY3a3r-gkkyvcAzFuevMmdw=="
                   NEXT_PUBLIC_AZURE_FUNCTION_KEY_SEND_EMAIL_FUNCTION_CONTATO_FORM: "TWOUQpyW3582V1_K-NHqg1AVkfMOoSwFgct208lkP3mjAzFu_BTXXA=="
                   NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME: buridogsstorage
-                  NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME: adoption-form
+                  NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME: adoption-form # TODO: REVIEW THIS
+                  NEXT_PUBLIC_AZURE_STORAGE_PARTNERS_CONTAINER_NAME: partner-management
+                  NEXT_PUBLIC_AZURE_STORAGE_DOGS_CONTAINER_NAME: test
+                  NEXT_PUBLIC_AZURE_STORAGE_ADOPTION_FORM_CONTAINER_NAME: adoption-form
                   NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN: sv=2022-11-02&ss=b&srt=sco&sp=rwdlacytfx&se=2025-05-01T23:39:02Z&st=2024-04-12T15:39:02Z&spr=https,http&sig=5IeQLkYjVLgvNA3RRAlVcpHuNSQmBjPR09GzlmNFaig%3D
+                  #  TODO: ADD THE FOLLOWING ENV VARS

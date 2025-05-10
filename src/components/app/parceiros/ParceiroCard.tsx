@@ -1,6 +1,9 @@
 import { RedesSociaisParceiros } from "@/components/RedesSociaisParceiros/RedesSociaisParceiros";
 import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
-import { generateImgURL } from "@/utils/methods";
+import {
+    AzureBlobStorageContainerNames,
+    mountBlobStorageLink,
+} from "@/services/azure-blob/azure-blob";
 import { mapPartnerCategoryLabels } from "@/utils/partnersUtils";
 import Image from "next/image";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
@@ -15,7 +18,7 @@ export function ParceiroCard({ parceiro }: ParceiroCardProps) {
         <li className="w-full flex flex-col items-center md:flex-row lg:items-start">
             {imagemSrc ? (
                 <Image
-                    src={generateImgURL(imagemSrc)}
+                    src={mountBlobStorageLink(AzureBlobStorageContainerNames.PARTNERS, imagemSrc)}
                     alt={nome}
                     width={150}
                     height={150}

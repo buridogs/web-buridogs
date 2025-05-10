@@ -5,7 +5,7 @@ export interface IPartner {
     phone?: string;
     category: PartnerCategoryEnum;
     description?: string;
-    imageSrc?: string;
+    imageSrc: string;
     socialMedia?: SocialMedia[];
     createdAt: string;
     updatedAt: string;

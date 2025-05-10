@@ -10,5 +10,5 @@ export interface IPartnerForm {
     instagram?: string;
     facebook?: string;
     website?: string;
-    imagem?: FileList; // TODO: CHANGE THIS
+    imagem: FileList;
 }

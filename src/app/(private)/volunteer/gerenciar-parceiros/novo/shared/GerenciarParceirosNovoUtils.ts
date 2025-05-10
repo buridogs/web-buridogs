@@ -10,6 +10,7 @@ import {
     UpdatePartnetDto,
 } from "@/services/api/modules/partners/types";
 import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { AzureBlobStorageContainerNames } from "@/services/azure-blob/azure-blob";
 
 export const schema = yup
     .object({
@@ -42,13 +43,14 @@ export const schema = yup
         instagram: yup.string().url("Formato de URL inválido").optional(),
         facebook: yup.string().url("Formato de URL inválido").optional(),
         website: yup.string().url("Formato de URL inválido").optional(),
-        imagem: yup.mixed<FileList>().optional(),
-        // .test(
-        //     "imagem",
-        //     MENSAGENS_ERRO().campoObrigatorio,
-        //     (files: FileList | undefined) => (files?.length ?? 0) > 0
-        // )
-        // .required(MENSAGENS_ERRO().campoObrigatorio),
+        imagem: yup
+            .mixed<FileList>()
+            .test(
+                "imagem",
+                MENSAGENS_ERRO().campoObrigatorio,
+                (files: FileList | undefined) => (files?.length ?? 0) > 0
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
     })
     .required();
 
@@ -164,6 +166,7 @@ export const getFormConfig = (): GeneralFormsType<IPartnerForm>[] => [
                         supportedExtensions: ["image/jpeg", "image/png", "image/jpg"],
                         filesQuantityLimit: 1,
                         filesSizeLimit: 5 * 1024 * 1024, // 5MB
+                        domainContainerName: AzureBlobStorageContainerNames.PARTNERS,
                     },
                 },
             ],
@@ -172,14 +175,14 @@ export const getFormConfig = (): GeneralFormsType<IPartnerForm>[] => [
     },
 ];
 
-export function mapPayloadCreateData(partner: IPartnerForm): CreatePartnerDto {
+export function mapPayloadCreateData(partner: IPartnerForm, fileName: string): CreatePartnerDto {
     return {
         name: partner.nome,
         address: partner.endereco,
         phone: partner.contato,
         category: partner.categoria,
         description: partner.descricao,
-        imageSrc: partner.imagem?.item(0)?.name,
+        imageSrc: fileName,
         socialMedia: [
             partner.instagram
                 ? {
@@ -205,7 +208,8 @@ export function mapPayloadCreateData(partner: IPartnerForm): CreatePartnerDto {
 
 export function mapPayloadUpdateData(
     partner: IPartnerForm,
-    partnerToEdit: IPartnerUI | null
+    partnerToEdit: IPartnerUI | null,
+    imageName: string
 ): UpdatePartnetDto {
     return {
         name: partnerToEdit?.nome === partner.nome ? undefined : partner.nome,
@@ -213,8 +217,7 @@ export function mapPayloadUpdateData(
         phone: partnerToEdit?.contato === partner.contato ? undefined : partner.contato,
         category: partnerToEdit?.categoria === partner.categoria ? undefined : partner.categoria,
         description: partnerToEdit?.descricao === partner.descricao ? undefined : partner.descricao,
-        imageSrc:
-            partnerToEdit?.imagemSrc === partner.imagem ? undefined : partner.imagem?.item(0)?.name,
+        imageSrc: partnerToEdit?.imagemSrc === partner.imagem.item(0)?.name ? undefined : imageName,
         socialMedia: [
             partner.instagram
                 ? {

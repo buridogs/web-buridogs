@@ -8,7 +8,6 @@ import {
     CreatePartnerDto,
     IPartner,
     UpdatePartnetDto,
-    PartnetSocialMediaEnum,
 } from "@/services/api/modules/partners/types";
 import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
 
@@ -34,9 +33,7 @@ export const usePartners = () => {
             contato: partner.phone ?? "",
             categoria: partner.category,
             redesSociais: socialMedia,
-            imagemSrc:
-                partner.socialMedia?.find((sm) => sm.socialMedia === PartnetSocialMediaEnum.website) // TODO: CHECK THIS
-                    ?.urlLink ?? "",
+            imagemSrc: partner.imageSrc,
         };
     };
 

@@ -7,6 +7,10 @@ import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
 import { useRouter } from "next/navigation";
 import { mapPartnerCategoryLabels } from "@/utils/partnersUtils";
 import { PartnetSocialMediaEnum } from "@/services/api/modules/partners/types";
+import {
+    AzureBlobStorageContainerNames,
+    mountBlobStorageLink,
+} from "@/services/azure-blob/azure-blob";
 
 interface GerenciarParceirosModalProps {
     partner: IPartnerUI;
@@ -69,7 +73,10 @@ export function GerenciarParceirosModal({
                     <div className="flex flex-col items-center gap-4">
                         {partner.imagemSrc && (
                             <img
-                                src={partner.imagemSrc}
+                                src={mountBlobStorageLink(
+                                    AzureBlobStorageContainerNames.PARTNERS,
+                                    partner.imagemSrc
+                                )}
                                 alt={partner.nome}
                                 className="w-24 h-24 rounded-full object-cover border"
                             />
