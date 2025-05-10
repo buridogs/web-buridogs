@@ -41,15 +41,13 @@ export class AuthService {
     static loginUser = async (
         credentials: LoginCredentials
     ): Promise<{ user: User; token: string }> => {
+        // TODO: REVIEW THESE COMMENTS
         // Simulate API delay
         // await new Promise((resolve) => setTimeout(resolve, 800));
 
         const authService = getAuthService();
 
-        console.log("Login credentials:", credentials);
         const { user, token } = await authService.login(credentials);
-        console.log("User from API:", user);
-        console.log("Token from API:", token);
 
         // const user = mockUsers.find(
         //     (u) => u.email === credentials.email && u.password === credentials.password

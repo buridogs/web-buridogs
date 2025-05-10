@@ -108,8 +108,6 @@ export default function FileInput<T>({ field, inputProps, defaultValue }: FileIn
         return "Clique para adicionar imagens";
     };
 
-    console.log({ field });
-
     if (!field.fileSettings?.domainContainerName) {
         return (
             <p className="text-red-400 text-sm font-semibold my-1">
