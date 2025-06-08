@@ -319,15 +319,17 @@ export function FormulariosPendentesModal({
                     <>
                         <div className="flex items-center mb-4">
                             <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4">
-                                {adoption.images && adoption.images.length > 0 ? (
-                                    <></>
+                                {adoption.dog_photo ? (
+                                    <Image
+                                        src={mountBlobStorageLink(
+                                            AzureBlobStorageContainerNames.DOGS,
+                                            adoption.dog_photo
+                                        )}
+                                        alt={adoption.dog_name}
+                                        fill
+                                        className="object-cover"
+                                    />
                                 ) : (
-                                    // <Image
-                                    //     src={generateImgURL(adoption.fotos[0])}
-                                    //     alt={adoption.nomeCachorroAdocao}
-                                    //     fill
-                                    //     className="object-cover"
-                                    // />
                                     <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                                         <span className="text-xs text-gray-500">Sem foto</span>
                                     </div>

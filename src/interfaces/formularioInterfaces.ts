@@ -47,6 +47,7 @@ export interface IFormAdoption extends IFormBase {
     return_adoption_situation: string;
     aware_of_responsibility_term: boolean;
     dog_name: string;
+    dog_photo?: string; // TODO: CHANGE THAT. USED JUST TO DISPLAY THE DOG PHOTO IN THE UI
     images?: string[];
 }
 

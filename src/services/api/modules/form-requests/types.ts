@@ -12,6 +12,9 @@ type FormRequestDog = {
     id: string;
     name: string;
     dogStatus: string;
+    assets: {
+        urlLink: string;
+    }[];
 };
 
 export type CreateFormRequestDto = {

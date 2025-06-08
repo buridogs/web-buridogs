@@ -81,6 +81,7 @@ export const useFormRequests = ({
                         !!formRequest.detailsForm.consciente_termo_responsabilidade,
                     dog_name:
                         formRequest.dog?.name || formRequest.detailsForm.nomeCachorroAdocao || "",
+                    dog_photo: formRequest.dog?.assets[0].urlLink || "",
                     images: formRequest.detailsForm.arquivos || [],
                 } as IFormAdoption;
 
