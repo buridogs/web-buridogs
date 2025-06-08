@@ -16,6 +16,11 @@ import {
 } from "@/interfaces/formularioInterfaces";
 import { getStatusBadgeClass, getStatusText } from "../shared/FormulariosPendentesUtils";
 import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
+import Image from "next/image";
+import {
+    AzureBlobStorageContainerNames,
+    mountBlobStorageLink,
+} from "@/services/azure-blob/azure-blob";
 
 interface FormulariosPendentesModalProps {
     formRequest: IFormUI;
@@ -23,6 +28,8 @@ interface FormulariosPendentesModalProps {
     onUpdateStatus: (id: string, status: FormRequestStatusEnum) => void;
 }
 
+// TODO: CHECK THIS COMPONENT
+// CREATE INNER COMPONENT FOR IT
 export function FormulariosPendentesModal({
     formRequest,
     onClose,
@@ -409,17 +416,23 @@ export function FormulariosPendentesModal({
                             className="relative h-48 rounded-lg overflow-hidden"
                         >
                             <a
-                                href={url}
+                                href={mountBlobStorageLink(
+                                    AzureBlobStorageContainerNames.ADOPTION_FORM,
+                                    url
+                                )}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
                                 <></>
-                                {/* <Image
-                                            src={url}
-                                            alt={`Foto ${index + 1} do ambiente`}
-                                            fill
-                                            className="object-cover hover:opacity-90 transition-opacity"
-                                        /> */}
+                                <Image
+                                    src={mountBlobStorageLink(
+                                        AzureBlobStorageContainerNames.ADOPTION_FORM,
+                                        url
+                                    )}
+                                    alt={`Foto ${index + 1} do ambiente`}
+                                    fill
+                                    className="object-cover max-h-24 rounded"
+                                />
                             </a>
                         </div>
                     ))}

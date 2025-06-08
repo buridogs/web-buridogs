@@ -9,6 +9,7 @@ import { FaPencil } from "react-icons/fa6";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { getFilterOptionsPermissions } from "../shared/GerenciarVoluntariosUtils";
 import { useAuth } from "@/providers/auth/AuthProvider";
+import SearchInput from "@/components/SearchInput/SearchInput";
 
 interface GerenciarVoluntariosTableProps {
     volunteers: IVoluntarios[];
@@ -43,6 +44,12 @@ export function GerenciarVoluntariosTable({
     return (
         <div className="w-full">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                <SearchInput
+                    value={searchTerm}
+                    onChange={setSearchTerm}
+                    placeholder="Buscar por nome, email ou apelido"
+                    shouldExpand
+                />
                 <Select
                     id="permissionFilter"
                     options={getFilterOptionsPermissions()}
@@ -50,15 +57,6 @@ export function GerenciarVoluntariosTable({
                     onChange={(value) => setPermissionFilter(value)}
                     label="Permissão"
                 />
-                <div className="w-full md:w-auto">
-                    <input
-                        type="text"
-                        placeholder="Buscar por nome, email ou apelido"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="text-gray-500 border border-gray-300 rounded px-3 py-2 w-full md:w-80 focus:outline-none focus:ring-2 focus:ring-primary-400"
-                    />
-                </div>
             </div>
 
             <div className="overflow-x-auto shadow ring-1 ring-black ring-opacity-5 rounded-lg">

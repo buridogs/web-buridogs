@@ -10,6 +10,7 @@ import { LuPlus } from "react-icons/lu";
 import ConfirmationModal from "@/components/ConfirmationModal/ConfirmationModal";
 import { usePartners } from "@/hooks/partners-hook";
 import { Spinner } from "@/components/Spinner/Spinner";
+import { AzureBlobStorageContainerNames, deleteBlob } from "@/services/azure-blob/azure-blob";
 
 export default function GerenciarParceirosContainer() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,6 +33,12 @@ export default function GerenciarParceirosContainer() {
     const handleConfirm = async () => {
         if (selectedPartnerToDelete) {
             await deletePartner(selectedPartnerToDelete.id);
+            if (selectedPartnerToDelete.imagemSrc) {
+                await deleteBlob(
+                    AzureBlobStorageContainerNames.PARTNERS,
+                    selectedPartnerToDelete.imagemSrc
+                );
+            }
             setIsConfirmationModalOpen(false);
             setSelectedPartnerToDelete(null);
         }

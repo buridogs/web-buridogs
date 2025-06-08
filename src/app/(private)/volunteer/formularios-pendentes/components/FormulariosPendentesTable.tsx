@@ -18,6 +18,7 @@ import {
     getTypeText,
 } from "../shared/FormulariosPendentesUtils";
 import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
+import SearchInput from "@/components/SearchInput/SearchInput";
 
 interface FormulariosPendentesTableProps {
     formRequests: IFormUI[];
@@ -48,9 +49,18 @@ export function FormulariosPendentesTable({
         });
     }, [statusFilter, typeFilter, searchTerm, formRequests]);
 
+    // TODO: CREATE TABLE COMPONENT
+    // TODO: THINK ABOUT LONGEVITY OF THE FORMS, WHEN I CAN DELETE THEM, ETC
+
     return (
         <div className="w-full">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                <SearchInput
+                    placeholder="Busque pelo adotante ou cachorro"
+                    value={searchTerm}
+                    onChange={setSearchTerm}
+                    shouldExpand
+                />
                 <Select
                     id="statusFilter"
                     options={getFilterOptionsStatus()}
@@ -65,15 +75,6 @@ export function FormulariosPendentesTable({
                     onChange={(value) => setTypeFilter(value)}
                     label="Tipo Formulário"
                 />
-                <div className="w-full md:w-auto">
-                    <input
-                        type="text"
-                        placeholder="Buscar por nome ou cachorro"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="border border-gray-300 rounded px-3 py-2 w-full md:w-80 focus:outline-none focus:ring-2 focus:ring-primary-400"
-                    />
-                </div>
             </div>
 
             <div className="overflow-x-auto shadow ring-1 ring-black ring-opacity-5 rounded-lg">
@@ -90,7 +91,7 @@ export function FormulariosPendentesTable({
                                 scope="col"
                                 className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase"
                             >
-                                Nome
+                                Adotante
                             </th>
                             <th
                                 scope="col"
@@ -277,7 +278,7 @@ export function FormulariosPendentesTable({
                                     colSpan={6}
                                     className="px-4 py-8 text-center text-gray-500 italic"
                                 >
-                                    Nenhuma adoção encontrada
+                                    Não há formulários
                                 </td>
                             </tr>
                         )}

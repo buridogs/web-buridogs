@@ -59,8 +59,8 @@ export type DogAge = DogAgeEnum.filhote | DogAgeEnum.jovem | DogAgeEnum.adulto |
 
 export type DogStatus = DogStatusEnum.aguardando_adocao | DogStatusEnum.adotado;
 
-type DogAsset = {
-    id: string;
+export type DogAsset = {
+    id?: string;
     urlLink: string;
     sourceType: "image" | "video";
     assetType: "before" | "after" | "none";

@@ -1,6 +1,6 @@
 import { DogAge, DogGender, DogSize, DogStatus } from "@/services/api/modules/dogs/types";
 
-interface Img {
+export interface Img {
     src: string;
     alt: string;
     type: "main" | "before" | "after" | "common";
@@ -22,6 +22,7 @@ export interface IDogUI {
     porte: DogSize;
     descricao: string;
     possuiAlgumaInaptidao?: boolean;
+    inaptidaoDescricao?: string; // TODO: REVIEW THIS FIELD
     images?: Img[];
     youtubeVideos?: Video[];
     // Happy Ending fields

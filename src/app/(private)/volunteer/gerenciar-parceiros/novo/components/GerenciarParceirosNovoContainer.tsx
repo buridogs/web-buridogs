@@ -20,12 +20,11 @@ import { PartnetSocialMediaEnum } from "@/services/api/modules/partners/types";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
 import {
+    AzureBlobStorageContainerNames,
     convertFileToBufferAndUpload,
     deleteBlob,
-    PARTNERS_AZURE_CONTAINER_NAME,
 } from "@/services/azure-blob/azure-blob";
 import { urlToFileList } from "@/utils/methods";
-import { InputFormEnum } from "@/components/Form/FormTypes";
 
 export default function GerenciarParceirosNovoContainer() {
     const router = useRouter();
@@ -99,21 +98,27 @@ export default function GerenciarParceirosNovoContainer() {
     }, [partnerId, setValue]);
 
     const onSubmit = async (currentFormData: IPartnerForm) => {
+        const formattedFiles: string[] = [];
         try {
             if (partnerId && partnerToEdit) {
                 // Just one file is allowed here
                 let fileName = partnerToEdit?.imagemSrc;
 
-                if (
+                const hasImageChanged =
                     !!currentFormData.imagem.item(0)?.name &&
                     !!partnerToEdit?.imagemSrc &&
-                    currentFormData.imagem.item(0)?.name !== partnerToEdit?.imagemSrc
-                ) {
-                    await deleteBlob(PARTNERS_AZURE_CONTAINER_NAME, partnerToEdit?.imagemSrc || "");
+                    currentFormData.imagem.item(0)?.name !== partnerToEdit?.imagemSrc;
+
+                if (hasImageChanged) {
+                    await deleteBlob(
+                        AzureBlobStorageContainerNames.PARTNERS,
+                        partnerToEdit?.imagemSrc || ""
+                    );
                     const uploadedFileName = await convertFileToBufferAndUpload(
-                        PARTNERS_AZURE_CONTAINER_NAME,
+                        AzureBlobStorageContainerNames.PARTNERS,
                         currentFormData.imagem
                     );
+                    formattedFiles.push(uploadedFileName[0]);
                     fileName = uploadedFileName[0];
                 }
 
@@ -126,7 +131,7 @@ export default function GerenciarParceirosNovoContainer() {
                 await updatePartner(partnerId, updatedPartner);
             } else {
                 const uploadedFileName = await convertFileToBufferAndUpload(
-                    PARTNERS_AZURE_CONTAINER_NAME,
+                    AzureBlobStorageContainerNames.PARTNERS,
                     currentFormData.imagem
                 );
                 // Create new partner
@@ -137,6 +142,14 @@ export default function GerenciarParceirosNovoContainer() {
             router.refresh();
         } catch (error) {
             console.error("Erro ao salvar parceiro:", error);
+            // Clean up uploaded files if an error occurs
+            if (formattedFiles.length > 0) {
+                console.error("Limpando arquivos", formattedFiles);
+                const deleteFilesPromises = formattedFiles.map((file) =>
+                    deleteBlob(AzureBlobStorageContainerNames.PARTNERS, file)
+                );
+                await Promise.all(deleteFilesPromises);
+            }
         }
     };
 
@@ -150,7 +163,7 @@ export default function GerenciarParceirosNovoContainer() {
         }
 
         const defaultValues = {
-            [InputFormEnum.singleFile]: watch("imagem"),
+            imagem: watch("imagem"),
         };
 
         return (

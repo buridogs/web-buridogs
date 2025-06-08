@@ -25,6 +25,7 @@ export const useDogs = () => {
         porte: dog.size,
         descricao: dog.description,
         possuiAlgumaInaptidao: dog.needsSpecialCare,
+        inaptidaoDescricao: dog.specialCareDescription ?? "",
         descricaoHappyEnding: dog.happyEndingDescription ?? "",
         localAcolhimento: dog.shelterLocation ?? "",
         tratamentosRealizados: dog.treatmentsPerformed ?? "",
@@ -33,13 +34,13 @@ export const useDogs = () => {
             .map((asset) => ({
                 src: asset.urlLink,
                 alt: asset.assetType,
-                type: "main", // TODO: FIX IT
+                type: asset.assetType === "none" ? "common" : asset.assetType, // TODO: FIX IT
             })),
         youtubeVideos: dog.assets
             ?.filter((asset) => asset.sourceType === "video")
             .map((asset) => ({
                 src: asset.urlLink,
-                type: "common", // TODO: FIX IT
+                type: asset.assetType === "before" ? "before" : "after",
             })),
     });
 

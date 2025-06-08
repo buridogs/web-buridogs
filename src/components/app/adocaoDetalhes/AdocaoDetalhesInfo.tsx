@@ -4,8 +4,12 @@ import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight, FaDog } from "react-icons/fa6";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { MdBedroomBaby } from "react-icons/md";
-import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
+import { returnFormattedOptionLabel } from "@/utils/methods";
 import { IDogUI } from "@/interfaces/dogInterfaces";
+import {
+    AzureBlobStorageContainerNames,
+    mountBlobStorageLink,
+} from "@/services/azure-blob/azure-blob";
 
 interface AdocaoDetalhesInfoProps {
     cachorroSelecionado: IDogUI;
@@ -13,7 +17,7 @@ interface AdocaoDetalhesInfoProps {
 
 export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalhesInfoProps) {
     const image =
-        cachorroSelecionado.images?.find((i) => i.type === "main")?.src ??
+        cachorroSelecionado.images?.find((i) => i.type === "common")?.src ??
         cachorroSelecionado.images?.[0]?.src;
 
     const renderImagens = (nomeCachorro: string, imagens?: string[]) => {
@@ -53,7 +57,10 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                             <div className="flex flex-col w-[300px] h-[300px] md:w-[400px] md:h-[400px]">
                                 <div className="h-full w-full relative flex items-start md:max-w-lg lg:max-w-xl">
                                     <Image
-                                        src={generateImgURL(image)}
+                                        src={mountBlobStorageLink(
+                                            AzureBlobStorageContainerNames.DOGS,
+                                            image
+                                        )}
                                         alt={nomeCachorro}
                                         fill
                                         priority
@@ -73,7 +80,11 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
             <div className="flex flex-col items-center pb-8 lg:flex-row lg:w-500px lg:mx-auto">
                 <div className="relative w-[100px] h-[100px] md:h-[300px] md:w-[300px] lg:mr-6">
                     <Image
-                        src={generateImgURL(image ?? "")}
+                        src={
+                            image
+                                ? mountBlobStorageLink(AzureBlobStorageContainerNames.DOGS, image)
+                                : ""
+                        }
                         alt={`Imagem do cachorro ${cachorroSelecionado.nomeExibicao}`}
                         fill
                         sizes="(max-width: 1024px) 300px, 300px"

@@ -57,9 +57,10 @@ export function formatDatetimePTBR(dateValue: string) {
     }).format(new Date(dateValue));
 }
 
-export async function urlToFileList(fileName: string, url: string) {
-    const response = await fetch(url);
+export async function urlToFileList(fileName: string, url: string): Promise<FileList> {
+    const response = await fetch(url); // TODO: FIX URL ISSUE
     const blob = await response.blob();
+    console.log({ response, blob });
     const file = new File([blob], fileName, { type: blob.type || "image/png" });
 
     const dataTransfer = new DataTransfer();
@@ -72,4 +73,18 @@ export const formatFileNameToUpload = (domain: AzureBlobStorageContainerNames, n
     const fileName = domain;
     const fileExtension = name.split(".")[1];
     return `${fileName}-${timestamp}.${fileExtension}`;
+};
+
+export const combineFileLists = (fileLists: FileList[]): FileList => {
+    const dataTransfer = new DataTransfer();
+
+    // Iterate through each FileList
+    fileLists.forEach((fileList) => {
+        // Add all files from each FileList to the DataTransfer object
+        for (let i = 0; i < fileList.length; i++) {
+            dataTransfer.items.add(fileList[i]);
+        }
+    });
+
+    return dataTransfer.files;
 };

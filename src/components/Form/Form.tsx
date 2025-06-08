@@ -12,7 +12,7 @@ interface FormProps<T extends FieldValues> {
     errors: FieldErrors<T>;
     submitLabel: string;
     disabledSubmit?: boolean;
-    defaultValues: Partial<Record<InputFormEnum, string | FileList | number | boolean>>;
+    defaultValues?: Partial<Record<keyof T, string | FileList | number | boolean>>;
 }
 
 export default function Form<T extends FieldValues>({
@@ -49,14 +49,18 @@ export default function Form<T extends FieldValues>({
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
                         disabled={field.disabled}
-                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300"
+                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500 placeholder-primary-100 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300"
                         {...register(field.key as Path<T>)}
                         rows={4}
                     />
                 );
             case InputFormEnum.multipleFiles:
             case InputFormEnum.singleFile: {
-                if (defaultValues[field.type] && !(defaultValues[field.type] instanceof FileList)) {
+                if (
+                    defaultValues &&
+                    defaultValues[field.key] &&
+                    !(defaultValues[field.key] instanceof FileList)
+                ) {
                     toast.error("Erro ao carregar arquivo. Tipo inválido. Tente novamente.");
                     return;
                 }
@@ -65,7 +69,9 @@ export default function Form<T extends FieldValues>({
                     <FileInput
                         field={field}
                         inputProps={{ ...register(field.key as Path<T>) }}
-                        defaultValue={defaultValues[field.type] as FileList}
+                        defaultValue={
+                            defaultValues ? (defaultValues[field.key] as FileList) : undefined // TODO: FIX
+                        }
                     />
                 );
             }

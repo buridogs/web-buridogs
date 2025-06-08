@@ -9,6 +9,7 @@ export interface IDogForm {
     status: DogStatus;
     descricao: string;
     possuiAlgumaInaptidao: "true" | "false";
+    inaptidaoDescricao?: string;
     // Advanced fields
     descricaoLonga?: string;
     localAcolhimento?: string;

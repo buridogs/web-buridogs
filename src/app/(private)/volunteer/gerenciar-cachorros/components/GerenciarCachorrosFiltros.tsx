@@ -1,11 +1,11 @@
 import Select from "@/components/Select/Select";
 import Toggle from "@/components/Toggle/Toggle";
-import { LuSearch } from "react-icons/lu";
 import {
     getFilterOptionsDogAge,
     getFilterOptionsDogGender,
     getFilterOptionsDogSize,
 } from "../shared/GerenciarCachorrosUtils";
+import SearchInput from "@/components/SearchInput/SearchInput";
 
 interface GerenciarCachorrosFiltrosProps {
     searchTerm: string;
@@ -39,25 +39,12 @@ export default function GerenciarCachorrosFiltros({
         <div className="bg-gray-200 p-4 rounded-lg shadow mb-6">
             <h2 className="text-gray-700 font-medium text-lg mb-4">Filtros</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                <div className="flex flex-col">
-                    <label
-                        htmlFor="search"
-                        className="text-sm text-gray-600 mb-1"
-                    >
-                        Nome do cachorro
-                    </label>
-                    <div className="relative">
-                        <input
-                            id="search"
-                            type="text"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full border border-gray-300 rounded-lg p-2 pr-10"
-                            placeholder="Buscar..."
-                        />
-                        <LuSearch className="absolute right-3 top-3 text-gray-400" />
-                    </div>
-                </div>
+                <SearchInput
+                    label="Nome do cachorro"
+                    value={searchTerm}
+                    onChange={setSearchTerm}
+                    placeholder="Buscar..."
+                />
 
                 <Select
                     id="genero"

@@ -1,6 +1,10 @@
 import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
 import { IDogUI } from "@/interfaces/dogInterfaces";
-import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
+import {
+    AzureBlobStorageContainerNames,
+    mountBlobStorageLink,
+} from "@/services/azure-blob/azure-blob";
+import { returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,7 +18,7 @@ export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {
     const labelIdade = returnFormattedOptionLabel(AdocaoFiltrosEnum.idade, idade);
     const labelPorte = returnFormattedOptionLabel(AdocaoFiltrosEnum.porte, porte);
 
-    const image = images?.find((img) => img.type === "main")?.src ?? images?.[0]?.src;
+    const image = images?.find((img) => img.type === "common")?.src;
 
     return (
         <div className="py-6 flex flex-row items-center justify-center">
@@ -22,7 +26,11 @@ export function AdocaoEspecialCard({ dog }: AdocaoEspecialCardProps) {
                 <div className="w-[250px] h-[250px] rounded rounded-b-2xl bg-gray-50 relative">
                     <Image
                         className="object-cover"
-                        src={generateImgURL(image ?? "")}
+                        src={
+                            image
+                                ? mountBlobStorageLink(AzureBlobStorageContainerNames.DOGS, image)
+                                : ""
+                        }
                         alt={nomeExibicao}
                         fill
                     />

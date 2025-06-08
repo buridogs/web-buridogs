@@ -11,6 +11,7 @@ import { IDogUI } from "@/interfaces/dogInterfaces";
 import { useDogs } from "@/hooks/dogs-hook";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { DogStatusEnum } from "@/services/api/modules/dogs/types";
+import { AzureBlobStorageContainerNames, deleteBlob } from "@/services/azure-blob/azure-blob";
 
 export default function GerenciarCachorrosContainer() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -76,7 +77,13 @@ export default function GerenciarCachorrosContainer() {
     const handleDeleteDog = async () => {
         if (selectedDogToDelete) {
             await deleteDog(selectedDogToDelete.id);
+            const imagesToDelete = selectedDogToDelete.images || [];
+            const deleteFilesPromises = imagesToDelete.map((file) =>
+                deleteBlob(AzureBlobStorageContainerNames.DOGS, file.src)
+            );
+            await Promise.all(deleteFilesPromises);
             setIsConfirmationModalOpen(false);
+            setSelectedDogToDelete(null);
         }
     };
 

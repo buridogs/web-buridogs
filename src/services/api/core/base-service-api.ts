@@ -1,3 +1,4 @@
+import { PublicRoutes } from "@/components/Header/routes-ui";
 import { RequestOptions } from "./types";
 
 export class ApiError extends Error {
@@ -95,6 +96,8 @@ export abstract class BaseApiService {
     protected handleUnauthorized(): void {
         // Handle unauthorized errors (e.g., redirect to login)
         console.log("Unauthorized access - handling in base class");
+        // redirect to login
+        window.location.href = PublicRoutes.LOGIN;
         // You could implement a callback or event system here
     }
 }

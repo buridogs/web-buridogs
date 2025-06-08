@@ -1,25 +1,20 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { HeaderMobile } from "./PublicHeader/HeaderMobile";
 import { generateImgURL } from "@/utils/methods";
 import { HeaderDesktop } from "./PublicHeader/HeaderDesktop";
-import { PublicRoutes } from "./routes-ui";
+import { isPublicRouteHook } from "@/hooks/is-public-route-hook";
 
 export function Header() {
     const [isNavOpen, setIsNavOpen] = useState(false);
-    const pathname = usePathname();
 
     useEffect(() => {
         setIsNavOpen(false);
-    }, [pathname]);
+    }, []);
 
-    const isPublicRoute = useMemo(() => {
-        return Object.values(PublicRoutes).some((route) => pathname === route);
-    }, [pathname]);
-
+    const isPublicRoute = isPublicRouteHook();
     if (!isPublicRoute) {
         return null;
     }

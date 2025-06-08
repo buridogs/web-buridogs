@@ -1,11 +1,15 @@
 "use client";
 import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
 import { IDogUI } from "@/interfaces/dogInterfaces";
-import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
+import { returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 import AliceCarousel from "react-alice-carousel";
 import { SLUG_CHARACTER_SEPARATOR } from "../../adocao/AdocaoUtils";
+import {
+    AzureBlobStorageContainerNames,
+    mountBlobStorageLink,
+} from "@/services/azure-blob/azure-blob";
 
 interface FinaisFelizesCardProps {
     finalFeliz: IDogUI;
@@ -45,7 +49,14 @@ export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps
                             >
                                 <div className="w-full h-[350px] rounded rounded-b-2xl bg-gray-50">
                                     <Image
-                                        src={generateImgURL(image)}
+                                        src={
+                                            image
+                                                ? mountBlobStorageLink(
+                                                      AzureBlobStorageContainerNames.DOGS,
+                                                      image
+                                                  )
+                                                : ""
+                                        }
                                         alt={nomeExibicao}
                                         fill
                                         priority

@@ -81,7 +81,7 @@ export const useFormRequests = ({
                         !!formRequest.detailsForm.consciente_termo_responsabilidade,
                     dog_name:
                         formRequest.dog?.name || formRequest.detailsForm.nomeCachorroAdocao || "",
-                    images: formRequest.detailsForm.linksArquivosAzureBlob || [],
+                    images: formRequest.detailsForm.arquivos || [],
                 } as IFormAdoption;
 
             case FormRequestTypeEnum.sponsorship:

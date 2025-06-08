@@ -4,12 +4,16 @@ import { GeneralFormsType, InputFormEnum } from "@/components/Form/FormTypes";
 import * as yup from "yup";
 import { IDogForm } from "./GerenciarCachorrosNovoTypes";
 import {
+    CreateDogDto,
     DogAgeEnum,
+    DogAsset,
     DogGenderEnum,
     DogSizeEnum,
     DogStatusEnum,
+    UpdateDogDto,
 } from "@/services/api/modules/dogs/types";
 import { AzureBlobStorageContainerNames } from "@/services/azure-blob/azure-blob";
+import { IDogUI, Img } from "@/interfaces/dogInterfaces";
 
 export const schema = yup
     .object({
@@ -47,16 +51,27 @@ export const schema = yup
             .string()
             .oneOf(["true", "false"], "Selecione uma opção válida")
             .required(MENSAGENS_ERRO().campoObrigatorio),
+        inaptidaoDescricao: yup.string().when("possuiAlgumaInaptidao", {
+            is: "true",
+            then: () =>
+                yup
+                    .string()
+                    .max(
+                        LIMITE_TAMANHO_MENSAGEM.grande,
+                        MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.grande).tamanhoMaximo
+                    )
+                    .required(MENSAGENS_ERRO().campoObrigatorio + " (caso possua inaptidão)"),
+            otherwise: () => yup.string().optional(),
+        }),
         // Images
         imagensPrincipais: yup
             .mixed<FileList>()
-            // .test(
-            //     "imagensPrincipais",
-            //     MENSAGENS_ERRO().campoObrigatorio,
-            //     (files: FileList | undefined) => (files?.length ?? 0) > 0
-            // )
-            .optional(),
-        // .required(MENSAGENS_ERRO().campoObrigatorio), // TODO: FIX IT
+            .test(
+                "imagensPrincipais",
+                MENSAGENS_ERRO().campoObrigatorio,
+                (files: FileList | undefined) => (files?.length ?? 0) > 0
+            )
+            .required(MENSAGENS_ERRO().campoObrigatorio),
         // Advanced fields (conditional validation based on showExtendedFields)
         descricaoLonga: yup.string().when("$showExtendedFields", {
             is: true,
@@ -240,6 +255,12 @@ export const getBaseFormConfig = (): GeneralFormsType<IDogForm>[] => [
                         },
                     ],
                 },
+                {
+                    key: "inaptidaoDescricao",
+                    label: "Detalhes da inaptidão",
+                    type: InputFormEnum.textarea,
+                    placeholder: "Ex: Cega de um olho, surda, etc.",
+                },
             ],
         },
     },
@@ -252,7 +273,7 @@ export const getBaseFormConfig = (): GeneralFormsType<IDogForm>[] => [
                     type: InputFormEnum.multipleFiles,
                     fileSettings: {
                         isMultiple: true,
-                        filesQuantityLimit: 5,
+                        filesQuantityLimit: 3,
                         filesSizeLimit: 1024 * 1000,
                         supportedExtensions: ["image/png", "image/jpeg", "image/jpg"],
                         domainContainerName: AzureBlobStorageContainerNames.DOGS,
@@ -351,3 +372,111 @@ export const getExtendedFormConfig = (): GeneralFormsType<IDogForm>[] => [
         },
     },
 ];
+
+export function mapPayloadUpdateDog(
+    dogToEdit: IDogUI | null,
+    data: IDogForm,
+    images: Img[],
+    userId?: string
+): UpdateDogDto {
+    return {
+        name: dogToEdit?.nomeExibicao === data.nomeExibicao ? undefined : data.nomeExibicao,
+        dogStatus: dogToEdit?.status === data.status ? undefined : data.status,
+        gender: dogToEdit?.genero === data.genero ? undefined : data.genero,
+        age: dogToEdit?.idade === data.idade ? undefined : data.idade,
+        size: dogToEdit?.porte === data.porte ? undefined : data.porte,
+        description: dogToEdit?.descricao === data.descricao ? undefined : data.descricao,
+        needsSpecialCare:
+            dogToEdit?.possuiAlgumaInaptidao === (data.possuiAlgumaInaptidao === "true")
+                ? undefined
+                : data.possuiAlgumaInaptidao === "true",
+        specialCareDescription:
+            data.possuiAlgumaInaptidao === "true"
+                ? dogToEdit?.inaptidaoDescricao === data.inaptidaoDescricao
+                    ? undefined
+                    : data.inaptidaoDescricao
+                : undefined,
+        happyEndingDescription:
+            dogToEdit?.descricaoHappyEnding === data.descricaoLonga
+                ? undefined
+                : data.descricaoLonga,
+        shelterLocation:
+            dogToEdit?.localAcolhimento === data.localAcolhimento
+                ? undefined
+                : data.localAcolhimento,
+        treatmentsPerformed:
+            dogToEdit?.tratamentosRealizados === data.tratamentosRealizados
+                ? undefined
+                : data.tratamentosRealizados,
+        updatedById: userId,
+        assets: [
+            ...(images?.map((img: Img) => ({
+                urlLink: img.src,
+                assetType: img.type === "common" ? "none" : img.type,
+                sourceType: "image",
+            })) ?? []),
+            !data.youtubeSrcUrlAntes
+                ? undefined
+                : {
+                      urlLink: data.youtubeSrcUrlAntes,
+                      sourceType: "video",
+                      assetType: "before",
+                  },
+            !data.youtubeSrcUrlDepois
+                ? undefined
+                : {
+                      urlLink: data.youtubeSrcUrlDepois,
+                      assetType: "after",
+                      sourceType: "video",
+                  },
+        ].filter(Boolean) as DogAsset[],
+        happyEndingDate:
+            data.status === DogStatusEnum.adotado ? new Date().toISOString() : undefined,
+    };
+}
+
+export function mapPayloadCreateDogData(
+    dog: IDogForm,
+    images: Img[],
+    userId: string
+): CreateDogDto {
+    const needsSpecialCare = dog.possuiAlgumaInaptidao === "true";
+    return {
+        name: dog.nomeExibicao,
+        dogStatus: dog.status,
+        gender: dog.genero,
+        age: dog.idade,
+        size: dog.porte,
+        description: dog.descricao,
+        needsSpecialCare,
+        specialCareDescription: needsSpecialCare ? dog.inaptidaoDescricao : undefined,
+        createdById: userId,
+        updatedById: userId,
+        happyEndingDescription: dog.descricaoLonga,
+        happyEndingDate:
+            dog.status === DogStatusEnum.adotado ? new Date().toISOString() : undefined,
+        shelterLocation: dog.localAcolhimento,
+        treatmentsPerformed: dog.tratamentosRealizados,
+        assets: [
+            ...(images?.map((img: Img) => ({
+                urlLink: img.src,
+                assetType: img.type === "common" ? "none" : img.type,
+                sourceType: "image",
+            })) ?? []),
+            !dog.youtubeSrcUrlAntes
+                ? undefined
+                : {
+                      urlLink: dog.youtubeSrcUrlAntes,
+                      sourceType: "video",
+                      assetType: "before",
+                  },
+            !dog.youtubeSrcUrlDepois
+                ? undefined
+                : {
+                      urlLink: dog.youtubeSrcUrlDepois,
+                      assetType: "after",
+                      sourceType: "video",
+                  },
+        ].filter(Boolean) as DogAsset[],
+    };
+}
