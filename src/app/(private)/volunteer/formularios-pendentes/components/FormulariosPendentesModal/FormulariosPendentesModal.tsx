@@ -14,13 +14,15 @@ import {
     IFormContact,
     IFormSponsorship,
 } from "@/interfaces/formularioInterfaces";
-import { getStatusBadgeClass, getStatusText } from "../shared/FormulariosPendentesUtils";
+import { getStatusBadgeClass, getStatusText } from "../../shared/FormulariosPendentesUtils";
 import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
 import Image from "next/image";
 import {
     AzureBlobStorageContainerNames,
     mountBlobStorageLink,
 } from "@/services/azure-blob/azure-blob";
+import FormulariosPendentesModalFooter from "./FormulariosPendentesModalFooter";
+import FormulariosPendentesModalApplicantInfo from "./FormulariosPendentesModalApplicantInfo";
 
 interface FormulariosPendentesModalProps {
     formRequest: IFormUI;
@@ -96,200 +98,194 @@ export function FormulariosPendentesModal({
         if (formData.form_type === FormAvailableEnum.ADOPTION) {
             formRequestData = formData as IFormAdoption;
             return (
-                <>
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                            <FaPhone
-                                className="mr-2 text-gray-500"
-                                size={16}
-                            />
-                            <span className="text-gray-700">{formRequestData.phone_number}</span>
+                <FormulariosPendentesModalApplicantInfo
+                    applicant={[
+                        {
+                            icon: (
+                                <FaPhone
+                                    className="mr-2 text-gray-500"
+                                    size={16}
+                                />
+                            ),
+                            value: formRequestData.phone_number,
+                            type: "string",
+                            copyButtonConfig: {
+                                title: "Copiar telefone",
+                                onClick: () =>
+                                    copyToClipboard(formRequestData.phone_number, "Telefone"),
+                            },
+                        },
+                        {
+                            icon: (
+                                <FaMapMarkerAlt
+                                    className="mr-2 text-gray-500"
+                                    size={16}
+                                />
+                            ),
+                            value: `${formRequestData.street}, ${formRequestData.number}${formRequestData.complement ? `, ${formRequestData.complement}` : ""} - ${formRequestData.neighborhood}, ${formRequestData.city}/${formRequestData.state}`,
+                            type: "string",
+                        },
+                        {
+                            icon: (
+                                <MdOutlineHouse
+                                    className="mr-2 text-gray-500"
+                                    size={16}
+                                />
+                            ),
+                            value: `Mora em: ${formRequestData.lives_in_house_or_apartment}`,
+                            type: "string",
+                        },
+                    ]}
+                    applicantInfoFooter={
+                        <div className="pt-2 border-t">
+                            <p className="text-gray-700">
+                                <span className="font-medium">Redes sociais:</span>
+                                <br />
+                                <a
+                                    href={formRequestData.facebook_url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-600 hover:underline"
+                                >
+                                    Facebook
+                                </a>
+                                {" | "}
+                                <a
+                                    href={formRequestData.instagram_url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-600 hover:underline"
+                                >
+                                    Instagram
+                                </a>
+                            </p>
                         </div>
-                        <button
-                            onClick={() =>
-                                copyToClipboard(formRequestData.phone_number, "Telefone")
-                            }
-                            className="text-blue-600 p-1 rounded hover:bg-blue-50"
-                            title="Copiar telefone"
-                        >
-                            <BsClipboard size={14} />
-                        </button>
-                    </div>
-
-                    <div className="flex items-center">
-                        <FaMapMarkerAlt
-                            className="mr-2 text-gray-500"
-                            size={16}
-                        />
-                        <span className="text-gray-700">
-                            {formRequestData.street}, {formRequestData.number}
-                            {formRequestData.complement
-                                ? `, ${formRequestData.complement}`
-                                : ""} - {formRequestData.neighborhood}, {formRequestData.city}/
-                            {formRequestData.state}
-                        </span>
-                    </div>
-
-                    <div className="flex items-center">
-                        <MdOutlineHouse
-                            className="mr-2 text-gray-500"
-                            size={18}
-                        />
-                        <span className="text-gray-700">
-                            Mora em: {formRequestData.lives_in_house_or_apartment}
-                        </span>
-                    </div>
-
-                    <div className="pt-2 border-t">
-                        <p className="text-gray-700">
-                            <span className="font-medium">Redes sociais:</span>
-                            <br />
-                            <a
-                                href={formRequestData.facebook_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-600 hover:underline"
-                            >
-                                Facebook
-                            </a>
-                            {" | "}
-                            <a
-                                href={formRequestData.instagram_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-600 hover:underline"
-                            >
-                                Instagram
-                            </a>
-                        </p>
-                    </div>
-                </>
+                    }
+                />
             );
         } else if (formData.form_type === FormAvailableEnum.SPONSORSHIP) {
             formRequestData = formData as IFormSponsorship;
             return (
-                <>
-                    {formRequestData.email && (
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center">
+                <FormulariosPendentesModalApplicantInfo
+                    applicant={[
+                        {
+                            icon: (
                                 <FaEnvelope
                                     className="mr-2 text-gray-500"
                                     size={16}
                                 />
-                                <span className="text-gray-700">{formRequestData.email}</span>
-                            </div>
-                            <button
-                                onClick={() =>
-                                    copyToClipboard(formRequestData.email || "", "Email")
-                                }
-                                className="text-blue-600 p-1 rounded hover:bg-blue-50"
-                                title="Copiar email"
-                            >
-                                <BsClipboard size={14} />
-                            </button>
+                            ),
+                            value: formRequestData.email,
+                            type: "string",
+                            copyButtonConfig: {
+                                title: "Copiar email",
+                                onClick: () =>
+                                    copyToClipboard(
+                                        (formRequestData as IFormSponsorship).email,
+                                        "Email"
+                                    ),
+                            },
+                        },
+                        {
+                            icon: (
+                                <FaEnvelope
+                                    className="mr-2 text-gray-500"
+                                    size={16}
+                                />
+                            ),
+                            value: formRequestData.phone_number,
+                            type: "string",
+                            copyButtonConfig: {
+                                title: "Copiar telefone",
+                                onClick: () =>
+                                    copyToClipboard(formRequestData.phone_number, "Telefone"),
+                            },
+                        },
+                        {
+                            icon: (
+                                <FaMapMarkerAlt
+                                    className="mr-2 text-gray-500"
+                                    size={16}
+                                />
+                            ),
+                            value: `Método de contato: ${formRequestData.contact_method_preference.join(", ")}`,
+                            type: "string",
+                        },
+                        {
+                            icon: (
+                                <MdOutlineHouse
+                                    className="mr-2 text-gray-500"
+                                    size={16}
+                                />
+                            ),
+                            value: `Quer apadrinhar ${formRequestData.dog_name} com ${formRequestData.sponsorship_method.join(", ")}`,
+                            type: "string",
+                        },
+                    ]}
+                    applicantInfoFooter={
+                        <div className="pt-2 border-t">
+                            <p className="text-gray-700">
+                                <span className="font-medium">Aceita receber novidades:</span>
+                                <br />
+                                <div>
+                                    {renderBooleanValue(formRequestData.allow_receiving_news)}
+                                </div>
+                            </p>
                         </div>
-                    )}
-
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                            <FaPhone
-                                className="mr-2 text-gray-500"
-                                size={16}
-                            />
-                            <span className="text-gray-700">{formRequestData.phone_number}</span>
-                        </div>
-                        <button
-                            onClick={() =>
-                                copyToClipboard(formRequestData.phone_number, "Telefone")
-                            }
-                            className="text-blue-600 p-1 rounded hover:bg-blue-50"
-                            title="Copiar telefone"
-                        >
-                            <BsClipboard size={14} />
-                        </button>
-                    </div>
-
-                    <div className="flex items-center">
-                        <FaMapMarkerAlt
-                            className="mr-2 text-gray-500"
-                            size={16}
-                        />
-                        <span className="text-gray-700">
-                            Método de contato:{" "}
-                            {formRequestData.contact_method_preference.join(", ")}
-                        </span>
-                    </div>
-
-                    <div className="flex items-center">
-                        <MdOutlineHouse
-                            className="mr-2 text-gray-500"
-                            size={18}
-                        />
-                        <span className="text-gray-700">
-                            Quer apadrinhar{" "}
-                            <strong className="text-gray-900 font-extrabold">
-                                {" "}
-                                {formRequestData.dog_name}{" "}
-                            </strong>{" "}
-                            com {formRequestData.sponsorship_method.join(", ")}
-                        </span>
-                    </div>
-
-                    <div className="pt-2 border-t">
-                        <p className="text-gray-700">
-                            <span className="font-medium">Aceita receber novidades:</span>
-                            <br />
-                            <div>{renderBooleanValue(formRequestData.allow_receiving_news)}</div>
-                        </p>
-                    </div>
-                </>
+                    }
+                />
             );
         } else {
             formRequestData = formData as IFormContact;
             return (
                 <>
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                            <FaEnvelope
-                                className="mr-2 text-gray-500"
-                                size={16}
-                            />
-                            <span className="text-gray-700">{formRequestData.email}</span>
-                        </div>
-                        <button
-                            onClick={() => copyToClipboard(formRequestData.email || "", "Email")}
-                            className="text-blue-600 p-1 rounded hover:bg-blue-50"
-                            title="Copiar email"
-                        >
-                            <BsClipboard size={14} />
-                        </button>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                            <FaPhone
-                                className="mr-2 text-gray-500"
-                                size={16}
-                            />
-                            <span className="text-gray-700">{formRequestData.phone_number}</span>
-                        </div>
-                        <button
-                            onClick={() =>
-                                copyToClipboard(formRequestData.phone_number, "Telefone")
-                            }
-                            className="text-blue-600 p-1 rounded hover:bg-blue-50"
-                            title="Copiar telefone"
-                        >
-                            <BsClipboard size={14} />
-                        </button>
-                    </div>
-                    <div className="flex items-center">
-                        <FaMapMarkerAlt
-                            className="mr-2 text-gray-500"
-                            size={16}
-                        />
-                        <span className="text-gray-700">Mensagem: {formRequestData.message}</span>
-                    </div>
+                    <FormulariosPendentesModalApplicantInfo
+                        applicant={[
+                            {
+                                icon: (
+                                    <FaEnvelope
+                                        className="mr-2 text-gray-500"
+                                        size={16}
+                                    />
+                                ),
+                                value: formRequestData.email,
+                                type: "string",
+                                copyButtonConfig: {
+                                    title: "Copiar email",
+                                    onClick: () =>
+                                        copyToClipboard(
+                                            (formRequestData as IFormContact).email,
+                                            "Email"
+                                        ),
+                                },
+                            },
+                            {
+                                icon: (
+                                    <FaPhone
+                                        className="mr-2 text-gray-500"
+                                        size={16}
+                                    />
+                                ),
+                                value: formRequestData.phone_number,
+                                type: "string",
+                                copyButtonConfig: {
+                                    title: "Copiar telefone",
+                                    onClick: () =>
+                                        copyToClipboard(formRequestData.phone_number, "Telefone"),
+                                },
+                            },
+                            {
+                                icon: (
+                                    <FaMapMarkerAlt
+                                        className="mr-2 text-gray-500"
+                                        size={16}
+                                    />
+                                ),
+                                type: "string",
+                                value: formRequestData.message,
+                            },
+                        ]}
+                    />
                 </>
             );
         }
@@ -512,68 +508,11 @@ export function FormulariosPendentesModal({
                 </div>
 
                 {/* Footer with action buttons */}
-                <div className="border-t p-4 bg-gray-50 rounded-b-lg flex flex-wrap gap-2 justify-end">
-                    <button
-                        onClick={() => onUpdateStatus(formRequest.id, FormRequestStatusEnum.solved)}
-                        disabled={formRequest.status === FormRequestStatusEnum.solved}
-                        className={`px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700 transition-colors ${
-                            formRequest.status === FormRequestStatusEnum.solved
-                                ? "opacity-50 cursor-not-allowed"
-                                : ""
-                        }`}
-                    >
-                        Aprovar
-                    </button>
-                    <button
-                        onClick={() =>
-                            onUpdateStatus(formRequest.id, FormRequestStatusEnum.pending)
-                        }
-                        disabled={formRequest.status === FormRequestStatusEnum.pending}
-                        className={`px-4 py-2 text-white bg-yellow-600 rounded hover:bg-yellow-700 transition-colors ${
-                            formRequest.status === FormRequestStatusEnum.pending
-                                ? "opacity-50 cursor-not-allowed"
-                                : ""
-                        }`}
-                    >
-                        Pendente
-                    </button>
-                    {formRequest.form_type === FormAvailableEnum.ADOPTION && (
-                        <button
-                            onClick={() =>
-                                onUpdateStatus(formRequest.id, FormRequestStatusEnum.in_progress)
-                            }
-                            disabled={formRequest.status === FormRequestStatusEnum.in_progress}
-                            className={`px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors ${
-                                formRequest.status === FormRequestStatusEnum.in_progress
-                                    ? "opacity-50 cursor-not-allowed"
-                                    : ""
-                            }`}
-                        >
-                            Em Análise
-                        </button>
-                    )}
-                    {formRequest.form_type === FormAvailableEnum.ADOPTION && (
-                        <button
-                            onClick={() =>
-                                onUpdateStatus(formRequest.id, FormRequestStatusEnum.rejected)
-                            }
-                            disabled={formRequest.status === FormRequestStatusEnum.rejected}
-                            className={`px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700 transition-colors ${
-                                formRequest.status === FormRequestStatusEnum.rejected
-                                    ? "opacity-50 cursor-not-allowed"
-                                    : ""
-                            }`}
-                        >
-                            Rejeitar
-                        </button>
-                    )}
-                    <button
-                        onClick={onClose}
-                        className="px-4 py-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300 transition-colors ml-2"
-                    >
-                        Fechar
-                    </button>
-                </div>
+                <FormulariosPendentesModalFooter
+                    onUpdateStatus={onUpdateStatus}
+                    onClose={onClose}
+                    formRequest={formRequest}
+                />
             </div>
         </div>
     );

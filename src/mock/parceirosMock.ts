@@ -11,9 +11,12 @@ export const parceiros: IPartnerUI[] = [
         descricao: "",
         linkURL: "",
         categoria: PartnerCategoryEnum.veterinary,
-        redesSociais: {
-            instagram: "https://www.instagram.com/petvitaclinicaveterinaria/",
-        },
+        redesSociais: [
+            {
+                socialMedia: "instagram",
+                urlLink: "https://www.instagram.com/petvitaclinicaveterinaria/",
+            },
+        ],
     },
     {
         id: "2",
@@ -24,9 +27,12 @@ export const parceiros: IPartnerUI[] = [
         descricao: "",
         linkURL: "",
         categoria: PartnerCategoryEnum.veterinary,
-        redesSociais: {
-            instagram: "https://www.instagram.com/lifepetclinica/",
-        },
+        redesSociais: [
+            {
+                socialMedia: "instagram",
+                urlLink: "https://www.instagram.com/lifepetclinica/",
+            },
+        ],
     },
     {
         id: "3",
@@ -37,9 +43,12 @@ export const parceiros: IPartnerUI[] = [
         descricao: "",
         linkURL: "",
         categoria: PartnerCategoryEnum.veterinary,
-        redesSociais: {
-            instagram: "https://www.instagram.com/hospitalveterinarioarnaldo/",
-        },
+        redesSociais: [
+            {
+                socialMedia: "instagram",
+                urlLink: "https://www.instagram.com/hospitalveterinarioarnaldo/",
+            },
+        ],
     },
     {
         id: "4",
@@ -50,9 +59,12 @@ export const parceiros: IPartnerUI[] = [
         descricao: "",
         linkURL: "",
         categoria: PartnerCategoryEnum.petShop,
-        redesSociais: {
-            instagram: "https://www.instagram.com/petshop_palmeiras/",
-        },
+        redesSociais: [
+            {
+                socialMedia: "instagram",
+                urlLink: "https://www.instagram.com/petshop_palmeiras/",
+            },
+        ],
     },
     {
         id: "5",
@@ -63,9 +75,12 @@ export const parceiros: IPartnerUI[] = [
         descricao: "",
         linkURL: "",
         categoria: PartnerCategoryEnum.petShop,
-        redesSociais: {
-            instagram: "https://www.instagram.com/pet92brasil/",
-        },
+        redesSociais: [
+            {
+                socialMedia: "instagram",
+                urlLink: "https://www.instagram.com/pet92brasil/",
+            },
+        ],
     },
     {
         id: "6",
@@ -76,9 +91,12 @@ export const parceiros: IPartnerUI[] = [
         descricao: "",
         linkURL: "",
         categoria: PartnerCategoryEnum.petShop,
-        redesSociais: {
-            instagram: "https://www.instagram.com/beagapet/",
-        },
+        redesSociais: [
+            {
+                socialMedia: "instagram",
+                urlLink: "https://www.instagram.com/beagapet/",
+            },
+        ],
     },
     {
         id: "7",
@@ -89,9 +107,12 @@ export const parceiros: IPartnerUI[] = [
         descricao: "",
         linkURL: "",
         categoria: PartnerCategoryEnum.petShop,
-        redesSociais: {
-            instagram: "https://www.instagram.com/toysepets/",
-        },
+        redesSociais: [
+            {
+                socialMedia: "instagram",
+                urlLink: "https://www.instagram.com/toysepets/",
+            },
+        ],
     },
     {
         id: "8",
@@ -102,9 +123,12 @@ export const parceiros: IPartnerUI[] = [
         descricao: "",
         linkURL: "",
         categoria: PartnerCategoryEnum.petShop,
-        redesSociais: {
-            instagram: "https://www.instagram.com/jairracoes/",
-        },
+        redesSociais: [
+            {
+                socialMedia: "instagram",
+                urlLink: "https://www.instagram.com/jairracoes/",
+            },
+        ],
     },
     {
         id: "9",
@@ -115,9 +139,12 @@ export const parceiros: IPartnerUI[] = [
         descricao: "",
         linkURL: "",
         categoria: PartnerCategoryEnum.clothing,
-        redesSociais: {
-            instagram: "https://www.instagram.com/criativamodabh/",
-        },
+        redesSociais: [
+            {
+                socialMedia: "instagram",
+                urlLink: "https://www.instagram.com/criativamodabh/",
+            },
+        ],
     },
     {
         id: "10",
@@ -128,9 +155,12 @@ export const parceiros: IPartnerUI[] = [
         descricao: "",
         linkURL: "",
         categoria: PartnerCategoryEnum.clothing,
-        redesSociais: {
-            instagram: "https://www.instagram.com/athenasmodasbh/",
-        },
+        redesSociais: [
+            {
+                socialMedia: "instagram",
+                urlLink: "https://www.instagram.com/athenasmodasbh/",
+            },
+        ],
     },
     {
         id: "11",
@@ -141,10 +171,19 @@ export const parceiros: IPartnerUI[] = [
         descricao: "",
         linkURL: "",
         categoria: PartnerCategoryEnum.vehicleProtection,
-        redesSociais: {
-            instagram: "https://www.instagram.com/geraisprotecao/",
-            facebook: "https://www.facebook.com/gerais.protecao",
-            website: "https://geraisprotecao.com/",
-        },
+        redesSociais: [
+            {
+                socialMedia: "instagram",
+                urlLink: "https://www.instagram.com/geraisprotecao/",
+            },
+            {
+                socialMedia: "facebook",
+                urlLink: "https://www.facebook.com/gerais.protecao",
+            },
+            {
+                socialMedia: "website",
+                urlLink: "https://geraisprotecao.com/",
+            },
+        ],
     },
 ];

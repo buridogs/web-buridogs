@@ -26,7 +26,6 @@ import {
     AzureBlobStorageContainerNames,
     convertFileToBufferAndUpload,
     deleteBlob,
-    DOGS_AZURE_CONTAINER_NAME,
 } from "@/services/azure-blob/azure-blob";
 
 export default function GerenciarCachorrosNovoContainer() {

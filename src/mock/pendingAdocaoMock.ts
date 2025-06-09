@@ -1,4 +1,5 @@
-import { FormAvailableEnum, FormStatusEnum, IFormUI } from "@/interfaces/formularioInterfaces";
+import { FormAvailableEnum, IFormUI } from "@/interfaces/formularioInterfaces";
+import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
 
 // Adoption forms
 export const pendingAdocoesMock: IFormUI[] = [
@@ -8,7 +9,7 @@ export const pendingAdocoesMock: IFormUI[] = [
         name: "João Silva",
         phone_number: "(31) 98765-4321",
         dog_name: "Zazá",
-        status: FormStatusEnum.PENDENT,
+        status: FormRequestStatusEnum.pending,
         email: "joao.silva@email.com",
         form_type: FormAvailableEnum.ADOPTION,
         zip_code: "30140-001",
@@ -48,7 +49,7 @@ export const pendingAdocoesMock: IFormUI[] = [
         name: "Maria Oliveira",
         phone_number: "(31) 99876-5432",
         dog_name: "Thor",
-        status: FormStatusEnum.IN_PROCESS,
+        status: FormRequestStatusEnum.in_progress,
         email: "maria.oliveira@email.com",
         form_type: FormAvailableEnum.ADOPTION,
         zip_code: "30130-170",
@@ -94,7 +95,7 @@ export const pendingApadrinhamentosMock: IFormUI[] = [
         form_type: FormAvailableEnum.SPONSORSHIP,
         contact_method_preference: ["whatsapp", "email"],
         allow_receiving_news: true,
-        status: FormStatusEnum.PENDENT,
+        status: FormRequestStatusEnum.pending,
         sponsorship_method: ["monthly_donation", "supplies"],
     },
     {
@@ -106,7 +107,7 @@ export const pendingApadrinhamentosMock: IFormUI[] = [
         form_type: FormAvailableEnum.SPONSORSHIP,
         contact_method_preference: ["email"],
         allow_receiving_news: true,
-        status: FormStatusEnum.SOLVED,
+        status: FormRequestStatusEnum.solved,
         sponsorship_method: ["monthly_donation"],
     },
     {
@@ -119,7 +120,7 @@ export const pendingApadrinhamentosMock: IFormUI[] = [
         form_type: FormAvailableEnum.SPONSORSHIP,
         contact_method_preference: ["whatsapp", "phone"],
         allow_receiving_news: false,
-        status: FormStatusEnum.IN_PROCESS,
+        status: FormRequestStatusEnum.in_progress,
         sponsorship_method: ["supplies", "medicine"],
     },
 ];
@@ -135,7 +136,7 @@ export const pendingContatosMock: IFormUI[] = [
         form_type: FormAvailableEnum.CONTACT,
         message:
             "Olá! Gostaria de saber como posso me tornar voluntário da ONG. Tenho disponibilidade aos finais de semana e muita vontade de ajudar!",
-        status: FormStatusEnum.PENDENT,
+        status: FormRequestStatusEnum.pending,
     },
     {
         id: "2",
@@ -146,7 +147,7 @@ export const pendingContatosMock: IFormUI[] = [
         form_type: FormAvailableEnum.CONTACT,
         message:
             "Estou organizando um evento beneficente e gostaria de incluir a BuriDogs como uma das instituições beneficiadas. Como podemos conversar sobre isso?",
-        status: FormStatusEnum.PENDENT,
+        status: FormRequestStatusEnum.pending,
     },
     {
         id: "3",
@@ -157,7 +158,7 @@ export const pendingContatosMock: IFormUI[] = [
         form_type: FormAvailableEnum.CONTACT,
         message:
             "Encontrei um cachorro abandonado próximo à minha casa. Vocês fazem resgates ou podem me orientar sobre como proceder?",
-        status: FormStatusEnum.SOLVED,
+        status: FormRequestStatusEnum.solved,
     },
 ];
 

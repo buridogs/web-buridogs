@@ -17,7 +17,7 @@ export interface IDogForm {
     youtubeSrcUrlAntes?: string;
     youtubeSrcUrlDepois?: string;
     // Images
-    imagensPrincipais?: FileList; // TODO: FIX IT
+    imagensPrincipais: FileList;
     imagensAntes?: FileList;
     imagensDepois?: FileList;
 }

@@ -1,15 +1,21 @@
 import { IDogUI } from "@/interfaces/dogInterfaces";
+import {
+    DogAgeEnum,
+    DogGenderEnum,
+    DogSizeEnum,
+    DogStatusEnum,
+} from "@/services/api/modules/dogs/types";
 
 // Mock data - replace with API call in production
 export const cachorrosMock: IDogUI[] = [
     {
-        id: 1,
+        id: "1",
         nomeExibicao: "Thor",
-        status: "adocao",
+        status: DogStatusEnum.adotado,
         slug: "thor",
-        genero: "macho",
-        idade: "filhote",
-        porte: "medio-porte",
+        genero: DogGenderEnum.macho,
+        idade: DogAgeEnum.filhote,
+        porte: DogSizeEnum.medio,
         descricao:
             "Thor é um cachorro muito brincalhão e cheio de energia. Ele adora correr e brincar com bolas.",
         images: [
@@ -27,13 +33,13 @@ export const cachorrosMock: IDogUI[] = [
         possuiAlgumaInaptidao: false,
     },
     {
-        id: 2,
+        id: "2",
         nomeExibicao: "Zazá",
-        status: "finais-felizes",
+        status: DogStatusEnum.aguardando_adocao,
         slug: "zaza",
-        genero: "femea",
-        idade: "adulto",
-        porte: "grande-porte",
+        genero: DogGenderEnum.femea,
+        idade: DogAgeEnum.adulto,
+        porte: DogSizeEnum.grande,
         descricao:
             "Zazá é uma cachorrinha dócil e carinhosa. Adora ficar no colo e receber carinho.",
         images: [
@@ -46,13 +52,13 @@ export const cachorrosMock: IDogUI[] = [
         possuiAlgumaInaptidao: false,
     },
     {
-        id: 3,
+        id: "3",
         nomeExibicao: "Yasmin",
-        status: "adocao",
+        status: DogStatusEnum.adotado,
         slug: "yasmin",
-        genero: "femea",
-        idade: "idoso",
-        porte: "grande-porte",
+        genero: DogGenderEnum.femea,
+        idade: DogAgeEnum.idoso,
+        porte: DogSizeEnum.grande,
         descricao:
             "Yasmin é uma senhora tranquila e muito amorosa. Gosta de passar o dia dormindo ao lado do seu tutor.",
         images: [

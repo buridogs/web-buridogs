@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FormulariosPendentesTable } from "./FormulariosPendentesTable";
 import { IFormUI } from "@/interfaces/formularioInterfaces";
-import { FormulariosPendentesModal } from "./FormulariosPendentesModal";
+import { FormulariosPendentesModal } from "./FormulariosPendentesModal/FormulariosPendentesModal";
 import { useFormRequests } from "@/hooks/form-requests-hook";
 import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
 import { Spinner } from "@/components/Spinner/Spinner";
