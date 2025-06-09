@@ -7,7 +7,7 @@ export enum PublicRoutes {
     ABOUT_US = "/sobre-nos",
     CONTACT = "/contato",
     LOGIN = "/login",
-    NAO_AUTORIZADO = "/unathorized",
+    NAO_AUTORIZADO = "/unauthorized",
 }
 
 export enum PrivateRoutes {
