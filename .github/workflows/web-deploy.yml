@@ -1,0 +1,51 @@
+name: Deploy WEB BURIDOGS to Azure Web App
+
+on:
+    push:
+        branches:
+            - diogo/private-pages # ou sua branch principal
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout código
+              uses: actions/checkout@v3
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "20"
+                  cache: "yarn"
+
+            - name: Instalar dependências
+              run: yarn install --frozen-lockfile
+
+            - name: Build da aplicação
+              run: yarn build
+              env:
+                  NODE_ENV: "production"
+                  NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME }}
+                  NEXT_PUBLIC_AZURE_STORAGE_PARTNERS_CONTAINER_NAME: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_PARTNERS_CONTAINER_NAME }}
+                  NEXT_PUBLIC_AZURE_STORAGE_DOGS_CONTAINER_NAME: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_DOGS_CONTAINER_NAME }}
+                  NEXT_PUBLIC_AZURE_STORAGE_ADOPTION_FORM_CONTAINER_NAME: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_ADOPTION_FORM_CONTAINER_NAME }}
+                  NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN_ADOPTION: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN_ADOPTION }}
+                  NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN_PARTNER: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN_PARTNER }}
+                  NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN_DOGS: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN_DOGS }}
+                  NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+
+            # Para output: "standalone" no next.config.js
+            - name: Preparar arquivos para deploy
+              run: |
+                  cp -r public .next/standalone/public
+                  cp -r .next/static .next/standalone/.next/
+
+            # Opção 1: Deploy direto (sem Docker)
+            - name: Deploy para Azure Web App
+              uses: azure/webapps-deploy@v2
+              with:
+                  app-name: ${{ secrets.AZURE_WEB_APP_NAME }} # Nome do seu Web App no Azure
+                  slot-name: "production"
+                  publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+                  package: .next/standalone
