@@ -2,7 +2,7 @@
 
 import "react-alice-carousel/lib/alice-carousel.css";
 import "../../globals.css";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { PrivateHeaderMobile } from "@/components/Header/PrivateHeader/PrivateHeaderMobile";
 import { useAuth } from "@/providers/auth/AuthProvider";

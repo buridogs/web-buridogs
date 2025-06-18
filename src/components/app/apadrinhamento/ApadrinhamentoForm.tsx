@@ -55,9 +55,10 @@ export default function ApadrinhamentoForm() {
 
     const onSubmit = async (data: IApadrinhamentoForm) => {
         try {
+            // TODO: CHECK IF THE EMAIL IS NEEDED
             // await sendEmailFunctionApadrinhamentoForm({
             //     ...data,
-            // }); // TODO: CHECK THIS
+            // });
             await createFormRequest({
                 detailsForm: { ...data },
                 requestType: FormRequestTypeEnum.sponsorship,

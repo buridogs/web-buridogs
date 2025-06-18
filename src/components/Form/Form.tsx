@@ -1,5 +1,5 @@
-import { FieldErrors, UseFormRegister, FieldValues, Path } from "react-hook-form";
-import { GeneralFormsType, FieldFormsType, InputFormEnum, OptionFormsType } from "./FormTypes";
+import { FieldErrors, FieldValues, Path, UseFormRegister } from "react-hook-form";
+import { FieldFormsType, GeneralFormsType, InputFormEnum, OptionFormsType } from "./FormTypes";
 import { Spinner } from "../Spinner/Spinner";
 import React, { SyntheticEvent, useState } from "react";
 import FileInput from "../FileInput/FileInput";

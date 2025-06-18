@@ -33,7 +33,8 @@ export function ContatoDetalhesForm() {
             });
             reset();
         } catch (err: any) {
-            console.warn(err.message);
+            // eslint-disable-next-line no-console
+            console.error(err.message);
             toast.error("Houve um erro no envio do formulário");
         }
     };

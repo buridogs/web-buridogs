@@ -7,7 +7,7 @@ import { UserRole } from "@/interfaces/authInterfaces";
 import { useAuth } from "@/providers/auth/AuthProvider";
 import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
 import Link from "next/link";
-import { FaEnvelope, FaPaw, FaHandshake } from "react-icons/fa";
+import { FaEnvelope, FaHandshake, FaPaw } from "react-icons/fa";
 
 export default function VolunteerDashboardContainer() {
     const { user, logout } = useAuth();

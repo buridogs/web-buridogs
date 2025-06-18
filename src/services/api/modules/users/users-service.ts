@@ -1,6 +1,6 @@
+import { CreateVolunteerDto, IVolunteer, UpdateVolunteerDto } from "./types";
 import { BaseApiService } from "../../core/base-service-api";
 import { PaginationParams } from "../../core/types";
-import { IVolunteer, CreateVolunteerDto, UpdateVolunteerDto } from "./types";
 
 class VolunteerService extends BaseApiService {
     /**

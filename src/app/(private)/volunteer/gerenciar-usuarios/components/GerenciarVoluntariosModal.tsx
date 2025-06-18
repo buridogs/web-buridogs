@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { IoMdClose, IoMdCreate, IoMdTrash } from "react-icons/io";
-import { FaEnvelope, FaUser, FaTag } from "react-icons/fa";
+import { FaEnvelope, FaTag, FaUser } from "react-icons/fa";
 import { IVoluntarios } from "@/interfaces/voluntariosInterfaces";
 import { useRouter } from "next/navigation";
 import { IVolunteerForm } from "../novo/shared/GerenciarUsuariosNovoTypes";

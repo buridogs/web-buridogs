@@ -1,6 +1,6 @@
+import { CreateDogDto, IDog, UpdateDogDto } from "./types";
 import { BaseApiService } from "../../core/base-service-api";
 import { PaginationParams } from "../../core/types";
-import { CreateDogDto, IDog, UpdateDogDto } from "./types";
 
 class DogService extends BaseApiService {
     readonly basePath = "/dogs";

@@ -1,11 +1,11 @@
 "use client";
 
-import { DogStatusEnum } from "@/services/api/modules/dogs/types";
 import { AdocaoCatalogo } from "./AdocaoCatalogo/AdocaoCatalogo";
 import { AdocaoEspecial } from "./AdocaoEspecial/AdocaoEspecial";
 import { AdocaoInstrucoes } from "./AdocaoInstrucoes";
-import { useDogs } from "@/hooks/dogs-hook";
+import { DogStatusEnum } from "@/services/api/modules/dogs/types";
 import { Spinner } from "@/components/Spinner/Spinner";
+import { useDogs } from "@/hooks/dogs-hook";
 
 export function AdocaoContainer() {
     const { isLoading: dogsLoading, dogs } = useDogs();

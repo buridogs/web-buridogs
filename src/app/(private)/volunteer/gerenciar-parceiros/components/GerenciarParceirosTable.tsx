@@ -1,15 +1,14 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import SearchInput from "@/components/SearchInput/SearchInput";
 import Select from "@/components/Select/Select";
 import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
 import { PartnerCategoryEnum } from "@/services/api/modules/partners/types";
 import { mapPartnerCategoryLabels } from "@/utils/partnersUtils";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { FaPencil, FaRegTrashCan } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
-import { FaPencil } from "react-icons/fa6";
-import { FaRegTrashCan } from "react-icons/fa6";
 
 interface GerenciarParceirosTableProps {
     partners: IPartnerUI[];

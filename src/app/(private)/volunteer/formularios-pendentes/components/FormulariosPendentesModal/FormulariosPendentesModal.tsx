@@ -3,16 +3,16 @@
 import { formatDatetimePTBR } from "@/utils/methods";
 import { useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
-import { BsClipboard, BsCheck2Square, BsXSquare } from "react-icons/bs";
+import { BsCheck2Square, BsClipboard, BsXSquare } from "react-icons/bs";
 import { MdOutlineHouse, MdPerson } from "react-icons/md";
-import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import { toast } from "react-toastify";
 import {
     FormAvailableEnum,
-    IFormUI,
     IFormAdoption,
     IFormContact,
     IFormSponsorship,
+    IFormUI,
 } from "@/interfaces/formularioInterfaces";
 import { getStatusBadgeClass, getStatusText } from "../../shared/FormulariosPendentesUtils";
 import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";

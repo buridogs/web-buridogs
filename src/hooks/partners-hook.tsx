@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { toast } from "react-toastify";
-import { ApiError } from "@/services/api/core/base-service-api";
-import { partnerService } from "@/services/api/modules/partners/partners-service";
 import {
     CreatePartnerDto,
     IPartner,
     UpdatePartnetDto,
 } from "@/services/api/modules/partners/types";
+import { useCallback, useEffect, useState } from "react";
+import { ApiError } from "@/services/api/core/base-service-api";
 import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { partnerService } from "@/services/api/modules/partners/partners-service";
+import { toast } from "react-toastify";
 
 type RequestStatus = "idle" | "loading" | "success" | "error";
 
@@ -53,6 +53,7 @@ export const usePartners = () => {
             const message = err instanceof ApiError ? err.message : "Erro ao buscar parceiros";
             setError(message);
             toast.error(message);
+            // eslint-disable-next-line no-console
             console.error("Error fetching partners:", err);
         }
     }, []);
@@ -73,6 +74,7 @@ export const usePartners = () => {
                 err instanceof ApiError ? err.message : `Erro ao buscar parceiro com ID ${id}`;
             setError(message);
             toast.error(message);
+            // eslint-disable-next-line no-console
             console.error("Error fetching partner by ID:", err);
             throw err;
         }

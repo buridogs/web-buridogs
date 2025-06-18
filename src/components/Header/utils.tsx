@@ -1,5 +1,5 @@
 import { User, UserRole } from "@/interfaces/authInterfaces";
-import { FaUsers, FaEnvelope, FaPaw, FaHandshake, FaHouse } from "react-icons/fa6";
+import { FaEnvelope, FaHandshake, FaHouse, FaPaw, FaUsers } from "react-icons/fa6";
 import { PrivateRoutes, PublicRoutes } from "./routes-ui";
 
 export const headerMenuLink = [

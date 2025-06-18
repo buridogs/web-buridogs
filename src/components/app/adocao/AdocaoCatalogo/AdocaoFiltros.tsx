@@ -1,11 +1,10 @@
-import { Button } from "@/components/Button/Button";
-import { filtrosAdocao } from "../AdocaoUtils";
 import { Dispatch, SetStateAction } from "react";
-
+import { DogAgeEnum, DogGenderEnum, DogSizeEnum } from "@/services/api/modules/dogs/types";
+import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
+import { Button } from "@/components/Button/Button";
 import { MdCleaningServices } from "react-icons/md";
 import MultipleTags from "@/components/MultipleTags/MultipleTags";
-import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
-import { DogAgeEnum, DogGenderEnum, DogSizeEnum } from "@/services/api/modules/dogs/types";
+import { filtrosAdocao } from "../AdocaoUtils";
 
 interface AdocaoFiltrosProps {
     filtrosSelecionados: Record<string, string[]>;

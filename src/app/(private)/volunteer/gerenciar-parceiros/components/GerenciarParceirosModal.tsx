@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { IoMdClose, IoMdCreate, IoMdTrash } from "react-icons/io";
-import { FaPhone, FaMapMarkerAlt, FaInstagram, FaFacebook, FaLink } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLink, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
 import { useRouter } from "next/navigation";
 import { mapPartnerCategoryLabels } from "@/utils/partnersUtils";

@@ -1,6 +1,6 @@
-import { FiltroOptionsType } from "@/utils/types";
 import { Dispatch, SetStateAction } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { FiltroOptionsType } from "@/utils/types";
 
 interface MultipleTagsProps<T> {
     filtroItem: FiltroOptionsType<T>;

@@ -1,7 +1,7 @@
 "use client";
 
 import { BURIDOGS_FACEBOOK_LINK, BURIDOGS_INSTAGRAM_LINK } from "@/utils/consts";
-import { FaInstagram, FaFacebook } from "react-icons/fa6";
+import { FaFacebook, FaInstagram } from "react-icons/fa6";
 import { Button } from "../Button/Button";
 import { useState } from "react";
 import { Modal } from "../Modal/Modal";
