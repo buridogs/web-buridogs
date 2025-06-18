@@ -1,5 +1,5 @@
-import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
 import { DogAgeEnum, DogGenderEnum, DogSizeEnum } from "@/services/api/modules/dogs/types";
+import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
 import { AzureBlobStorageContainerNames } from "@/services/azure-blob/azure-blob";
 import { BLOGO_STORAGE_URL_LINK } from "@/services/storage";
 
