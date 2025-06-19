@@ -99,6 +99,7 @@ export class AuthService {
             const { ...userWithoutPassword } = user;
             return userWithoutPassword;
         } catch (error) {
+            // eslint-disable-next-line no-console
             console.error("Token verification error:", error);
             throw new Error("Invalid token");
         }

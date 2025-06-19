@@ -75,6 +75,7 @@ export abstract class BaseApiService {
 
             return {} as T;
         } catch (error) {
+            // eslint-disable-next-line no-console
             console.error(`API request failed: ${endpoint}`, error);
             throw error;
         }
@@ -94,8 +95,6 @@ export abstract class BaseApiService {
     }
 
     protected handleUnauthorized(): void {
-        // Handle unauthorized errors (e.g., redirect to login)
-        console.log("Unauthorized access - handling in base class");
         // redirect to login
         window.location.href = PublicRoutes.LOGIN;
         // You could implement a callback or event system here

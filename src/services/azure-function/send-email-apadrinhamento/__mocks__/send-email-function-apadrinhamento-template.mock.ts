@@ -50,7 +50,8 @@ const escolherQuemApadrinharTemplateOptions = (
             apadrinhamentoData.nome_animal
         }</h2>`;
 
-    return "<h2 style = 'color: #303E46; margin-bottom: 20px; font-size: 17px;'> 🙌 Quero ajudar quem estiver precisando</h2>";
+    // eslint-disable-next-line quotes
+    return `<h2 style = "color: #303E46; margin-bottom: 20px; font-size: 17px; "> 🙌 Quero ajudar quem estiver precisando</h2>`; // TODO: CHECK
 };
 
 const shouldRenderNomeAnimalTemplate = (apadrinhamentoData: IApadrinhamentoPOSTRequestForm) => {

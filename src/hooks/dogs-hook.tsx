@@ -60,6 +60,7 @@ export const useDogs = () => {
             const message = err instanceof ApiError ? err.message : "Erro ao buscar cachorros";
             setError(message);
             toast.error(message);
+            // eslint-disable-next-line no-console
             console.error("Error fetching dogs:", err);
         }
     }, [toast]);
@@ -81,6 +82,7 @@ export const useDogs = () => {
                     err instanceof ApiError ? err.message : `Erro ao buscar cachorro com ID ${id}`;
                 setError(message);
                 toast.error(message);
+                // eslint-disable-next-line no-console
                 console.error("Error fetching dog by ID:", err);
                 throw err;
             }

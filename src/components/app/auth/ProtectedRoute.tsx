@@ -36,6 +36,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
                     }
                 }
             } catch (error) {
+                // eslint-disable-next-line no-console
                 console.error("Auth verification error:", error);
                 router.push(PublicRoutes.LOGIN);
             } finally {

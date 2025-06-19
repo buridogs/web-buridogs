@@ -60,7 +60,6 @@ export function formatDatetimePTBR(dateValue: string) {
 export async function urlToFileList(fileName: string, url: string): Promise<FileList> {
     const response = await fetch(url); // TODO: FIX URL ISSUE
     const blob = await response.blob();
-    console.log({ response, blob });
     const file = new File([blob], fileName, { type: blob.type || "image/png" });
 
     const dataTransfer = new DataTransfer();

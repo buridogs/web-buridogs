@@ -70,6 +70,7 @@ export default function GerenciarVoluntariosNovoContainer() {
             router.push(PrivateRoutes.MANAGE_USERS);
             router.refresh();
         } catch (error) {
+            // eslint-disable-next-line no-console
             console.error("Erro ao salvar voluntário:", error);
         }
     };

@@ -1,3 +1,4 @@
+/* eslint-disable no-duplicate-imports */
 // This file should be placed at the root level of your project, alongside package.json
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
@@ -20,7 +21,6 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL(PublicRoutes.NAO_AUTORIZADO, request.url));
     }
 
-    console.log("Token exists, proceeding to the requested page.");
     return NextResponse.next();
 }
 

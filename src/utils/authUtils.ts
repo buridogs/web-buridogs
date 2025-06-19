@@ -75,6 +75,7 @@ export const isValidToken = (token: string | null): boolean => {
 
         return true;
     } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("Error validating token:", error);
         return false;
     }

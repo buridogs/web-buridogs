@@ -12,6 +12,7 @@ export default function GlobalError({
 }) {
     useEffect(() => {
         // Log the error to an error reporting service
+        // eslint-disable-next-line no-console
         console.error("Global error caught:", error);
     }, [error]);
 

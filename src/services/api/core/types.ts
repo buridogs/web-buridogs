@@ -3,7 +3,8 @@
  */
 export interface RequestOptions extends Omit<RequestInit, "body" | "method"> {
     method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-    body?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    body?: any; // TODO: CHECK THAT
     params?: PaginationParams;
     headers?: Record<string, string>;
 }
@@ -25,7 +26,8 @@ export interface PaginationParams {
     limit?: number;
     sort?: string;
     order?: "asc" | "desc";
-    filter?: Record<string, any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    filter?: Record<string, any>; // TODO: CHECK THAT
 }
 
 /**

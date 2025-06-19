@@ -16,6 +16,7 @@ export default function ErrorPage({
 
     useEffect(() => {
         // Log the error to an error reporting service
+        // eslint-disable-next-line no-console
         console.error("Unhandled error:", error);
     }, [error]);
 

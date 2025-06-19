@@ -26,7 +26,9 @@ export class AuthRepository extends BaseApiService implements IAuthRepository {
     /**
      * Verify a token via API
      */
-    public async verify(token: string): Promise<User> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    public async verify(_token: string): Promise<User> {
+        // CHECK THAT
         return this.fetchWithAuth<User>("/auth/verify", {
             method: "GET",
         });

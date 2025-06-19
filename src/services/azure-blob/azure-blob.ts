@@ -65,6 +65,7 @@ export async function uploadBlobFromBuffer(
         // Upload buffer
         await blockBlobClient.uploadData(buffer);
     } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("Error uploading blob:", error);
         toast.error("Error uploading blob");
         throw error;
@@ -85,6 +86,7 @@ export async function deleteBlob(
         // Delete blob
         await blockBlobClient.delete();
     } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("Error deleting blob:", error);
         toast.error("Error deleting blob");
         throw error;

@@ -234,9 +234,11 @@ export default function GerenciarCachorrosNovoContainer() {
             router.push(PrivateRoutes.MANAGE_DOGS);
             router.refresh();
         } catch (error) {
+            // eslint-disable-next-line no-console
             console.error("Erro ao cadastrar cachorro:", error);
             // Clean up uploaded files if an error occurs
             if (formattedFiles.length > 0) {
+                // eslint-disable-next-line no-console
                 console.error("Limpando arquivos", formattedFiles);
                 const deleteFilesPromises = formattedFiles.map((file) =>
                     deleteBlob(AzureBlobStorageContainerNames.DOGS, file.src)

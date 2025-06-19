@@ -67,8 +67,10 @@ export default function ApadrinhamentoForm() {
             setFiltrosSelecionados({ ...estadoInicialFiltrosApadrinhamento });
         } catch (err: unknown) {
             if (typeof err === "string") {
+                // eslint-disable-next-line no-console
                 console.warn(err);
             } else if (err instanceof Error) {
+                // eslint-disable-next-line no-console
                 console.warn(err.message);
             }
             toast.error("Houve um erro no envio do formulário");

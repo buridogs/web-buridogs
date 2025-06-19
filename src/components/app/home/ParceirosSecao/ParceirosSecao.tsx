@@ -9,13 +9,11 @@ import { Spinner } from "@/components/Spinner/Spinner";
 export function ParceirosSecao() {
     const { partners, isLoading: partnersLoading } = usePartners();
 
+    if (partners.length === 0 && !partnersLoading) return null;
+
     const renderContent = () => {
         if (partnersLoading) {
             return <Spinner />;
-        }
-
-        if (partners.length === 0) {
-            return null;
         }
 
         return (

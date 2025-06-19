@@ -105,6 +105,7 @@ export const useFormRequests = ({
                 } as IFormContact;
 
             default:
+                // eslint-disable-next-line no-console
                 console.warn(`Unknown form request type: ${formRequest.requestType}`);
                 return {
                     ...baseFields,
@@ -130,6 +131,7 @@ export const useFormRequests = ({
             const message = err instanceof ApiError ? err.message : "Erro ao buscar formulários";
             setError(message);
             toast.error(message);
+            // eslint-disable-next-line no-console
             console.error("Error fetching form requests:", err);
         }
     }, []);

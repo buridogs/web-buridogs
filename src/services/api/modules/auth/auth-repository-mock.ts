@@ -60,6 +60,7 @@ export class AuthRepositoryMock extends BaseApiService implements IAuthRepositor
         }
 
         // Create user object without the password
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password, ...userWithoutPassword } = user;
         const token = this.generateToken(userWithoutPassword);
 
@@ -101,9 +102,11 @@ export class AuthRepositoryMock extends BaseApiService implements IAuthRepositor
             }
 
             // Return user without password
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { password, ...userWithoutPassword } = user;
             return userWithoutPassword;
         } catch (error) {
+            // eslint-disable-next-line no-console
             console.error("Token verification error:", error);
             throw new Error("Invalid token");
         }

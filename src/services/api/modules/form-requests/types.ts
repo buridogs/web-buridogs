@@ -1,6 +1,7 @@
 export interface IFormRequest {
     id: string;
-    detailsForm: Record<string, any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    detailsForm: Record<string, any>; // TODO: CHECK THAT
     dog?: FormRequestDog;
     requestType: FormRequestTypeEnum;
     requestStatus: string;
@@ -18,7 +19,8 @@ type FormRequestDog = {
 };
 
 export type CreateFormRequestDto = {
-    detailsForm: Record<string, any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    detailsForm: Record<string, any>; // TODO: CHECK THAT
     dogId?: string;
     requestType: FormRequestTypeEnum;
 };

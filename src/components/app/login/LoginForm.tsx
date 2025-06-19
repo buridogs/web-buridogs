@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { LIMITE_TAMANHO_MENSAGEM, MENSAGENS_ERRO } from "@/components/Form/FormConsts";
-import { toast } from "react-toastify";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { LoginCredentials } from "@/interfaces/authInterfaces";
 import { useAuth } from "@/providers/auth/AuthProvider";
@@ -41,7 +40,8 @@ export function LoginForm() {
         try {
             await login(data);
             reset();
-        } catch (err: any) {
+        } catch (err) {
+            // eslint-disable-next-line no-console
             console.error(err);
             // The error toast is already handled in the auth context
         } finally {

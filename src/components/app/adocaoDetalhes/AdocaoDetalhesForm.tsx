@@ -55,6 +55,7 @@ export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalh
             toast.success("Formulário enviado com sucesso!");
             reset();
         } catch (err) {
+            // eslint-disable-next-line no-console
             console.error(err);
             toast.error("Houve um erro no envio do formulário");
         }

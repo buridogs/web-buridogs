@@ -32,9 +32,9 @@ export function ContatoDetalhesForm() {
                 requestType: FormRequestTypeEnum.contact,
             });
             reset();
-        } catch (err: any) {
+        } catch (err) {
             // eslint-disable-next-line no-console
-            console.error(err.message);
+            console.error(err);
             toast.error("Houve um erro no envio do formulário");
         }
     };

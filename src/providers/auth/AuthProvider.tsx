@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                     setIsAuthenticated(false);
                 }
             } catch (error) {
+                // eslint-disable-next-line no-console
                 console.error("Auth initialization error:", error);
                 clearAuthData();
                 setUserState(null);
@@ -78,7 +79,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
             // Redirect to homepage or dashboard
             router.push(PrivateRoutes.DASHBOARD);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
+            // CHECK THIS
+            // eslint-disable-next-line no-console
             console.error("Login error:", error);
             toast.error(error.message || "Falha na autenticação");
             throw error;
@@ -125,6 +129,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 return false;
             }
         } catch (error) {
+            // eslint-disable-next-line no-console
             console.error("Auth check error:", error);
             clearAuthData();
             setUserState(null);
