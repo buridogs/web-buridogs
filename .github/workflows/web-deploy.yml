@@ -3,7 +3,7 @@ name: WEB/BURIDOGS -> Azure Web App
 on:
     push:
         branches:
-            - diogo/private-pages # ou sua branch principal
+            - main
 
 jobs:
     validate:
@@ -24,7 +24,7 @@ jobs:
               run: yarn install --frozen-lockfile
 
             - name: Lint
-              run: yarn lint
+              run: yarn lint:strict
 
             - name: Executar testes
               run: yarn test
