@@ -3,6 +3,8 @@ import { Dispatch, SetStateAction } from "react";
 import { headerMenuLink } from "../utils";
 import { FaSignInAlt } from "react-icons/fa";
 import { useAuth } from "@/providers/auth/AuthProvider";
+import { UserRole } from "@/interfaces/authInterfaces";
+import { PrivateRoutes } from "../routes-ui";
 
 interface HeaderMobileProps {
     isOpen: boolean;
@@ -10,7 +12,10 @@ interface HeaderMobileProps {
 }
 
 export function HeaderMobile({ isOpen, setIsOpen }: HeaderMobileProps) {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, user } = useAuth();
+
+    const routeToAdmin =
+        user?.role === UserRole.ADMIN ? PrivateRoutes.DASHBOARD : PrivateRoutes.REQUESTS_PENDING;
 
     return (
         <section className="flex lg:hidden">
@@ -70,7 +75,7 @@ export function HeaderMobile({ isOpen, setIsOpen }: HeaderMobileProps) {
                     {isAuthenticated ? (
                         <li className="my-4">
                             <Link
-                                href="/volunteer"
+                                href={routeToAdmin}
                                 className="flex items-center gap-2 bg-primary-400 text-white transition-colors py-2 px-6 rounded-full hover:bg-primary-700"
                             >
                                 <span>Admin</span>

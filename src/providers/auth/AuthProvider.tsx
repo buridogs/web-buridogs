@@ -1,7 +1,7 @@
 "use client";
 
 import { PrivateRoutes, PublicRoutes } from "@/components/Header/routes-ui";
-import { AuthContextType, LoginCredentials, User } from "@/interfaces/authInterfaces";
+import { AuthContextType, LoginCredentials, User, UserRole } from "@/interfaces/authInterfaces";
 import { AuthService } from "@/services/api/modules/auth/auth-service";
 import {
     clearAuthData,
@@ -77,8 +77,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             setIsAuthenticated(true);
             toast.success("Login realizado com sucesso!");
 
-            // Redirect to homepage or dashboard
-            router.push(PrivateRoutes.DASHBOARD);
+            if (user.role === UserRole.ADMIN) {
+                // Redirect to homepage or dashboard
+                router.push(PrivateRoutes.DASHBOARD);
+            } else {
+                // Redirect to user dashboard or another page
+                router.push(PrivateRoutes.REQUESTS_PENDING);
+            }
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             // CHECK THIS

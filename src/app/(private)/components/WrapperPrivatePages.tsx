@@ -62,7 +62,8 @@ export default function WrapperPrivateLayout({ children }: { children: React.Rea
         if (
             !isLoading &&
             isAuthenticated &&
-            ((user?.role && ![UserRole.ADMIN].includes(user?.role)) || !user?.role)
+            ((user?.role && ![UserRole.ADMIN, UserRole.VOLUNTEER].includes(user?.role)) ||
+                !user?.role)
         ) {
             router.push(PublicRoutes.NAO_AUTORIZADO);
             return;

@@ -131,6 +131,7 @@ export default function GerenciarCachorrosContainer() {
                     onPrimaryAction={() => handleDeleteDog()}
                     onSecondaryAction={() => setIsConfirmationModalOpen(false)}
                     onClose={() => setIsConfirmationModalOpen(false)}
+                    isLoading={dogsLoading}
                 />
             )}
         </div>

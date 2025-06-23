@@ -107,6 +107,7 @@ export default function GerenciarParceirosContainer() {
                         onPrimaryAction={handleConfirm}
                         onSecondaryAction={handleCancel}
                         onClose={handleCloseModal}
+                        isLoading={partnersLoading}
                     />
                 )}
             </div>
