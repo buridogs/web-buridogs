@@ -1,8 +1,8 @@
-import { IFinalFeliz } from "@/interfaces/finaisFelizesInterfaces";
 import FinaisFelizesCard from "./FinaisFelizesCard";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 
 interface FinaisFelizesCatalogoProps {
-    finaisFelizes: IFinalFeliz[];
+    finaisFelizes: IDogUI[];
 }
 
 export default function FinaisFelizesCatalogo({ finaisFelizes }: FinaisFelizesCatalogoProps) {

@@ -1,0 +1,74 @@
+name: WEB/BURIDOGS -> Azure Web App
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        types: [opened, synchronize, reopened]
+        branches:
+            - main
+
+jobs:
+    validate:
+        name: Lint & Test
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout código
+              uses: actions/checkout@v3
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "yarn"
+
+            - name: Instalar dependências
+              run: yarn install --frozen-lockfile
+
+            - name: Lint
+              run: yarn lint:strict
+
+            - name: Executar testes
+              run: yarn test
+
+    deploy:
+        name: Deploy to Azure Static Web App
+        runs-on: ubuntu-latest
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        steps:
+            - name: Checkout código
+              uses: actions/checkout@v3
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "yarn"
+
+            - name: Instalar dependências
+              run: yarn install --frozen-lockfile
+
+            - name: Build da aplicação
+              run: yarn build
+              env:
+                  NODE_ENV: "production"
+                  NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME }}
+                  NEXT_PUBLIC_AZURE_STORAGE_PARTNERS_CONTAINER_NAME: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_PARTNERS_CONTAINER_NAME }}
+                  NEXT_PUBLIC_AZURE_STORAGE_DOGS_CONTAINER_NAME: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_DOGS_CONTAINER_NAME }}
+                  NEXT_PUBLIC_AZURE_STORAGE_ADOPTION_FORM_CONTAINER_NAME: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_ADOPTION_FORM_CONTAINER_NAME }}
+                  NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN_ADOPTION: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN_ADOPTION }}
+                  NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN_PARTNER: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN_PARTNER }}
+                  NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN_DOGS: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_SAS_TOKEN_DOGS }}
+                  NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+
+            - name: Deploy para Azure Static Web App
+              uses: Azure/static-web-apps-deploy@v1
+              with:
+                  azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+                  repo_token: ${{ secrets.GITHUB_TOKEN }}
+                  action: "upload"
+                  app_location: "" # Diretório onde o Next.js exporta o site estático
+                  skip_app_build: true # Já fizemos o build
+                  skip_api_build: true # Não temos API Functions

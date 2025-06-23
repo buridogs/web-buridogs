@@ -1,17 +1,26 @@
 "use client";
 import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
-import { IFinalFeliz } from "@/interfaces/finaisFelizesInterfaces";
-import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
+import { IDogUI } from "@/interfaces/dogInterfaces";
+import { returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
 import AliceCarousel from "react-alice-carousel";
+import { SLUG_CHARACTER_SEPARATOR } from "../../adocao/AdocaoUtils";
+import {
+    AzureBlobStorageContainerNames,
+    mountBlobStorageLink,
+} from "@/services/azure-blob/azure-blob";
 
 interface FinaisFelizesCardProps {
-    finalFeliz: IFinalFeliz;
+    finalFeliz: IDogUI;
 }
 
 export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps) {
-    const { id, nome, genero, idade, imagensUrlAntes, imagensUrlDepois, porte } = finalFeliz;
+    const { id, nomeExibicao, genero, idade, images, porte } = finalFeliz;
+
+    const imagensUrlAntes = images?.filter((i) => i.type === "before").map((i) => i.src);
+
+    const imagensUrlDepois = images?.filter((i) => i.type === "after").map((i) => i.src);
 
     const labelGenero = returnFormattedOptionLabel(AdocaoFiltrosEnum.genero, genero);
     const labelIdade = returnFormattedOptionLabel(AdocaoFiltrosEnum.idade, idade);
@@ -40,8 +49,15 @@ export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps
                             >
                                 <div className="w-full h-[350px] rounded rounded-b-2xl bg-gray-50">
                                     <Image
-                                        src={generateImgURL(image)}
-                                        alt={nome}
+                                        src={
+                                            image
+                                                ? mountBlobStorageLink(
+                                                      AzureBlobStorageContainerNames.DOGS,
+                                                      image
+                                                  )
+                                                : ""
+                                        }
+                                        alt={nomeExibicao}
                                         fill
                                         priority
                                         className="object-cover"
@@ -53,10 +69,12 @@ export default function FinaisFelizesCard({ finalFeliz }: FinaisFelizesCardProps
                 ) : null}
             </div>
             <div className="flex flex-col items-start px-4 pb-3">
-                <strong className="text-gray-400 text-xl font-medium mt-4">{nome}</strong>
+                <strong className="text-gray-400 text-xl font-medium mt-4">{nomeExibicao}</strong>
                 <span className="text-gray-400 text-sm mb-4">{`${labelGenero}, ${labelIdade}, ${labelPorte}`}</span>
                 <button className="text-primary-400 uppercase text-sm font-medium py-2 underline">
-                    <Link href={`/finais-felizes/${id}-${nome.replaceAll(" ", "")}`}>
+                    <Link
+                        href={`/finais-felizes/${id}${SLUG_CHARACTER_SEPARATOR}${nomeExibicao.replaceAll(" ", "")}`}
+                    >
                         Ver História
                     </Link>
                 </button>

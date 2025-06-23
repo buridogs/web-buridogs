@@ -20,9 +20,15 @@ import {
     ApadrinhamentoOpcoesEnum,
 } from "@/interfaces/apadrinhamentoInterfaces";
 import { useCallback, useEffect, useState } from "react";
-import { sendEmailFunctionApadrinhamentoForm } from "@/services/azure-function/send-email-apadrinhamento/send-email-function-apadrinhamento-form";
+// import { sendEmailFunctionApadrinhamentoForm } from "@/services/azure-function/send-email-apadrinhamento/send-email-function-apadrinhamento-form";
+import { FormRequestTypeEnum } from "@/services/api/modules/form-requests/types";
+import { useFormRequests } from "@/hooks/form-requests-hook";
 
 export default function ApadrinhamentoForm() {
+    const { createFormRequest, isLoading: formRequestsLoading } = useFormRequests({
+        shouldFetch: false,
+    });
+
     const [filtrosSelecionados, setFiltrosSelecionados] = useState<Record<string, string[]>>({
         ...estadoInicialFiltrosApadrinhamento,
     });
@@ -49,16 +55,22 @@ export default function ApadrinhamentoForm() {
 
     const onSubmit = async (data: IApadrinhamentoForm) => {
         try {
-            await sendEmailFunctionApadrinhamentoForm({
-                ...data,
+            // TODO: CHECK IF THE EMAIL IS NEEDED
+            // await sendEmailFunctionApadrinhamentoForm({
+            //     ...data,
+            // });
+            await createFormRequest({
+                detailsForm: { ...data },
+                requestType: FormRequestTypeEnum.sponsorship,
             });
-            toast.success("Formulário enviado com sucesso!");
             reset();
             setFiltrosSelecionados({ ...estadoInicialFiltrosApadrinhamento });
         } catch (err: unknown) {
             if (typeof err === "string") {
+                // eslint-disable-next-line no-console
                 console.warn(err);
             } else if (err instanceof Error) {
+                // eslint-disable-next-line no-console
                 console.warn(err.message);
             }
             toast.error("Houve um erro no envio do formulário");
@@ -86,6 +98,7 @@ export default function ApadrinhamentoForm() {
         !!filtrosSelecionados[ApadrinhamentoFiltrosEnum.apadrinhar_com].length &&
         !!filtrosSelecionados[ApadrinhamentoFiltrosEnum.escolher_quem_apadrinhar].length;
 
+    // TODO: ADD DROPDOWN FOR ANIMAL
     const APADRINHAMENTO_FORMS = useCallback(() => {
         const forms =
             opcaoEscolherQuemApadrinharFiltros === ApadrinhamentoEscolherOpcaoEnum.sim
@@ -107,7 +120,7 @@ export default function ApadrinhamentoForm() {
         !watch("preferencia_contato")?.length ||
         !watch("nome") ||
         !watch("email") ||
-        !watch("telefone_contato");
+        !watch("contato");
 
     useEffect(() => {
         setValue(
@@ -138,7 +151,7 @@ export default function ApadrinhamentoForm() {
                         register={register}
                         errors={errors}
                         submitLabel="Apadrinhar"
-                        disabledSubmit={shouldDisabledSubmitButton}
+                        disabledSubmit={shouldDisabledSubmitButton || formRequestsLoading}
                     />
                 </div>
             </div>

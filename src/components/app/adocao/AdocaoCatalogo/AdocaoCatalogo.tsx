@@ -1,42 +1,38 @@
 "use client";
 import { estadoInicialFiltrosAdocao } from "../AdocaoUtils";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { AdocaoFiltros } from "./AdocaoFiltros";
 import { AdocaoCachorroCard } from "./AdocaoCachorroCard";
-import { cachorrosAdocao } from "@/mock/adocaoMock";
-import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
+import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 
-export function AdocaoCatalogo() {
+interface AdocaoCatalogoProps {
+    cachorrosAdocao: IDogUI[];
+}
+
+export function AdocaoCatalogo({ cachorrosAdocao }: AdocaoCatalogoProps) {
     const [filtrosSelecionados, setFiltrosSelecionados] = useState<Record<string, string[]>>({
         ...estadoInicialFiltrosAdocao,
     });
-    const [cachorrosFiltrados, setCachorrosFiltrados] = useState([...cachorrosAdocao]);
 
-    function onSearch() {
-        const filteredDogs = cachorrosAdocao.filter((cachorro) => {
-            return Object.entries(filtrosSelecionados).every(
-                (filtro) =>
-                    !filtro[1].length ||
-                    filtro[1].includes(cachorro[filtro[0] as keyof IAdocaoDetails] as string)
-            );
+    const filteredDogs = useMemo(() => {
+        return cachorrosAdocao.filter((dog) => {
+            const matchesGenero = filtrosSelecionados[AdocaoFiltrosEnum.genero].length
+                ? filtrosSelecionados[AdocaoFiltrosEnum.genero].includes(dog.genero)
+                : true;
+            const matchesIdade = filtrosSelecionados[AdocaoFiltrosEnum.idade].length
+                ? filtrosSelecionados[AdocaoFiltrosEnum.idade].includes(dog.idade)
+                : true;
+            const matchesPorte = filtrosSelecionados[AdocaoFiltrosEnum.porte].length
+                ? filtrosSelecionados[AdocaoFiltrosEnum.porte].includes(dog.porte)
+                : true;
+
+            return matchesGenero && matchesIdade && matchesPorte;
         });
-
-        setCachorrosFiltrados(filteredDogs);
-    }
-
-    useEffect(() => {
-        const doesNotHaveAnyFilterSelected = Object.entries(filtrosSelecionados).every(
-            (filtro) => !filtro[1].length
-        );
-
-        if (doesNotHaveAnyFilterSelected) {
-            setCachorrosFiltrados(cachorrosAdocao);
-        }
-    }, [filtrosSelecionados]);
+    }, [filtrosSelecionados, cachorrosAdocao]);
 
     function onResetFiltros() {
         setFiltrosSelecionados({ ...estadoInicialFiltrosAdocao });
-        setCachorrosFiltrados(cachorrosAdocao);
     }
 
     return (
@@ -53,11 +49,10 @@ export function AdocaoCatalogo() {
                     filtrosSelecionados={filtrosSelecionados}
                     setFiltrosSelecionados={setFiltrosSelecionados}
                     onResetFiltros={onResetFiltros}
-                    onSearch={onSearch}
                 />
             </div>
             <div className="grid gap-6 grid-cols-1 justify-items-center md:grid-cols-2 xl:grid-cols-3 xl:gap-10">
-                {cachorrosFiltrados.map((cachorro) => (
+                {filteredDogs.map((cachorro) => (
                     <AdocaoCachorroCard
                         key={cachorro.id}
                         cachorroInformacao={cachorro}

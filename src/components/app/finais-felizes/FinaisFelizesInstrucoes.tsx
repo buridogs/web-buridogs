@@ -1,14 +1,17 @@
-import { IFinalFeliz } from "@/interfaces/finaisFelizesInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 
 interface FinaisFelizesInstrucoesProps {
-    finaisFelizes: IFinalFeliz[];
+    finaisFelizes: IDogUI[];
 }
 
 export default function FinaisFelizesInstrucoes({ finaisFelizes }: FinaisFelizesInstrucoesProps) {
+    const moreThanOne = finaisFelizes.length > 1;
+    const title = `São mais de ${finaisFelizes.length} cachorro${moreThanOne ? "s" : ""} com `;
+
     return (
         <div className="flex flex-col items-start lg:items-center">
             <h1 className="text-primary-400 text-3xl leading-10 font-bold md:text-4xl mt-8">
-                São mais de {finaisFelizes.length} cachorros com{" "}
+                {title}
                 <strong className="text-primary-100">Finais Felizes</strong>
             </h1>
             <span className="text-gray-100 text-lg font-medium py-4">

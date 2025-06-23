@@ -1,8 +1,9 @@
-import { FieldErrors, UseFormRegister, FieldValues, Path } from "react-hook-form";
-import { GeneralFormsType, FieldFormsType, InputFormEnum, OptionFormsType } from "./FormTypes";
+import { FieldErrors, FieldValues, Path, UseFormRegister } from "react-hook-form";
+import { FieldFormsType, GeneralFormsType, InputFormEnum, OptionFormsType } from "./FormTypes";
 import { Spinner } from "../Spinner/Spinner";
 import React, { SyntheticEvent, useState } from "react";
 import FileInput from "../FileInput/FileInput";
+import { toast } from "react-toastify";
 
 interface FormProps<T extends FieldValues> {
     handleSubmit: () => Promise<void>;
@@ -11,6 +12,7 @@ interface FormProps<T extends FieldValues> {
     errors: FieldErrors<T>;
     submitLabel: string;
     disabledSubmit?: boolean;
+    defaultValues?: Partial<Record<keyof T, string | FileList | number | boolean>>;
 }
 
 export default function Form<T extends FieldValues>({
@@ -20,6 +22,7 @@ export default function Form<T extends FieldValues>({
     errors,
     submitLabel,
     disabledSubmit,
+    defaultValues,
 }: FormProps<T>) {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -35,7 +38,8 @@ export default function Form<T extends FieldValues>({
                     <input
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
-                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500 placeholder-primary-100"
+                        disabled={field.disabled}
+                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500 placeholder-primary-100 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300"
                         {...register(field.key as Path<T>)}
                     />
                 );
@@ -44,19 +48,33 @@ export default function Form<T extends FieldValues>({
                     <textarea
                         id={field.key as string}
                         placeholder={field.placeholder ?? ""}
-                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500"
+                        disabled={field.disabled}
+                        className="w-full py-2 px-2 border-2 border-gray-100 border-solid rounded mt-1 text-gray-500 placeholder-primary-100 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300"
                         {...register(field.key as Path<T>)}
                         rows={4}
                     />
                 );
             case InputFormEnum.multipleFiles:
-            case InputFormEnum.singleFile:
+            case InputFormEnum.singleFile: {
+                if (
+                    defaultValues &&
+                    defaultValues[field.key] &&
+                    !(defaultValues[field.key] instanceof FileList)
+                ) {
+                    toast.error("Erro ao carregar arquivo. Tipo inválido. Tente novamente.");
+                    return;
+                }
+
                 return (
                     <FileInput
                         field={field}
-                        inputProps={register(field.key as Path<T>)}
+                        inputProps={{ ...register(field.key as Path<T>) }}
+                        defaultValue={
+                            defaultValues ? (defaultValues[field.key] as FileList) : undefined // TODO: FIX
+                        }
                     />
                 );
+            }
             case InputFormEnum.checkbox:
                 return (
                     <>
@@ -69,7 +87,8 @@ export default function Form<T extends FieldValues>({
                                     id={opt?.key}
                                     type="checkbox"
                                     value={opt?.value}
-                                    className="h-4 w-4 mr-2 rounded-sm cursor-pointer accent-primary-400"
+                                    disabled={field.disabled}
+                                    className="h-4 w-4 mr-2 rounded-sm cursor-pointer accent-primary-400 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300"
                                     {...register(field.key as Path<T>)}
                                 />
                                 <label
@@ -94,7 +113,8 @@ export default function Form<T extends FieldValues>({
                                     id={opt?.key}
                                     type="radio"
                                     value={opt?.value}
-                                    className="mr-2 cursor-pointer accent-primary-400"
+                                    disabled={field.disabled}
+                                    className="mr-2 cursor-pointer accent-primary-400 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300"
                                     {...register(field.key as Path<T>)}
                                 />
                                 <label

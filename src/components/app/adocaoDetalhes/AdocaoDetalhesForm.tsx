@@ -6,15 +6,23 @@ import { toast } from "react-toastify";
 import { ADOCAO_FORMS_CONFIG, schemaAdocaoForm } from "./AdocaoDetalhesUtils";
 import { IAdocaoForm } from "./AdocaoDetalhesTypes";
 import Form from "@/components/Form/Form";
-import { IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
-import { blobServiceClient, uploadBlobFromBuffer } from "@/services/azure-blob/azure-blob";
-import { sendEmailFunctionAdocaoForm } from "@/services/azure-function/send-email-adocao/send-email-function-adocao-form";
+import { IDogUI } from "@/interfaces/dogInterfaces";
+import { useFormRequests } from "@/hooks/form-requests-hook";
+import { FormRequestTypeEnum } from "@/services/api/modules/form-requests/types";
+import {
+    AzureBlobStorageContainerNames,
+    convertFileToBufferAndUpload,
+} from "@/services/azure-blob/azure-blob";
 
 interface AdocaoDetalhesFormProps {
-    cachorroSelecionado: IAdocaoDetails;
+    cachorroSelecionado: IDogUI;
 }
 
 export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalhesFormProps) {
+    const { createFormRequest, isLoading: formRequestsLoading } = useFormRequests({
+        shouldFetch: false,
+    });
+
     const {
         register,
         handleSubmit,
@@ -26,46 +34,29 @@ export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalh
     });
 
     const onSubmit = async (data: IAdocaoForm) => {
-        const containerClient = blobServiceClient.getContainerClient("adoption-form");
-
         try {
-            const linksArquivosAzureBlob: string[] = [];
-            if (data.arquivos.length > 0) {
-                const bufferPromise = Array(data.arquivos?.length)
-                    .fill(data.arquivos?.length)
-                    .map((_arquivo, index) => {
-                        return data.arquivos.item(index)?.arrayBuffer();
-                    });
+            // TODO: CHECK IF THE EMAIL IS NEEDED
+            // await sendEmailFunctionAdocaoForm({
+            //     ...data,
+            //     nomeCachorroAdocao: cachorroSelecionado.nomeExibicao,
+            //     linksArquivosAzureBlob,
+            // });
 
-                const bufferResponse = (await Promise.all([...bufferPromise])) as ArrayBuffer[];
+            const uploadedFileName = await convertFileToBufferAndUpload(
+                AzureBlobStorageContainerNames.ADOPTION_FORM,
+                data.arquivos
+            );
 
-                const uploadPromise = Array(data.arquivos?.length)
-                    .fill(data.arquivos?.length)
-                    .map((_arquivo, index) => {
-                        const filename = data.arquivos.item(index)?.name ?? "";
-                        linksArquivosAzureBlob.push(
-                            `https://${process.env.NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${process.env.NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME}/${filename}`
-                        );
-
-                        return uploadBlobFromBuffer(
-                            containerClient,
-                            filename,
-                            Buffer.from(bufferResponse[index])
-                        );
-                    });
-
-                await Promise.all([...uploadPromise]);
-            }
-
-            await sendEmailFunctionAdocaoForm({
-                ...data,
-                nomeCachorroAdocao: cachorroSelecionado.nomeExibicao,
-                linksArquivosAzureBlob,
+            await createFormRequest({
+                detailsForm: { ...data, arquivos: uploadedFileName },
+                dogId: cachorroSelecionado.id,
+                requestType: FormRequestTypeEnum.adoption,
             });
             toast.success("Formulário enviado com sucesso!");
             reset();
-        } catch (err: any) {
-            console.warn(err.message);
+        } catch (err) {
+            // eslint-disable-next-line no-console
+            console.error(err);
             toast.error("Houve um erro no envio do formulário");
         }
     };
@@ -113,7 +104,7 @@ export default function AdocaoDetalhesForm({ cachorroSelecionado }: AdocaoDetalh
                     register={register}
                     errors={errors}
                     submitLabel="Enviar formulário"
-                    disabledSubmit={shouldDisabledSubmitButton}
+                    disabledSubmit={formRequestsLoading || shouldDisabledSubmitButton}
                 />
             </div>
         </section>

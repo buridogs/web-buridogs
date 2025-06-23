@@ -1,3 +1,5 @@
+import { AzureBlobStorageContainerNames } from "@/services/azure-blob/azure-blob";
+
 /* eslint-disable no-unused-vars */
 export enum InputFormEnum {
     text = "text",
@@ -20,17 +22,19 @@ export type FieldFormsType<T> = {
     placeholder?: string;
     type: InputFormEnum;
     options?: OptionFormsType[];
+    disabled?: boolean;
     fileSettings?: {
         isMultiple?: boolean;
         filesQuantityLimit?: number;
         filesSizeLimit?: number;
         supportedExtensions: string[];
+        domainContainerName: AzureBlobStorageContainerNames;
     };
 };
 
 export type GeneralFormsType<T> = {
     section: {
-        leftSide: FieldFormsType<T>[],
-        rightSide: FieldFormsType<T>[]
+        leftSide: FieldFormsType<T>[];
+        rightSide: FieldFormsType<T>[];
     };
 };

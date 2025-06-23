@@ -1,6 +1,11 @@
 "use client";
 import { Button } from "@/components/Button/Button";
-import { finaisFelizes } from "@/mock/finaisFelizesMock";
+import { useDogs } from "@/hooks/dogs-hook";
+import { DogStatusEnum } from "@/services/api/modules/dogs/types";
+import {
+    AzureBlobStorageContainerNames,
+    mountBlobStorageLink,
+} from "@/services/azure-blob/azure-blob";
 import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +13,12 @@ import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 export function FinaisFelizesSecao() {
-    const finaisFelizesHighlight = finaisFelizes.slice(0, 3);
+    const { dogs } = useDogs();
+    const finaisFelizesHighlight = dogs
+        .filter((d) => d.status === DogStatusEnum.adotado)
+        .slice(0, 3);
+
+    if (finaisFelizesHighlight.length === 0) return null;
 
     return (
         <section>
@@ -38,45 +48,55 @@ export function FinaisFelizesSecao() {
                                 <FaArrowRight color="white" />
                             </div>
                         )}
-                        items={finaisFelizesHighlight.map((dog) => (
-                            <div
-                                key={dog.nome}
-                                className="w-full flex flex-col items-center md:flex-row md:justify-evenly md:pl-2"
-                            >
-                                {dog.imagemPrincipal ? (
-                                    <Image
-                                        src={generateImgURL(dog.imagemPrincipal)}
-                                        alt={dog.nome}
-                                        width={280}
-                                        height={280}
-                                        className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-[50%] object-cover"
-                                    />
-                                ) : (
-                                    <div className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-[50%] bg-primary-100" />
-                                )}
-                                <div className="flex flex-col items-start">
-                                    <Link
-                                        href="/finais-felizes"
-                                        className="group py-3 px-4 rounded-[40px] bg-gray-50 mb-5 mt-4 transition duration-150 hover:bg-gray-100"
-                                    >
-                                        <span className="uppercase font-medium text-gray-400 transition duration-150 group-hover:text-white">
-                                            {dog.nome}
-                                        </span>
-                                    </Link>
-                                    <div className="w-full h-fit flex items-start md:max-w-lg lg:max-w-xl">
+                        items={finaisFelizesHighlight.map((dog) => {
+                            const image = dog.images?.find((i) => i.type === "main")?.src;
+                            return (
+                                <div
+                                    key={dog.nomeExibicao}
+                                    className="w-full flex flex-col items-center md:flex-row md:justify-evenly md:pl-2"
+                                >
+                                    {dog.images?.find((i) => i.type === "main")?.src ? (
                                         <Image
-                                            src={generateImgURL("quote-open.svg")}
-                                            alt="Aspas"
-                                            width={32}
-                                            height={32}
+                                            src={
+                                                image
+                                                    ? mountBlobStorageLink(
+                                                          AzureBlobStorageContainerNames.DOGS,
+                                                          image
+                                                      )
+                                                    : ""
+                                            }
+                                            alt={dog.nomeExibicao}
+                                            width={280}
+                                            height={280}
+                                            className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-[50%] object-cover"
                                         />
-                                        <p className="max-w-[80%] text-gray-400 text-lg font-medium ml-1 text-ellipsis overflow-hidden line-clamp-6">
-                                            {dog.descricao}
-                                        </p>
+                                    ) : (
+                                        <div className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-[50%] bg-primary-100" />
+                                    )}
+                                    <div className="flex flex-col items-start">
+                                        <Link
+                                            href="/finais-felizes"
+                                            className="group py-3 px-4 rounded-[40px] bg-gray-50 mb-5 mt-4 transition duration-150 hover:bg-gray-100"
+                                        >
+                                            <span className="uppercase font-medium text-gray-400 transition duration-150 group-hover:text-white">
+                                                {dog.nomeExibicao}
+                                            </span>
+                                        </Link>
+                                        <div className="w-full h-fit flex items-start md:max-w-lg lg:max-w-xl">
+                                            <Image
+                                                src={generateImgURL("quote-open.svg")}
+                                                alt="Aspas"
+                                                width={32}
+                                                height={32}
+                                            />
+                                            <p className="max-w-[80%] text-gray-400 text-lg font-medium ml-1 text-ellipsis overflow-hidden line-clamp-6">
+                                                {dog.descricao}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     />
                 </div>
                 <Link

@@ -30,7 +30,10 @@ export const commonTemplateHTMLFooter = `<p style=\"background-color: #303e4626;
               entrar em contato com a equipe de desenvolvimento.
           </p>`;
 
-export const templateAdocaoHTMLEmailDynamicMock = (date: string, adocaoData: IAdocaoPOSTRequestForm) => `
+export const templateAdocaoHTMLEmailDynamicMock = (
+    date: string,
+    adocaoData: IAdocaoPOSTRequestForm
+) => `
     ${commonAdocaoTemplateHTMLHeader(date)}
           <h2 style = "color: #303E46; margin-bottom: 20px; font-size: 17px; ">🐶 Cachorro interessado: ${adocaoData.nomeCachorroAdocao}</h2>
           <p style = \"color: #303E46; line-height: 1.6; font-weight: bold; padding-left: 26px\"> Abaixo estão os resultados do formulário de adoção:</p>
@@ -40,7 +43,7 @@ export const templateAdocaoHTMLEmailDynamicMock = (date: string, adocaoData: IAd
                        <strong>Nome responsável : <span style = "border-bottom: 2px solid #303e464d;">${adocaoData.nome}<span></strong>
                    </li>
  <li style = "margin: 10px;">
-                       <strong>Celular (c/ WhatsApp, de preferência) : <span style = "border-bottom: 2px solid #303e464d;">${adocaoData.celular}<span></strong>
+                       <strong>Celular (c/ WhatsApp, de preferência) : <span style = "border-bottom: 2px solid #303e464d;">${adocaoData.contato}<span></strong>
                    </li>
  <li style = "margin: 10px;">
                        <strong>CEP : <span style = "border-bottom: 2px solid #303e464d;">${adocaoData.endereco_cep}<span></strong>

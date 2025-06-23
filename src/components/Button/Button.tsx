@@ -1,4 +1,4 @@
-import { ReactNode, ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

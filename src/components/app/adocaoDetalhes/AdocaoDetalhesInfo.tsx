@@ -1,19 +1,24 @@
-import { AdocaoFiltrosEnum, IAdocaoDetails } from "@/interfaces/adocaoInterfaces";
+import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
 import Image from "next/image";
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight, FaDog } from "react-icons/fa6";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { MdBedroomBaby } from "react-icons/md";
-import { generateImgURL, returnFormattedOptionLabel } from "@/utils/methods";
+import { returnFormattedOptionLabel } from "@/utils/methods";
+import { IDogUI } from "@/interfaces/dogInterfaces";
+import {
+    AzureBlobStorageContainerNames,
+    mountBlobStorageLink,
+} from "@/services/azure-blob/azure-blob";
 
 interface AdocaoDetalhesInfoProps {
-    cachorroSelecionado: IAdocaoDetails;
+    cachorroSelecionado: IDogUI;
 }
 
 export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalhesInfoProps) {
-    const image = cachorroSelecionado.imagesSrc
-        ? cachorroSelecionado.imagesSrc[0]
-        : cachorroSelecionado.imageSrc;
+    const image =
+        cachorroSelecionado.images?.find((i) => i.type === "common")?.src ??
+        cachorroSelecionado.images?.[0]?.src;
 
     const renderImagens = (nomeCachorro: string, imagens?: string[]) => {
         if (!imagens?.length || imagens?.length === 1) return null;
@@ -52,7 +57,10 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                             <div className="flex flex-col w-[300px] h-[300px] md:w-[400px] md:h-[400px]">
                                 <div className="h-full w-full relative flex items-start md:max-w-lg lg:max-w-xl">
                                     <Image
-                                        src={generateImgURL(image)}
+                                        src={mountBlobStorageLink(
+                                            AzureBlobStorageContainerNames.DOGS,
+                                            image
+                                        )}
                                         alt={nomeCachorro}
                                         fill
                                         priority
@@ -72,7 +80,11 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
             <div className="flex flex-col items-center pb-8 lg:flex-row lg:w-500px lg:mx-auto">
                 <div className="relative w-[100px] h-[100px] md:h-[300px] md:w-[300px] lg:mr-6">
                     <Image
-                        src={generateImgURL(image ?? "")}
+                        src={
+                            image
+                                ? mountBlobStorageLink(AzureBlobStorageContainerNames.DOGS, image)
+                                : ""
+                        }
                         alt={`Imagem do cachorro ${cachorroSelecionado.nomeExibicao}`}
                         fill
                         sizes="(max-width: 1024px) 300px, 300px"
@@ -116,9 +128,12 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                     </span>
                 </div>
             </div>
-            <p className="text-gray-400 text-base my-6">{cachorroSelecionado.descricaoLonga}</p>
-            {renderImagens(cachorroSelecionado.nomeExibicao, cachorroSelecionado.imagesSrc)}
-            {cachorroSelecionado.youtubeSrcUrl ? (
+            <p className="text-gray-400 text-base my-6">{cachorroSelecionado.descricao}</p>
+            {renderImagens(
+                cachorroSelecionado.nomeExibicao,
+                cachorroSelecionado.images?.map((i) => i.src)
+            )}
+            {cachorroSelecionado.youtubeVideos?.find((v) => v.type === "common")?.src ? (
                 <section className="mt-8 w-full h-[300px] flex flex-col items-start lg:w-[800px] lg:h-[480px] mx-auto">
                     <h2 className="text-primary-400 text-2xl font-medium mb-4">
                         Veja também um vídeo dele(a)
@@ -127,7 +142,7 @@ export default function AdocaoDetalhesInfo({ cachorroSelecionado }: AdocaoDetalh
                         title={`Vídeo do ${cachorroSelecionado.nomeExibicao}`}
                         width="100%"
                         height="100%"
-                        src={`https://www.youtube.com/embed/${cachorroSelecionado.youtubeSrcUrl}`}
+                        src={`https://www.youtube.com/embed/${cachorroSelecionado.youtubeVideos?.find((v) => v.type === "common")?.src}`}
                     ></iframe>
                 </section>
             ) : null}

@@ -2,6 +2,7 @@ import { LIMITE_TAMANHO_MENSAGEM, MENSAGENS_ERRO } from "@/components/Form/FormC
 import { GeneralFormsType, InputFormEnum } from "@/components/Form/FormTypes";
 import * as yup from "yup";
 import { IAdocaoForm } from "./AdocaoDetalhesTypes";
+import { AzureBlobStorageContainerNames } from "@/services/azure-blob/azure-blob";
 
 export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
     {
@@ -12,16 +13,16 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                     label: "Nome responsável",
                     placeholder: "Exemplo: José da Silva",
                     type: InputFormEnum.text,
-                }
+                },
             ],
             rightSide: [
                 {
-                    key: "celular",
+                    key: "contato",
                     label: "Celular (c/ WhatsApp, de preferência)",
                     placeholder: "Exemplo: 31 9 9999-8888",
                     type: InputFormEnum.text,
                 },
-            ]
+            ],
         },
     },
     {
@@ -42,7 +43,7 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                     type: InputFormEnum.text,
                 },
             ],
-        }
+        },
     },
     {
         section: {
@@ -61,7 +62,7 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                     placeholder: "Exemplo: Esquina",
                     type: InputFormEnum.text,
                 },
-            ]
+            ],
         },
     },
     {
@@ -82,7 +83,7 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                     type: InputFormEnum.text,
                 },
             ],
-        }
+        },
     },
     {
         section: {
@@ -94,17 +95,15 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                     type: InputFormEnum.text,
                 },
             ],
-            rightSide: []
+            rightSide: [],
         },
     },
     {
         section: {
-            leftSide: [
-                { key: "facebook_url", label: "Facebook Link", type: InputFormEnum.text },
-            ],
+            leftSide: [{ key: "facebook_url", label: "Facebook Link", type: InputFormEnum.text }],
             rightSide: [
                 { key: "instagram_url", label: "Instagram Link", type: InputFormEnum.text },
-            ]
+            ],
         },
     },
     {
@@ -135,7 +134,7 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                     placeholder: "Exemplo: Para me fazer companhia",
                     type: InputFormEnum.text,
                 },
-            ]
+            ],
         },
     },
     {
@@ -183,7 +182,7 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                         },
                     ],
                 },
-            ]
+            ],
         },
     },
     {
@@ -231,7 +230,7 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                         },
                     ],
                 },
-            ]
+            ],
         },
     },
     {
@@ -279,7 +278,7 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                         },
                     ],
                 },
-            ]
+            ],
         },
     },
     {
@@ -292,7 +291,7 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                     type: InputFormEnum.textarea,
                 },
             ],
-            rightSide: []
+            rightSide: [],
         },
     },
     {
@@ -304,8 +303,8 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                     type: InputFormEnum.textarea,
                 },
             ],
-            rightSide: []
-        }
+            rightSide: [],
+        },
     },
     {
         section: {
@@ -328,7 +327,7 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                     ],
                 },
             ],
-            rightSide: []
+            rightSide: [],
         },
     },
     {
@@ -343,10 +342,11 @@ export const ADOCAO_FORMS_CONFIG: GeneralFormsType<IAdocaoForm>[] = [
                         filesQuantityLimit: 3,
                         filesSizeLimit: 1024 * 1000,
                         supportedExtensions: ["image/png", "image/jpeg", "image/jpg"],
+                        domainContainerName: AzureBlobStorageContainerNames.ADOPTION_FORM,
                     },
                 },
             ],
-            rightSide: []
+            rightSide: [],
         },
     },
 ];
@@ -360,7 +360,7 @@ export const schemaAdocaoForm = yup
                 MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.medio).tamanhoMaximo
             )
             .required(MENSAGENS_ERRO().campoObrigatorio),
-        celular: yup
+        contato: yup
             .string()
             .max(
                 LIMITE_TAMANHO_MENSAGEM.pequeno,

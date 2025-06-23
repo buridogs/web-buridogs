@@ -1,9 +1,33 @@
+"use client";
+
 import Link from "next/link";
 import { ParceiroCardResumo } from "./ParceiroCardResumo";
 import { Button } from "@/components/Button/Button";
-import { parceiros } from "@/mock/parceirosMock";
+import { usePartners } from "@/hooks/partners-hook";
+import { Spinner } from "@/components/Spinner/Spinner";
 
 export function ParceirosSecao() {
+    const { partners, isLoading: partnersLoading } = usePartners();
+
+    if (partners.length === 0 && !partnersLoading) return null;
+
+    const renderContent = () => {
+        if (partnersLoading) {
+            return <Spinner />;
+        }
+
+        return (
+            <ul className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                {partners.map((p) => (
+                    <ParceiroCardResumo
+                        key={p.nome}
+                        parceiro={p}
+                    />
+                ))}
+            </ul>
+        );
+    };
+
     return (
         <section className="bg-gray-50">
             <div className="max-w-screen-xl mx-auto px-8 py-8 flex flex-col item-center md:py-12 lg:flex-row">
@@ -29,14 +53,7 @@ export function ParceirosSecao() {
                         />
                     </Link>
                 </div>
-                <ul className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-                    {parceiros.map((p) => (
-                        <ParceiroCardResumo
-                            key={p.nome}
-                            parceiro={p}
-                        />
-                    ))}
-                </ul>
+                {renderContent()}
             </div>
         </section>
     );

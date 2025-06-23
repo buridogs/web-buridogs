@@ -1,15 +1,21 @@
 "use client";
 
 import { BURIDOGS_FACEBOOK_LINK, BURIDOGS_INSTAGRAM_LINK } from "@/utils/consts";
-import { FaInstagram, FaFacebook } from "react-icons/fa6";
+import { FaFacebook, FaInstagram } from "react-icons/fa6";
 import { Button } from "../Button/Button";
 import { useState } from "react";
 import { Modal } from "../Modal/Modal";
 import Link from "next/link";
 import { Volunteers } from "./Volunteers/Volunteers";
+import { isPublicRouteHook } from "@/hooks/is-public-route-hook";
 
 export function Footer() {
     const [isOpen, setIsOpen] = useState(false);
+
+    const isPublicRoute = isPublicRouteHook();
+    if (!isPublicRoute) {
+        return null;
+    }
 
     return (
         <footer className="w-[100%] flex flex-col items-center">

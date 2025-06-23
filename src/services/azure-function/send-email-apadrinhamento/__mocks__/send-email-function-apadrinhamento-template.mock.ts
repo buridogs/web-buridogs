@@ -1,6 +1,6 @@
-import { formatDatetimePTBR } from "@/utils/methods";
-import { formatAnswerAccordingToKey } from "../send-email-function-apadrinhamento-template";
 import { IApadrinhamentoPOSTRequestForm } from "@/components/app/apadrinhamento/ApadrinhamentoTypes";
+import { formatAnswerAccordingToKey } from "../send-email-function-apadrinhamento-template";
+import { formatDatetimePTBR } from "@/utils/methods";
 
 /* eslint-disable no-useless-escape */
 const commonTemplateHTMLHeader = (date: string) => `<html lang=\"pt-BR\">
@@ -42,35 +42,43 @@ const preferenciaContatoTemplateOptions = (preferenciaContato: string[]) => {
                   </li>`;
 };
 
-const escolherQuemApadrinharTemplateOptions = (apadrinhamentoData: IApadrinhamentoPOSTRequestForm) => {
-  if (apadrinhamentoData.escolher_quem_apadrinhar === "sim") return `<h2 style = "color: #303E46; margin-bottom: 20px; font-size: 17px; ">🐶 Cachorro interessado para apadrinhamento: ${
-                    apadrinhamentoData.nome_animal
-                }</h2>`;
-        
-    return "<h2 style = \"color: #303E46; margin-bottom: 20px; font-size: 17px; \"> 🙌 Quero ajudar quem estiver precisando</h2>";
+const escolherQuemApadrinharTemplateOptions = (
+    apadrinhamentoData: IApadrinhamentoPOSTRequestForm
+) => {
+    if (apadrinhamentoData.escolher_quem_apadrinhar === "sim")
+        return `<h2 style = "color: #303E46; margin-bottom: 20px; font-size: 17px; ">🐶 Cachorro interessado para apadrinhamento: ${
+            apadrinhamentoData.nome_animal
+        }</h2>`;
+
+    // eslint-disable-next-line quotes
+    return `<h2 style = "color: #303E46; margin-bottom: 20px; font-size: 17px; "> 🙌 Quero ajudar quem estiver precisando</h2>`; // TODO: CHECK
 };
 
 const shouldRenderNomeAnimalTemplate = (apadrinhamentoData: IApadrinhamentoPOSTRequestForm) => {
-  if (apadrinhamentoData.escolher_quem_apadrinhar === "sim") return `<li style = "margin: 10px;">
+    if (apadrinhamentoData.escolher_quem_apadrinhar === "sim")
+        return `<li style = "margin: 10px;">
                       <strong>Nome do animal que quer apadrinhar : <span style = "border-bottom: 2px solid #303e464d;">Toto<span></strong>
                   </li>
 ${apadrinharComTemplateOptions(apadrinhamentoData.apadrinhar_com)}`;
-        
+
     return `${apadrinharComTemplateOptions(apadrinhamentoData.apadrinhar_com)}`;
 };
 
-const escolherQueroReceberTemplateOptions = (apadrinhamentoData: IApadrinhamentoPOSTRequestForm) => {
+const escolherQueroReceberTemplateOptions = (
+    apadrinhamentoData: IApadrinhamentoPOSTRequestForm
+) => {
     return `<li style = "margin: 10px;">
                       <strong>Aceita receber contatos e informações sobre o projeto Buridogs? : <span style = "border-bottom: 2px solid #303e464d;">${
-                        apadrinhamentoData.quero_receber_contatos ? 
-                          "Sim" : 
-                          "Não"
-                        }<span></strong>
+                          apadrinhamentoData.quero_receber_contatos ? "Sim" : "Não"
+                      }<span></strong>
                   </li>
 `;
 };
 
-export const templateApadrinhamentoHTMLEmailDynamicMock = (date: string, apadrinhamentoData: IApadrinhamentoPOSTRequestForm) => `
+export const templateApadrinhamentoHTMLEmailDynamicMock = (
+    date: string,
+    apadrinhamentoData: IApadrinhamentoPOSTRequestForm
+) => `
     ${commonTemplateHTMLHeader(date)}
           ${escolherQuemApadrinharTemplateOptions(apadrinhamentoData)}
           <p style = \"color: #303E46; line-height: 1.6; font-weight: bold; padding-left: 26px\"> Abaixo estão os resultados do formulário de adoção:</p>

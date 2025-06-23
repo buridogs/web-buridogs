@@ -1,0 +1,19 @@
+# Diretórios de build e cache
+.next/
+out/
+dist/
+build/
+coverage/
+
+# Node modules
+node_modules/
+
+# Arquivos de configuração
+next.config.js
+postcss.config.js
+tailwind.config.js
+
+# Outros arquivos gerados
+*.d.ts
+*.js.map
+*.js

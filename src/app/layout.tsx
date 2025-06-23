@@ -3,10 +3,11 @@ import "./globals.css";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Header } from "@/components/Header/Header";
-import { Footer } from "@/components/Footer/Footer";
 import ToastProvider from "@/providers/ToastProvider";
 import { TracerTagsWrapper } from "@/components/TracerTagsWrapper/TracerTagsWrapper";
+import { AuthProvider } from "@/providers/auth/AuthProvider";
+import { Header } from "@/components/Header/HeaderWrapper";
+import { Footer } from "@/components/Footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,12 +21,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <html lang="en">
-            <body className={`${inter.className} flex flex-col`}>
+        <html lang="pt-BR">
+            <body className={`${inter.className} flex flex-col h-screen`}>
                 <ToastProvider>
-                    <Header />
-                    <main className="flex-auto pt-[110px]">{children}</main>
-                    <Footer />
+                    <AuthProvider>
+                        <Header />
+                        <div className="flex flex-col flex-1">
+                            <main>{children}</main>
+                        </div>
+                        <Footer />
+                    </AuthProvider>
                 </ToastProvider>
                 <TracerTagsWrapper />
             </body>

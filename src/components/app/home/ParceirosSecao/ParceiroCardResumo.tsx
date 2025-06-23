@@ -1,10 +1,13 @@
-import { IParceiros } from "@/interfaces/parceirosInterfaces";
-import { generateImgURL } from "@/utils/methods";
+import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
 import Image from "next/image";
 import { RedesSociaisParceiros } from "@/components/RedesSociaisParceiros/RedesSociaisParceiros";
+import {
+    AzureBlobStorageContainerNames,
+    mountBlobStorageLink,
+} from "@/services/azure-blob/azure-blob";
 
 interface ParceiroCardResumoProps {
-    parceiro: IParceiros;
+    parceiro: IPartnerUI;
 }
 
 export function ParceiroCardResumo({ parceiro }: ParceiroCardResumoProps) {
@@ -13,7 +16,7 @@ export function ParceiroCardResumo({ parceiro }: ParceiroCardResumoProps) {
         <li className="flex flex-col items-center">
             {imagemSrc ? (
                 <Image
-                    src={generateImgURL(imagemSrc)}
+                    src={mountBlobStorageLink(AzureBlobStorageContainerNames.PARTNERS, imagemSrc)}
                     alt={nome}
                     width={165}
                     height={165}

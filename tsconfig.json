@@ -21,7 +21,8 @@
         "paths": {
             "@/*": ["./src/*"]
         },
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "types": ["vitest/globals", "@testing-library/jest-dom"]
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "out/types/**/*.ts"],
     "exclude": ["node_modules"]

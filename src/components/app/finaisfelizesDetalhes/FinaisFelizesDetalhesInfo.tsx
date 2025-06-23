@@ -3,10 +3,10 @@ import { BsGenderAmbiguous } from "react-icons/bs";
 import { MdBedroomBaby } from "react-icons/md";
 import { returnFormattedOptionLabel } from "@/utils/methods";
 import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
-import { IFinalFeliz } from "@/interfaces/finaisFelizesInterfaces";
+import { IDogUI } from "@/interfaces/dogInterfaces";
 
 interface FinaisFelizesDetalhesInfoProps {
-    finalFelizSelecionado: IFinalFeliz;
+    finalFelizSelecionado: IDogUI;
 }
 
 export default function FinaisFelizesDetalhesInfo({
@@ -16,7 +16,7 @@ export default function FinaisFelizesDetalhesInfo({
         <div className="w-full max-w-[800px] flex flex-col items-center lg:flex-row lg:justify-between lg:mx-auto">
             <div className="flex flex-col items-center pb-8">
                 <h1 className="text-primary-400 text-3xl font-medium">
-                    {finalFelizSelecionado.nome}
+                    {finalFelizSelecionado.nomeExibicao}
                 </h1>
                 <span className="w-full text-gray-400 text-lg font-medium flex justify-start items-center mt-3">
                     <BsGenderAmbiguous

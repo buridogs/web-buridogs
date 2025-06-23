@@ -1,7 +1,33 @@
-import { parceiros } from "@/mock/parceirosMock";
+"use client";
+
+import { Spinner } from "@/components/Spinner/Spinner";
 import { ParceiroCard } from "./ParceiroCard";
+import { usePartners } from "@/hooks/partners-hook";
 
 export function ParceirosContainer() {
+    const { partners, isLoading: partnersLoading } = usePartners();
+
+    const renderContent = () => {
+        if (partnersLoading) {
+            return <Spinner />;
+        }
+
+        if (partners.length === 0) {
+            return null;
+        }
+
+        return (
+            <ul className="w-full grid grid-cols-1 sm:grid-cols-2 gap-8 justify-items-center mt-8">
+                {partners.map((p) => (
+                    <ParceiroCard
+                        key={p.nome}
+                        parceiro={p}
+                    />
+                ))}
+            </ul>
+        );
+    };
+
     return (
         <div>
             <section className="bg-white">
@@ -20,14 +46,7 @@ export function ParceirosContainer() {
                             continuar sonhando e ajudando cada vez mais!
                         </span>
                     </div>
-                    <ul className="w-full grid grid-cols-1 sm:grid-cols-2 gap-8 justify-items-center mt-8">
-                        {parceiros.map((p) => (
-                            <ParceiroCard
-                                key={p.nome}
-                                parceiro={p}
-                            />
-                        ))}
-                    </ul>
+                    {renderContent()}
                 </div>
             </section>
             <section className="bg-primary-50 py-10">

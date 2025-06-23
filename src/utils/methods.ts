@@ -1,43 +1,40 @@
-import {
-    AdocaoFiltrosEnum,
-    AdocaoGeneroEnum,
-    AdocaoIdadeEnum,
-    AdocaoPorteEnum,
-} from "@/interfaces/adocaoInterfaces";
+import { DogAgeEnum, DogGenderEnum, DogSizeEnum } from "@/services/api/modules/dogs/types";
+import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
+import { AzureBlobStorageContainerNames } from "@/services/azure-blob/azure-blob";
 import { BLOGO_STORAGE_URL_LINK } from "@/services/storage";
 
 export function returnFormattedOptionLabel(category: string, option: string) {
     if (category === AdocaoFiltrosEnum.genero) {
         switch (option) {
-            case AdocaoGeneroEnum.macho:
+            case DogGenderEnum.macho:
                 return "Macho";
-            case AdocaoGeneroEnum.femea:
+            case DogGenderEnum.femea:
                 return "Fêmea";
             default:
                 return "Fêmea";
         }
     } else if (category === AdocaoFiltrosEnum.idade) {
         switch (option) {
-            case AdocaoIdadeEnum.filhote:
+            case DogAgeEnum.filhote:
                 return "Filhote";
-            case AdocaoIdadeEnum.ate1Ano:
+            case DogAgeEnum.jovem:
                 return "Até 1 ano";
-            case AdocaoIdadeEnum.adulto:
+            case DogAgeEnum.adulto:
                 return "Adulto";
-            case AdocaoIdadeEnum.idoso:
+            case DogAgeEnum.idoso:
                 return "Idoso";
             default:
                 return "Filhote";
         }
     } else if (category === AdocaoFiltrosEnum.porte) {
         switch (option) {
-            case AdocaoPorteEnum.mini:
+            case DogSizeEnum.mini:
                 return "Mini";
-            case AdocaoPorteEnum.pequenoPorte:
+            case DogSizeEnum.pequeno:
                 return "Pequeno Porte";
-            case AdocaoPorteEnum.medioPorte:
+            case DogSizeEnum.medio:
                 return "Médio Porte";
-            case AdocaoPorteEnum.grandePorte:
+            case DogSizeEnum.grande:
                 return "Grande Porte";
             default:
                 return "Mini";
@@ -59,3 +56,34 @@ export function formatDatetimePTBR(dateValue: string) {
         timeStyle: "long",
     }).format(new Date(dateValue));
 }
+
+export async function urlToFileList(fileName: string, url: string): Promise<FileList> {
+    const response = await fetch(url); // TODO: FIX URL ISSUE
+    const blob = await response.blob();
+    const file = new File([blob], fileName, { type: blob.type || "image/png" });
+
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(file);
+    return dataTransfer.files;
+}
+
+export const formatFileNameToUpload = (domain: AzureBlobStorageContainerNames, name: string) => {
+    const timestamp = new Date().getTime();
+    const fileName = domain;
+    const fileExtension = name.split(".")[1];
+    return `${fileName}-${timestamp}.${fileExtension}`;
+};
+
+export const combineFileLists = (fileLists: FileList[]): FileList => {
+    const dataTransfer = new DataTransfer();
+
+    // Iterate through each FileList
+    fileLists.forEach((fileList) => {
+        // Add all files from each FileList to the DataTransfer object
+        for (let i = 0; i < fileList.length; i++) {
+            dataTransfer.items.add(fileList[i]);
+        }
+    });
+
+    return dataTransfer.files;
+};

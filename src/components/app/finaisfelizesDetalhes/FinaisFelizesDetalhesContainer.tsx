@@ -1,10 +1,12 @@
 "use client";
-import { IFinalFeliz } from "@/interfaces/finaisFelizesInterfaces";
-import { finaisFelizes } from "@/mock/finaisFelizesMock";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import FinaisFelizesDetalhesInfo from "./FinaisFelizesDetalhesInfo";
 import FinaisFelizesAntesDepoisInfo from "./FinaisFelizesAntesDepoisInfo";
+import { IDogUI } from "@/interfaces/dogInterfaces";
+import { useDogs } from "@/hooks/dogs-hook";
+import { SLUG_CHARACTER_SEPARATOR } from "../adocao/AdocaoUtils";
+import { Spinner } from "@/components/Spinner/Spinner";
 
 interface FinaisFelizesDetalhesContainerProps {
     slug?: string;
@@ -13,19 +15,28 @@ interface FinaisFelizesDetalhesContainerProps {
 export default function FinaisFelizesDetalhesContainer({
     slug,
 }: FinaisFelizesDetalhesContainerProps) {
-    const [finalFelizSelecionado, setFinalFelizSelecionado] = useState<IFinalFeliz>(
-        {} as IFinalFeliz
-    );
+    const { getDogById, isLoading: dogsLoading } = useDogs();
+    const [finalFelizSelecionado, setFinalFelizSelecionado] = useState<IDogUI>({} as IDogUI);
 
     useEffect(() => {
         if (slug) {
-            const idAnimalSelecionado = slug.split("-")[0];
-            setFinalFelizSelecionado(
-                finaisFelizes.find((c) => c.id.toString() === idAnimalSelecionado) ??
-                    ({} as IFinalFeliz)
-            );
+            const fetchDogData = async () => {
+                const idAnimalSelecionado = slug.split(SLUG_CHARACTER_SEPARATOR)[0];
+                if (idAnimalSelecionado) {
+                    const foundDog = await getDogById(idAnimalSelecionado);
+                    if (foundDog) {
+                        setFinalFelizSelecionado(foundDog);
+                    }
+                }
+            };
+
+            fetchDogData();
         }
     }, [slug]);
+
+    if (dogsLoading) {
+        return <Spinner />;
+    }
 
     return (
         <main className="bg-white">
@@ -37,15 +48,29 @@ export default function FinaisFelizesDetalhesContainer({
                     </p>
                     <FinaisFelizesAntesDepoisInfo
                         label="Antes"
-                        nome={finalFelizSelecionado.nome}
-                        imagensUrl={finalFelizSelecionado.imagensUrlAntes}
-                        youtubeUrlId={finalFelizSelecionado.youtubeUrlIdAntes}
+                        nome={finalFelizSelecionado.nomeExibicao}
+                        imagensUrl={
+                            finalFelizSelecionado.images
+                                ?.filter((i) => i.type === "before")
+                                .map((i) => i.src) ?? []
+                        }
+                        youtubeUrlId={
+                            finalFelizSelecionado.youtubeVideos?.find((i) => i.type === "before")
+                                ?.src
+                        }
                     />
                     <FinaisFelizesAntesDepoisInfo
                         label="Depois"
-                        nome={finalFelizSelecionado.nome}
-                        imagensUrl={finalFelizSelecionado.imagensUrlDepois}
-                        youtubeUrlId={finalFelizSelecionado.youtubeUrlIdDepois}
+                        nome={finalFelizSelecionado.nomeExibicao}
+                        imagensUrl={
+                            finalFelizSelecionado.images
+                                ?.filter((i) => i.type === "after")
+                                .map((i) => i.src) ?? []
+                        }
+                        youtubeUrlId={
+                            finalFelizSelecionado.youtubeVideos?.find((i) => i.type === "after")
+                                ?.src
+                        }
                     />
                 </section>
                 <h2 className="text-primary-400 text-3xl font-medium text-center leading-10">
