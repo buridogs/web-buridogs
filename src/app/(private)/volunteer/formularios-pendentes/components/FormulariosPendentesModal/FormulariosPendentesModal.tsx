@@ -1,6 +1,6 @@
 "use client";
 
-import { formatDatetimePTBR } from "@/utils/methods";
+import { formatDatetimePTBR, generateWhatsAppLink } from "@/utils/methods";
 import { useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import { BsCheck2Square, BsClipboard, BsXSquare } from "react-icons/bs";
@@ -107,8 +107,8 @@ export function FormulariosPendentesModal({
                                     size={16}
                                 />
                             ),
-                            value: formRequestData.phone_number,
-                            type: "string",
+                            value: generateWhatsAppLink(formRequestData.phone_number),
+                            type: "whatsapp",
                             copyButtonConfig: {
                                 title: "Copiar telefone",
                                 onClick: () =>
@@ -188,13 +188,13 @@ export function FormulariosPendentesModal({
                         },
                         {
                             icon: (
-                                <FaEnvelope
+                                <FaPhone
                                     className="mr-2 text-gray-500"
                                     size={16}
                                 />
                             ),
-                            value: formRequestData.phone_number,
-                            type: "string",
+                            value: generateWhatsAppLink(formRequestData.phone_number),
+                            type: "whatsapp",
                             copyButtonConfig: {
                                 title: "Copiar telefone",
                                 onClick: () =>
@@ -266,8 +266,8 @@ export function FormulariosPendentesModal({
                                         size={16}
                                     />
                                 ),
-                                value: formRequestData.phone_number,
-                                type: "string",
+                                value: generateWhatsAppLink(formRequestData.phone_number),
+                                type: "whatsapp",
                                 copyButtonConfig: {
                                     title: "Copiar telefone",
                                     onClick: () =>

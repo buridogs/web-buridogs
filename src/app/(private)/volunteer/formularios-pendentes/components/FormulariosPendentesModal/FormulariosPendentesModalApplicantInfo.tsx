@@ -1,12 +1,13 @@
 import React from "react";
 import { BsClipboard } from "react-icons/bs";
+import { FaWhatsapp } from "react-icons/fa";
 
 interface FormulariosPendentesModalApplicantInfoProps {
     applicant: {
         icon: React.ReactNode;
         label?: string;
         value: string;
-        type: "string" | "number" | "date" | "boolean";
+        type: "string" | "number" | "date" | "boolean" | "whatsapp";
         copyButtonConfig?: {
             title: string;
             onClick: () => void;
@@ -28,6 +29,36 @@ export default function FormulariosPendentesModalApplicantInfo({
         );
     }
 
+    const renderValue = (info: {
+        icon: React.ReactNode;
+        label?: string;
+        value: string;
+        type: "string" | "number" | "date" | "boolean" | "whatsapp";
+        copyButtonConfig?: {
+            title: string;
+            onClick: () => void;
+        };
+    }) => {
+        if (info.type === "whatsapp") {
+            return (
+                <a
+                    href={info.value}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-600 hover:text-green-800 hover:underline flex items-center"
+                >
+                    <FaWhatsapp
+                        className="mr-1"
+                        size={14}
+                    />
+                    Abrir WhatsApp ({info.value})
+                </a>
+            );
+        }
+
+        return <span className="text-gray-700">{info.value}</span>;
+    };
+
     return (
         <>
             {applicant.map((info, index) => (
@@ -37,7 +68,7 @@ export default function FormulariosPendentesModalApplicantInfo({
                 >
                     <div className="flex items-center">
                         {info.icon}
-                        <span className="text-gray-700">{info.value}</span>
+                        {renderValue(info)}
                     </div>
                     {info.copyButtonConfig && (
                         <button
