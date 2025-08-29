@@ -1,5 +1,6 @@
 import { formatFileNameToUpload } from "@/utils/methods";
 import { BlobServiceClient, BlockBlobClient, ContainerClient } from "@azure/storage-blob";
+import * as Sentry from "@sentry/nextjs";
 import { toast } from "react-toastify";
 
 export enum AzureBlobStorageContainerNames {
@@ -18,13 +19,43 @@ export const ADOPTION_FORM_AZURE_CONTAINER_NAME =
 
 const accountName = process.env.NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME;
 
-if (!accountName) throw Error("Azure Storage accountName not found");
+if (!accountName) {
+    Sentry.withScope((scope) => {
+        scope.setContext("azure-blob | blobServiceClient", {
+            containerName: "accountName",
+        });
+        Sentry.captureException(new Error("Azure Storage accountName not found"));
+    });
+    throw Error("Azure Storage accountName not found");
+}
 
-if (!PARTNERS_AZURE_CONTAINER_NAME) throw Error("Azure Storage containerName not found - PARTNERS");
-if (!DOGS_AZURE_CONTAINER_NAME) throw Error("Azure Storage containerName not found - DOGS");
-if (!ADOPTION_FORM_AZURE_CONTAINER_NAME)
+if (!PARTNERS_AZURE_CONTAINER_NAME) {
+    Sentry.withScope((scope) => {
+        scope.setContext("azure-blob | blobServiceClient", {
+            containerName: "PARTNERS_AZURE_CONTAINER_NAME",
+        });
+        Sentry.captureException(new Error("Azure Storage containerName not found - PARTNERS"));
+    });
+    throw Error("Azure Storage containerName not found - PARTNERS");
+}
+if (!DOGS_AZURE_CONTAINER_NAME) {
+    Sentry.withScope((scope) => {
+        scope.setContext("azure-blob | blobServiceClient", {
+            containerName: "DOGS_AZURE_CONTAINER_NAME",
+        });
+        Sentry.captureException(new Error("Azure Storage containerName not found - DOGS"));
+    });
+    throw Error("Azure Storage containerName not found - DOGS");
+}
+if (!ADOPTION_FORM_AZURE_CONTAINER_NAME) {
+    Sentry.withScope((scope) => {
+        scope.setContext("azure-blob | blobServiceClient", {
+            containerName: "ADOPTION_FORM_AZURE_CONTAINER_NAME",
+        });
+        Sentry.captureException(new Error("Azure Storage containerName not found - ADOPTION_FORM"));
+    });
     throw Error("Azure Storage containerName not found - ADOPTION_FORM");
-
+}
 // SAS tokens do not require an additional credential because
 // the token is the credential
 const credential = undefined;
@@ -45,6 +76,14 @@ export const blobServiceClient = (containerName: AzureBlobStorageContainerNames)
     };
 
     if (!sasToken[containerName]) {
+        Sentry.withScope((scope) => {
+            scope.setContext("azure-blob | blobServiceClient", {
+                containerName,
+            });
+            Sentry.captureException(
+                new Error(`Azure Storage SAS token not found for container: ${containerName}`)
+            );
+        });
         throw Error(`Azure Storage SAS token not found for container: ${containerName}`);
     }
 
@@ -65,6 +104,12 @@ export async function uploadBlobFromBuffer(
         // Upload buffer
         await blockBlobClient.uploadData(buffer);
     } catch (error) {
+        Sentry.withScope((scope) => {
+            scope.setContext("azure-blob | uploadBlobFromBuffer", {
+                blobName,
+            });
+            Sentry.captureException(error);
+        });
         // eslint-disable-next-line no-console
         console.error("Error uploading blob:", error);
         toast.error("Error uploading blob");
@@ -86,6 +131,13 @@ export async function deleteBlob(
         // Delete blob
         await blockBlobClient.delete();
     } catch (error) {
+        Sentry.withScope((scope) => {
+            scope.setContext("azure-blob | deleteBlob", {
+                blobName,
+                containerClientName,
+            });
+            Sentry.captureException(error);
+        });
         // eslint-disable-next-line no-console
         console.error("Error deleting blob:", error);
         toast.error("Error deleting blob");

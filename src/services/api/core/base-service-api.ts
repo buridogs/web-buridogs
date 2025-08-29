@@ -1,5 +1,6 @@
 import { PublicRoutes } from "@/components/Header/routes-ui";
 import { RequestOptions } from "./types";
+import * as Sentry from "@sentry/nextjs";
 
 export class ApiError extends Error {
     public readonly statusCode: number;
@@ -77,6 +78,15 @@ export abstract class BaseApiService {
         } catch (error) {
             // eslint-disable-next-line no-console
             console.error(`API request failed: ${endpoint}`, error);
+            Sentry.withScope((scope) => {
+                scope.setContext("api", {
+                    url: endpoint,
+                    method: options.method,
+                    body: options.body,
+                    isPrivateEndpoint,
+                });
+                Sentry.captureException(error);
+            });
             throw error;
         }
     }

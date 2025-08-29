@@ -15,8 +15,8 @@ export function SecaoPrincipal() {
                         <span className="text-gray-400 text-xl leading-8 lg:3xl">
                             O Buri Dogs é um grupo de proteção animal fundado no bairro Buritis, em
                             Belo Horizonte, que acolhe, cuida e busca adoção para cães abandonados.
-                            Em quatro anos de atuação já tirou das ruas e encaminhou cerca de 700
-                            cães.
+                            Desde que iniciaram a atuação em 2019 já tiraram das ruas e encaminharam
+                            para adoção mais de 1000 cães.
                             <br />
                             Em 2022, o trabalho do Buri Dogs foi reconhecido pela Câmara de
                             Vereadores de BH e o grupo recebeu o Diploma de Honra ao Mérito, por

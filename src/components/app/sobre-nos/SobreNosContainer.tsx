@@ -46,7 +46,7 @@ export function SobreNosContainer() {
                     </span>
                 </div>
                 <Image
-                    src={generateImgURL("sobre-nos-feira-adocao.jpg")}
+                    src={generateImgURL("sobre-nos-buridogs.jpeg")}
                     alt={"Equipe Buri Dogs"}
                     width={280}
                     height={280}

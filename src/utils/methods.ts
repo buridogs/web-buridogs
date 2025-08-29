@@ -87,3 +87,19 @@ export const combineFileLists = (fileLists: FileList[]): FileList => {
 
     return dataTransfer.files;
 };
+
+/**
+ * Gera um link do WhatsApp a partir de um número de telefone
+ * @param phoneNumber - Número de telefone (com ou sem formatação)
+ * @returns URL do WhatsApp para o número especificado
+ */
+export const generateWhatsAppLink = (phoneNumber: string): string => {
+    // Remove todos os caracteres não numéricos
+    const cleanNumber = phoneNumber.replace(/\D/g, "");
+
+    // Adiciona código do país se não estiver presente (assumindo Brasil +55)
+    const formattedNumber = cleanNumber.startsWith("55") ? cleanNumber : `55${cleanNumber}`;
+
+    // Gera o link do WhatsApp
+    return `https://wa.me/${formattedNumber}`;
+};
