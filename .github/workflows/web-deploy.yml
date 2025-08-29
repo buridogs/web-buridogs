@@ -51,7 +51,12 @@ jobs:
               run: yarn install --frozen-lockfile
 
             - name: Build da aplicação
-              run: yarn build
+              run: |
+                  yarn build
+                  # Limpar arquivos desnecessários para reduzir tamanho
+                  rm -rf .next/cache
+                  rm -rf .next/standalone
+                  find .next -name "*.map" -delete
               env:
                   NODE_ENV: "production"
                   NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME: ${{ secrets.NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME }}

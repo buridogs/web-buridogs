@@ -3,6 +3,24 @@ const nextConfig = {
     experimental: {
         appDir: true,
     },
+    compress: true,
+    poweredByHeader: false,
+
+    swcMinify: true,
+
+    webpack: (config, { dev, isServer }) => {
+        if (!dev && !isServer) {
+            // Remover source maps em produção
+            config.devtool = false;
+
+            // Excluir arquivos desnecessários
+            config.plugins = config.plugins.filter((plugin) => {
+                return plugin.constructor.name !== "ForkTsCheckerWebpackPlugin";
+            });
+        }
+        return config;
+    },
+
     images: {
         remotePatterns: [
             {
@@ -67,7 +85,11 @@ module.exports = withSentryConfig(module.exports, {
     // https://docs.sentry.io/product/crons/
     // https://vercel.com/docs/cron-jobs
 
-    widenClientFileUpload: false, // Reduz build time
-    tunnelRoute: undefined, // Remove rota desnecessária
-    automaticVercelMonitors: false, // Funcionalidade Vercel não usada
+    hideSourceMaps: true, // Reduz significativamente o tamanho
+    autoInstrumentServerFunctions: false,
+
+    sourcemaps: {
+        include: ["./src"],
+        ignore: ["node_modules", ".next"],
+    },
 });
