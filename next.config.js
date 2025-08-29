@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: "standalone",
     experimental: {
         appDir: true,
     },
@@ -68,7 +67,7 @@ module.exports = withSentryConfig(module.exports, {
     // https://docs.sentry.io/product/crons/
     // https://vercel.com/docs/cron-jobs
 
-    // Reduz tamanho do build
-    hideSourceMaps: true,
-    autoInstrumentServerFunctions: false, // Não necessário para Static Web App
+    widenClientFileUpload: false, // Reduz build time
+    tunnelRoute: undefined, // Remove rota desnecessária
+    automaticVercelMonitors: false, // Funcionalidade Vercel não usada
 });
