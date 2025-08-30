@@ -94,6 +94,9 @@ export const templateApadrinhamentoHTMLEmailDynamicMock = (
 <li style = \"margin: 10px;\">
                       <strong>Telefone para contato : <span style = \"border-bottom: 2px solid #303e464d;\">99 9999-9999<span></strong>
                   </li>
+<li style = \"margin: 10px;\">
+                      <strong>Instagram (opcional) : <span style = \"border-bottom: 2px solid #303e464d;\">undefined<span></strong>
+                  </li>
 ${shouldRenderNomeAnimalTemplate(apadrinhamentoData)}
 ${escolherQueroReceberTemplateOptions(apadrinhamentoData)}
           </ul>
