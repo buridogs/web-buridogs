@@ -101,6 +101,12 @@ export const APADRINHAMENTO_FORMS_CONFIG: GeneralFormsType<IApadrinhamentoForm>[
                     placeholder: "Exemplo: 31 9 9999-8888",
                     type: InputFormEnum.text,
                 },
+                {
+                    key: "instagram_url",
+                    label: "Instagram (opcional)",
+                    placeholder: "Exemplo: @usuario_instagram",
+                    type: InputFormEnum.text,
+                },
             ],
         },
     },
@@ -208,6 +214,14 @@ export const schemaApadrinhamentoForm = yup
                 MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequeno).tamanhoMaximo
             )
             .required(MENSAGENS_ERRO().campoObrigatorio),
+        instagram_url: yup
+            .string()
+            .min(2, MENSAGENS_ERRO().campoObrigatorio)
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.pequenoMedio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequenoMedio).tamanhoMaximo
+            )
+            .optional(),
     })
     .required();
 
@@ -260,5 +274,13 @@ export const schemaApadrinhamentoComAnimalForm = yup
                 MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequeno).tamanhoMaximo
             )
             .required(MENSAGENS_ERRO().campoObrigatorio),
+        instagram_url: yup
+            .string()
+            .min(2, MENSAGENS_ERRO().campoObrigatorio)
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.pequenoMedio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequenoMedio).tamanhoMaximo
+            )
+            .optional(),
     })
     .required();

@@ -23,22 +23,28 @@ export const commonTemplateHTMLFooter = `<p style=\"background-color: #303e4626;
               entrar em contato com a equipe de desenvolvimento.
           </p>`;
 
-export const templateContatoHTMLEmailDynamicMock = (date: string, contatoData: IContatoFormData) => `
+export const templateContatoHTMLEmailDynamicMock = (
+    date: string,
+    contatoData: IContatoFormData
+) => `
     ${commonTemplateHTMLHeader(date)}
-          <p style = \"color: #303E46; line-height: 1.6; font-weight: bold; padding-left: 26px\"> Abaixo estão os dados do formulário de contato:</p>
+          <p style = "color: #303E46; line-height: 1.6; font-weight: bold; padding-left: 26px"> Abaixo estão os dados do formulário de contato:</p>
 
           <ul>
-          <li style = \"margin: 10px;\">
-                      <strong>Nome Completo : <span style = \"border-bottom: 2px solid #303e464d;\">${contatoData.nome}<span></strong>
+          <li style = "margin: 10px;">
+                      <strong>Nome Completo : <span style = "border-bottom: 2px solid #303e464d;">${contatoData.nome}<span></strong>
                   </li>
-<li style = \"margin: 10px;\">
-                      <strong>E-mail : <span style = \"border-bottom: 2px solid #303e464d;\">${contatoData.email}<span></strong>
+<li style = "margin: 10px;">
+                      <strong>E-mail : <span style = "border-bottom: 2px solid #303e464d;">${contatoData.email}<span></strong>
                   </li>
-<li style = \"margin: 10px;\">
-                      <strong>Contato : <span style = \"border-bottom: 2px solid #303e464d;\">${contatoData.contato}<span></strong>
+<li style = "margin: 10px;">
+                      <strong>Contato : <span style = "border-bottom: 2px solid #303e464d;">${contatoData.contato}<span></strong>
                   </li>
-<li style = \"margin: 10px;\">
-                      <strong>Mensagem : <span style = \"border-bottom: 2px solid #303e464d;\">${contatoData.mensagem}<span></strong>
+<li style = "margin: 10px;">
+                      <strong>Instagram (opcional) : <span style = "border-bottom: 2px solid #303e464d;">${contatoData.instagram_url || "undefined"}<span></strong>
+                  </li>
+<li style = "margin: 10px;">
+                      <strong>Mensagem : <span style = "border-bottom: 2px solid #303e464d;">${contatoData.mensagem}<span></strong>
                   </li>
 
           </ul>

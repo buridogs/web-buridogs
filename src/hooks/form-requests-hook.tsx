@@ -94,6 +94,7 @@ export const useFormRequests = ({
                     contact_method_preference: formRequest.detailsForm.preferencia_contato || [],
                     allow_receiving_news: !!formRequest.detailsForm.quero_receber_contatos,
                     sponsorship_method: formRequest.detailsForm.apadrinhar_com || [],
+                    instagram_url: formRequest.detailsForm.instagram_url || "",
                 } as IFormSponsorship;
 
             case FormRequestTypeEnum.contact:
@@ -102,6 +103,7 @@ export const useFormRequests = ({
                     form_type: FormAvailableEnum.CONTACT,
                     email: formRequest.detailsForm.email || "",
                     message: formRequest.detailsForm.mensagem || "",
+                    instagram_url: formRequest.detailsForm.instagram_url || "",
                 } as IFormContact;
 
             default:

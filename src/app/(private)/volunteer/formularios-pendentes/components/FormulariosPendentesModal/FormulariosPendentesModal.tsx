@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import { BsCheck2Square, BsClipboard, BsXSquare } from "react-icons/bs";
 import { MdOutlineHouse, MdPerson } from "react-icons/md";
-import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
+import { FaEnvelope, FaInstagram, FaMapMarkerAlt, FaPencilAlt, FaPhone } from "react-icons/fa";
 import { toast } from "react-toastify";
 import {
     FormAvailableEnum,
@@ -221,6 +221,26 @@ export function FormulariosPendentesModal({
                             value: `Quer apadrinhar ${formRequestData.dog_name} com ${formRequestData.sponsorship_method.join(", ")}`,
                             type: "string",
                         },
+                        {
+                            icon: (
+                                <FaInstagram
+                                    className="mr-2 text-gray-500"
+                                    size={16}
+                                />
+                            ),
+                            value: formRequestData.instagram_url || "N/A",
+                            type: "string" as const,
+                            copyButtonConfig: formRequestData.instagram_url
+                                ? {
+                                      title: "Copiar Instagram",
+                                      onClick: () =>
+                                          copyToClipboard(
+                                              formRequestData.instagram_url!,
+                                              "Instagram"
+                                          ),
+                                  }
+                                : undefined,
+                        },
                     ]}
                     applicantInfoFooter={
                         <div className="pt-2 border-t">
@@ -276,13 +296,33 @@ export function FormulariosPendentesModal({
                             },
                             {
                                 icon: (
-                                    <FaMapMarkerAlt
+                                    <FaPencilAlt
                                         className="mr-2 text-gray-500"
                                         size={16}
                                     />
                                 ),
                                 type: "string",
                                 value: formRequestData.message,
+                            },
+                            {
+                                icon: (
+                                    <FaInstagram
+                                        className="mr-2 text-gray-500"
+                                        size={16}
+                                    />
+                                ),
+                                value: formRequestData.instagram_url || "N/A",
+                                type: "string" as const,
+                                copyButtonConfig: formRequestData.instagram_url
+                                    ? {
+                                          title: "Copiar Instagram",
+                                          onClick: () =>
+                                              copyToClipboard(
+                                                  formRequestData.instagram_url!,
+                                                  "Instagram"
+                                              ),
+                                      }
+                                    : undefined,
                             },
                         ]}
                     />

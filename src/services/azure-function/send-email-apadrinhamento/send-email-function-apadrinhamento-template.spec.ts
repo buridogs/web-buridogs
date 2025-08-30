@@ -14,6 +14,7 @@ describe("send-email-function-apadrinhamento-template", () => {
             apadrinhar_com: ["dinheiro", "racao", "lar-temporario"],
             escolher_quem_apadrinhar: "nao",
             quero_receber_contatos: false,
+            instagram_url: undefined,
         };
 
         describe("'preferencia contato' tests", () => {

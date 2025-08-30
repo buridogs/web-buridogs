@@ -7,6 +7,7 @@ export interface IApadrinhamentoForm {
     quero_receber_contatos: boolean;
     apadrinhar_com: string[];
     escolher_quem_apadrinhar: string;
+    instagram_url?: string;
 }
 
 export interface IApadrinhamentoPOSTRequestForm extends IApadrinhamentoForm {}

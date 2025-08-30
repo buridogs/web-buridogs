@@ -10,6 +10,7 @@ describe("send-email-function-contato-template", () => {
             email: "johndoe@email.com",
             contato: "99 9999-9999",
             mensagem: undefined,
+            instagram_url: undefined,
         };
 
         describe("'mensagem' tests", () => {
