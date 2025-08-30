@@ -116,7 +116,7 @@ export const schema = yup
     })
     .required();
 
-export const getBaseFormConfig = (): GeneralFormsType<IDogForm>[] => [
+export const getBaseFormConfig = (disableInaptidaoField = false): GeneralFormsType<IDogForm>[] => [
     {
         section: {
             leftSide: [
@@ -259,7 +259,8 @@ export const getBaseFormConfig = (): GeneralFormsType<IDogForm>[] => [
                     key: "inaptidaoDescricao",
                     label: "Detalhes da inaptidão",
                     type: InputFormEnum.textarea,
-                    placeholder: "Ex: Cega de um olho, surda, etc.",
+                    placeholder: !disableInaptidaoField ? "Ex: Cega de um olho, surda, etc." : "",
+                    disabled: disableInaptidaoField,
                 },
             ],
         },

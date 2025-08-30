@@ -3,4 +3,5 @@ export interface IContatoFormData {
     email: string;
     contato: string;
     mensagem?: string;
+    instagram_url?: string;
 }

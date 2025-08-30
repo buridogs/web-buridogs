@@ -19,13 +19,20 @@ export const CONTATO_FORMS_CONFIG: GeneralFormsType<IContatoFormData>[] = [
                     placeholder: "Exemplo: jose@email.com",
                     type: InputFormEnum.text,
                 },
+            ],
+            rightSide: [
                 {
                     key: "contato",
                     label: "Contato",
                     placeholder: "Exemplo: xx-xxxxx-xxxx",
                     type: InputFormEnum.text,
                 },
-
+                {
+                    key: "instagram_url",
+                    label: "Instagram (opcional)",
+                    placeholder: "Exemplo: @usuario_instagram",
+                    type: InputFormEnum.text,
+                },
                 {
                     key: "mensagem",
                     label: "Mensagem",
@@ -33,7 +40,6 @@ export const CONTATO_FORMS_CONFIG: GeneralFormsType<IContatoFormData>[] = [
                     type: InputFormEnum.textarea,
                 },
             ],
-            rightSide: []
         },
     },
 ];
@@ -67,6 +73,14 @@ export const schemaContatoForm = yup
             .max(
                 LIMITE_TAMANHO_MENSAGEM.grande,
                 MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.grande).tamanhoMaximo
+            )
+            .optional(),
+        instagram_url: yup
+            .string()
+            .min(2, MENSAGENS_ERRO().campoObrigatorio)
+            .max(
+                LIMITE_TAMANHO_MENSAGEM.pequenoMedio,
+                MENSAGENS_ERRO(LIMITE_TAMANHO_MENSAGEM.pequenoMedio).tamanhoMaximo
             )
             .optional(),
     })

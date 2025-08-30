@@ -52,6 +52,7 @@ export default function GerenciarCachorrosNovoContainer() {
     });
 
     const watchDogStatus = watch("status");
+    const watchPossuiInaptidao = watch("possuiAlgumaInaptidao");
 
     useEffect(() => {
         if (watchDogStatus === DogStatusEnum.adotado) {
@@ -249,7 +250,7 @@ export default function GerenciarCachorrosNovoContainer() {
     };
 
     const formFields = [
-        ...getBaseFormConfig(),
+        ...getBaseFormConfig(watchPossuiInaptidao === "false"),
         ...(isHappyEndingMode ? getExtendedFormConfig() : []),
     ];
 

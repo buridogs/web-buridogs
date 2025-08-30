@@ -26,7 +26,7 @@ export default function FormulariosPendentesModalFooter({
                         : ""
                 }`}
             >
-                Aprovar
+                Resolvido
             </button>
             <button
                 onClick={() => onUpdateStatus(formRequest.id, FormRequestStatusEnum.pending)}

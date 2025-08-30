@@ -57,11 +57,13 @@ export interface IFormSponsorship extends IFormBase {
     contact_method_preference: string[];
     allow_receiving_news: boolean;
     sponsorship_method: string[];
+    instagram_url?: string;
 }
 
 export interface IFormContact extends IFormBase {
     email: string;
     message: string;
+    instagram_url?: string;
 }
 
 export type IFormUI = IFormAdoption | IFormSponsorship | IFormContact;
