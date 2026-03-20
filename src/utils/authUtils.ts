@@ -1,4 +1,4 @@
-import { User } from "@/interfaces/authInterfaces";
+import { IUser } from "@/types/auth";
 
 // Cookie helper functions
 export function setCookie(name: string, value: string, days: number = 1) {
@@ -38,12 +38,12 @@ export const removeToken = (): void => {
 };
 
 // User functions
-export const getUser = (): User | null => {
+export const getUser = (): IUser | null => {
     const userJson = getCookie("auth-user");
     return userJson ? JSON.parse(decodeURIComponent(userJson)) : null;
 };
 
-export const setUser = (user: User): void => {
+export const setUser = (user: IUser): void => {
     // URI encode to handle special characters in JSON
     setCookie("auth-user", encodeURIComponent(JSON.stringify(user)), 1);
 };

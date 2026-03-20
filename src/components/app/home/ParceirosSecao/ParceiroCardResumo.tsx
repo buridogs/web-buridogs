@@ -1,4 +1,4 @@
-import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { IPartnerUI } from "@/types/parceiros";
 import Image from "next/image";
 import { RedesSociaisParceiros } from "@/components/RedesSociaisParceiros/RedesSociaisParceiros";
 import {

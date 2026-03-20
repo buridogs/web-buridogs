@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { LIMITE_TAMANHO_MENSAGEM, MENSAGENS_ERRO } from "@/components/Form/FormConsts";
 import { Spinner } from "@/components/Spinner/Spinner";
-import { LoginCredentials } from "@/interfaces/authInterfaces";
+import { ILoginCredentials } from "@/types/auth";
 import { useAuth } from "@/providers/auth/AuthProvider";
 
 const schemaLoginForm = yup.object({
@@ -24,17 +25,18 @@ const schemaLoginForm = yup.object({
 export function LoginForm() {
     const { login, isLoading } = useAuth();
     const [formSubmitting, setFormSubmitting] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const {
         register,
         handleSubmit,
         formState: { errors },
         reset,
-    } = useForm<LoginCredentials>({
+    } = useForm<ILoginCredentials>({
         resolver: yupResolver(schemaLoginForm),
     });
 
-    const onSubmit = async (data: LoginCredentials) => {
+    const onSubmit = async (data: ILoginCredentials) => {
         setFormSubmitting(true);
 
         try {
@@ -86,14 +88,24 @@ export function LoginForm() {
                     >
                         Senha
                     </label>
-                    <input
-                        id="password"
-                        type="password"
-                        placeholder="••••••••"
-                        className="w-full py-2 px-3 border-2 border-gray-100 border-solid rounded text-gray-700 placeholder-primary-100"
-                        {...register("password")}
-                        disabled={isSubmitting}
-                    />
+                    <div className="relative">
+                        <input
+                            id="password"
+                            type={showPassword ? "text" : "password"}
+                            placeholder="••••••••"
+                            className="w-full py-2 px-3 pr-10 border-2 border-gray-100 border-solid rounded text-gray-700 placeholder-primary-100"
+                            {...register("password")}
+                            disabled={isSubmitting}
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            tabIndex={-1}
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </button>
+                    </div>
                     {errors.password && (
                         <p className="text-sm font-semibold text-red-400 mt-1">
                             {errors.password.message}

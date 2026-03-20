@@ -1,6 +1,6 @@
 "use client";
-import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { AdocaoFiltrosEnum } from "@/types/adocao";
+import { IDogUI } from "@/types/dog";
 import { returnFormattedOptionLabel } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";

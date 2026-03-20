@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { IoMdClose, IoMdCreate, IoMdTrash } from "react-icons/io";
 import { FaFacebook, FaInstagram, FaLink, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
-import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { IPartnerUI } from "@/types/parceiros";
 import { useRouter } from "next/navigation";
 import { mapPartnerCategoryLabels } from "@/utils/partnersUtils";
 import { PartnetSocialMediaEnum } from "@/services/api/modules/partners/types";

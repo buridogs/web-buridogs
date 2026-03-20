@@ -1,7 +1,7 @@
 "use client";
 
 import { PrivateRoutes, PublicRoutes } from "@/components/Header/routes-ui";
-import { AuthContextType, LoginCredentials, User, UserRole } from "@/interfaces/authInterfaces";
+import { IAuthContextType, ILoginCredentials, IUser, UserRole } from "@/types/auth";
 import { AuthService } from "@/services/api/modules/auth/auth-service";
 import {
     clearAuthData,
@@ -16,11 +16,11 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 // Create the authentication context
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<IAuthContextType | undefined>(undefined);
 
 // Provider component
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUserState] = useState<User | null>(null);
+    const [user, setUserState] = useState<IUser | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const router = useRouter();
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     // Login function
-    const login = async (credentials: LoginCredentials): Promise<void> => {
+    const login = async (credentials: ILoginCredentials): Promise<void> => {
         setIsLoading(true);
         try {
             const { user, token } = await AuthService.loginUser(credentials);
@@ -144,7 +144,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     // Create the context value
-    const contextValue: AuthContextType = {
+    const contextValue: IAuthContextType = {
         user,
         isAuthenticated,
         isLoading,

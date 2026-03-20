@@ -1,6 +1,6 @@
-import { User } from "@/interfaces/authInterfaces";
+import { IUser } from "@/types/auth";
 
 export interface Auth {
-    user: User;
+    user: IUser;
     token: string;
 }

@@ -13,7 +13,7 @@ import {
     IFormContact,
     IFormSponsorship,
     IFormUI,
-} from "@/interfaces/formularioInterfaces";
+} from "@/types/formulario";
 import { getStatusBadgeClass, getStatusText } from "../../shared/FormulariosPendentesUtils";
 import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
 import Image from "next/image";

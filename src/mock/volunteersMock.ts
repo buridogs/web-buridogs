@@ -1,4 +1,4 @@
-import { IVolunteersSections, VolunteerSituationEnum } from "@/interfaces/volunteersInterfaces";
+import { IVolunteersSections, VolunteerSituationEnum } from "@/types/volunteers";
 
 export const volunteersWithHisSection: IVolunteersSections[] = [
     {

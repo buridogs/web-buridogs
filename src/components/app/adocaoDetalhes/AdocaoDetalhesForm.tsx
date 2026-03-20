@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { ADOCAO_FORMS_CONFIG, schemaAdocaoForm } from "./AdocaoDetalhesUtils";
 import { IAdocaoForm } from "./AdocaoDetalhesTypes";
 import Form from "@/components/Form/Form";
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/types/dog";
 import { useFormRequests } from "@/hooks/form-requests-hook";
 import { FormRequestTypeEnum } from "@/services/api/modules/form-requests/types";
 import {

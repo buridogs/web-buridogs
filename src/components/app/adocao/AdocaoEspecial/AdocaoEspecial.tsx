@@ -2,7 +2,7 @@
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { AdocaoEspecialCard } from "./AdocaoEspecialCard";
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/types/dog";
 
 interface AdocaoEspecialProps {
     cachorrosAdocao: IDogUI[];

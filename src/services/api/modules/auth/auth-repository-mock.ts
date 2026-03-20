@@ -1,9 +1,9 @@
 import { BaseApiService } from "../../core/base-service-api";
-import { LoginCredentials, User, UserRole } from "@/interfaces/authInterfaces";
+import { ILoginCredentials, IUser, UserRole } from "@/types/auth";
 import { IAuthRepository } from "./auth-repository-interface";
 
 export class AuthRepositoryMock extends BaseApiService implements IAuthRepository {
-    private mockUsers: Array<User & { password: string }> = [
+    private mockUsers: Array<IUser & { password: string }> = [
         {
             id: "1",
             name: "Admin User",
@@ -27,7 +27,7 @@ export class AuthRepositoryMock extends BaseApiService implements IAuthRepositor
     /**
      * Generate a simple mock JWT token
      */
-    private generateToken(user: User): string {
+    private generateToken(user: IUser): string {
         const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
         const payload = btoa(
             JSON.stringify({
@@ -47,7 +47,7 @@ export class AuthRepositoryMock extends BaseApiService implements IAuthRepositor
     /**
      * Authenticate user with credentials
      */
-    public async login(credentials: LoginCredentials): Promise<{ user: User; token: string }> {
+    public async login(credentials: ILoginCredentials): Promise<{ user: IUser; token: string }> {
         // Simulate API delay
         await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -73,7 +73,7 @@ export class AuthRepositoryMock extends BaseApiService implements IAuthRepositor
     /**
      * Verify a token and return the associated user
      */
-    public async verify(token: string): Promise<User> {
+    public async verify(token: string): Promise<IUser> {
         // Simulate API delay
         await new Promise((resolve) => setTimeout(resolve, 300));
 

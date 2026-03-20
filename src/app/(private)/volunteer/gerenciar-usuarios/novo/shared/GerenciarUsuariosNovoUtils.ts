@@ -2,7 +2,7 @@ import { LIMITE_TAMANHO_MENSAGEM, MENSAGENS_ERRO } from "@/components/Form/FormC
 import { GeneralFormsType, InputFormEnum } from "@/components/Form/FormTypes";
 import * as yup from "yup";
 import { IVolunteerForm } from "./GerenciarUsuariosNovoTypes";
-import { UserRole } from "@/interfaces/authInterfaces";
+import { UserRole } from "@/types/auth";
 
 export const schema = yup
     .object({

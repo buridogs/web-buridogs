@@ -18,7 +18,7 @@ import { PrivateRoutes } from "@/components/Header/routes-ui";
 import { usePartners } from "@/hooks/partners-hook";
 import { PartnetSocialMediaEnum } from "@/services/api/modules/partners/types";
 import { Spinner } from "@/components/Spinner/Spinner";
-import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { IPartnerUI } from "@/types/parceiros";
 import {
     AzureBlobStorageContainerNames,
     convertFileToBufferAndUpload,

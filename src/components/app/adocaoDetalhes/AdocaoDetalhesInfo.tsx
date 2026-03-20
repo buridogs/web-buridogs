@@ -1,11 +1,11 @@
-import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
+import { AdocaoFiltrosEnum } from "@/types/adocao";
 import Image from "next/image";
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight, FaDog } from "react-icons/fa6";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { MdBedroomBaby } from "react-icons/md";
 import { returnFormattedOptionLabel } from "@/utils/methods";
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/types/dog";
 import {
     AzureBlobStorageContainerNames,
     mountBlobStorageLink,

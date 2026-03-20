@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { ApiError } from "@/services/api/core/base-service-api";
 import { dogService } from "@/services/api/modules/dogs/dogs-service";
 import { CreateDogDto, IDog, UpdateDogDto } from "@/services/api/modules/dogs/types";
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/types/dog";
 
 type RequestStatus = "idle" | "loading" | "success" | "error";
 

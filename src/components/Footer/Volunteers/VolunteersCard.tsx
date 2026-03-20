@@ -1,4 +1,4 @@
-import { IVolunteersData } from "@/interfaces/volunteersInterfaces";
+import { IVolunteersData } from "@/types/volunteers";
 import { generateImgURL } from "@/utils/methods";
 import Image from "next/image";
 import Link from "next/link";

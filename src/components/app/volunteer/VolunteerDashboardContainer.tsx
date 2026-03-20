@@ -3,7 +3,7 @@
 import ProtectedRoute from "@/components/app/auth/ProtectedRoute";
 import { PrivateRoutes } from "@/components/Header/routes-ui";
 import { useFormRequests } from "@/hooks/form-requests-hook";
-import { UserRole } from "@/interfaces/authInterfaces";
+import { UserRole } from "@/types/auth";
 import { useAuth } from "@/providers/auth/AuthProvider";
 import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
 import Link from "next/link";

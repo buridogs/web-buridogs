@@ -1,5 +1,5 @@
-import { UserRole } from "@/interfaces/authInterfaces";
-import { IVoluntarios } from "@/interfaces/voluntariosInterfaces";
+import { UserRole } from "@/types/auth";
+import { IVoluntarios } from "@/types/voluntarios";
 
 export const voluntarios: IVoluntarios[] = [
     {

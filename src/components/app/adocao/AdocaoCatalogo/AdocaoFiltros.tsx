@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { DogAgeEnum, DogGenderEnum, DogSizeEnum } from "@/services/api/modules/dogs/types";
-import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
+import { AdocaoFiltrosEnum } from "@/types/adocao";
 import { Button } from "@/components/Button/Button";
 import { MdCleaningServices } from "react-icons/md";
 import MultipleTags from "@/components/MultipleTags/MultipleTags";

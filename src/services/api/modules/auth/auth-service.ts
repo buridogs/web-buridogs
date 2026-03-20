@@ -1,4 +1,4 @@
-import { LoginCredentials, User, UserRole } from "@/interfaces/authInterfaces";
+import { ILoginCredentials, IUser, UserRole } from "@/types/auth";
 import { getAuthService } from "../../api-factory";
 
 export class AuthService {
@@ -21,7 +21,7 @@ export class AuthService {
 
     constructor() {}
 
-    generateToken = (user: User): string => {
+    generateToken = (user: IUser): string => {
         const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
         const payload = btoa(
             JSON.stringify({
@@ -39,8 +39,8 @@ export class AuthService {
     };
 
     static loginUser = async (
-        credentials: LoginCredentials
-    ): Promise<{ user: User; token: string }> => {
+        credentials: ILoginCredentials
+    ): Promise<{ user: IUser; token: string }> => {
         // TODO: REVIEW THESE COMMENTS
         // Simulate API delay
         // await new Promise((resolve) => setTimeout(resolve, 800));
@@ -67,7 +67,7 @@ export class AuthService {
         };
     };
 
-    static verifyToken = async (token: string): Promise<User> => {
+    static verifyToken = async (token: string): Promise<IUser> => {
         // Simulate API delay
         await new Promise((resolve) => setTimeout(resolve, 300));
 

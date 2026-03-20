@@ -18,7 +18,7 @@ import {
     ApadrinhamentoEscolherOpcaoEnum,
     ApadrinhamentoFiltrosEnum,
     ApadrinhamentoOpcoesEnum,
-} from "@/interfaces/apadrinhamentoInterfaces";
+} from "@/types/apadrinhamento";
 import { useCallback, useEffect, useState } from "react";
 // import { sendEmailFunctionApadrinhamentoForm } from "@/services/azure-function/send-email-apadrinhamento/send-email-function-apadrinhamento-form";
 import { FormRequestTypeEnum } from "@/services/api/modules/form-requests/types";

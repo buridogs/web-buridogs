@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
 import { generateImgURL } from "@/utils/methods";
-import { User } from "@/interfaces/authInterfaces";
+import { IUser } from "@/types/auth";
 import { PrivateRoutes } from "../routes-ui";
 
 interface HeaderMobileProps {
@@ -11,7 +11,7 @@ interface HeaderMobileProps {
     setIsOpen: Dispatch<SetStateAction<boolean>>;
     pathname: string;
     handleLogout: () => void;
-    user: User | null;
+    user: IUser | null;
     authenticatedLinks: {
         // TODO: UNIFY TYPES
         title: string;

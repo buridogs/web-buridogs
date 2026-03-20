@@ -1,6 +1,6 @@
 import { BaseApiService } from "../../core/base-service-api";
 import { IAuthRepository } from "./auth-repository-interface";
-import { LoginCredentials, User } from "@/interfaces/authInterfaces";
+import { ILoginCredentials, IUser } from "@/types/auth";
 import { Auth } from "./auth-types";
 
 // TODO: CHECK NAME AND METHODS
@@ -12,7 +12,7 @@ export class AuthRepository extends BaseApiService implements IAuthRepository {
     /**
      * Authenticate user with credentials via API
      */
-    public async login(credentials: LoginCredentials): Promise<Auth> {
+    public async login(credentials: ILoginCredentials): Promise<Auth> {
         return this.fetchWithAuth<Auth>(
             "/auth/signin",
             {
@@ -27,9 +27,9 @@ export class AuthRepository extends BaseApiService implements IAuthRepository {
      * Verify a token via API
      */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public async verify(_token: string): Promise<User> {
+    public async verify(_token: string): Promise<IUser> {
         // CHECK THAT
-        return this.fetchWithAuth<User>("/auth/verify", {
+        return this.fetchWithAuth<IUser>("/auth/verify", {
             method: "GET",
         });
     }

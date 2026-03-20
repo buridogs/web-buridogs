@@ -1,4 +1,4 @@
-import { User, UserRole } from "@/interfaces/authInterfaces";
+import { IUser, UserRole } from "@/types/auth";
 import { FaEnvelope, FaHandshake, FaHouse, FaPaw, FaUsers } from "react-icons/fa6";
 import { PrivateRoutes, PublicRoutes } from "./routes-ui";
 
@@ -29,7 +29,7 @@ export const headerMenuLink = [
     },
 ];
 
-export const getAuthenticatedLinks = (user: User | null) => {
+export const getAuthenticatedLinks = (user: IUser | null) => {
     if (!user) return [];
 
     const links = [

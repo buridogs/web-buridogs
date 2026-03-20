@@ -7,7 +7,7 @@ import {
 } from "@/services/api/modules/partners/types";
 import { useCallback, useEffect, useState } from "react";
 import { ApiError } from "@/services/api/core/base-service-api";
-import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { IPartnerUI } from "@/types/parceiros";
 import { partnerService } from "@/services/api/modules/partners/partners-service";
 import { toast } from "react-toastify";
 

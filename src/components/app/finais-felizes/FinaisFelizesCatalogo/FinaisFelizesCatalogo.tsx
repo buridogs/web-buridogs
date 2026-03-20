@@ -1,5 +1,5 @@
 import FinaisFelizesCard from "./FinaisFelizesCard";
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/types/dog";
 
 interface FinaisFelizesCatalogoProps {
     finaisFelizes: IDogUI[];

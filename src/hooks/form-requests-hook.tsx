@@ -17,7 +17,7 @@ import {
     IFormContact,
     IFormSponsorship,
     IFormUI,
-} from "@/interfaces/formularioInterfaces";
+} from "@/types/formulario";
 
 type RequestServiceStatus = "idle" | "loading" | "success" | "error";
 

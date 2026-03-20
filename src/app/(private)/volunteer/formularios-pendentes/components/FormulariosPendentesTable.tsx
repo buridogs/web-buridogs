@@ -1,7 +1,7 @@
 "use client";
 
 import Select from "@/components/Select/Select";
-import { FormAvailableEnum, IFormUI } from "@/interfaces/formularioInterfaces";
+import { FormAvailableEnum, IFormUI } from "@/types/formulario";
 import { formatDatetimePTBR } from "@/utils/methods";
 import { useMemo, useState } from "react";
 import { FaEye } from "react-icons/fa";

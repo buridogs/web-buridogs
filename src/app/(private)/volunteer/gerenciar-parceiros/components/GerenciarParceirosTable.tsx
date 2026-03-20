@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import SearchInput from "@/components/SearchInput/SearchInput";
 import Select from "@/components/Select/Select";
-import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { IPartnerUI } from "@/types/parceiros";
 import { PartnerCategoryEnum } from "@/services/api/modules/partners/types";
 import { mapPartnerCategoryLabels } from "@/utils/partnersUtils";
 import { useRouter } from "next/navigation";

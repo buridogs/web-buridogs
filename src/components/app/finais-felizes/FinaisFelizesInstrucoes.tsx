@@ -1,4 +1,4 @@
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/types/dog";
 
 interface FinaisFelizesInstrucoesProps {
     finaisFelizes: IDogUI[];

@@ -1,4 +1,4 @@
-import { FormAvailableEnum } from "@/interfaces/formularioInterfaces";
+import { FormAvailableEnum } from "@/types/formulario";
 import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
 
 export const getStatusBadgeClass = (status: string) => {

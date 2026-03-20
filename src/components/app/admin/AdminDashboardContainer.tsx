@@ -1,7 +1,7 @@
 "use client";
 
 import ProtectedRoute from "@/components/app/auth/ProtectedRoute";
-import { UserRole } from "@/interfaces/authInterfaces";
+import { UserRole } from "@/types/auth";
 import { useAuth } from "@/providers/auth/AuthProvider";
 import Link from "next/link";
 

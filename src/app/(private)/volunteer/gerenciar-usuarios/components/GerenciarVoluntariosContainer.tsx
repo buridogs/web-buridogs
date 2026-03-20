@@ -4,7 +4,7 @@ import { useState } from "react";
 import { GerenciarVoluntariosTable } from "./GerenciarVoluntariosTable";
 import { GerenciarVoluntariosModal } from "./GerenciarVoluntariosModal";
 import { PrivateRoutes } from "@/components/Header/routes-ui";
-import { IVoluntarios } from "@/interfaces/voluntariosInterfaces";
+import { IVoluntarios } from "@/types/voluntarios";
 import Link from "next/link";
 import { LuPlus } from "react-icons/lu";
 import ConfirmationModal from "@/components/ConfirmationModal/ConfirmationModal";

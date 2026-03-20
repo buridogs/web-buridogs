@@ -2,8 +2,8 @@ import { FaDog } from "react-icons/fa6";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { MdBedroomBaby } from "react-icons/md";
 import { returnFormattedOptionLabel } from "@/utils/methods";
-import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { AdocaoFiltrosEnum } from "@/types/adocao";
+import { IDogUI } from "@/types/dog";
 
 interface FinaisFelizesDetalhesInfoProps {
     finalFelizSelecionado: IDogUI;
