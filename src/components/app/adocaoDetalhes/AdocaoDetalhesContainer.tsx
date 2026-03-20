@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import AdocaoDetalhesInfo from "./AdocaoDetalhesInfo";
 import AdocaoDetalhesForm from "./AdocaoDetalhesForm";
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/types/dog";
 import { useDogs } from "@/hooks/dogs-hook";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { SLUG_CHARACTER_SEPARATOR } from "../adocao/AdocaoUtils";

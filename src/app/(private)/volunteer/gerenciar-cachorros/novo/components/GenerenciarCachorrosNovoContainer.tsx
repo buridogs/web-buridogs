@@ -20,7 +20,7 @@ import { useDogs } from "@/hooks/dogs-hook";
 import { DogStatusEnum } from "@/services/api/modules/dogs/types";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { useAuth } from "@/providers/auth/AuthProvider";
-import { IDogUI, Img } from "@/interfaces/dogInterfaces";
+import { IDogUI, IImg } from "@/types/dog";
 import { combineFileLists, urlToFileList } from "@/utils/methods";
 import {
     AzureBlobStorageContainerNames,
@@ -119,19 +119,19 @@ export default function GerenciarCachorrosNovoContainer() {
     }, [dogIdEditMode, register]);
 
     const onSubmit = async (currentFormData: IDogForm) => {
-        const formattedFiles: Img[] = [];
+        const formattedFiles: IImg[] = [];
         try {
             const processImageType = async (
                 imageType: "main" | "before" | "after",
                 currentFormImages: FileList | undefined,
-                oldDogImages?: Img[]
-            ): Promise<Img[]> => {
+                oldDogImages?: IImg[]
+            ): Promise<IImg[]> => {
                 if (!currentFormImages) return [];
 
                 const filterType =
                     imageType === "main"
-                        ? (img: Img) => img.type === "main" || img.type === "common"
-                        : (img: Img) => img.type === imageType;
+                        ? (img: IImg) => img.type === "main" || img.type === "common"
+                        : (img: IImg) => img.type === imageType;
 
                 const oldImagesSrc = oldDogImages?.filter(filterType).map((img) => img.src);
                 const currentImagesSrc = Array.from({ length: currentFormImages.length }).map(

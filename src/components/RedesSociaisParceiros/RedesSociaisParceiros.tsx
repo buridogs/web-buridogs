@@ -1,4 +1,4 @@
-import { SocialMediaUI } from "@/interfaces/parceirosInterfaces";
+import { SocialMediaUI } from "@/types/parceiros";
 import { PartnetSocialMediaEnum } from "@/services/api/modules/partners/types";
 import { FaFacebook, FaInstagram, FaLink } from "react-icons/fa6";
 

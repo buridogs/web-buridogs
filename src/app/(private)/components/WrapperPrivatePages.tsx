@@ -8,7 +8,7 @@ import { PrivateHeaderMobile } from "@/components/Header/PrivateHeader/PrivateHe
 import { useAuth } from "@/providers/auth/AuthProvider";
 import PrivateHeaderDesktop from "@/components/Header/PrivateHeader/PrivateHeaderDesktop";
 import { getAuthenticatedLinks } from "@/components/Header/utils";
-import { UserRole } from "@/interfaces/authInterfaces";
+import { UserRole } from "@/types/auth";
 import { PublicRoutes } from "@/components/Header/routes-ui";
 import { Spinner } from "@/components/Spinner/Spinner";
 

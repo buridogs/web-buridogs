@@ -1,5 +1,5 @@
-import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { AdocaoFiltrosEnum } from "@/types/adocao";
+import { IDogUI } from "@/types/dog";
 import {
     AzureBlobStorageContainerNames,
     mountBlobStorageLink,

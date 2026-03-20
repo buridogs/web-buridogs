@@ -1,4 +1,4 @@
-import { FormAvailableEnum, IFormUI } from "@/interfaces/formularioInterfaces";
+import { FormAvailableEnum, IFormUI } from "@/types/formulario";
 import { FormRequestStatusEnum } from "@/services/api/modules/form-requests/types";
 
 interface FormulariosPendentesModalFooterProps {

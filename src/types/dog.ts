@@ -1,12 +1,12 @@
 import { DogAge, DogGender, DogSize, DogStatus } from "@/services/api/modules/dogs/types";
 
-export interface Img {
+export interface IImg {
     src: string;
     alt: string;
     type: "main" | "before" | "after" | "common";
 }
 
-interface Video {
+interface IVideo {
     src: string;
     type: "before" | "after" | "common";
 }
@@ -23,8 +23,8 @@ export interface IDogUI {
     descricao: string;
     possuiAlgumaInaptidao?: boolean;
     inaptidaoDescricao?: string; // TODO: REVIEW THIS FIELD
-    images?: Img[];
-    youtubeVideos?: Video[];
+    images?: IImg[];
+    youtubeVideos?: IVideo[];
     // Happy Ending fields
     descricaoHappyEnding?: string;
     localAcolhimento?: string;

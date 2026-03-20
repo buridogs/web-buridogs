@@ -1,5 +1,5 @@
 import { RedesSociaisParceiros } from "@/components/RedesSociaisParceiros/RedesSociaisParceiros";
-import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { IPartnerUI } from "@/types/parceiros";
 import {
     AzureBlobStorageContainerNames,
     mountBlobStorageLink,

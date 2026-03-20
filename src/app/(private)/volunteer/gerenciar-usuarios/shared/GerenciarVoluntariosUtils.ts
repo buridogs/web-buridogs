@@ -1,4 +1,4 @@
-import { UserRole } from "@/interfaces/authInterfaces";
+import { UserRole } from "@/types/auth";
 
 export const getFilterOptionsPermissions = () => {
     return [

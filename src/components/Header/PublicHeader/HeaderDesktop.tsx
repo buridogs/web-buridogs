@@ -3,7 +3,7 @@ import Link from "next/link";
 import { headerMenuLink } from "../utils";
 import { FaSignInAlt } from "react-icons/fa";
 import { useAuth } from "@/providers/auth/AuthProvider";
-import { UserRole } from "@/interfaces/authInterfaces";
+import { UserRole } from "@/types/auth";
 import { PrivateRoutes } from "../routes-ui";
 
 export function HeaderDesktop() {

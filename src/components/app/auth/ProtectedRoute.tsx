@@ -4,7 +4,7 @@ import { useAuth } from "@/providers/auth/AuthProvider";
 import { useEffect, useState } from "react";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { useRouter } from "next/navigation";
-import { UserRole } from "@/interfaces/authInterfaces";
+import { UserRole } from "@/types/auth";
 import { PublicRoutes } from "@/components/Header/routes-ui";
 
 interface ProtectedRouteProps {

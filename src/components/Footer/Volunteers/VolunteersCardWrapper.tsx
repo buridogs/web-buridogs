@@ -1,6 +1,6 @@
 import { volunteersWithHisSection } from "@/mock/volunteersMock";
 import { VolunteersCard } from "./VolunteersCard";
-import { VolunteerSituationEnum } from "@/interfaces/volunteersInterfaces";
+import { VolunteerSituationEnum } from "@/types/volunteers";
 
 export function VolunteersCardWrapper() {
     return (

@@ -7,7 +7,7 @@ import Link from "next/link";
 import GerenciarCachorrosFiltros from "./GerenciarCachorrosFiltros";
 import { PrivateRoutes } from "@/components/Header/routes-ui";
 import ConfirmationModal from "@/components/ConfirmationModal/ConfirmationModal";
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/types/dog";
 import { useDogs } from "@/hooks/dogs-hook";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { DogStatusEnum } from "@/services/api/modules/dogs/types";

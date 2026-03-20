@@ -9,7 +9,7 @@ import {
     SocialMedia,
     UpdatePartnetDto,
 } from "@/services/api/modules/partners/types";
-import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { IPartnerUI } from "@/types/parceiros";
 import { AzureBlobStorageContainerNames } from "@/services/azure-blob/azure-blob";
 
 export const schema = yup

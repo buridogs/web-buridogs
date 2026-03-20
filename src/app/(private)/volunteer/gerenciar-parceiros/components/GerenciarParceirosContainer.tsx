@@ -4,7 +4,7 @@ import { useState } from "react";
 import { GerenciarParceirosTable } from "./GerenciarParceirosTable";
 import { GerenciarParceirosModal } from "./GerenciarParceirosModal";
 import { PrivateRoutes } from "@/components/Header/routes-ui";
-import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { IPartnerUI } from "@/types/parceiros";
 import Link from "next/link";
 import { LuPlus } from "react-icons/lu";
 import ConfirmationModal from "@/components/ConfirmationModal/ConfirmationModal";

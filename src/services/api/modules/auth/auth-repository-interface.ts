@@ -1,7 +1,7 @@
-import { LoginCredentials, User } from "@/interfaces/authInterfaces";
+import { ILoginCredentials, IUser } from "@/types/auth";
 
 export interface IAuthRepository {
-    login(credentials: LoginCredentials): Promise<{ user: User; token: string }>;
-    verify(token: string): Promise<User>;
+    login(credentials: ILoginCredentials): Promise<{ user: IUser; token: string }>;
+    verify(token: string): Promise<IUser>;
     logout(): Promise<void>;
 }

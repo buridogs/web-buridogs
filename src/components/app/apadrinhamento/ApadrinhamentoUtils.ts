@@ -7,7 +7,7 @@ import {
     ApadrinhamentoEscolherOpcaoEnum,
     ApadrinhamentoFiltrosEnum,
     ApadrinhamentoOpcoesEnum,
-} from "@/interfaces/apadrinhamentoInterfaces";
+} from "@/types/apadrinhamento";
 
 export const filtrosApadrinhamento: FiltroOptionsType<
     ApadrinhamentoFiltrosEnum | ApadrinhamentoOpcoesEnum | ApadrinhamentoEscolherOpcaoEnum

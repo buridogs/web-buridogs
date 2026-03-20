@@ -1,4 +1,4 @@
-import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
+import { AdocaoFiltrosEnum } from "@/types/adocao";
 import { DogAgeEnum, DogGenderEnum, DogSizeEnum } from "@/services/api/modules/dogs/types";
 import { FiltroOptionsType } from "@/utils/types";
 

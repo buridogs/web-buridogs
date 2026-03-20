@@ -1,4 +1,4 @@
-import { IPartnerUI } from "@/interfaces/parceirosInterfaces";
+import { IPartnerUI } from "@/types/parceiros";
 import { PartnerCategoryEnum } from "@/services/api/modules/partners/types";
 
 export const parceiros: IPartnerUI[] = [

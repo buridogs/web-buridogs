@@ -13,7 +13,7 @@ import {
     UpdateDogDto,
 } from "@/services/api/modules/dogs/types";
 import { AzureBlobStorageContainerNames } from "@/services/azure-blob/azure-blob";
-import { IDogUI, Img } from "@/interfaces/dogInterfaces";
+import { IDogUI, IImg } from "@/types/dog";
 
 export const schema = yup
     .object({
@@ -377,7 +377,7 @@ export const getExtendedFormConfig = (): GeneralFormsType<IDogForm>[] => [
 export function mapPayloadUpdateDog(
     dogToEdit: IDogUI | null,
     data: IDogForm,
-    images: Img[],
+    images: IImg[],
     userId?: string
 ): UpdateDogDto {
     return {
@@ -411,7 +411,7 @@ export function mapPayloadUpdateDog(
                 : data.tratamentosRealizados,
         updatedById: userId,
         assets: [
-            ...(images?.map((img: Img) => ({
+            ...(images?.map((img: IImg) => ({
                 urlLink: img.src,
                 assetType: img.type === "common" ? "none" : img.type,
                 sourceType: "image",
@@ -438,7 +438,7 @@ export function mapPayloadUpdateDog(
 
 export function mapPayloadCreateDogData(
     dog: IDogForm,
-    images: Img[],
+    images: IImg[],
     userId: string
 ): CreateDogDto {
     const needsSpecialCare = dog.possuiAlgumaInaptidao === "true";
@@ -459,7 +459,7 @@ export function mapPayloadCreateDogData(
         shelterLocation: dog.localAcolhimento,
         treatmentsPerformed: dog.tratamentosRealizados,
         assets: [
-            ...(images?.map((img: Img) => ({
+            ...(images?.map((img: IImg) => ({
                 urlLink: img.src,
                 assetType: img.type === "common" ? "none" : img.type,
                 sourceType: "image",

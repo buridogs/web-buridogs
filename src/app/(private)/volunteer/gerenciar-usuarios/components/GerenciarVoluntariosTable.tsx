@@ -1,7 +1,7 @@
 "use client";
 
 import Select from "@/components/Select/Select";
-import { IVoluntarios } from "@/interfaces/voluntariosInterfaces";
+import { IVoluntarios } from "@/types/voluntarios";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { FaEye } from "react-icons/fa";

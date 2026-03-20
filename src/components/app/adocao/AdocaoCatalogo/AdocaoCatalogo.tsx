@@ -3,8 +3,8 @@ import { estadoInicialFiltrosAdocao } from "../AdocaoUtils";
 import { useMemo, useState } from "react";
 import { AdocaoFiltros } from "./AdocaoFiltros";
 import { AdocaoCachorroCard } from "./AdocaoCachorroCard";
-import { AdocaoFiltrosEnum } from "@/interfaces/adocaoInterfaces";
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { AdocaoFiltrosEnum } from "@/types/adocao";
+import { IDogUI } from "@/types/dog";
 
 interface AdocaoCatalogoProps {
     cachorrosAdocao: IDogUI[];

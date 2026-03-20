@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import FinaisFelizesDetalhesInfo from "./FinaisFelizesDetalhesInfo";
 import FinaisFelizesAntesDepoisInfo from "./FinaisFelizesAntesDepoisInfo";
-import { IDogUI } from "@/interfaces/dogInterfaces";
+import { IDogUI } from "@/types/dog";
 import { useDogs } from "@/hooks/dogs-hook";
 import { SLUG_CHARACTER_SEPARATOR } from "../adocao/AdocaoUtils";
 import { Spinner } from "@/components/Spinner/Spinner";
